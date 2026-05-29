@@ -49,12 +49,13 @@ jobs:
                   HOST: ${{ secrets.DEPLOY_HOST }}
                   USER: ${{ secrets.DEPLOY_USER }}
                   PASS: ${{ secrets.DEPLOY_PASSWORD }}
+                  DPTH: ${{ secrets.DEPLOY_PATH }}
               run: |
                   lftp -c "
                     set ftp:ssl-force true;
                     set ftp:ssl-protect-data true;
                     set ssl:verify-certificate no;
                     open -u $USER,$PASS $HOST;
-                    mirror -R --delete --verbose deploy/ /public_html;
+                    mirror -R --delete --verbose deploy/ $DPTH;
                     quit
                   "
