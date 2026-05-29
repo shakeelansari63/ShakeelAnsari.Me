@@ -54,7 +54,7 @@ jobs:
                     set ftp:ssl-force true;
                     set ftp:ssl-protect-data true;
                     set ssl:verify-certificate no;
-                    open -u $USER,$PASS ftps://$HOST;
+                    open -u $USER,$PASS $HOST;
                     mirror -R --delete --verbose deploy/ /public_html;
                     quit
                   "
