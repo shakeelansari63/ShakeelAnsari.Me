@@ -33,7 +33,7 @@ jobs:
 
             - name: Assemble deployable
               run: |
-                  mkdir -p deploy/api/public
+                  mkdir -p deploy/api
                   cp -r ui/dist/* deploy/
                   cp -r api/public deploy/api/public
                   cp -r api/src deploy/api/src
