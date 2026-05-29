@@ -6,7 +6,7 @@ function App() {
   useEffect(() => {
     fetch('/api/hello')
       .then((res) => res.json())
-      .then((data) => setMessage(data.message))
+      .then((data: { message: string }) => setMessage(data.message))
       .catch(() => setMessage('Hello, World!'));
   }, []);
 
