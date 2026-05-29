@@ -1,0 +1,53 @@
+import { userData } from './data';
+import type { GitProfile, GitProject, ContribSubject, ContributionData, ContributionResult } from '../models/types';
+
+const baseApiUrl = 'https://api.github.com';
+const contribBaseUrl = 'https://gh-calendar.rschristian.dev';
+
+export async function fetchUserProfile(): Promise<GitProfile | null> {
+  try {
+    const res = await fetch(`${baseApiUrl}/users/${userData.githubUser}`);
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
+export async function fetchUserProjects(): Promise<GitProject[]> {
+  try {
+    const res = await fetch(
+      `${baseApiUrl}/search/repositories?q=user:${userData.githubUser}+fork:false+archived:false&sort=stars&per_page=10&type=Repositories`
+    );
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.items ?? [];
+  } catch {
+    return [];
+  }
+}
+
+export async function fetchUserContributions(): Promise<ContribSubject | null> {
+  try {
+    const res = await fetch(`${contribBaseUrl}/user/${userData.githubUser}`);
+    if (!res.ok) return null;
+    const contribResult: ContributionResult = await res.json();
+
+    let contribData: ContributionData[] = [];
+    contribResult.contributions.forEach(
+      (contrib) => (contribData = [...contribData, ...contrib])
+    );
+
+    const hmData = contribData.map((contrib) => ({
+      date: new Date(contrib.date),
+      value: parseInt(contrib.intensity),
+    }));
+
+    const startDate = hmData.reduce((a, b) => (a.date < b.date ? a : b)).date;
+    const endDate = hmData.reduce((a, b) => (a.date > b.date ? a : b)).date;
+
+    return { data: hmData, startDate, endDate };
+  } catch {
+    return null;
+  }
+}

@@ -1,21 +1,7 @@
-import { useState, useEffect } from 'react';
+import MainPage from './pages/MainPage';
 
 function App() {
-  const [message, setMessage] = useState('');
-
-  useEffect(() => {
-    fetch('/api/hello')
-      .then((res) => res.json())
-      .then((data: { message: string }) => setMessage(data.message))
-      .catch(() => setMessage('Hello, World!'));
-  }, []);
-
-  return (
-    <div className="app">
-      <h1>shakeelansari.me</h1>
-      <p>{message}</p>
-    </div>
-  );
+  return <MainPage />;
 }
 
 export default App;
