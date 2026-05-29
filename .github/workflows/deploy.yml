@@ -55,6 +55,8 @@ jobs:
                     set net:connection-limit 10;
                     set mirror:parallel-transfer-count 10;
                     set net:socket-buffer 65535;
+                    set ftp:ssl-force true;
+                    set ssl:verify-certificate no;
                     open -u $USER,$PASS ftp://$HOST;
                     mirror -R --delete --parallel=10 --verbose deploy/ $DPTH;
                     quit
