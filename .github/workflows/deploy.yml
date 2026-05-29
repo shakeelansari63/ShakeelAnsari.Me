@@ -52,10 +52,10 @@ jobs:
                   DPTH: ${{ secrets.DEPLOY_PATH }}
               run: |
                   lftp -c "
-                    set ftp:ssl-force true;
-                    set ftp:ssl-protect-data true;
-                    set ssl:verify-certificate no;
-                    open -u $USER,$PASS $HOST;
-                    mirror -R --delete --verbose deploy/ $DPTH;
+                    set net:connection-limit 10;
+                    set mirror:parallel-transfer-count 10;
+                    set net:socket-buffer 65535;
+                    open -u $USER,$PASS ftp://$HOST;
+                    mirror -R --delete --parallel=10 --verbose deploy/ $DPTH;
                     quit
                   "

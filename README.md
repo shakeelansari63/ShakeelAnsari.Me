@@ -20,14 +20,15 @@ make api       # start API only (port 8080)
 
 ## Deployment
 
-On push to `main`, the GitHub Action at `.github/workflows/deploy.yml` builds both projects and deploys via FTPS to `/public_html`.
+On push to `main`, the GitHub Action at `.github/workflows/deploy.yml` builds both projects and deploys to your server.
 
 ### GitHub Secrets
 
 Create a **production** environment in your repo settings with these secrets:
 
-| Secret                | Description                        |
-|-----------------------|------------------------------------|
-| `DEPLOY_HOST`      | Hostinger server hostname or IP    |
-| `DEPLOY_USER`      | FTP/SFTP username                  |
-| `DEPLOY_PASSWORD`  | FTP/SFTP password                  |
+| Secret           | Description                          |
+|------------------|--------------------------------------|
+| `DEPLOY_HOST`    | FTP server hostname                   |
+| `DEPLOY_USER`    | FTP username                          |
+| `DEPLOY_PASSWORD`| FTP password                          |
+| `DEPLOY_PATH`    | Remote path (e.g. `/public_html`)    |
