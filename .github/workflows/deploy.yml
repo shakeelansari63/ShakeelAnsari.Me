@@ -1,0 +1,57 @@
+name: Build & Deploy
+
+on:
+    push:
+        branches: [main]
+
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+        environment: production
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Build UI
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: "npm"
+                  cache-dependency-path: ui/package-lock.json
+            - run: npm ci
+              working-directory: ui
+            - run: npm run build
+              working-directory: ui
+
+            - name: Build API
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: 8.2
+                  extensions: mbstring, pdo
+            - run: composer install --no-dev --optimize-autoloader
+              working-directory: api
+
+            - name: Assemble deployable
+              run: |
+                  mkdir -p deploy/api/public
+                  cp -r ui/dist/* deploy/
+                  cp -r api/public deploy/api/public
+                  cp -r api/src deploy/api/src
+                  cp -r api/vendor deploy/api/vendor
+                  cp -r api/.htaccess deploy/api/
+                  cp .htaccess deploy/
+
+            - name: Deploy to Hostinger
+              env:
+                  HOST: ${{ secrets.DEPLOY_HOST }}
+                  USER: ${{ secrets.DEPLOY_USER }}
+                  PASS: ${{ secrets.DEPLOY_PASSWORD }}
+              run: |
+                  lftp -c "
+                    set ftp:ssl-force true;
+                    set ftp:ssl-protect-data true;
+                    set ssl:verify-certificate no;
+                    open -u $USER,$PASS ftps://$HOST;
+                    mirror -R --delete --verbose deploy/ /public_html;
+                    quit
+                  "
