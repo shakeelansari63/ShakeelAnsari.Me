@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import type { GitProfile, GitProject } from '../models/types';
 import { fetchUserProfile, fetchUserProjects } from '../services/api';
-import ToolBar from '../components/ToolBar';
-import Hero from '../components/Hero';
-import SectionTitle from '../components/SectionTitle';
-import StatsSection from '../components/StatsSection';
-import ProjectsSection from '../components/ProjectsSection';
-import LanguagesSection from '../components/LanguagesSection';
-import StreakSection from '../components/StreakSection';
-import ActivitySection from '../components/ActivitySection';
-import FooterSection from '../components/FooterSection';
+import ToolBar from '../components/shared/ToolBar';
+import Hero from '../components/Home/Hero';
+import SectionTitle from '../components/Home/SectionTitle';
+import StatsSection from '../components/Home/StatsSection';
+import ProjectsSection from '../components/Home/ProjectsSection';
+import LanguagesSection from '../components/Home/LanguagesSection';
+import StreakSection from '../components/Home/StreakSection';
+import ActivitySection from '../components/Home/ActivitySection';
+import FooterSection from '../components/Home/FooterSection';
 
 export default function MainPage() {
   const [profile, setProfile] = useState<GitProfile | null>(null);

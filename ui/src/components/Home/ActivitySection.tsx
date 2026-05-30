@@ -1,6 +1,7 @@
+import { Card } from 'primereact/card';
 import { useEffect, useState } from 'react';
-import type { ContribSubject, HeatMapDate } from '../models/types';
-import { fetchUserContributions } from '../services/api';
+import type { ContribSubject, HeatMapDate } from '../../models/types';
+import { fetchUserContributions } from '../../services/api';
 import HeatmapCalendar from './HeatmapCalendar';
 
 function classForValue({ value }: HeatMapDate) {
@@ -22,7 +23,7 @@ export default function ActivitySection() {
   }, []);
 
   return (
-    <div className="flex justify-content-center flex-wrap">
+    <Card className="text-center">
       {contrib ? (
         <HeatmapCalendar
           dates={contrib.data}
@@ -33,6 +34,6 @@ export default function ActivitySection() {
       ) : (
         <p className="text-gray-400">Loading contribution data...</p>
       )}
-    </div>
+    </Card>
   );
 }

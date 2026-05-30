@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import type { HeatMapDate, CellData } from '../models/types';
+import type { HeatMapDate, CellData } from '../../models/types';
 
 const DAYS_IN_WEEK = 7;
 const MILISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
