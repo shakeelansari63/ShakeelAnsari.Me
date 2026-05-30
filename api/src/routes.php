@@ -5,6 +5,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface;
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
+use Firebase\JWT\JWT;
 
 const BLOGS_DIR = __DIR__ . '/../../blogs';
 
@@ -117,6 +118,28 @@ return function (App $app) {
         ];
 
         return jsonResponse($response, $blog);
+    });
+
+    $app->post('/admin/login', function (Request $request, Response $response) {
+        $body = $request->getParsedBody();
+        $username = trim($body['username'] ?? '');
+        $password = $body['password'] ?? '';
+
+        $adminUser = $_ENV['ADMIN_USERNAME'] ?? '';
+        $adminPass = $_ENV['ADMIN_PASSWORD'] ?? '';
+        $jwtSecret = $_ENV['JWT_SECRET'] ?? '';
+
+        if ($username !== $adminUser || $password !== $adminPass) {
+            return jsonResponse($response, ['error' => 'Invalid credentials'], 401);
+        }
+
+        $token = JWT::encode([
+            'sub' => $username,
+            'iat' => time(),
+            'exp' => time() + 86400,
+        ], $jwtSecret, 'HS256');
+
+        return jsonResponse($response, ['token' => $token]);
     });
 
     $app->get('/blogs/images/{name}', function (Request $request, Response $response, array $args) {

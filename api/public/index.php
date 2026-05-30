@@ -1,6 +1,7 @@
 <?php
 
 use Slim\Factory\AppFactory;
+use Slim\Middleware\BodyParsingMiddleware;
 use Dotenv\Dotenv;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -14,6 +15,8 @@ $app = AppFactory::create();
 
 $app->addErrorMiddleware(true, true, true);
 
+$app->add(new BodyParsingMiddleware());
+
 $app->setBasePath('/api');
 
 $app->add(function (Request $request, $handler) {
@@ -25,7 +28,7 @@ $app->add(function (Request $request, $handler) {
 
     return $response
         ->withHeader('Access-Control-Allow-Origin', '*')
-        ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Accept')
+        ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization')
         ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
 });
 

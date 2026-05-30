@@ -33,6 +33,26 @@ body {
 
 .p-toolbar {
     padding: 0.75rem 1rem;
+    transition: padding 0.3s ease, font-size 0.3s ease;
+}
+
+html.scrolled .p-toolbar {
+    padding: 0.45rem 0.6rem !important;
+}
+
+html.scrolled .p-toolbar .text-2xl {
+    font-size: 1.1rem !important;
+    transition: font-size 0.3s ease;
+}
+
+html.scrolled .p-toolbar .p-button .p-button-label {
+    font-size: 0.75rem !important;
+    transition: font-size 0.3s ease;
+}
+
+html.scrolled .p-toolbar .p-button .p-button-icon {
+    font-size: 0.85rem !important;
+    transition: font-size 0.3s ease;
 }
 
 .border-gradient-purple {
