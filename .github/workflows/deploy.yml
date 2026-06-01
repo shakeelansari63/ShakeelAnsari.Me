@@ -79,6 +79,6 @@ jobs:
             set ftp:ssl-force true;
             set ssl:verify-certificate no;
             open -u $USER,$PASS ftp://$HOST;
-            mirror -R --delete --parallel=10 --verbose deploy/ $DPTH;
+            mirror -R --delete --parallel=15 --verbose deploy/ $DPTH;
             quit
           "

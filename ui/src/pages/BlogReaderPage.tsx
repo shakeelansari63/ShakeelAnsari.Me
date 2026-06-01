@@ -4,6 +4,7 @@ import { Button } from 'primereact/button';
 import ToolBar from '../components/shared/ToolBar';
 import ArticleHeader from '../components/BlogReader/ArticleHeader';
 import ArticleContent from '../components/BlogReader/ArticleContent';
+import SkeletonArticle from '../components/BlogReader/SkeletonArticle';
 import { fetchBlogPost, fetchBlogStats, recordBlogView, likeBlog } from '../services/api';
 import type { BlogPost } from '../data/blogs';
 import type { BlogStats } from '../services/api';
@@ -33,8 +34,8 @@ export default function BlogReaderPage() {
     return (
       <>
         <ToolBar />
-        <div className="app-container">
-          <p className="text-gray-400 mt-8">Loading post...</p>
+        <div className="app-container mt-4">
+          <SkeletonArticle />
         </div>
       </>
     );

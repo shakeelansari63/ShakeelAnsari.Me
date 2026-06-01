@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Button } from 'primereact/button';
 import ToolBar from '../components/shared/ToolBar';
 import BlogCard from '../components/Blog/BlogCard';
+import SkeletonCard from '../components/Blog/SkeletonCard';
 import { fetchBlogPosts } from '../services/api';
 import type { BlogPost } from '../data/blogs';
 
@@ -27,7 +28,11 @@ export default function BlogPage() {
       <div className="app-container pb-4">
         <h1 className="text-white text-3xl font-bold mb-4">Blog</h1>
         {loading ? (
-          <p className="text-gray-400">Loading posts...</p>
+          <div className="grid">
+            {Array.from({ length: limit }, (_, i) => (
+              <SkeletonCard key={i} />
+            ))}
+          </div>
         ) : (
           <>
             <div className="grid">

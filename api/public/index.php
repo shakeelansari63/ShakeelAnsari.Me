@@ -47,6 +47,8 @@ if (!empty($_ENV['DB_HOST'])) {
     }
 }
 
-(require __DIR__ . '/../src/routes.php')($app, $pdo);
+require __DIR__ . '/../src/helpers.php';
+(require __DIR__ . '/../src/blogs-routes.php')($app, $pdo);
+(require __DIR__ . '/../src/admin-routes.php')($app, $pdo);
 
 $app->run();
