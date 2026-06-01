@@ -62,7 +62,7 @@ export default function AdminPage() {
       <ToolBar />
       <div className="app-container">
         <div className="flex justify-content-center mt-6">
-          <Card title="Admin Login" className="w-full" style={{ maxWidth: '400px' }}>
+          <Card title="Admin Login" className="w-full" style={{ maxWidth: '400px' }} pt={{ body: { className: 'p-3' } }}>
             <div className="flex flex-column gap-3">
               <div>
                 <label htmlFor="username" className="text-white block mb-1">Username</label>

@@ -31,7 +31,12 @@ export default function ToolBar() {
       ) : (
         <Button text severity="secondary" className="text-pink-500" icon="pi pi-home" label="Home" onClick={() => navigate('/')} style={{ outline: 'none', boxShadow: 'none' }} />
       )}
-      <Button text severity="secondary" className="text-pink-500" icon="pi pi-book" label="Blog" onClick={() => navigate('/blog')} style={{ outline: 'none', boxShadow: 'none' }} />
+      {!location.pathname.startsWith('/blog') && (
+        <Button text severity="secondary" className="text-pink-500" icon="pi pi-book" label="Blog" onClick={() => navigate('/blog')} style={{ outline: 'none', boxShadow: 'none' }} />
+      )}
+      {location.pathname !== '/expo' && (
+        <Button text severity="secondary" className="text-pink-500" icon="pi pi-star" label="Expo" onClick={() => navigate('/expo')} style={{ outline: 'none', boxShadow: 'none' }} />
+      )}
     </div>
   );
 

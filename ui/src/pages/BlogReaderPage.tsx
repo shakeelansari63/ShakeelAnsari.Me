@@ -4,8 +4,9 @@ import { Button } from 'primereact/button';
 import ToolBar from '../components/shared/ToolBar';
 import ArticleHeader from '../components/BlogReader/ArticleHeader';
 import ArticleContent from '../components/BlogReader/ArticleContent';
-import { fetchBlogPost } from '../services/api';
+import { fetchBlogPost, fetchBlogStats, recordBlogView, likeBlog } from '../services/api';
 import type { BlogPost } from '../data/blogs';
+import type { BlogStats } from '../services/api';
 
 export default function BlogReaderPage() {
   const { id } = useParams();
@@ -13,12 +14,18 @@ export default function BlogReaderPage() {
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [isLight, setIsLight] = useState(false);
+  const [stats, setStats] = useState<BlogStats>({ views: 0, likes: 0 });
+  const [liking, setLiking] = useState(false);
 
   useEffect(() => {
     if (!id) return;
     fetchBlogPost(id).then((data) => {
       setPost(data);
       setLoading(false);
+    });
+    fetchBlogStats(id).then(setStats);
+    recordBlogView(id).then(() => {
+      fetchBlogStats(id).then(setStats);
     });
   }, [id]);
 
@@ -80,7 +87,18 @@ export default function BlogReaderPage() {
             />
           </div>
           <article>
-            <ArticleHeader post={post} isLight={isLight} />
+            <ArticleHeader
+              post={post}
+              isLight={isLight}
+              stats={stats}
+              liking={liking}
+              onLike={async () => {
+                setLiking(true);
+                const res = await likeBlog(id!);
+                setStats((s) => ({ ...s, likes: res.likes, liked: res.liked }));
+                setLiking(false);
+              }}
+            />
             <ArticleContent content={post.content} isLight={isLight} />
           </article>
         </div>

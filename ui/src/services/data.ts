@@ -23,4 +23,12 @@ export const userData = {
     'Azure',
   ],
   timezone: '+5.5',
+  expo: [
+    {
+      name: 'ShakeelAnsari.Me',
+      description: 'Personal portfolio website built with React, TypeScript, and PHP Slim Framework showcasing projects, blogs, and GitHub statistics.',
+      url: 'https://shakeelansari.me',
+      thumbnail: '',
+    },
+  ],
 };

@@ -64,6 +64,35 @@ export async function fetchBlogPost(id: string): Promise<BlogPost | null> {
     }
 }
 
+export interface BlogStats {
+  views: number;
+  likes: number;
+  liked?: boolean;
+}
+
+export async function fetchBlogStats(id: string): Promise<BlogStats> {
+  try {
+    const res = await fetch(`/api/blogs/${id}/stats`);
+    if (!res.ok) return { views: 0, likes: 0 };
+    return res.json();
+  } catch {
+    return { views: 0, likes: 0 };
+  }
+}
+
+export async function recordBlogView(id: string): Promise<void> {
+  try {
+    await fetch(`/api/blogs/${id}/view`, { method: 'POST' });
+  } catch {
+    // silently fail
+  }
+}
+
+export async function likeBlog(id: string): Promise<{ likes: number; liked: boolean }> {
+  const res = await fetch(`/api/blogs/${id}/like`, { method: 'POST' });
+  return res.json();
+}
+
 export async function fetchUserContributions(): Promise<ContribSubject | null> {
     try {
         const res = await fetch(
