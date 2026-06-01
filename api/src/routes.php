@@ -223,7 +223,17 @@ return function (App $app, ?PDO $pdo) {
             return jsonResponse($response, ['error' => 'Database not available'], 503);
         }
         $id = basename($args['id']);
-        $pdo->prepare('INSERT INTO blog_stats (id, views) VALUES (?, 1) ON DUPLICATE KEY UPDATE views = views + 1')->execute([$id]);
+        $ip = clientIp($request);
+
+        $seen = $pdo->prepare('SELECT 1 FROM blog_views WHERE blog_id = ? AND ip = ?');
+        $seen->execute([$id, $ip]);
+        $alreadyViewed = (bool) $seen->fetchColumn();
+
+        if (!$alreadyViewed) {
+            $pdo->prepare('INSERT IGNORE INTO blog_stats (id) VALUES (?)')->execute([$id]);
+            $pdo->prepare('INSERT INTO blog_views (blog_id, ip) VALUES (?, ?)')->execute([$id, $ip]);
+            $pdo->prepare('UPDATE blog_stats SET views = views + 1 WHERE id = ?')->execute([$id]);
+        }
 
         $stmt = $pdo->prepare('SELECT views FROM blog_stats WHERE id = ?');
         $stmt->execute([$id]);
