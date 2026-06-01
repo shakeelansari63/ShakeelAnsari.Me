@@ -61,6 +61,15 @@ function checkRateLimit(string $ip): bool {
     return true;
 }
 
+function clientIp(Request $request): string {
+    $forwarded = $request->getHeaderLine('X-Forwarded-For');
+    if ($forwarded !== '') {
+        $ips = array_map('trim', explode(',', $forwarded));
+        return $ips[0];
+    }
+    return $request->getServerParams()['REMOTE_ADDR'] ?? '127.0.0.1';
+}
+
 function jsonResponse(ResponseInterface $response, array $data, int $status = 200): ResponseInterface {
     $payload = json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     $response->getBody()->write($payload);
@@ -139,7 +148,7 @@ return function (App $app, ?PDO $pdo) {
     });
 
     $app->post('/admin/login', function (Request $request, Response $response) {
-        $ip = $request->getServerParams()['REMOTE_ADDR'] ?? '127.0.0.1';
+        $ip = clientIp($request);
         if (!checkRateLimit($ip)) {
             return jsonResponse($response, ['error' => 'Too many attempts'], 429);
         }
@@ -188,59 +197,70 @@ return function (App $app, ?PDO $pdo) {
         return $response->withHeader('Content-Type', $mime);
     });
 
-    if ($pdo) {
-        $app->get('/blogs/{id}/stats', function (Request $request, Response $response, array $args) use ($pdo) {
-            $id = basename($args['id']);
-            $ip = $request->getServerParams()['REMOTE_ADDR'] ?? '127.0.0.1';
+    $app->get('/blogs/{id}/stats', function (Request $request, Response $response, array $args) use ($pdo) {
+        if (!$pdo) {
+            return jsonResponse($response, ['error' => 'Database not available'], 503);
+        }
+        $id = basename($args['id']);
+        $ip = clientIp($request);
 
-            $stmt = $pdo->prepare('SELECT views, likes FROM blog_stats WHERE id = ?');
-            $stmt->execute([$id]);
-            $row = $stmt->fetch();
+        $stmt = $pdo->prepare('SELECT views, likes FROM blog_stats WHERE id = ?');
+        $stmt->execute([$id]);
+        $row = $stmt->fetch();
 
-            $liked = false;
-            if ($row) {
-                $check = $pdo->prepare('SELECT 1 FROM blog_likes WHERE blog_id = ? AND ip = ?');
-                $check->execute([$id, $ip]);
-                $liked = (bool) $check->fetchColumn();
-            }
-
-            return jsonResponse($response, ($row ?: ['views' => 0, 'likes' => 0]) + ['liked' => $liked]);
-        });
-
-        $app->post('/blogs/{id}/view', function (Request $request, Response $response, array $args) use ($pdo) {
-            $id = basename($args['id']);
-            $pdo->prepare('INSERT INTO blog_stats (id, views) VALUES (?, 1) ON DUPLICATE KEY UPDATE views = views + 1')->execute([$id]);
-
-            $stmt = $pdo->prepare('SELECT views FROM blog_stats WHERE id = ?');
-            $stmt->execute([$id]);
-            return jsonResponse($response, $stmt->fetch());
-        });
-
-        $app->post('/blogs/{id}/like', function (Request $request, Response $response, array $args) use ($pdo) {
-            $id = basename($args['id']);
-            $ip = $request->getServerParams()['REMOTE_ADDR'] ?? '127.0.0.1';
-
-            $pdo->prepare('INSERT IGNORE INTO blog_stats (id) VALUES (?)')->execute([$id]);
-
+        $liked = false;
+        if ($row) {
             $check = $pdo->prepare('SELECT 1 FROM blog_likes WHERE blog_id = ? AND ip = ?');
             $check->execute([$id, $ip]);
             $liked = (bool) $check->fetchColumn();
+        }
 
-            if ($liked) {
-                $pdo->prepare('DELETE FROM blog_likes WHERE blog_id = ? AND ip = ?')->execute([$id, $ip]);
-                $pdo->prepare('UPDATE blog_stats SET likes = likes - 1 WHERE id = ?')->execute([$id]);
-                $liked = false;
-            } else {
-                $pdo->prepare('INSERT INTO blog_likes (blog_id, ip) VALUES (?, ?)')->execute([$id, $ip]);
-                $pdo->prepare('UPDATE blog_stats SET likes = likes + 1 WHERE id = ?')->execute([$id]);
-                $liked = true;
-            }
+        return jsonResponse($response, ($row ?: ['views' => 0, 'likes' => 0]) + ['liked' => $liked]);
+    });
 
-            $stmt = $pdo->prepare('SELECT likes FROM blog_stats WHERE id = ?');
-            $stmt->execute([$id]);
-            $likes = (int) $stmt->fetchColumn();
+    $app->post('/blogs/{id}/view', function (Request $request, Response $response, array $args) use ($pdo) {
+        if (!$pdo) {
+            return jsonResponse($response, ['error' => 'Database not available'], 503);
+        }
+        $id = basename($args['id']);
+        $pdo->prepare('INSERT INTO blog_stats (id, views) VALUES (?, 1) ON DUPLICATE KEY UPDATE views = views + 1')->execute([$id]);
 
-            return jsonResponse($response, ['likes' => $likes, 'liked' => $liked]);
-        });
-    }
+        $stmt = $pdo->prepare('SELECT views FROM blog_stats WHERE id = ?');
+        $stmt->execute([$id]);
+        return jsonResponse($response, $stmt->fetch());
+    });
+
+    $app->post('/blogs/{id}/like', function (Request $request, Response $response, array $args) use ($pdo) {
+        if (!$pdo) {
+            return jsonResponse($response, ['error' => 'Database not available'], 503);
+        }
+        $id = basename($args['id']);
+        $ip = clientIp($request);
+
+        $pdo->beginTransaction();
+
+        $pdo->prepare('INSERT IGNORE INTO blog_stats (id) VALUES (?)')->execute([$id]);
+
+        $check = $pdo->prepare('SELECT 1 FROM blog_likes WHERE blog_id = ? AND ip = ?');
+        $check->execute([$id, $ip]);
+        $liked = (bool) $check->fetchColumn();
+
+        if ($liked) {
+            $pdo->prepare('DELETE FROM blog_likes WHERE blog_id = ? AND ip = ?')->execute([$id, $ip]);
+            $pdo->prepare('UPDATE blog_stats SET likes = likes - 1 WHERE id = ?')->execute([$id]);
+            $liked = false;
+        } else {
+            $pdo->prepare('INSERT INTO blog_likes (blog_id, ip) VALUES (?, ?)')->execute([$id, $ip]);
+            $pdo->prepare('UPDATE blog_stats SET likes = likes + 1 WHERE id = ?')->execute([$id]);
+            $liked = true;
+        }
+
+        $pdo->commit();
+
+        $stmt = $pdo->prepare('SELECT likes FROM blog_stats WHERE id = ?');
+        $stmt->execute([$id]);
+        $likes = (int) $stmt->fetchColumn();
+
+        return jsonResponse($response, ['likes' => $likes, 'liked' => $liked]);
+    });
 };
