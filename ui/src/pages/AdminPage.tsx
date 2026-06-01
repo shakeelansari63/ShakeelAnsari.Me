@@ -3,6 +3,8 @@ import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
+import { Toast } from 'primereact/toast';
+import { useRef } from 'react';
 import ToolBar from '../components/shared/ToolBar';
 
 export default function AdminPage() {
@@ -10,7 +12,9 @@ export default function AdminPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [syncing, setSyncing] = useState(false);
   const [token, setToken] = useState(() => localStorage.getItem('admin_token'));
+  const toast = useRef<Toast>(null);
 
   const handleLogin = async () => {
     setError('');
@@ -40,10 +44,35 @@ export default function AdminPage() {
     setToken(null);
   };
 
+  const handleSync = async () => {
+    setSyncing(true);
+    try {
+      const res = await fetch('/api/admin/sync-blogs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+      toast.current?.show({
+        severity: res.ok ? 'success' : 'error',
+        summary: res.ok ? 'Synced' : 'Error',
+        detail: data.message || data.error || 'Unknown error',
+        life: 3000,
+      });
+    } catch {
+      toast.current?.show({ severity: 'error', summary: 'Error', detail: 'Network error', life: 3000 });
+    } finally {
+      setSyncing(false);
+    }
+  };
+
   if (token) {
     return (
       <>
         <ToolBar />
+        <Toast ref={toast} />
         <div className="app-container">
           <div className="flex align-items-center justify-content-between mt-4 mb-4">
             <h1 className="text-white text-3xl font-bold m-0">Admin</h1>
@@ -51,6 +80,12 @@ export default function AdminPage() {
           </div>
           <Card className="mb-3">
             <p className="text-gray-400 m-0">Welcome to the admin panel.</p>
+          </Card>
+          <Card>
+            <div className="flex align-items-center justify-content-between">
+              <span className="text-gray-400">Sync blog metadata from markdown files</span>
+              <Button label="Sync Blogs" icon="pi pi-refresh" loading={syncing} onClick={handleSync} style={{ outline: 'none', boxShadow: 'none' }} />
+            </div>
           </Card>
         </div>
       </>
