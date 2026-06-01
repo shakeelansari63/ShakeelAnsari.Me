@@ -10,6 +10,8 @@ jobs:
         environment: production
 
         env:
+            APP_ENV: production
+            APP_URL: https://shakeelansari.me
             ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
             ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
             JWT_SECRET: ${{ secrets.JWT_SECRET }}

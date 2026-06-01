@@ -43,6 +43,24 @@ function rewriteImageUrls(string $content): string {
     return preg_replace('/\]\((images\/)/', '](/api/blogs/$1', $content);
 }
 
+function checkRateLimit(string $ip): bool {
+    $file = sys_get_temp_dir() . '/login_attempts_' . md5($ip) . '.lock';
+
+    if (file_exists($file) && time() - filemtime($file) > 900) {
+        unlink($file);
+    }
+
+    $attempts = @file_get_contents($file) ?: 0;
+    $attempts = (int) $attempts;
+
+    if ($attempts >= 5) {
+        return false;
+    }
+
+    file_put_contents($file, $attempts + 1);
+    return true;
+}
+
 function jsonResponse(ResponseInterface $response, array $data, int $status = 200): ResponseInterface {
     $payload = json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     $response->getBody()->write($payload);
@@ -121,6 +139,11 @@ return function (App $app) {
     });
 
     $app->post('/admin/login', function (Request $request, Response $response) {
+        $ip = $request->getServerParams()['REMOTE_ADDR'] ?? '127.0.0.1';
+        if (!checkRateLimit($ip)) {
+            return jsonResponse($response, ['error' => 'Too many attempts'], 429);
+        }
+
         $body = $request->getParsedBody();
         $username = trim($body['username'] ?? '');
         $password = $body['password'] ?? '';
@@ -129,7 +152,7 @@ return function (App $app) {
         $adminPass = $_ENV['ADMIN_PASSWORD'] ?? '';
         $jwtSecret = $_ENV['JWT_SECRET'] ?? '';
 
-        if ($username !== $adminUser || $password !== $adminPass) {
+        if (!hash_equals($adminUser ?? '', $username) || !hash_equals($adminPass ?? '', $password)) {
             return jsonResponse($response, ['error' => 'Invalid credentials'], 401);
         }
 

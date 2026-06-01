@@ -13,7 +13,8 @@ $dotenv->safeLoad();
 
 $app = AppFactory::create();
 
-$app->addErrorMiddleware(true, true, true);
+$displayErrors = ($_ENV['APP_ENV'] ?? 'development') === 'development';
+$app->addErrorMiddleware($displayErrors, true, true);
 
 $app->add(new BodyParsingMiddleware());
 
@@ -27,7 +28,7 @@ $app->add(function (Request $request, $handler) {
     }
 
     return $response
-        ->withHeader('Access-Control-Allow-Origin', '*')
+        ->withHeader('Access-Control-Allow-Origin', $_ENV['APP_URL'] ?? '*')
         ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization')
         ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
 });
