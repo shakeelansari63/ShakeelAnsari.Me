@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS blog_stats (
+    id VARCHAR(255) PRIMARY KEY,
+    views INT NOT NULL DEFAULT 0,
+    likes INT NOT NULL DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS blog_likes (
+    blog_id VARCHAR(255) NOT NULL,
+    ip VARCHAR(45) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (blog_id, ip),
+    FOREIGN KEY (blog_id) REFERENCES blog_stats(id) ON DELETE CASCADE
+);
