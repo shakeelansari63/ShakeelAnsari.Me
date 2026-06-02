@@ -10,7 +10,10 @@ export default function LanguagesSection() {
         <>
             <div className="grid">
                 <div className="md:col-6 col-12">
-                    <Card className="text-center">
+                    <Card
+                        className="text-center h-full"
+                        pt={{ content: { className: 'flex align-items-center justify-content-center' } }}
+                    >
                         <LazyImage
                             src={getTopLanguageByRepo()}
                             alt="Languages by repo"
@@ -18,7 +21,10 @@ export default function LanguagesSection() {
                     </Card>
                 </div>
                 <div className="md:col-6 col-12">
-                    <Card className="text-center">
+                    <Card
+                        className="text-center h-full"
+                        pt={{ content: { className: 'flex align-items-center justify-content-center' } }}
+                    >
                         <LazyImage
                             src={getTopLanguageByCommit()}
                             alt="Languages by commit"

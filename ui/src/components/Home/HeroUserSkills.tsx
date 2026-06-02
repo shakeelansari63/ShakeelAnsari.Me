@@ -22,12 +22,13 @@ export default function HeroUserSkills({ profile }: Props) {
                 style={{
                     wordBreak: "break-word",
                     fontFamily: "SpaceMono, Courier New, monospace",
+                    lineHeight: 1.5,
                 }}
             >
                 <div className="flex flex-row">
                     <span className="text-pink-500 px-1">const</span>
                     <span className="text-purple-500 font-bold px-1">
-                        coder
+                        {userData?.alias ?? "coder"}
                     </span>
                     <span className="text-pink-500 px-1">=</span>
                     <span className="px-1">{"{"}</span>

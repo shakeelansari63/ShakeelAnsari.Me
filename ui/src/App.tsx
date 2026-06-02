@@ -4,8 +4,8 @@ import BlogPage from './pages/BlogPage';
 import BlogReaderPage from './pages/BlogReaderPage';
 import ExpoPage from './pages/ExpoPage';
 import AdminPage from './pages/AdminPage';
-import ScrollShrink from './ScrollShrink';
-import ScrollToTop from './ScrollToTop';
+import ScrollShrink from './components/shared/ScrollShrink';
+import ScrollToTop from './components/shared/ScrollToTop';
 
 function App() {
   return (

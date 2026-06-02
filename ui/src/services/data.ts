@@ -1,5 +1,6 @@
 export const userData = {
     githubUser: "shakeelansari63",
+    alias: "developer",
     devUsername: "shakeelansari63",
     github: "https://github.com/shakeelansari63",
     facebook: "https://www.facebook.com/shakeelansari63/",
