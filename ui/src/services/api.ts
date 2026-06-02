@@ -1,5 +1,5 @@
 import { userData } from "./data";
-import { blogPosts as fallbackBlogs, type BlogPost } from "../data/blogs";
+import type { BlogPost } from "../data/blogs";
 import type {
     GitProfile,
     GitProject,
@@ -46,11 +46,11 @@ export async function fetchBlogPosts(page = 1, limit = 5): Promise<BlogPostsResp
     try {
         const res = await fetch(`/api/blogs?page=${page}&limit=${limit}`);
         if (!res.ok) {
-            return { data: fallbackBlogs, page: 1, limit, total: fallbackBlogs.length, totalPages: 1 };
+            return { data: [], page: 1, limit, total: 0, totalPages: 1 };
         }
         return res.json();
     } catch {
-        return { data: fallbackBlogs, page: 1, limit, total: fallbackBlogs.length, totalPages: 1 };
+        return { data: [], page: 1, limit, total: 0, totalPages: 1 };
     }
 }
 

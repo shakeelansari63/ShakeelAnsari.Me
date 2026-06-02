@@ -1,4 +1,5 @@
 import ReactMarkdown from 'react-markdown';
+import LazyImage from '../shared/LazyImage';
 
 interface Props {
   content: string;
@@ -29,11 +30,7 @@ export default function ArticleContent({ content, isLight }: Props) {
             <strong className={isLight ? 'text-orange-600' : 'text-orange-300'}>{children}</strong>
           ),
           li: ({ children }) => <li className="m-0 mb-1">{children}</li>,
-          img: ({ src, alt }) => (
-            <div className="flex justify-content-center my-3">
-              <img src={src} alt={alt} style={{ maxWidth: '100%', borderRadius: '8px' }} />
-            </div>
-          ),
+          img: ({ src, alt }) => <LazyImage src={src!} alt={alt} />,
           ul: ({ children }) => <ul className="m-0 mb-2 pl-3" style={{ listStyle: 'none' }}>{children}</ul>,
           code: ({ children }) => (
             <code style={{ background: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.1)', padding: '2px 6px', borderRadius: '4px', fontSize: '0.9em' }}>
