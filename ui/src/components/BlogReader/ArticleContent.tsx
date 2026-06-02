@@ -30,6 +30,7 @@ export default function ArticleContent({ content, isLight }: Props) {
             <strong className={isLight ? 'text-orange-600' : 'text-orange-300'}>{children}</strong>
           ),
           li: ({ children }) => <li className="m-0 mb-1">{children}</li>,
+          a: ({ href, children }) => <a href={href} target="_blank" rel="noopener noreferrer">{children}</a>,
           img: ({ src, alt }) => <LazyImage src={src!} alt={alt} />,
           ul: ({ children }) => <ul className="m-0 mb-2 pl-3" style={{ listStyle: 'none' }}>{children}</ul>,
           code: ({ children }) => (
