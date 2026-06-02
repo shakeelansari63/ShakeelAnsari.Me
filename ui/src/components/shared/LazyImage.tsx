@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 interface Props {
   src: string;
@@ -7,26 +7,39 @@ interface Props {
   maxHeight?: number;
 }
 
-export default function LazyImage({ src, alt, maxWidth = 800, maxHeight = 400 }: Props) {
+export default function LazyImage({
+  src,
+  alt,
+  maxWidth = 800,
+  maxHeight = 400,
+}: Props) {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <div className="flex justify-content-center my-3" style={{ position: 'relative' }}>
+    <div
+      className="flex justify-content-center my-3"
+      style={{
+        position: "relative",
+        maxWidth: `${maxWidth}px`,
+        marginLeft: "auto",
+        marginRight: "auto",
+      }}
+    >
       {!loaded && (
         <div
           className="skeleton-pulse"
-          style={{ width: '100%', maxWidth: `${maxWidth}px`, height: '300px', borderRadius: '8px' }}
+          style={{ width: "100%", height: "300px", borderRadius: "8px" }}
         />
       )}
       <div
         style={{
-          maxWidth: `${maxWidth}px`,
+          maxWidth: "100%",
           maxHeight: `${maxHeight}px`,
-          width: '100%',
-          display: loaded ? 'flex' : 'none',
-          alignItems: 'center',
-          justifyContent: 'center',
-          overflow: 'hidden',
+          overflow: "hidden",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: "8px",
         }}
       >
         <img
@@ -34,7 +47,15 @@ export default function LazyImage({ src, alt, maxWidth = 800, maxHeight = 400 }:
           alt={alt}
           loading="lazy"
           onLoad={() => setLoaded(true)}
-          style={{ maxWidth: '100%', maxHeight: `${maxHeight}px`, width: 'auto', height: 'auto', borderRadius: '8px' }}
+          style={{
+            maxWidth: "100%",
+            maxHeight: `${maxHeight}px`,
+            width: "auto",
+            height: "auto",
+            display: "block",
+            opacity: loaded ? 1 : 0,
+            transition: "opacity 0.5s ease-in",
+          }}
         />
       </div>
     </div>
