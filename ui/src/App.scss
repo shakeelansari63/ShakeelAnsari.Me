@@ -212,6 +212,19 @@ html.scrolled .p-toolbar .p-button .p-button-icon {
     background-color: #27c93f;
 }
 
+@media (max-width: 640px) {
+    .p-toolbar .p-button .p-button-label {
+        display: none;
+    }
+    .p-toolbar {
+        padding: 0.5rem 0.4rem;
+    }
+    .p-toolbar .p-button {
+        padding: 0.5rem;
+        min-width: unset;
+    }
+}
+
 .skeleton-pulse {
     background: linear-gradient(90deg, #2a2b2e 25%, #3a3b40 35%, #d53a9d 50%, #3a3b40 65%, #2a2b2e 75%);
     background-size: 300% 100%;

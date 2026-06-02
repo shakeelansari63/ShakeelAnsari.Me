@@ -80,7 +80,7 @@ export default function HeatmapCalendar({ dates, startDate, endDate, classForVal
   }
 
   return (
-    <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
+    <svg viewBox={`0 0 ${width} ${height}`} width="100%" style={{ maxWidth: `${width}px`, height: 'auto' }}>
       {Array.from({ length: weeks }, (_, weekIdx) => {
         const label = getMonthLabel(weekIdx);
         return label ? (
