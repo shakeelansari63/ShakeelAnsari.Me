@@ -24,7 +24,7 @@ export async function fetchUserProfile(): Promise<GitProfile | null> {
 export async function fetchUserProjects(): Promise<GitProject[]> {
     try {
         const res = await fetch(
-            `${baseApiUrl}/search/repositories?q=user:${userData.githubUser}+fork:false+archived:false&sort=updated&order=desc&per_page=10&type=Repositories`,
+            `${baseApiUrl}/search/repositories?q=user:${userData.githubUser}+fork:false+archived:false&sort=updated&order=desc&per_page=6&type=Repositories`,
         );
         if (!res.ok) return [];
         const data = await res.json();
@@ -42,7 +42,10 @@ export interface BlogPostsResponse {
     totalPages: number;
 }
 
-export async function fetchBlogPosts(page = 1, limit = 5): Promise<BlogPostsResponse> {
+export async function fetchBlogPosts(
+    page = 1,
+    limit = 5,
+): Promise<BlogPostsResponse> {
     try {
         const res = await fetch(`/api/blogs?page=${page}&limit=${limit}`);
         if (!res.ok) {
@@ -76,34 +79,38 @@ export async function fetchBlogPost(id: string): Promise<BlogPost | null> {
 }
 
 export interface BlogStats {
-  views: number;
-  likes: number;
-  liked?: boolean;
+    views: number;
+    likes: number;
+    liked?: boolean;
 }
 
 export async function fetchBlogStats(id: string): Promise<BlogStats> {
-  try {
-    const res = await fetch(`/api/blogs/${id}/stats`);
-    if (!res.ok) return { views: 0, likes: 0 };
-    return res.json();
-  } catch {
-    return { views: 0, likes: 0 };
-  }
+    try {
+        const res = await fetch(`/api/blogs/${id}/stats`);
+        if (!res.ok) return { views: 0, likes: 0 };
+        return res.json();
+    } catch {
+        return { views: 0, likes: 0 };
+    }
 }
 
-export async function recordBlogView(id: string): Promise<{ views: number } | null> {
-  try {
-    const res = await fetch(`/api/blogs/${id}/view`, { method: 'POST' });
-    if (!res.ok) return null;
-    return res.json();
-  } catch {
-    return null;
-  }
+export async function recordBlogView(
+    id: string,
+): Promise<{ views: number } | null> {
+    try {
+        const res = await fetch(`/api/blogs/${id}/view`, { method: "POST" });
+        if (!res.ok) return null;
+        return res.json();
+    } catch {
+        return null;
+    }
 }
 
-export async function likeBlog(id: string): Promise<{ likes: number; liked: boolean }> {
-  const res = await fetch(`/api/blogs/${id}/like`, { method: 'POST' });
-  return res.json();
+export async function likeBlog(
+    id: string,
+): Promise<{ likes: number; liked: boolean }> {
+    const res = await fetch(`/api/blogs/${id}/like`, { method: "POST" });
+    return res.json();
 }
 
 export async function fetchUserContributions(): Promise<ContribSubject | null> {
