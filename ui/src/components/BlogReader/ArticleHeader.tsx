@@ -1,6 +1,6 @@
 import { Chip } from 'primereact/chip';
 import { Button } from 'primereact/button';
-import type { BlogPost } from '../../data/blogs';
+import type { BlogPost } from '../../models/types';
 
 interface Props {
   post: BlogPost;
@@ -30,6 +30,23 @@ export default function ArticleHeader({ post, isLight, stats, liking, onLike }: 
             label={String(stats.likes)}
             loading={liking}
             onClick={onLike}
+            style={{ outline: 'none', boxShadow: 'none', color: isLight ? '#d53a9d' : undefined }}
+          />
+          <Button
+            text
+            severity="secondary"
+            className={`p-0 ${isLight ? '' : 'text-pink-500'}`}
+            icon="pi pi-share-alt"
+            onClick={() => {
+              const url = window.location.href;
+              if (navigator.share) {
+                navigator.share({ title: post.title, url });
+              } else {
+                navigator.clipboard.writeText(url);
+              }
+            }}
+            tooltip="Share"
+            tooltipOptions={{ position: 'top' }}
             style={{ outline: 'none', boxShadow: 'none', color: isLight ? '#d53a9d' : undefined }}
           />
         </div>

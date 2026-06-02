@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Card } from 'primereact/card';
 import { Chip } from 'primereact/chip';
-import type { BlogPost } from '../../data/blogs';
+import type { BlogPost } from '../../models/types';
 
 interface Props {
   post: BlogPost;

@@ -64,13 +64,22 @@ return function (App $app, ?PDO $pdo) {
         ]);
     });
 
-    $app->get("/blogs/{id}", function (
+    $app->get("/blogs/{id}/content", function (
         Request $request,
         Response $response,
         array $args,
-    ) {
+    ) use ($pdo) {
         $id = basename($args["id"]);
         $file = BLOGS_DIR . "/" . $id . ".md";
+
+        if ($pdo) {
+            $stmt = $pdo->prepare("SELECT md_file FROM blog WHERE id = ?");
+            $stmt->execute([$id]);
+            $row = $stmt->fetch();
+            if ($row && !empty($row["md_file"])) {
+                $file = BLOGS_DIR . "/" . $row["md_file"];
+            }
+        }
 
         if (!file_exists($file)) {
             return jsonResponse($response, ["error" => "Blog not found"], 404);
@@ -79,17 +88,44 @@ return function (App $app, ?PDO $pdo) {
         $raw = file_get_contents($file);
         $meta = parseFrontmatter($raw);
 
-        $blog = [
-            "id" => $id,
-            "title" => $meta["title"],
-            "excerpt" => $meta["excerpt"],
+        return jsonResponse($response, [
             "content" => rewriteImageUrls($meta["content"]),
-            "date" => $meta["date"],
-            "readTime" => $meta["readTime"],
-            "tags" => $meta["tags"],
-        ];
+        ]);
+    });
 
-        return jsonResponse($response, $blog);
+    $app->get("/blogs/{id}", function (
+        Request $request,
+        Response $response,
+        array $args,
+    ) use ($pdo) {
+        $id = basename($args["id"]);
+
+        if (!$pdo) {
+            return jsonResponse(
+                $response,
+                ["error" => "Database not available"],
+                503,
+            );
+        }
+
+        $stmt = $pdo->prepare(
+            "SELECT id, title, excerpt, date, read_time, tags FROM blog WHERE id = ? AND deleted = 0",
+        );
+        $stmt->execute([$id]);
+        $row = $stmt->fetch();
+
+        if (!$row) {
+            return jsonResponse($response, ["error" => "Blog not found"], 404);
+        }
+
+        return jsonResponse($response, [
+            "id" => $row["id"],
+            "title" => $row["title"],
+            "excerpt" => $row["excerpt"],
+            "date" => $row["date"],
+            "readTime" => $row["read_time"],
+            "tags" => json_decode($row["tags"] ?? "[]", true),
+        ]);
     });
 
     $app->get("/blogs/images/{name}", function (

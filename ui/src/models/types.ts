@@ -42,6 +42,16 @@ export interface ContributionResult {
   contributions: ContributionData[][];
 }
 
+export interface BlogPost {
+  id: string;
+  title: string;
+  excerpt: string;
+  content?: string;
+  date: string;
+  readTime: string;
+  tags: string[];
+}
+
 export interface ContribSubject {
   startDate: Date;
   endDate: Date;

@@ -121,7 +121,7 @@ return function (App $app, ?PDO $pdo) {
                 $meta["date"],
                 $meta["readTime"],
                 json_encode($meta["tags"]),
-                $file,
+                basename($file),
             ]);
             $parsed++;
         }

@@ -4,7 +4,7 @@ import ToolBar from '../components/shared/ToolBar';
 import BlogCard from '../components/Blog/BlogCard';
 import SkeletonCard from '../components/Blog/SkeletonCard';
 import { fetchBlogPosts } from '../services/api';
-import type { BlogPost } from '../data/blogs';
+import type { BlogPost } from '../models/types';
 
 export default function BlogPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -29,9 +29,7 @@ export default function BlogPage() {
         <h1 className="text-white text-3xl font-bold mb-4">Blog</h1>
         {loading ? (
           <div className="grid">
-            {Array.from({ length: limit }, (_, i) => (
-              <SkeletonCard key={i} />
-            ))}
+            <SkeletonCard />
           </div>
         ) : (
           <>
