@@ -50,6 +50,8 @@ export interface BlogPost {
   date: string;
   readTime: string;
   tags: string[];
+  views: number;
+  likes: number;
 }
 
 export interface ContribSubject {

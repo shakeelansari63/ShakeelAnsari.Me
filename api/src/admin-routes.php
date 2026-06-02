@@ -26,7 +26,7 @@ function verifyAdmin(Request $request): bool
 return function (App $app, ?PDO $pdo) {
     $app->post("/admin/login", function (Request $request, Response $response) {
         $ip = clientIp($request);
-        if (!checkRateLimit($ip)) {
+        if (isRateLimited($ip)) {
             return jsonResponse(
                 $response,
                 ["error" => "Too many attempts"],
@@ -43,15 +43,18 @@ return function (App $app, ?PDO $pdo) {
         $jwtSecret = $_ENV["JWT_SECRET"] ?? "";
 
         if (
-            !hash_equals($adminUser ?? "", $username) ||
-            !hash_equals($adminPass ?? "", $password)
+            !hash_equals($adminUser, $username) ||
+            !hash_equals($adminPass, $password)
         ) {
+            incrementAttempts($ip);
             return jsonResponse(
                 $response,
                 ["error" => "Invalid credentials"],
                 401,
             );
         }
+
+        resetAttempts($ip);
 
         $token = JWT::encode(
             [

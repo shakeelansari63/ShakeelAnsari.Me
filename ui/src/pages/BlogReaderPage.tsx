@@ -28,8 +28,12 @@ export default function BlogReaderPage() {
     });
     fetchBlogContent(id).then(setContent).finally(() => setContentLoading(false));
     fetchBlogStats(id).then(setStats);
-    recordBlogView(id).then(() => {
-      fetchBlogStats(id).then(setStats);
+    recordBlogView(id).then((res) => {
+      if (res?.views !== undefined) {
+        setStats((s) => ({ ...s, views: res.views }));
+      } else {
+        fetchBlogStats(id).then(setStats);
+      }
     });
   }, [id]);
 
@@ -53,6 +57,7 @@ export default function BlogReaderPage() {
               className={isLight ? '' : 'text-pink-500'}
               onClick={() => navigate('/blog')}
               style={{ outline: 'none', boxShadow: 'none', color: isLight ? '#d53a9d' : undefined }}
+              pt={{ root: { style: { background: 'transparent' } } }}
             />
             <Button
               text
@@ -63,6 +68,7 @@ export default function BlogReaderPage() {
               tooltip={isLight ? 'Dark Mode' : 'Light Mode'}
               tooltipOptions={{ position: 'bottom' }}
               style={{ outline: 'none', boxShadow: 'none', color: isLight ? '#d53a9d' : undefined }}
+              pt={{ root: { style: { background: 'transparent' } } }}
             />
           </div>
           {loading ? (

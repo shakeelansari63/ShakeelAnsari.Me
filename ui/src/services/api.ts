@@ -91,11 +91,13 @@ export async function fetchBlogStats(id: string): Promise<BlogStats> {
   }
 }
 
-export async function recordBlogView(id: string): Promise<void> {
+export async function recordBlogView(id: string): Promise<{ views: number } | null> {
   try {
-    await fetch(`/api/blogs/${id}/view`, { method: 'POST' });
+    const res = await fetch(`/api/blogs/${id}/view`, { method: 'POST' });
+    if (!res.ok) return null;
+    return res.json();
   } catch {
-    // silently fail
+    return null;
   }
 }
 

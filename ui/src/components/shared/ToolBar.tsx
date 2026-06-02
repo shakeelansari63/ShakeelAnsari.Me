@@ -30,7 +30,7 @@ export default function ToolBar() {
   const menuItems = [
     {
       label: "Expo",
-      icon: "pi pi-star",
+      icon: "pi pi-briefcase",
       visible: !location.pathname.startsWith("/expo"),
       action: () => {
         setMenuOpen(false);
@@ -38,7 +38,7 @@ export default function ToolBar() {
       },
     },
     {
-      label: "Blog",
+      label: "Blogs",
       icon: "pi pi-book",
       visible: !location.pathname.startsWith("/blog"),
       action: () => {
@@ -83,7 +83,7 @@ export default function ToolBar() {
             text
             severity="secondary"
             className="text-pink-500"
-            icon="pi pi-star"
+            icon="pi pi-briefcase"
             label="Expo"
             onClick={() => navigate("/expo")}
             style={{ outline: "none", boxShadow: "none" }}
@@ -95,7 +95,7 @@ export default function ToolBar() {
             severity="secondary"
             className="text-pink-500"
             icon="pi pi-book"
-            label="Blog"
+            label="Blogs"
             onClick={() => navigate("/blog")}
             style={{ outline: "none", boxShadow: "none" }}
           />

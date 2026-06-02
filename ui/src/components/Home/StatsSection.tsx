@@ -1,4 +1,5 @@
 import { Card } from 'primereact/card';
+import LazyImage from '../shared/LazyImage';
 import { getUserMainStats } from '../../services/stats';
 
 export default function StatsSection() {
@@ -6,9 +7,8 @@ export default function StatsSection() {
     <div className="grid">
       <div className="col-12">
         <Card className="text-center">
-          <img
+          <LazyImage
             src={getUserMainStats()}
-            className="max-w-full"
             alt="Profile stats"
           />
         </Card>

@@ -13,8 +13,8 @@ interface Props {
 export default function ArticleHeader({ post, isLight, stats, liking, onLike }: Props) {
   return (
     <>
-      <h1 className={`text-3xl font-bold mb-2 ${isLight ? 'text-pink-600' : 'text-pink-400'}`}>{post.title}</h1>
-      <div className={`flex align-items-center justify-content-between mb-3 text-base ${isLight ? 'text-gray-500' : 'text-gray-400'}`}>
+      <h1 className={`text-2xl md:text-3xl font-bold mb-2 ${isLight ? 'text-pink-600' : 'text-pink-400'}`}>{post.title}</h1>
+      <div className={`flex flex-column sm:flex-row align-items-start sm:align-items-center justify-content-between mb-3 text-sm md:text-base gap-1 sm:gap-0 ${isLight ? 'text-gray-500' : 'text-gray-400'}`}>
         <div className="flex align-items-center gap-2">
           <span>{post.date}</span>
           <span>&middot;</span>
@@ -40,7 +40,9 @@ export default function ArticleHeader({ post, isLight, stats, liking, onLike }: 
             onClick={() => {
               const url = window.location.href;
               if (navigator.share) {
-                navigator.share({ title: post.title, url });
+                navigator.share({ title: post.title, url }).catch(() => {
+                  navigator.clipboard.writeText(url);
+                });
               } else {
                 navigator.clipboard.writeText(url);
               }

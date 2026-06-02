@@ -114,7 +114,9 @@ html.scrolled .p-toolbar .p-button .p-button-icon {
 
 @media only screen and (max-width: 600px) {
     .app-container {
-        max-width: 400px;
+        max-width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
 }
 
@@ -215,12 +217,106 @@ html.scrolled .p-toolbar .p-button .p-button-icon {
 .skeleton-pulse {
     background: linear-gradient(90deg, #2a2b2e 25%, #3a3b40 35%, #d53a9d 50%, #3a3b40 65%, #2a2b2e 75%);
     background-size: 300% 100%;
-    animation: shimmer 5s ease-in-out infinite;
+    animation: shimmer 1.5s ease-in-out infinite;
     border-radius: 4px;
 }
 
 @keyframes shimmer {
-    0% { background-position: 300% 0; }
-    50% { background-position: -100% 0; }
-    100% { background-position: -300% 0; }
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.skeleton-image {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #1e1f22;
+}
+
+.skeleton-image::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        110deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.04) 50%,
+        transparent 70%
+    );
+    background-size: 200% 100%;
+    animation: skeletonSweep 1.8s ease-in-out infinite;
+}
+
+.skeleton-image-icon {
+    color: rgba(255, 255, 255, 0.08);
+    z-index: 1;
+}
+
+@keyframes skeletonSweep {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.code-block {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 6px;
+    padding: 1rem;
+    margin: 0 0 0.5rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+}
+
+.code-block::-webkit-scrollbar {
+    height: 6px;
+}
+
+.code-block::-webkit-scrollbar-thumb {
+    background: rgba(213, 58, 157, 0.4);
+    border-radius: 3px;
+}
+
+@media only screen and (max-width: 600px) {
+    .blog-content {
+        padding: 0 0.5rem;
+        font-size: 0.9rem;
+        line-height: 1.7 !important;
+    }
+
+    .blog-content img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
+    .blog-content h2 {
+        font-size: 1.25rem !important;
+    }
+
+    .blog-content h3 {
+        font-size: 1.1rem !important;
+    }
+
+    .code-block {
+        padding: 0.75rem;
+        font-size: 0.8rem;
+        border-radius: 4px;
+    }
+}
+
+.image-entrance {
+    animation: imageFadeIn 0.6s ease-out forwards;
+}
+
+@keyframes imageFadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }

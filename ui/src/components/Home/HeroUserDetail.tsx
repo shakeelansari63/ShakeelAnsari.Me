@@ -1,6 +1,6 @@
 import { Card } from 'primereact/card';
-import { Avatar } from 'primereact/avatar';
 import { Button } from 'primereact/button';
+import LazyImage from '../shared/LazyImage';
 import type { GitProfile } from '../../models/types';
 import { userData } from '../../services/data';
 
@@ -44,12 +44,13 @@ export default function HeroUserDetail({ profile }: Props) {
   return (
     <Card footer={footer} className="h-full">
       <div className="flex flex-column align-items-center p-3">
-        <Avatar
-          image={profile?.avatar_url ?? ''}
-          size="xlarge"
-          shape="circle"
-          className="mb-3"
-          style={{ width: '180px', height: '180px' }}
+        <LazyImage
+          src={profile?.avatar_url ?? ''}
+          alt="Avatar"
+          maxWidth={180}
+          maxHeight={180}
+          aspectRatio="1 / 1"
+          rounded
         />
         <div className="flex align-items-center justify-content-center mb-2 text-center">
           <span className="text-orange-300 text-lg">{profile?.bio ?? ''}</span>

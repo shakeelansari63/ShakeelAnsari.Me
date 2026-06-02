@@ -1,4 +1,5 @@
 import { Card } from "primereact/card";
+import LazyImage from "../shared/LazyImage";
 import { getStreaks, getProductiveTime } from "../../services/stats";
 
 export default function StreakSection() {
@@ -6,18 +7,13 @@ export default function StreakSection() {
         <div className="grid">
             <div className="md:col-6 col-12">
                 <Card className="text-center">
-                    <img
-                        src={getStreaks()}
-                        className="max-w-full"
-                        alt="Streaks"
-                    />
+                    <LazyImage src={getStreaks()} alt="Streaks" />
                 </Card>
             </div>
             <div className="md:col-6 col-12">
                 <Card className="text-center">
-                    <img
+                    <LazyImage
                         src={getProductiveTime()}
-                        className="max-w-full"
                         alt="Productive time"
                     />
                 </Card>

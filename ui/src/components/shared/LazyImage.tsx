@@ -5,41 +5,70 @@ interface Props {
   alt?: string;
   maxWidth?: number;
   maxHeight?: number;
+  aspectRatio?: string;
+  rounded?: boolean;
+  className?: string;
 }
 
 export default function LazyImage({
   src,
   alt,
-  maxWidth = 800,
-  maxHeight = 400,
+  maxWidth,
+  maxHeight,
+  aspectRatio = "2 / 1",
+  rounded = false,
+  className = "",
 }: Props) {
   const [loaded, setLoaded] = useState(false);
 
+  const borderRadius = rounded ? "50%" : "8px";
+
   return (
     <div
-      className="flex justify-content-center my-3"
+      className={`flex justify-content-center my-3 ${className}`}
       style={{
         position: "relative",
-        maxWidth: `${maxWidth}px`,
+        ...(maxWidth !== undefined && { maxWidth: `${maxWidth}px` }),
         marginLeft: "auto",
         marginRight: "auto",
       }}
     >
       {!loaded && (
         <div
-          className="skeleton-pulse"
-          style={{ width: "100%", height: "300px", borderRadius: "8px" }}
-        />
+          className="skeleton-image"
+          style={{
+            width: "100%",
+            aspectRatio,
+            borderRadius,
+          }}
+        >
+          <svg
+            width="48"
+            height="48"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="skeleton-image-icon"
+          >
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <polyline points="21 15 16 10 5 21" />
+          </svg>
+        </div>
       )}
       <div
         style={{
+          position: "relative",
           maxWidth: "100%",
-          maxHeight: `${maxHeight}px`,
+          ...(maxHeight !== undefined && { maxHeight: `${maxHeight}px` }),
           overflow: "hidden",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          borderRadius: "8px",
+          borderRadius,
         }}
       >
         <img
@@ -47,14 +76,14 @@ export default function LazyImage({
           alt={alt}
           loading="lazy"
           onLoad={() => setLoaded(true)}
+          className={loaded ? "image-entrance" : ""}
           style={{
             maxWidth: "100%",
-            maxHeight: `${maxHeight}px`,
+            ...(maxHeight !== undefined && { maxHeight: `${maxHeight}px` }),
             width: "auto",
             height: "auto",
             display: "block",
             opacity: loaded ? 1 : 0,
-            transition: "opacity 0.5s ease-in",
           }}
         />
       </div>

@@ -41,33 +41,51 @@ function rewriteImageUrls(string $content): string
     return preg_replace("/\]\((images\/)/", '](/api/blogs/$1', $content);
 }
 
-function checkRateLimit(string $ip): bool
+function isRateLimited(string $ip): bool
 {
     $file = sys_get_temp_dir() . "/login_attempts_" . md5($ip) . ".lock";
 
-    if (file_exists($file) && time() - filemtime($file) > 900) {
-        unlink($file);
-    }
-
-    $attempts = @file_get_contents($file) ?: 0;
-    $attempts = (int) $attempts;
-
-    if ($attempts >= 5) {
+    if (!file_exists($file)) {
         return false;
     }
 
+    if (time() - filemtime($file) > 900) {
+        unlink($file);
+        return false;
+    }
+
+    $attempts = (int) (@file_get_contents($file) ?: 0);
+    return $attempts >= 5;
+}
+
+function incrementAttempts(string $ip): void
+{
+    $file = sys_get_temp_dir() . "/login_attempts_" . md5($ip) . ".lock";
+    $attempts = (int) (@file_get_contents($file) ?: 0);
     file_put_contents($file, $attempts + 1);
-    return true;
+}
+
+function resetAttempts(string $ip): void
+{
+    $file = sys_get_temp_dir() . "/login_attempts_" . md5($ip) . ".lock";
+    if (file_exists($file)) {
+        unlink($file);
+    }
 }
 
 function clientIp(Request $request): string
 {
+    $remote = $request->getServerParams()["REMOTE_ADDR"] ?? "127.0.0.1";
     $forwarded = $request->getHeaderLine("X-Forwarded-For");
     if ($forwarded !== "") {
         $ips = array_map("trim", explode(",", $forwarded));
-        return $ips[0];
+        foreach ($ips as $ip) {
+            if (filter_var($ip, FILTER_VALIDATE_IP)) {
+                return $ip;
+            }
+        }
     }
-    return $request->getServerParams()["REMOTE_ADDR"] ?? "127.0.0.1";
+    return $remote;
 }
 
 function jsonResponse(

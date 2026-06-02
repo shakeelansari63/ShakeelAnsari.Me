@@ -35,6 +35,10 @@ $app->add(function (Request $request, $handler) {
         ->withHeader(
             "Access-Control-Allow-Methods",
             "GET, POST, PUT, DELETE, OPTIONS",
+        )
+        ->withHeader(
+            "Content-Security-Policy",
+            "default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; script-src 'self'",
         );
 });
 

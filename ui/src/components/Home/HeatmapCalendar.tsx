@@ -16,10 +16,11 @@ function convertToDate(date: Date) {
 }
 
 function getNumberDays(startDate: Date, endDate: Date) {
-  const timeDiff =
-    new Date(endDate.setHours(0, 0, 0, 0)).getTime() -
-    new Date(startDate.setHours(0, 0, 0, 0)).getTime();
-  return Math.abs(Math.round(timeDiff / MILISECONDS_IN_DAY));
+  const s = new Date(startDate);
+  const e = new Date(endDate);
+  s.setHours(0, 0, 0, 0);
+  e.setHours(0, 0, 0, 0);
+  return Math.abs(Math.round((e.getTime() - s.getTime()) / MILISECONDS_IN_DAY));
 }
 
 function getEmptyDaysAtStart(startDate: Date) {
@@ -48,16 +49,18 @@ interface Props {
 }
 
 export default function HeatmapCalendar({ dates, startDate, endDate, classForValue }: Props) {
-  const weeks = useMemo(() => getWeeksCount(startDate, endDate), [startDate, endDate]);
-  const emptyDays = useMemo(() => getEmptyDaysAtStart(startDate), [startDate]);
-  const totalDays = useMemo(() => getNumberDays(startDate, endDate), [startDate, endDate]);
+  const normStart = useMemo(() => convertToDate(startDate), [startDate]);
+  const normEnd = useMemo(() => convertToDate(endDate), [endDate]);
+  const weeks = useMemo(() => getWeeksCount(normStart, normEnd), [normStart, normEnd]);
+  const emptyDays = useMemo(() => getEmptyDaysAtStart(normStart), [normStart]);
+  const totalDays = useMemo(() => getNumberDays(normStart, normEnd), [normStart, normEnd]);
 
   const width = (RECT_SIZE + GAP) * weeks - GAP + WIDTH_LABEL;
   const height = (RECT_SIZE + GAP) * DAYS_IN_WEEK - GAP + HEIGHT_LABEL;
 
   function generateCell(index: number): CellData {
     const adjustedIndex = index - emptyDays;
-    const currentDate = new Date(startDate.getTime() + adjustedIndex * MILISECONDS_IN_DAY);
+    const currentDate = new Date(normStart.getTime() + adjustedIndex * MILISECONDS_IN_DAY);
     const matched = dates.find((d) => convertToDate(d.date).getTime() === currentDate.getTime());
     const value = matched ? matched.value : null;
     return {
@@ -73,7 +76,7 @@ export default function HeatmapCalendar({ dates, startDate, endDate, classForVal
   }
 
   function getMonthLabel(weekIdx: number) {
-    const d = getEndDayOfWeek(weekIdx, startDate);
+    const d = getEndDayOfWeek(weekIdx, normStart);
     const day = d.getDate();
     if (day < 1 || day > 7) return null;
     return d.toLocaleDateString('en-US', { month: 'short' });

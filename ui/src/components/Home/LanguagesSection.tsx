@@ -1,4 +1,5 @@
 import { Card } from "primereact/card";
+import LazyImage from "../shared/LazyImage";
 import {
     getTopLanguageByRepo,
     getTopLanguageByCommit,
@@ -10,18 +11,16 @@ export default function LanguagesSection() {
             <div className="grid">
                 <div className="md:col-6 col-12">
                     <Card className="text-center">
-                        <img
+                        <LazyImage
                             src={getTopLanguageByRepo()}
-                            className="max-w-full"
                             alt="Languages by repo"
                         />
                     </Card>
                 </div>
                 <div className="md:col-6 col-12">
                     <Card className="text-center">
-                        <img
+                        <LazyImage
                             src={getTopLanguageByCommit()}
-                            className="max-w-full"
                             alt="Languages by commit"
                         />
                     </Card>
