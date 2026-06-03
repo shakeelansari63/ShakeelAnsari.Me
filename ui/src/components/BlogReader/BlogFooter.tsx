@@ -9,7 +9,7 @@ interface Props {
 export default function BlogFooter({ isLight }: Props) {
     const startContent = (
         <span className="text-sm">
-            <span className="mr-1">Editor credit by</span>
+            <span className="mr-1">Published by</span>
             <strong>@{userData.githubUser}</strong>
         </span>
     );

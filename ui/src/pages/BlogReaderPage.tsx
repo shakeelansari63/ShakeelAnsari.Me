@@ -40,7 +40,7 @@ export default function BlogReaderPage() {
 
   return (
     <>
-      <ToolBar />
+      <ToolBar isLight={isLight} onToggleTheme={() => setIsLight((p) => !p)} />
       <div
         style={{
           minHeight: '100vh',
@@ -49,7 +49,7 @@ export default function BlogReaderPage() {
         }}
       >
         <div className="app-container">
-          <div className="mb-3 flex align-items-center justify-content-between">
+          <div className="mb-3">
             <Button
               icon="pi pi-arrow-left"
               label="Back"
@@ -57,17 +57,6 @@ export default function BlogReaderPage() {
               severity="secondary"
               className={isLight ? '' : 'text-pink-500'}
               onClick={() => navigate('/blog')}
-              style={{ outline: 'none', boxShadow: 'none', color: isLight ? '#d53a9d' : undefined }}
-              pt={{ root: { style: { background: 'transparent' } } }}
-            />
-            <Button
-              text
-              severity="secondary"
-              className={isLight ? '' : 'text-pink-500'}
-              icon={isLight ? 'pi pi-moon' : 'pi pi-sun'}
-              onClick={() => setIsLight(!isLight)}
-              tooltip={isLight ? 'Dark Mode' : 'Light Mode'}
-              tooltipOptions={{ position: 'bottom' }}
               style={{ outline: 'none', boxShadow: 'none', color: isLight ? '#d53a9d' : undefined }}
               pt={{ root: { style: { background: 'transparent' } } }}
             />

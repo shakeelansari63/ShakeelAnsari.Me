@@ -5,7 +5,12 @@ import { Button } from "primereact/button";
 import { Sidebar } from "primereact/sidebar";
 import { userData } from "../../services/data";
 
-export default function ToolBar() {
+interface Props {
+  isLight?: boolean;
+  onToggleTheme?: () => void;
+}
+
+export default function ToolBar({ isLight, onToggleTheme }: Props) {
   const navigate = useNavigate();
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -132,6 +137,18 @@ export default function ToolBar() {
           </>
         )}
       </div>
+      {onToggleTheme && (
+        <Button
+          text
+          severity="secondary"
+          className="text-pink-500"
+          icon={isLight ? "pi pi-moon" : "pi pi-sun"}
+          onClick={onToggleTheme}
+          tooltip={isLight ? "Dark Mode" : "Light Mode"}
+          tooltipOptions={{ position: "bottom" }}
+          style={{ outline: "none", boxShadow: "none" }}
+        />
+      )}
       <div className="md:hidden">
         <Button
           icon="pi pi-bars"
