@@ -85,13 +85,17 @@ If you need a truly unbiased, secure shuffle, a proper random number generator (
 
 ## Running the demo  
 
-Save the script as `shuffle_deck.py` and execute:
+Save the script as `shuffle_cards.py` and execute:
 
 ```bash
-python shuffle_deck.py
+python shuffle_cards.py
 ```
 
 Each run prints a different ordering of the 52 cards. Feel free to copy the output into a text file and compare runs - you’ll see the variation in action.
+
+## Complete Code  
+Complete code is available on Github -  
+[shuffle_cards.py](https://github.com/shakeelansari63/random_programs/blob/master/shuffle_cards.py)
 
 ## Wrapping up  
 
