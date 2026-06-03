@@ -1,72 +1,100 @@
 ---
-title: Shuffling a Deck Without the Built‑in Random Function
-excerpt: I wanted a truly unpredictable shuffle that changes every run, even with the same deck. By hashing a timestamp with SHA‑512 I can generate a stream of pseudo‑random indices and use them to reorder the cards.
-date: 2019-08-07
-readTime: 5 min read
-tags: Python, Algorithms, Cryptography, Randomness
+title: Shuffling a Deck Without Built‑in Random  
+excerpt: A step‑by‑step look at a Python function that uses timestamps and SHA‑512 to generate a shuffled deck without the random module.  
+date: 2019-08-07  
+readTime: 8 min read  
+tags: Python, Algorithms, Randomness, Shuffling, Hashing  
 ---
+
 ![Shuffling a deck](images/shuffle-deck.webp)
 
-So, today I was confronted with a problem which made me think.  
-The problem was to build a function to shuffle a deck of cards **without** using any builtin `random` function.  
-Also, the deck should be shuffled differently even if the same input is provided.  
-So we cannot hardcode any random pattern as that would generate the same output for the same input.
+## Hey there, fellow card‑lover!
 
-## The challenge
+I ran into a quirky challenge the other day: **shuffle a standard 52‑card deck without calling any of Python’s built‑in random functions**. The twist? The shuffle should look different each time, even when the same ordered deck is fed in. I whipped up a small script and thought I’d walk you through how it works, why I made each decision, and where the approach might fall short.
 
-I needed a way to produce **52 pseudo‑random indices** (0–51) that differ every time the program runs.  
-The usual `random.randint` is out of the question, so I turned to cryptographic hashing.
+## The problem, plain and simple  
 
-### Why hashing?
+We need a function `shuffle_cards(deck)` that:
 
-- A hash takes any input string and outputs a seemingly random fixed‑size string.  
-- With a large enough hash (SHA‑512) we get plenty of bits to extract many numbers from.  
-- If we change the input string slightly (e.g., by using the current timestamp), the whole hash changes, giving us a different sequence each run.
+1. Accepts a list of 52 distinct card identifiers.  
+2. Rearranges the list into a new order that changes on every execution.  
+3. Avoids `random`, `numpy.random`, or any other library that directly supplies randomness.
 
-## My approach
+## My overall strategy  
 
-1. **Pick an input string**  
-   I used the current timestamp (`time.time()`), converted to a string.  
-   Since the timestamp changes each call, the hash will differ.
+Because we can’t call a random generator, I turned to **deterministic data that changes on its own** – the current timestamp. By hashing that timestamp with SHA‑512 I obtain a long, seemingly unpredictable hexadecimal string. From that string I extract digits, massage them into indices 0‑51, and finally use those indices to reposition the cards.
 
-2. **Hash the string with SHA‑512**  
-   ```python
-   import hashlib
-   h = hashlib.sha512(timestamp_str.encode()).hexdigest()
-   ```
-   The result is a long hexadecimal string.
+## Let me take you through the code  
 
-3. **Extract numeric pairs**  
-   I walked through the hex string two characters at a time, converting each pair to an integer.  
-   If the value exceeded 51, I applied `value % 52` to bring it into the 0‑51 range.
+### 1. Seed generation
 
-4. **Collect 52 numbers**  
-   I repeated the extraction until I had exactly 52 indices.  
-   Duplicates are fine because the shuffle logic handles them gracefully.
+```python
+seed = datetime.strftime(datetime.today(), '%Y%m%d%H%M%S%f')
+```
 
-5. **Shuffle the deck**  
-   I iterate over the deck, popping a card and inserting it at the position indicated by the next index from the list.  
-   If two cards target the same spot, the first one stays, and the second pushes the others to the right.  
-   This simple mechanism eliminates the need for a full Fisher‑Yates shuffle.
+- **What it does:** Formats the current date‑time down to microseconds into a string like `20260603142530123456`.  
+- **Reasoning:** Every program run (even within the same second) will produce a different seed because of the microsecond part, giving us a source of variability without calling a random function.
 
-### Limitations & assumptions
+### 2. Hashing the seed  
 
-- **Duplicates**: The algorithm permits duplicate indices. In practice this works because the insertion step resolves conflicts, but it’s not the most efficient shuffle.
-- **Timestamp precision**: On very fast systems, multiple calls may share the same timestamp, producing identical shuffles. A higher‑resolution timer or additional entropy would mitigate this.
-- **Determinism**: The method is deterministic for a given timestamp string. If you need cryptographic‑strength randomness, consider a secure random source instead.
+```python
+hash_seed = sha512(seed.encode('ascii')).hexdigest()
+```
 
-## Code in action
+- **What it does:** Turns the seed into a 128‑character hexadecimal digest.  
+- **Reasoning:** Cryptographic hashes spread input bits uniformly across the output, turning a predictable timestamp into a more “random‑looking” pattern. SHA‑512 is overkill for a simple shuffle, but it guarantees a long string to draw numbers from.
 
-You can see the full implementation on GitHub:
+### 3. Extracting digits only  
 
-[shuffle_cards.py](https://github.com/shakeelansari63/common_programs/blob/master/shuffle_cards.py)
+```python
+number_str = "".join(re.compile(r'[0-9]').findall(hash_seed))
+```
 
-Feel free to clone, run, and tweak the script. It prints a shuffled deck each time you execute it.
+- **What it does:** Strips out any letters (`a‑f`) and leaves only the decimal digits.  
+- **Reasoning:** We need numeric values to serve as list indices. Using only digits keeps the conversion to integers straightforward.
 
-## Final thoughts
+### 4. Building 52 position numbers  
 
-Using SHA‑512 to generate a stream of indices is a neat hack when you can’t or don’t want to use Python’s `random` module.  
-It’s fast, easy to understand, and—thanks to the timestamp—always produces a different shuffle for a fresh run.  
-If you need something more robust, just replace the hash source with a high‑entropy generator and you’re good to go.
+The first `while` loop grabs **adjacent digit pairs** (`34`, `78`, …). If a pair exceeds `51`, we wrap it with modulo 52.
 
-Thanks for following along! Until next time, keep those decks spinning.
+- **Why two‑digit pairs?** A pair gives us a range of 00‑99, which covers the required 0‑51 comfortably while still providing many possible values.
+- **Modulo handling:** Guarantees every number lands inside the valid index range.
+
+If the first pass doesn’t yield 52 numbers (possible when the digit string is short), the second loop switches to a **skip‑one pattern** (`0` with `2`, `1` with `3`, …) to squeeze more values out of the same string.
+
+### 5. Reordering the deck  
+
+```python
+for old_pos, new_pos in enumerate(new_pos):
+    card = deck.pop(old_pos)
+    deck.insert(new_pos, card)
+```
+
+- **What it does:** Iterates over the generated index list, removes the card at the original position, and inserts it at the new position.
+- **Why `pop` + `insert`?** This directly mutates the original list, matching the “in‑place shuffle” requirement without extra containers.
+
+## Limitations & assumptions  
+
+**Not cryptographically secure.** An attacker who knows the exact timestamp could reproduce the shuffle.  
+  
+**Deterministic order of operations.** The algorithm depends on the order of `enumerate(new_pos)`. Changing that order would change the final deck.  
+  
+**Microsecond resolution.** If the environment’s clock only offers second precision, consecutive runs may produce identical shuffles.  
+  
+If you need a truly unbiased, secure shuffle, a proper random number generator (e.g., `random.shuffle` or `secrets.randbelow`) would be the right tool. This method is mainly a fun exercise in “how else can we get variation?”
+
+## Running the demo  
+
+Save the script as `shuffle_deck.py` and execute:
+
+```bash
+python shuffle_deck.py
+```
+
+Each run prints a different ordering of the 52 cards. Feel free to copy the output into a text file and compare runs - you’ll see the variation in action.
+
+## Wrap‑up  
+
+I enjoyed turning a timestamp into a makeshift randomness source, hashing it, and then coaxing those bits into deck positions. The code is short, self‑contained, and demonstrates how deterministic data can be repurposed when built‑in randomness isn't an option. Just keep the limitations in mind if you ever need stronger guarantees.
+  
+#### Happy shuffling
