@@ -5,6 +5,7 @@ import { Skeleton } from 'primereact/skeleton';
 import ToolBar from '../components/shared/ToolBar';
 import ArticleHeader from '../components/BlogReader/ArticleHeader';
 import ArticleContent from '../components/BlogReader/ArticleContent';
+import BlogFooter from '../components/BlogReader/BlogFooter';
 import { fetchBlogPost, fetchBlogContent, fetchBlogStats, recordBlogView, likeBlog } from '../services/api';
 import type { BlogPost } from '../models/types';
 import type { BlogStats } from '../services/api';
@@ -111,6 +112,7 @@ export default function BlogReaderPage() {
               ) : content ? (
                 <ArticleContent content={content} isLight={isLight} />
               ) : null}
+              {post && <BlogFooter isLight={isLight} />}
             </article>
           )}
         </div>
