@@ -12,6 +12,10 @@ import ActivitySection from "../components/Home/ActivitySection";
 import FooterSection from "../components/Home/FooterSection";
 
 export default function MainPage() {
+    useEffect(() => {
+        document.title =
+            "Shakeel Ansari — Data Engineer, GenAI Engineer & Full-Stack Developer";
+    }, []);
     const [profile, setProfile] = useState<GitProfile | null>(null);
     const [projects, setProjects] = useState<GitProject[]>([]);
 

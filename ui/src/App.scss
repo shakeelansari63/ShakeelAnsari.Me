@@ -1,6 +1,6 @@
 body {
     margin: 0 !important;
-    font-family: SpaceMono, monospace;
+    font-family: 'Space Grotesk', sans-serif;
 }
 
 .bg-transparent {
@@ -79,32 +79,8 @@ html.scrolled .p-toolbar .p-button .p-button-icon {
     left: 100%;
 }
 
-@font-face {
-    font-family: SpaceMono;
-    src: url(assets/fonts/SpaceMono-Regular.ttf);
-}
-
-@font-face {
-    font-family: SpaceMono;
-    src: url(assets/fonts/SpaceMono-Bold.ttf);
-    font-weight: bold;
-}
-
-@font-face {
-    font-family: SpaceMono;
-    src: url(assets/fonts/SpaceMono-BoldItalic.ttf);
-    font-weight: bold;
-    font-style: italic;
-}
-
-@font-face {
-    font-family: SpaceMono;
-    src: url(assets/fonts/SpaceMono-Italic.ttf);
-    font-style: italic;
-}
-
 .mono-spaced {
-    font-family: SpaceMono;
+    font-family: 'Space Grotesk', sans-serif;
 }
 
 .app-container {

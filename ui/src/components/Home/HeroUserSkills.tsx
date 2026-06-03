@@ -21,7 +21,7 @@ export default function HeroUserSkills({ profile }: Props) {
                 className="text-lg overflow-auto"
                 style={{
                     wordBreak: "break-word",
-                    fontFamily: "SpaceMono, Courier New, monospace",
+                    fontFamily: "'Cascadia Code', 'Fira Code', 'JetBrains Mono', monospace",
                     lineHeight: 1.5,
                 }}
             >

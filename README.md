@@ -20,7 +20,7 @@ Personal portfolio website for [shakeelansari.me](https://shakeelansari.me) — 
 │   │   ├── pages/        – Page-level components
 │   │   ├── services/     – API client, data, stats
 │   │   └── models/       – TypeScript interfaces
-│   └── public/fonts/     – SpaceMono font files
+│   └── index.html        – Vite entry with Inter font (Google Fonts)
 ├── api/         – PHP API backend (Slim Framework)
 │   ├── public/           – Entry point (index.php)
 │   ├── src/              – Routes (blogs, admin), helpers

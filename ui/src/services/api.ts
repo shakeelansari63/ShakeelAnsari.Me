@@ -108,9 +108,14 @@ export async function recordBlogView(
 
 export async function likeBlog(
     id: string,
-): Promise<{ likes: number; liked: boolean }> {
-    const res = await fetch(`/api/blogs/${id}/like`, { method: "POST" });
-    return res.json();
+): Promise<{ likes: number; liked: boolean } | null> {
+    try {
+        const res = await fetch(`/api/blogs/${id}/like`, { method: "POST" });
+        if (!res.ok) return null;
+        return res.json();
+    } catch {
+        return null;
+    }
 }
 
 export async function fetchUserContributions(): Promise<ContribSubject | null> {

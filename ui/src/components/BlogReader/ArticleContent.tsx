@@ -12,7 +12,7 @@ export default function ArticleContent({ content, isLight }: Props) {
     <div
       className="blog-content"
       style={{
-        fontFamily: "SpaceMono, monospace",
+        fontFamily: "'Space Grotesk', sans-serif",
         lineHeight: "1.8",
         color: isLight ? "#1a1a2e" : "#ffffff",
       }}
@@ -79,7 +79,7 @@ export default function ArticleContent({ content, isLight }: Props) {
               {children}
             </ul>
           ),
-          code: ({ className, children, ...props }) => {
+          code: ({ className, children }) => {
             const match = /language-(\w+)/.exec(className ?? "");
             if (match) {
               const code = String(children).replace(/\n$/, "");

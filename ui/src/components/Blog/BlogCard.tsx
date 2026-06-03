@@ -23,7 +23,7 @@ export default function BlogCard({ post }: Props) {
         <div className="flex flex-column">
           <span className="font-bold text-xl text-pink-400 mb-2">{post.title}</span>
           <span className="text-sm text-gray-400 mb-2">{post.date} &middot; {post.readTime}</span>
-          <p className="text-blue-400 m-0 mb-2" style={{ fontFamily: 'SpaceMono, monospace' }}>{post.excerpt}</p>
+          <p className="text-blue-400 m-0 mb-2" style={{ fontFamily: '"Space Grotesk", sans-serif' }}>{post.excerpt}</p>
           <div className="flex gap-2 flex-wrap">
             {post.tags.map((tag) => (
               <Chip key={tag} label={tag} className="text-sm" />

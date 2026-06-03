@@ -1,13 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Toast } from 'primereact/toast';
-import { useRef } from 'react';
 import ToolBar from '../components/shared/ToolBar';
 
 export default function AdminPage() {
+  useEffect(() => {
+    const meta = document.createElement('meta');
+    meta.name = 'robots';
+    meta.content = 'noindex, nofollow';
+    document.head.appendChild(meta);
+    return () => meta.remove();
+  }, []);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -54,6 +60,12 @@ export default function AdminPage() {
           Authorization: `Bearer ${token}`,
         },
       });
+      if (res.status === 401) {
+        localStorage.removeItem('admin_token');
+        setToken(null);
+        toast.current?.show({ severity: 'warn', summary: 'Session Expired', detail: 'Please log in again', life: 5000 });
+        return;
+      }
       const data = await res.json();
       toast.current?.show({
         severity: res.ok ? 'success' : 'error',

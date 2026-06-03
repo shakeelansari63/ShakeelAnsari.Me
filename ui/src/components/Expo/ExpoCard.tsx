@@ -24,7 +24,7 @@ export default function ExpoCard({ item }: Props) {
         )}
         <div className="flex flex-column flex-1">
           <span className="font-bold text-xl text-pink-400 mb-2">{item.name}</span>
-          <p className="text-blue-400 m-0 mb-3 flex-1" style={{ fontFamily: 'SpaceMono, monospace' }}>{item.description}</p>
+          <p className="text-blue-400 m-0 mb-3 flex-1" style={{ fontFamily: '"Space Grotesk", sans-serif' }}>{item.description}</p>
           <div className="flex justify-content-center gap-2">
             {item.appUrl && (
               <Button

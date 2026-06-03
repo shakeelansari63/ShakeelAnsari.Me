@@ -93,7 +93,7 @@ python shuffle_deck.py
 
 Each run prints a different ordering of the 52 cards. Feel free to copy the output into a text file and compare runs - you’ll see the variation in action.
 
-## Wrap‑up  
+## Wrapping up  
 
 I enjoyed turning a timestamp into a makeshift randomness source, hashing it, and then coaxing those bits into deck positions. The code is short, self‑contained, and demonstrates how deterministic data can be repurposed when built‑in randomness isn't an option. Just keep the limitations in mind if you ever need stronger guarantees.
   

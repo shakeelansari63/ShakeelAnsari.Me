@@ -29,7 +29,7 @@ export default function ProjectsSection({ projects }: Props) {
                 <span className="font-bold text-lg text-pink-400">{project.name ?? ''}</span>
               </div>
               {project.description && (
-                <p className="text-sm text-blue-400 m-0" style={{ fontFamily: 'SpaceMono, monospace' }}>{project.description}</p>
+                <p className="text-sm text-blue-400 m-0" style={{ fontFamily: '"Space Grotesk", sans-serif' }}>{project.description}</p>
               )}
             </Card>
           </div>
