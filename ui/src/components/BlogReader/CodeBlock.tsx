@@ -74,7 +74,7 @@ export default function CodeBlock({ code, language, isLight }: Props) {
         language={language}
         PreTag="div"
         customStyle={{
-          fontSize: "0.95em",
+          fontSize: "0.95rem",
           borderRadius: "8px",
         }}
       >

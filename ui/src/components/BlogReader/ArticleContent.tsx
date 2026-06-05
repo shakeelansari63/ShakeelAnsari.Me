@@ -15,6 +15,7 @@ export default function ArticleContent({ content, isLight }: Props) {
       style={{
         fontFamily: "'Space Grotesk', sans-serif",
         lineHeight: "1.8",
+        fontSize: "1.125rem",
         color: isLight ? "#1a1a2e" : "#ffffff",
       }}
     >
@@ -79,7 +80,7 @@ export default function ArticleContent({ content, isLight }: Props) {
                 style={{
                   width: "100%",
                   borderCollapse: "collapse",
-                  fontSize: "0.9em",
+                  fontSize: "0.9rem",
                 }}
               >
                 {children}
@@ -144,7 +145,7 @@ export default function ArticleContent({ content, isLight }: Props) {
                     : "rgba(255,255,255,0.1)",
                   padding: "2px 6px",
                   borderRadius: "4px",
-                  fontSize: "0.9em",
+                  fontSize: "0.9rem",
                   wordBreak: "break-word",
                 }}
               >
