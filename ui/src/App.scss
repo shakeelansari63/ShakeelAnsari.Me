@@ -197,6 +197,20 @@ html.scrolled .p-toolbar .p-button .p-button-icon {
     border-radius: 4px;
 }
 
+.blog-content li {
+    list-style: none;
+    position: relative;
+    padding-left: 1.25rem;
+}
+
+.blog-content li::before {
+    content: "•";
+    color: #d53a9d;
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
 @keyframes shimmer {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }

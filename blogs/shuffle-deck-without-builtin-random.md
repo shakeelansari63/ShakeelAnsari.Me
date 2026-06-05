@@ -6,7 +6,7 @@ readTime: 8 min read
 tags: Python, Algorithms, Randomness, Shuffling, Hashing  
 ---
 
-![Shuffling a deck](images/shuffle-deck.webp)
+![Shuffling a deck](images/1-1-shuffle-deck.webp)
 
 ## Hey there, fellow card‑lover!
 

@@ -1,4 +1,5 @@
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import CodeBlock from "./CodeBlock";
 import LazyImage from "../shared/LazyImage";
 
@@ -18,6 +19,7 @@ export default function ArticleContent({ content, isLight }: Props) {
       }}
     >
       <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
         components={{
           h1: ({ children }) => (
             <h1
@@ -61,10 +63,7 @@ export default function ArticleContent({ content, isLight }: Props) {
             </strong>
           ),
           li: ({ children }) => (
-            <li className="m-0 mb-2" style={{ listStyle: "none" }}>
-              <span style={{ color: "#d53a9d", marginRight: "0.5rem" }}>•</span>
-              {children}
-            </li>
+            <li className="m-0 mb-2">{children}</li>
           ),
           a: ({ href, children }) => (
             <a href={href} target="_blank" rel="noopener noreferrer">
@@ -74,10 +73,60 @@ export default function ArticleContent({ content, isLight }: Props) {
           img: ({ src, alt }) => (
             <LazyImage src={src!} alt={alt} maxWidth={800} maxHeight={400} />
           ),
-          ul: ({ children }) => (
-            <ul className="m-0 mb-2 pl-3" style={{ listStyle: "none" }}>
+          table: ({ children }) => (
+            <div className="m-0 mb-2" style={{ overflowX: "auto" }}>
+              <table
+                style={{
+                  width: "100%",
+                  borderCollapse: "collapse",
+                  fontSize: "0.9em",
+                }}
+              >
+                {children}
+              </table>
+            </div>
+          ),
+          thead: ({ children }) => (
+            <thead style={{ borderBottom: `2px solid ${isLight ? "#d53a9d" : "#d53a9d"}` }}>
               {children}
-            </ul>
+            </thead>
+          ),
+          tbody: ({ children }) => <tbody>{children}</tbody>,
+          tr: ({ children }) => (
+            <tr
+              style={{
+                borderBottom: `1px solid ${isLight ? "rgba(0,0,0,0.1)" : "rgba(255,255,255,0.1)"}`,
+              }}
+            >
+              {children}
+            </tr>
+          ),
+          th: ({ children }) => (
+            <th
+              style={{
+                padding: "0.75rem 1rem",
+                textAlign: "left",
+                fontWeight: "bold",
+                color: isLight ? "#d53a9d" : "#d53a9d",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {children}
+            </th>
+          ),
+          td: ({ children }) => (
+            <td
+              style={{
+                padding: "0.75rem 1rem",
+                textAlign: "left",
+                color: isLight ? "#1a1a2e" : "#e0e0e0",
+              }}
+            >
+              {children}
+            </td>
+          ),
+          ul: ({ children }) => (
+            <ul className="m-0 mb-2">{children}</ul>
           ),
           code: ({ className, children }) => {
             const match = /language-(\w+)/.exec(className ?? "");

@@ -5,7 +5,7 @@
 
 # Rules for Writing a Blog
  1. **Start with casual (Not very formal) Greeting.** Make sure the greeting is somewhere related to the blogs topic but not too informal.  
- 2. **State the problem clearly.** Avoid any ambiguity in problem statement.  
+ 2. **State the problem or topic clearly.** Avoid any ambiguity in problem statement or topic for Blog.  
  3. **Use a first‑person narrative voice.**  
  4. **Maintain a conversational tone.**  
  5. **Structure the content in logical, step‑by‑step sections.**  
