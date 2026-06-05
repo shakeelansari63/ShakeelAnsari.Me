@@ -1,6 +1,6 @@
 ---
 title: Anatomy of an AI Application
-excerpt: Ever wondered what goes into a production-grade AI app? Let's dissect an AI chatbot and see whats inside,
+excerpt: Ever wondered what goes into a production-grade AI app? Let's dissect an AI chatbot and see whats inside.
 date: 2026-06-05
 readTime: 12 min read
 tags: AI, LangGraph, MCP, LangSmith, Python, Gradio

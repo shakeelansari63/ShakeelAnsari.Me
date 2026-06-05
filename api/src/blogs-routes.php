@@ -207,7 +207,8 @@ return function (App $app, ?PDO $pdo) {
         }
         $id = basename($args["id"]);
         $ip = clientIp($request);
-        $hour = date("Y-m-d H:00:00");
+        $windowStart = floor((int) date("G") / 8) * 8;
+        $hour = date("Y-m-d {$windowStart}:00:00");
 
         $seen = $pdo->prepare(
             "SELECT 1 FROM blog_views WHERE blog_id = ? AND ip = ? AND view_hour = ?",
