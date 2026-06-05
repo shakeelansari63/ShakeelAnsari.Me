@@ -207,3 +207,17 @@ Create a **production** environment in your repo settings with:
 | POST   | `/api/blogs/{id}/like`    | Toggle like                 |
 | POST   | `/api/admin/login`        | Admin authentication        |
 | POST   | `/api/admin/sync-blogs`   | Sync markdown files to DB   |
+
+## ❤️ Credits
+
+This work wouldn't be possible without the hard work of following repos' amazing owners.
+
+- [`@primefaces/primereact`](https://github.com/primefaces/primereact)
+- [`@said7388/github-portfolio`](https://github.com/said7388/github-portfolio)
+- [`@vn7n24fzkq/github-profile-summary-cards`](https://github.com/vn7n24fzkq/github-profile-summary-cards)
+- [`@anuraghazra/github-readme-stats`](https://github.com/anuraghazra/github-readme-stats)
+- [`@denvercoder1/github-readme-streak-stats`](https://github.com/denvercoder1/github-readme-streak-stats)
+- [`@rschristian/github-contribution-calendar-api`](https://github.com/rschristian/github-contribution-calendar-api)
+- [`@cjosue15/ngx-heatmap-calendar`](https://github.com/cjosue15/ngx-heatmap-calendar)
+
+Go ahead give them some stars as well.
