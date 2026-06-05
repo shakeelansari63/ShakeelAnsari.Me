@@ -14,7 +14,7 @@ ui:
 	cd ui && npm run dev
 
 api:
-	cd api && php -S localhost:8080 -t public
+	cd api && PHP_CLI_SERVER_WORKERS=4 php -S localhost:8080 -t public
 
 start:
 	@echo "Starting UI (port 3000) and API (port 8080)..."
