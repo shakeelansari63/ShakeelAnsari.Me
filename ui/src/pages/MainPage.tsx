@@ -12,44 +12,43 @@ import ActivitySection from "../components/Home/ActivitySection";
 import FooterSection from "../components/Home/FooterSection";
 
 export default function MainPage() {
-    useEffect(() => {
-        document.title =
-            "Shakeel Ansari — Data Engineer, GenAI Engineer & Full-Stack Developer";
-    }, []);
-    const [profile, setProfile] = useState<GitProfile | null>(null);
-    const [projects, setProjects] = useState<GitProject[]>([]);
+  useEffect(() => {
+    document.title = "Shakeel Ansari — Data, AI & Full-Stack Engineer";
+  }, []);
+  const [profile, setProfile] = useState<GitProfile | null>(null);
+  const [projects, setProjects] = useState<GitProject[]>([]);
 
-    useEffect(() => {
-        fetchUserProfile().then(setProfile);
-        fetchUserProjects().then(setProjects);
-    }, []);
+  useEffect(() => {
+    fetchUserProfile().then(setProfile);
+    fetchUserProjects().then(setProjects);
+  }, []);
 
-    return (
-        <>
-            <ToolBar />
-            <div className="app-container">
-                <Hero profile={profile} />
+  return (
+    <>
+      <ToolBar />
+      <div className="app-container">
+        <Hero profile={profile} />
 
-                <SectionTitle anchor="stats">GitHub Statistics</SectionTitle>
-                <StatsSection />
+        <SectionTitle anchor="stats">GitHub Statistics</SectionTitle>
+        <StatsSection />
 
-                <SectionTitle anchor="languages">GitHub Languages</SectionTitle>
-                <LanguagesSection />
+        <SectionTitle anchor="languages">GitHub Languages</SectionTitle>
+        <LanguagesSection />
 
-                <SectionTitle anchor="contributions">
-                    Streaks &amp; Productivity
-                </SectionTitle>
-                <StreakSection />
+        <SectionTitle anchor="contributions">
+          Streaks &amp; Productivity
+        </SectionTitle>
+        <StreakSection />
 
-                <SectionTitle anchor="activity">Activity Graph</SectionTitle>
-                <ActivitySection />
+        <SectionTitle anchor="activity">Activity Graph</SectionTitle>
+        <ActivitySection />
 
-                <SectionTitle anchor="projects">GitHub Projects</SectionTitle>
-                <ProjectsSection projects={projects} />
+        <SectionTitle anchor="projects">GitHub Projects</SectionTitle>
+        <ProjectsSection projects={projects} />
 
-                <SectionTitle hideTitle />
-                <FooterSection />
-            </div>
-        </>
-    );
+        <SectionTitle hideTitle />
+        <FooterSection />
+      </div>
+    </>
+  );
 }
