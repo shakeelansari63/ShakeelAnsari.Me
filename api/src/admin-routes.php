@@ -129,14 +129,10 @@ return function (App $app, ?PDO $pdo) {
             $parsed++;
         }
 
-        if ($ids) {
-            $placeholders = implode(",", array_fill(0, count($ids), "?"));
-            $pdo->prepare(
-                "UPDATE blog SET deleted = 1 WHERE id NOT IN ({$placeholders})",
-            )->execute($ids);
-        } else {
-            $pdo->exec("UPDATE blog SET deleted = 1");
-        }
+        $placeholders = implode(",", array_fill(0, count($ids), "?"));
+        $pdo->prepare(
+            "UPDATE blog SET deleted = 1 WHERE id NOT IN ({$placeholders})",
+        )->execute($ids);
 
         return jsonResponse($response, [
             "message" => "Synced {$parsed} blog posts",

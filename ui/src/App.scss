@@ -7,6 +7,10 @@ body {
     background-color: rgba(0, 0, 0, 0) !important;
 }
 
+.no-hover-bg.p-button.p-button-text:hover {
+    background: transparent !important;
+}
+
 .p-card {
     background-color: #1f2023 !important;
     transition: box-shadow 0.25s ease-in-out;
@@ -77,10 +81,6 @@ html.scrolled .p-toolbar .p-button .p-button-icon {
 
 .border-gradient-purple:hover::after {
     left: 100%;
-}
-
-.mono-spaced {
-    font-family: 'Space Grotesk', sans-serif;
 }
 
 .app-container {
@@ -190,13 +190,6 @@ html.scrolled .p-toolbar .p-button .p-button-icon {
     background-color: #27c93f;
 }
 
-.skeleton-pulse {
-    background: linear-gradient(90deg, #2a2b2e 25%, #3a3b40 35%, #d53a9d 50%, #3a3b40 65%, #2a2b2e 75%);
-    background-size: 300% 100%;
-    animation: shimmer 1.5s ease-in-out infinite;
-    border-radius: 4px;
-}
-
 .blog-content li {
     list-style: none;
     position: relative;
@@ -209,11 +202,6 @@ html.scrolled .p-toolbar .p-button .p-button-icon {
     position: absolute;
     left: 0;
     font-weight: bold;
-}
-
-@keyframes shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
 }
 
 .skeleton-image {
@@ -250,25 +238,6 @@ html.scrolled .p-toolbar .p-button .p-button-icon {
     100% { background-position: -200% 0; }
 }
 
-.code-block {
-    background: rgba(255, 255, 255, 0.06);
-    border-radius: 6px;
-    padding: 1rem;
-    margin: 0 0 0.5rem;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    max-width: 100%;
-}
-
-.code-block::-webkit-scrollbar {
-    height: 6px;
-}
-
-.code-block::-webkit-scrollbar-thumb {
-    background: rgba(213, 58, 157, 0.4);
-    border-radius: 3px;
-}
-
 @media only screen and (max-width: 600px) {
     .blog-content {
         padding: 0 0.5rem;
@@ -287,12 +256,6 @@ html.scrolled .p-toolbar .p-button .p-button-icon {
 
     .blog-content h3 {
         font-size: 1.1rem !important;
-    }
-
-.code-block {
-        padding: 0.75rem;
-        font-size: 0.8rem;
-        border-radius: 4px;
     }
 }
 

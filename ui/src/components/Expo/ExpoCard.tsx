@@ -4,8 +4,8 @@ import { Button } from 'primereact/button';
 interface ExpoItem {
   name: string;
   description: string;
-  appUrl: string;
-  codeUrl: string;
+  appUrl?: string;
+  codeUrl?: string;
   thumbnail: string;
 }
 

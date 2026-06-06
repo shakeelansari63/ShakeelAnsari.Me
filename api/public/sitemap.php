@@ -30,7 +30,7 @@ if ($pdo) {
                 "priority" => "0.7",
             ];
         }
-    } catch (PDOException $e) {
+    } catch (PDOException) {
         // proceed without blog entries
     }
 }
