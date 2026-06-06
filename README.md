@@ -20,10 +20,10 @@ Personal portfolio website for [shakeelansari.me](https://shakeelansari.me) — 
 │   │   ├── pages/        – Page-level components
 │   │   ├── services/     – API client, data, stats
 │   │   └── models/       – TypeScript interfaces
-│   └── index.html        – Vite entry with Inter font (Google Fonts)
+│   └── index.html        – Vite entry with meta tags, OG, schema.org JSON-LD
 ├── api/         – PHP API backend (Slim Framework)
-│   ├── public/           – Entry point (index.php)
-│   ├── src/              – Routes (blogs, admin), helpers
+│   ├── public/           – Entry point (index.php, sitemap.php)
+│   ├── src/              – Routes (blogs, admin), helpers, DB
 │   └── db/               – Database schema (schema.sql)
 ├── blogs/       – Markdown blog posts and images
 └── .github/     – CI/CD workflow
@@ -85,7 +85,7 @@ mysql -u root -p your_database_name < api/db/schema.sql
 
 This creates three tables:
 - **`blog`** — Blog posts synced from markdown files
-- **`blog_views`** — View tracking (dedup by IP + hour)
+- **`blog_views`** — View tracking (dedup by IP + 8-hour window)
 - **`blog_likes`** — Like tracking (dedup by IP)
 
 Without a database, the API runs in degraded mode (blogs list and content still work via markdown files, but views/likes are not recorded).
@@ -116,6 +116,13 @@ After setting up the database, sync markdown files from `blogs/` into the DB:
 1. Visit `http://localhost:3000/admin`
 2. Log in with the credentials from `api/.env`
 3. Click **Sync Blogs**
+
+### Defensive Timeouts
+
+The app includes two layers of timeout protection:
+
+- **PHP `max_execution_time = 60`** — set in `api/public/index.php:3` and `api/public/sitemap.php:3`. Self-terminates any script that hangs for 60 seconds of CPU time.
+- **MySQL query timeout** — `SET SESSION max_execution_time = 30000` (30 seconds) executed after every DB connection in `api/src/DB.php:26-29`. Kills SELECT queries that exceed 30 seconds (MySQL 8.0+).
 
 ---
 
@@ -188,12 +195,12 @@ Create a **production** environment in your repo settings with:
 
 ## Features
 
-- **Homepage** — GitHub profile, contribution heatmap, stats cards, project listing
-- **Blog** — Markdown-based blog with pagination, views, likes, and sharing
-- **Expo** — Portfolio showcase with App/Code links
-- **Admin** — Password-protected panel for syncing blog posts
-- **Dark/Light mode** — Toggle on blog reader
-- **Responsive** — Mobile-first layout with PrimeFlex
+- **Homepage** — GitHub profile card (avatar, bio), contribution heatmap calendar, stats cards (repos, stars, followers, total contributions), language breakdown, streak stats, project listing
+- **Blog** — Markdown-based blog with pagination, syntax-highlighted code blocks (`react-syntax-highlighter`), view tracking (IP-deduped per 8-hour window), interactive like/unlike toggle, share support via Web Share API
+- **Expo** — Portfolio/project showcase with App and Code buttons (optional URLs, hidden when not provided)
+- **Admin** — JWT-authenticated password-protected panel with file-based rate limiting (5 attempts per 15 minutes per IP), one-click blog sync from markdown files (upserts + marks deleted files)
+- **UI/UX** — Dark/light theme toggle, scroll-shrink toolbar animation, lazy image loading with skeleton placeholders, skeleton loading cards for blog list, responsive mobile sidebar navigation, custom 404 page
+- **SEO** — Dynamic XML sitemap (auto-includes blog entries), Open Graph tags, Twitter cards, schema.org JSON-LD structured data, `<meta name="robots">`, canonical URL
 
 ## API Endpoints
 
@@ -207,6 +214,80 @@ Create a **production** environment in your repo settings with:
 | POST   | `/api/blogs/{id}/like`    | Toggle like                 |
 | POST   | `/api/admin/login`        | Admin authentication        |
 | POST   | `/api/admin/sync-blogs`   | Sync markdown files to DB   |
+
+---
+
+## SEO & Customization Checklist
+
+Before deploying your own version of this site, update the following files with your information. Use find-and-replace across the project to catch all occurrences.
+
+### 1. HTML Meta & SEO (`ui/index.html`)
+
+| Search for | Replace with |
+|---|---|
+| `Shakeel Ansari — Data, AI & Full-Stack Engineer` | `[Your Name] — [Your Title]` |
+| `Shakeel Ansari — Data, AI & Full-Stack Engineer` (OG title) | `[Your Name] — [Your Title]` |
+| `Shakeel Ansari` (Twitter title) | `[Your Name]` |
+| `Data, AI & Full-Stack Engineer` (Twitter description) | `[Your Title / Tagline]` |
+| `Personal portfolio showcasing GitHub projects...` | `[Your portfolio description]` |
+| `https://shakeelansari.me` (canonical URL) | `https://[your-domain].com` |
+| `https://shakeelansari.me` (OG url) | `https://[your-domain].com` |
+| `https://avatars.githubusercontent.com/shakeelansari63` | `https://avatars.githubusercontent.com/[your-username]` |
+| `"name": "Shakeel Ansari"` (JSON-LD) | `"name": "[Your Name]"` |
+| `"url": "https://shakeelansari.me"` (JSON-LD) | `"url": "https://[your-domain].com"` |
+| `"jobTitle": "Data, AI & Full-Stack Engineer"` (JSON-LD) | `"jobTitle": "[Your Title]"` |
+| `https://github.com/shakeelansari63` | `https://github.com/[your-username]` |
+| `https://www.linkedin.com/in/shakeelansari63` | `https://linkedin.com/in/[your-username]` |
+| `https://twitter.com/shakeelansari63` | `https://twitter.com/[your-username]` |
+
+### 2. Robots & Favicon
+
+| File | What to change |
+|---|---|
+| `ui/public/robots.txt:4` | Replace `https://shakeelansari.me` with `https://[your-domain].com` |
+| `ui/public/favicon.svg` | Replace with your own favicon SVG |
+
+### 3. Page Titles (6 files)
+
+Find and replace `Shakeel Ansari` with `[Your Name]` in `document.title` across all pages:
+
+| File | Current title |
+|---|---|
+| `ui/src/pages/MainPage.tsx:16` | `Shakeel Ansari — Data, AI & Full-Stack Engineer` |
+| `ui/src/pages/BlogPage.tsx:10` | `Blogs — Shakeel Ansari` |
+| `ui/src/pages/BlogReaderPage.tsx:31,38` | `Blog — Shakeel Ansari` / `{title} — Shakeel Ansari` |
+| `ui/src/pages/ExpoPage.tsx:7` | `Expo — Shakeel Ansari` |
+| `ui/src/pages/NotFoundPage.tsx:7` | `404 — Shakeel Ansari` |
+
+### 4. User Data (`ui/src/services/data.ts`)
+
+| Key | Current value | Replace with |
+|---|---|---|
+| `githubUser` | `shakeelansari63` | `[your-github-username]` |
+| `devUsername` | `shakeelansari63` | `[your-username]` |
+| `github` | `https://github.com/shakeelansari63` | `https://github.com/[your-username]` |
+| `linkedIn` | `https://linkedin.com/in/shakeelansari63` | `https://linkedin.com/in/[your-username]` |
+| `twitter` | `https://twitter.com/shakeelansari63` | `https://twitter.com/[your-username]` |
+| `email` | `shakeelansari63@gmail.com` | `[your@email.com]` |
+| `badges` | `https://credly.com/users/shakeelansari63` | `https://credly.com/users/[your-username]` |
+| `skills[]` | Your skills | Your skills |
+| `expo[]` | Your projects | Your projects |
+
+### 5. Environment Template (`api/.env.template`)
+
+| Variable | Default | Replace with |
+|---|---|---|
+| `APP_ENV` | `development` | `production` on deploy |
+| `APP_URL` | `http://localhost:3000` | `https://[your-domain].com` in production |
+| `ADMIN_USERNAME` | _(empty)_ | Your admin username |
+| `ADMIN_PASSWORD` | _(empty)_ | Your admin password |
+| `JWT_SECRET` | _(empty)_ | A random secure string |
+
+### 6. Google Fonts (Optional)
+
+The app uses `Space Grotesk`, `Fira Code`, and `JetBrains Mono` loaded from Google Fonts in `ui/index.html:13-18`. Replace with your preferred fonts if desired, and update the `font-family` references in `ui/src/App.scss:3`.
+
+---
 
 ## ❤️ Credits
 
