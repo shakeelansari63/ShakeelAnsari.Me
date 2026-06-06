@@ -45,7 +45,7 @@ I chose MCP specifically because it is agent-framework agnostic. This means the 
 
 ## 3. Orchestrating the Agent with LangGraph
 
-![Agent Flow](images/2-3-app-data-flow.png)  
+![Agent Flow](images/2-3-agent-request-flow.png)  
 
 The "brain" of the application is built using LangGraph. Instead of a single complex prompt trying to do everything, the architecture is split into specific nodes that handle different parts of the logic. In this application we have 3 Nodes: `OutOfScopeDetector`, `ToolShortlister`, and `Worker`. 
 
