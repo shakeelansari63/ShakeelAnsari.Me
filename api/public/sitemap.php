@@ -1,5 +1,7 @@
 <?php
 
+ini_set("max_execution_time", 60);
+
 require_once __DIR__ . "/../vendor/autoload.php";
 
 $dotenv = Dotenv\Dotenv::createMutable(__DIR__ . "/..");

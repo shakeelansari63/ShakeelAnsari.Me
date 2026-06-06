@@ -1,5 +1,7 @@
 <?php
 
+ini_set("max_execution_time", 60);
+
 use Slim\Factory\AppFactory;
 use Slim\Middleware\BodyParsingMiddleware;
 use Dotenv\Dotenv;

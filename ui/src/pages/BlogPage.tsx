@@ -31,6 +31,7 @@ export default function BlogPage() {
                 {loading ? (
                     <div className="grid">
                         <SkeletonCard />
+                        <SkeletonCard />
                     </div>
                 ) : (
                     <>

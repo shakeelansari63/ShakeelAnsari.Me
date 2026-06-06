@@ -23,6 +23,10 @@ class DB
                 \PDO::ATTR_EMULATE_PREPARES => false,
                 \PDO::ATTR_TIMEOUT => 2,
             ]);
+            try {
+                $pdo->exec("SET SESSION max_execution_time = 30000");
+            } catch (\PDOException) {
+            }
             return $pdo;
         } catch (\PDOException $e) {
             error_log("DB connection failed: " . $e->getMessage());

@@ -69,7 +69,6 @@ export const userData = {
             name: "ShakeelAnsari.Me",
             description:
                 "Personal Portfolio App. Website written in PHP and React for Personal Portfolio showcase.",
-            appUrl: "https://shakeelansari.me/",
             codeUrl: "https://github.com/shakeelansari63/ShakeelAnsari.Me",
             thumbnail: "",
         },

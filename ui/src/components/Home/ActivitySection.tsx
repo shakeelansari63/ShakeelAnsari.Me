@@ -23,7 +23,7 @@ export default function ActivitySection() {
   }, []);
 
   return (
-    <Card className="text-center">
+    <Card className="text-center" style={{ background: "transparent", boxShadow: "none" }}>
       {contrib ? (
         <HeatmapCalendar
           dates={contrib.data}
