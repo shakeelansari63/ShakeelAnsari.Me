@@ -2,7 +2,7 @@
 title: Anatomy of an AI Application
 excerpt: Ever wondered what goes into a production-grade AI app? Let's dissect an AI chatbot and see whats inside.
 date: 2026-06-05
-readTime: 12 min read
+readTime: 13 min read
 tags: AI, LangGraph, MCP, LangSmith, Python, Gradio
 ---
 
@@ -47,11 +47,17 @@ I chose MCP specifically because it is agent-framework agnostic. This means the 
 
 ![Agent Flow](images/2-3-app-data-flow.png)  
 
-The "brain" of the application is built using LangGraph. Instead of a single complex prompt trying to do everything, the architecture is split into specific nodes that handle different parts of the logic. In this application we have 2 Nodes `ToolShortlister` and `Worker`. 
+The "brain" of the application is built using LangGraph. Instead of a single complex prompt trying to do everything, the architecture is split into specific nodes that handle different parts of the logic. In this application we have 3 Nodes: `OutOfScopeDetector`, `ToolShortlister`, and `Worker`. 
+
+### Guarding the Graph with the OutOfScopeDetector Node
+
+The conversation first goes to the `OutOfScopeDetector` node, which acts as the absolute first line of defense in our agent workflow. Before we spend any computational resources trying to fetch data or shortlist tools, we need to make sure the user is actually asking about something relevant. 
+
+This node identifies if the user's question is related to the NSE and should be answered. If the query is irrelevant or completely out of scope, the graph immediately terminates right then and there. The application simply informs the user that it cannot answer that specific question, protecting our downstream resources from processing garbage inputs.
 
 ### What is a ToolShortlister Node and why is it Needed
 
-In a large MCP environment, you might have 20 to 30 different tools. If you give all of them to an agent at once, you hit a few walls. First, it increases the token count, which costs more and slows down the response. Second, and more importantly, it raises the risk of hallucination. When an LLM has too many options, it can get confused and pick the wrong tool for the job. To solve this, I added a `ToolShortlister` node.
+If the question passes our initial scope detector, it moves along to the `ToolShortlister` node. In a large MCP environment, you might have 20 to 30 different tools. If you give all of them to an agent at once, you hit a few walls. First, it increases the token count, which costs more and slows down the response. Second, and more importantly, it raises the risk of hallucination. When an LLM has too many options, it can get confused and pick the wrong tool for the job. 
 
 ### How the Tool Shortlister Works
 
@@ -67,7 +73,7 @@ The worker node is a classic ReAct agent. It takes the user's question and the f
 
 You cannot run an agent reliably in production if you are flying blind. Monitoring helps us see the exact decisions the agent made, which tools were called, and where things might have gone sideways.
 
-I used LangSmith for all agent monitoring and tracing. It is free and integrates perfectly with the LangChain/LangGraph ecosystem. By looking at the traces, we can see exactly which tools the `ToolShortlister` picked. If the agent starts making weird choices, we can tweak the tool names or the shortlister logic to get it back on track.
+I used LangSmith for all agent monitoring and tracing. It is free and integrates perfectly with the LangChain/LangGraph ecosystem. By looking at the traces, we can see exactly which tools the `ToolShortlister` picked and track exactly when the `OutOfScopeDetector` triggered a termination. If the agent starts making weird choices, we can tweak the tool names or the node logic to get it back on track.
 
 ## 5. The User Interface and Hosting
 
@@ -97,7 +103,7 @@ There are also several advanced components I didn't cover in the session that ev
   
 * **Memory**: How do we keep context across days or weeks of conversation?  
 * **HITL (Human in the Loop)**: How do we insert a human approval step before the agent performs a sensitive action?  
-* **Agent-to-Agent Communication**: How do multiple   specialized agents collaborate on a single complex goal?
+* **Agent-to-Agent Communication**: How do multiple specialized agents collaborate on a single complex goal?
   
 Hopefully, this breakdown gives you a clear blueprint for your next AI project. Go ahead, check out the code, and start building!  
   
