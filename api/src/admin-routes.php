@@ -138,4 +138,121 @@ return function (App $app, ?PDO $pdo) {
             "message" => "Synced {$parsed} blog posts",
         ]);
     });
+
+    $app->post("/admin/sync-learn", function (
+        Request $request,
+        Response $response,
+    ) use ($pdo) {
+        if (!$pdo) {
+            return jsonResponse(
+                $response,
+                ["error" => "Database not available"],
+                503,
+            );
+        }
+
+        if (!verifyAdmin($request)) {
+            return jsonResponse($response, ["error" => "Unauthorized"], 401);
+        }
+
+        $dir = LEARN_DIR;
+
+        if (!is_dir($dir)) {
+            return jsonResponse(
+                $response,
+                ["error" => "Learn directory not found"],
+                500,
+            );
+        }
+
+        $subjectFolders = glob($dir . "/*", GLOB_ONLYDIR);
+        $syncedSubjects = 0;
+        $syncedChapters = 0;
+
+        $catalogExts = ['png', 'jpg', 'jpeg', 'webp', 'bmp'];
+
+        $upsertSubject = $pdo->prepare(
+            'INSERT INTO learn_subjects (id, title, folder, sort_order, thumbnail)
+             VALUES (?, ?, ?, ?, ?)
+             ON DUPLICATE KEY UPDATE
+                 title = VALUES(title),
+                 folder = VALUES(folder),
+                 sort_order = VALUES(sort_order),
+                 thumbnail = VALUES(thumbnail)',
+        );
+
+        $upsertChapter = $pdo->prepare(
+            'INSERT INTO learn_chapters (subject_id, chapter_id, title, md_file, sort_order)
+             VALUES (?, ?, ?, ?, ?)
+             ON DUPLICATE KEY UPDATE
+                 title = VALUES(title),
+                 md_file = VALUES(md_file),
+                 sort_order = VALUES(sort_order)',
+        );
+
+        $subjectIds = [];
+
+        foreach ($subjectFolders as $folderPath) {
+            $folder = basename($folderPath);
+
+            if (preg_match('/^(\d+)-(.*)$/', $folder, $m)) {
+                $sortOrder = (int) $m[1];
+                $title = trim(str_replace(['-', '_'], ' ', $m[2]));
+                $id = strtolower($folder);
+            } else {
+                $sortOrder = 0;
+                $title = trim(str_replace(['-', '_'], ' ', $folder));
+                $id = strtolower($folder);
+            }
+
+            $thumbnail = '_default_thumbnail.svg';
+            foreach ($catalogExts as $ext) {
+                $candidate = $folderPath . '/thumbnail.' . $ext;
+                if (file_exists($candidate)) {
+                    $thumbnail = 'thumbnail.' . $ext;
+                    break;
+                }
+            }
+
+            $subjectIds[] = $id;
+            $upsertSubject->execute([$id, $title, $folder, $sortOrder, $thumbnail]);
+            $syncedSubjects++;
+
+            $chapterFiles = glob($folderPath . "/*.md");
+            foreach ($chapterFiles as $filePath) {
+                $chapterId = pathinfo($filePath, PATHINFO_FILENAME);
+
+                if (preg_match('/^ch(\d+)-(.*)$/', $chapterId, $cm)) {
+                    $chSort = (int) $cm[1];
+                    $chTitle = trim(str_replace(['-', '_'], ' ', $cm[2]));
+                } else {
+                    $chSort = 0;
+                    $chTitle = trim(str_replace(['-', '_'], ' ', $chapterId));
+                }
+
+                $upsertChapter->execute([
+                    $id,
+                    $chapterId,
+                    ucwords($chTitle),
+                    basename($filePath),
+                    $chSort,
+                ]);
+                $syncedChapters++;
+            }
+        }
+
+        if (!empty($subjectIds)) {
+            $placeholders = implode(",", array_fill(0, count($subjectIds), "?"));
+            $pdo->prepare(
+                "DELETE FROM learn_chapters WHERE subject_id NOT IN ({$placeholders})",
+            )->execute($subjectIds);
+            $pdo->prepare(
+                "DELETE FROM learn_subjects WHERE id NOT IN ({$placeholders})",
+            )->execute($subjectIds);
+        }
+
+        return jsonResponse($response, [
+            "message" => "Synced {$syncedSubjects} subjects and {$syncedChapters} chapters",
+        ]);
+    });
 };

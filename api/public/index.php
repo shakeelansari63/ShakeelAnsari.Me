@@ -48,6 +48,7 @@ require __DIR__ . "/../src/helpers.php";
 
 $pdo = \App\DB::connect();
 (require __DIR__ . "/../src/blogs-routes.php")($app, $pdo);
+(require __DIR__ . "/../src/learn-routes.php")($app, $pdo);
 (require __DIR__ . "/../src/admin-routes.php")($app, $pdo);
 
 $app->run();

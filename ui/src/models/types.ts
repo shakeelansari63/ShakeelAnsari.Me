@@ -59,3 +59,18 @@ export interface ContribSubject {
   endDate: Date;
   data: HeatMapDate[];
 }
+
+export interface LearnSubject {
+  id: string;
+  title: string;
+  folder: string;
+  sort_order: number;
+  thumbnail: string;
+}
+
+export interface LearnChapter {
+  id: number;
+  chapter_id: string;
+  title: string;
+  sort_order: number;
+}

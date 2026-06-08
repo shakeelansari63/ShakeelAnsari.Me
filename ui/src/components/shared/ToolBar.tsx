@@ -52,6 +52,15 @@ export default function ToolBar({ isLight, onToggleTheme }: Props) {
             },
         },
         {
+            label: "Learn",
+            icon: "pi pi-graduation-cap",
+            visible: !location.pathname.startsWith("/learn"),
+            action: () => {
+                setMenuOpen(false);
+                navigate("/learn");
+            },
+        },
+        {
             label: "Stats",
             icon: "pi pi-chart-bar",
             visible: location.pathname === "/",
@@ -113,6 +122,17 @@ export default function ToolBar({ isLight, onToggleTheme }: Props) {
                         icon="pi pi-book"
                         label="Blogs"
                         onClick={() => navigate("/blog")}
+                        style={{ outline: "none", boxShadow: "none" }}
+                    />
+                )}
+                {!location.pathname.startsWith("/learn") && (
+                    <Button
+                        text
+                        severity="secondary"
+                        className="text-pink-500"
+                        icon="pi pi-graduation-cap"
+                        label="Learn"
+                        onClick={() => navigate("/learn")}
                         style={{ outline: "none", boxShadow: "none" }}
                     />
                 )}

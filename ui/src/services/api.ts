@@ -1,5 +1,5 @@
 import { userData } from "./data";
-import type { BlogPost } from "../models/types";
+import type { BlogPost, LearnSubject, LearnChapter } from "../models/types";
 import type {
     GitProfile,
     GitProject,
@@ -111,6 +111,42 @@ export async function likeBlog(
 ): Promise<{ likes: number; liked: boolean } | null> {
     try {
         const res = await fetch(`/api/blogs/${id}/like`, { method: "POST" });
+        if (!res.ok) return null;
+        return res.json();
+    } catch {
+        return null;
+    }
+}
+
+export async function fetchLearnSubjects(): Promise<LearnSubject[]> {
+    try {
+        const res = await fetch("/api/learn/subjects");
+        if (!res.ok) return [];
+        const data = await res.json();
+        return data.data ?? [];
+    } catch {
+        return [];
+    }
+}
+
+export async function fetchSubjectChapters(
+    subjectId: string,
+): Promise<LearnChapter[]> {
+    try {
+        const res = await fetch(`/api/learn/subjects/${subjectId}/chapters`);
+        if (!res.ok) return [];
+        const data = await res.json();
+        return data.data ?? [];
+    } catch {
+        return [];
+    }
+}
+
+export async function fetchChapterContent(
+    chapterId: number,
+): Promise<{ title: string; content: string } | null> {
+    try {
+        const res = await fetch(`/api/learn/chapters/${chapterId}/content`);
         if (!res.ok) return null;
         return res.json();
     } catch {

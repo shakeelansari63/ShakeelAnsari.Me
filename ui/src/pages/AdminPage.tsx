@@ -19,6 +19,7 @@ export default function AdminPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [syncing, setSyncing] = useState(false);
+  const [syncingLearn, setSyncingLearn] = useState(false);
   const [token, setToken] = useState(() => localStorage.getItem('admin_token'));
   const toast = useRef<Toast>(null);
 
@@ -80,6 +81,36 @@ export default function AdminPage() {
     }
   };
 
+  const handleSyncLearn = async () => {
+    setSyncingLearn(true);
+    try {
+      const res = await fetch('/api/admin/sync-learn', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.status === 401) {
+        localStorage.removeItem('admin_token');
+        setToken(null);
+        toast.current?.show({ severity: 'warn', summary: 'Session Expired', detail: 'Please log in again', life: 5000 });
+        return;
+      }
+      const data = await res.json();
+      toast.current?.show({
+        severity: res.ok ? 'success' : 'error',
+        summary: res.ok ? 'Synced' : 'Error',
+        detail: data.message || data.error || 'Unknown error',
+        life: 3000,
+      });
+    } catch {
+      toast.current?.show({ severity: 'error', summary: 'Error', detail: 'Network error', life: 3000 });
+    } finally {
+      setSyncingLearn(false);
+    }
+  };
+
   if (token) {
     return (
       <>
@@ -93,10 +124,16 @@ export default function AdminPage() {
           <Card className="mb-3">
             <p className="text-gray-400 m-0">Welcome to the admin panel.</p>
           </Card>
-          <Card>
+          <Card className="mb-3">
             <div className="flex align-items-center justify-content-between">
               <span className="text-gray-400">Sync blog metadata from markdown files</span>
               <Button label="Sync Blogs" icon="pi pi-refresh" loading={syncing} onClick={handleSync} style={{ outline: 'none', boxShadow: 'none' }} />
+            </div>
+          </Card>
+          <Card>
+            <div className="flex align-items-center justify-content-between">
+              <span className="text-gray-400">Sync learning subjects and chapters from markdown files</span>
+              <Button label="Sync Learning" icon="pi pi-refresh" loading={syncingLearn} onClick={handleSyncLearn} style={{ outline: 'none', boxShadow: 'none' }} />
             </div>
           </Card>
         </div>
