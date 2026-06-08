@@ -3,9 +3,11 @@ import type { GitProfile, GitProject } from "../models/types";
 import { fetchUserProfile, fetchUserProjects } from "../services/api";
 import ToolBar from "../components/shared/ToolBar";
 import Hero from "../components/Home/Hero";
+import WorkSection from "../components/Home/WorkSection";
 import SectionTitle from "../components/Home/SectionTitle";
 import StatsSection from "../components/Home/StatsSection";
 import ProjectsSection from "../components/Home/ProjectsSection";
+import AlsoSeeSection from "../components/Home/AlsoSeeSection";
 import LanguagesSection from "../components/Home/LanguagesSection";
 import StreakSection from "../components/Home/StreakSection";
 import ActivitySection from "../components/Home/ActivitySection";
@@ -29,6 +31,9 @@ export default function MainPage() {
       <div className="app-container">
         <Hero profile={profile} />
 
+        <SectionTitle anchor="experience">Work Experience</SectionTitle>
+        <WorkSection />
+
         <SectionTitle anchor="stats">GitHub Statistics</SectionTitle>
         <StatsSection />
 
@@ -45,6 +50,9 @@ export default function MainPage() {
 
         <SectionTitle anchor="projects">GitHub Projects</SectionTitle>
         <ProjectsSection projects={projects} />
+
+        <SectionTitle anchor="see-also">Explore Further</SectionTitle>
+        <AlsoSeeSection />
 
         <SectionTitle hideTitle />
         <FooterSection />
