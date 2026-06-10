@@ -1,6 +1,7 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import CodeBlock from "../BlogReader/CodeBlock";
+import CodeBlock from "../shared/CodeBlock";
+import MermaidRenderer from "../shared/MermaidRenderer";
 import LazyImage from "../shared/LazyImage";
 
 interface Props {
@@ -133,6 +134,9 @@ export default function MarkdownRenderer({ content, isLight }: Props) {
             const match = /language-(\w+)/.exec(className ?? "");
             if (match) {
               const code = String(children).replace(/\n$/, "");
+              if (match[1] === "mermaid") {
+                return <MermaidRenderer chart={code} />;
+              }
               return (
                 <CodeBlock code={code} language={match[1]} isLight={isLight} />
               );

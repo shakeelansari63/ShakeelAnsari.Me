@@ -70,7 +70,7 @@ export default function SubjectPage() {
               >
                 <div className="flex align-items-center gap-3">
                   <span className="text-sm text-gray-500">
-                    {chapter.chapter_id.replace(/^ch(\d+).*$/, "ch$1")}
+                    {`Topic: ${parseInt(chapter.chapter_id.replace(/^ch(\d+).*$/, "$1"), 10)}`}
                   </span>
                   <span className="text-pink-400 font-bold">
                     {chapter.title}
