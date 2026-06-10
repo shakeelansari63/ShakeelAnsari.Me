@@ -4,7 +4,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 const BLOGS_DIR = __DIR__ . "/../../blogs";
-const LEARN_DIR = __DIR__ . "/../../learn";
+const LEARN_DIR = __DIR__ . "/../../tutorial";
 
 function parseFrontmatter(string $content): array
 {
