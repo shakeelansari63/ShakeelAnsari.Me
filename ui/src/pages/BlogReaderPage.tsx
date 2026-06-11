@@ -15,6 +15,7 @@ import {
 } from "../services/api";
 import type { BlogPost } from "../models/types";
 import type { BlogStats } from "../services/api";
+import LoadingSpinner from "../components/shared/LoadingSpinner";
 
 export default function BlogReaderPage() {
     const { id } = useParams();
@@ -146,10 +147,7 @@ export default function BlogReaderPage() {
                             />
                             {contentLoading ? (
                                 <div className="flex justify-content-center mt-4">
-                                    <i
-                                        className="pi pi-spin pi-spinner text-pink-500"
-                                        style={{ fontSize: "2rem" }}
-                                    />
+                                    <LoadingSpinner />
                                 </div>
                             ) : content ? (
                                 <ArticleContent

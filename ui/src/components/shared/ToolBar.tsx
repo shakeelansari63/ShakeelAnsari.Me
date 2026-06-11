@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { Suspense, lazy, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Toolbar } from "primereact/toolbar";
 import { Button } from "primereact/button";
-import { Sidebar } from "primereact/sidebar";
 import { userData } from "../../services/data";
+
+const Sidebar = lazy(() =>
+    import("primereact/sidebar").then((m) => ({ default: m.Sidebar }))
+);
 
 interface Props {
     isLight?: boolean;
@@ -195,46 +198,48 @@ export default function ToolBar({ isLight, onToggleTheme }: Props) {
 
     return (
         <>
-            <Sidebar
-                visible={menuOpen}
-                onHide={() => setMenuOpen(false)}
-                position="right"
-                style={{
-                    background: "#18181b",
-                    border: "none",
-                    width: "220px",
-                }}
-            >
-                <div className="flex flex-column gap-2 mt-4">
-                    {menuItems
-                        .filter((item) => item.visible)
-                        .map((item) => (
-                            <Button
-                                key={item.label}
-                                text
-                                severity="secondary"
-                                className="text-pink-500"
-                                icon={item.icon}
-                                label={item.label}
-                                onClick={item.action}
-                                style={{
-                                    outline: "none",
-                                    boxShadow: "none",
-                                    justifyContent: "flex-start",
-                                    width: "100%",
-                                }}
-                                pt={{
-                                    label: {
-                                        style: {
-                                            flex: "none",
-                                            textAlign: "left" as const,
+            <Suspense fallback={null}>
+                <Sidebar
+                    visible={menuOpen}
+                    onHide={() => setMenuOpen(false)}
+                    position="right"
+                    style={{
+                        background: "#18181b",
+                        border: "none",
+                        width: "220px",
+                    }}
+                >
+                    <div className="flex flex-column gap-2 mt-4">
+                        {menuItems
+                            .filter((item) => item.visible)
+                            .map((item) => (
+                                <Button
+                                    key={item.label}
+                                    text
+                                    severity="secondary"
+                                    className="text-pink-500"
+                                    icon={item.icon}
+                                    label={item.label}
+                                    onClick={item.action}
+                                    style={{
+                                        outline: "none",
+                                        boxShadow: "none",
+                                        justifyContent: "flex-start",
+                                        width: "100%",
+                                    }}
+                                    pt={{
+                                        label: {
+                                            style: {
+                                                flex: "none",
+                                                textAlign: "left" as const,
+                                            },
                                         },
-                                    },
-                                }}
-                            />
-                        ))}
-                </div>
-            </Sidebar>
+                                    }}
+                                />
+                            ))}
+                    </div>
+                </Sidebar>
+            </Suspense>
             <Toolbar
                 start={startContent}
                 end={endContent}

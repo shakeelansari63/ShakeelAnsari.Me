@@ -10,6 +10,15 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules/primereact')) return 'vendor-primereact';
+        },
+      },
+    },
+  },
   server: {
     port: 3000,
     historyApiFallback: true,
