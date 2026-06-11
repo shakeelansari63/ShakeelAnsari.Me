@@ -24,7 +24,7 @@ export async function fetchUserProfile(): Promise<GitProfile | null> {
 export async function fetchUserProjects(): Promise<GitProject[]> {
     try {
         const res = await fetch(
-            `${baseApiUrl}/search/repositories?q=user:${userData.githubUser}+fork:false+archived:false&sort=updated&order=desc&per_page=6&type=Repositories`,
+            `${baseApiUrl}/search/repositories?q=user:${userData.githubUser}+fork:false+archived:false&sort=updated&order=desc&per_page=4&type=Repositories`,
         );
         if (!res.ok) return [];
         const data = await res.json();
