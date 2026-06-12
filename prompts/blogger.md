@@ -38,10 +38,10 @@
  5. **NEVER assume or make up any fact.**  
  6. **USE minimal external knowledge, as less as possible.**  
 
-## Sample Blog
+## Sample Blog for reference
 ```
 ---
-title: Shuffling a deck of cards without anguage’s builtin
+title: Shuffling a deck of cards without language’s builtin
 excerpt: Need a truly unpredictable card order without Python’s random module? 
 date: 2024-04-05
 readTime: 7 min read
@@ -56,7 +56,17 @@ So, today I was confronted with a problem which made me think. The problem was t
 ## So how do we go on solving this problem?
 
 In a nutshell, we have to generate a list of 52 random numbers between 0–51 to shuffle the list. This is how I approached this problem. I would also like to know how you would go on solving it?
+...
+  
+## My overall strategy  
+...
 
+## Let me take you through the code  
+### 1. Seed generation
+...
+
+## Running the demo  
+Save the script as `shuffle_cards.py` and execute: ... 
 ...
 
 ## Wraping up 
@@ -66,6 +76,6 @@ I enjoyed this project of .... Let me know your views.
 ***Happy shuffling***
 ```
 
-**If you need additional context or clarification, ask before proceeding.**  
+**If you need additional context or clarification, ask before proceeding.**   
 
 **Your task:** Given a topic and details about the topic, write a blog post that adheres to all the rules and tips above.
