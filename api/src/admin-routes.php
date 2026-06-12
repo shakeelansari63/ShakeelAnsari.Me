@@ -206,11 +206,14 @@ return function (App $app, ?PDO $pdo) {
             }
 
             $thumbnail = '_default_thumbnail.svg';
-            foreach ($catalogExts as $ext) {
-                $candidate = $folderPath . '/thumbnail.' . $ext;
-                if (file_exists($candidate)) {
-                    $thumbnail = 'thumbnail.' . $ext;
-                    break;
+            $imagesDir = $folderPath . '/images';
+            if (is_dir($imagesDir)) {
+                foreach ($catalogExts as $ext) {
+                    $candidate = $imagesDir . '/thumbnail.' . $ext;
+                    if (file_exists($candidate)) {
+                        $thumbnail = 'thumbnail.' . $ext;
+                        break;
+                    }
                 }
             }
 

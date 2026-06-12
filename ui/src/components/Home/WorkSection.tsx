@@ -1,5 +1,6 @@
 import { Card } from 'primereact/card';
-import { userData } from '../../services/data';
+import { userData } from '../../data/profile';
+import type { WorkRole } from '../../data/work';
 
 const monthNames = [
   'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -11,7 +12,7 @@ function formatDate(ym: string) {
   return `${monthNames[+m - 1]} ${y}`;
 }
 
-function companyDateRange(roles: typeof userData.work[number]['roles']) {
+function companyDateRange(roles: WorkRole[]) {
   const starts = roles.map(r => r.startDate).filter(Boolean) as string[];
   const hasCurrent = roles.some(r => r.endDate === null);
   const ends = roles.map(r => r.endDate).filter(Boolean) as string[];

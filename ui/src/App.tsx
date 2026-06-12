@@ -14,6 +14,7 @@ const ExpoPage = lazy(() => import("./pages/ExpoPage"));
 const LearnPage = lazy(() => import("./pages/LearnPage"));
 const SubjectPage = lazy(() => import("./pages/SubjectPage"));
 const ChapterReaderPage = lazy(() => import("./pages/ChapterReaderPage"));
+const ProductPage = lazy(() => import("./pages/ProductPage"));
 const AdminPage = lazy(() => import("./pages/AdminPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
@@ -34,6 +35,7 @@ function App() {
                         path="/learn/:subjectId/:chapterId"
                         element={<ChapterReaderPage />}
                     />
+                    <Route path="/product/:id" element={<ProductPage />} />
                     <Route path="/admin" element={<AdminPage />} />
                     <Route path="*" element={<NotFoundPage />} />
                 </Routes>

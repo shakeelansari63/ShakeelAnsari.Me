@@ -1,4 +1,4 @@
-import { userData } from "./data";
+import { userData } from "../data/profile";
 
 const profileStatsBaseUrl = "https://github-profile-summary-cards.vercel.app";
 const streakStatsbaseUsr = "https://github-readme-streak-stats.herokuapp.com";

@@ -1,19 +1,15 @@
+import { useNavigate } from 'react-router-dom';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
-
-interface ExpoItem {
-  name: string;
-  description: string;
-  appUrl?: string;
-  codeUrl?: string;
-  thumbnail: string;
-}
+import type { ExpoProject } from '../../data/expo';
 
 interface Props {
-  item: ExpoItem;
+  item: ExpoProject;
 }
 
 export default function ExpoCard({ item }: Props) {
+  const navigate = useNavigate();
+
   return (
     <div className="md:col-6 col-12">
       <Card className="h-full" pt={{ body: { className: 'flex flex-column h-full' }, content: { className: 'flex flex-column flex-1' } }}>
@@ -25,7 +21,7 @@ export default function ExpoCard({ item }: Props) {
         <div className="flex flex-column flex-1">
           <span className="font-bold text-xl text-pink-400 mb-2">{item.name}</span>
           <p className="text-blue-400 m-0 mb-3 flex-1" style={{ fontFamily: '"Space Grotesk", sans-serif' }}>{item.description}</p>
-          <div className="flex justify-content-center gap-2">
+          <div className="expo-card-buttons flex justify-content-center gap-3">
             {item.appUrl && (
               <Button
                 label="App"
@@ -43,6 +39,16 @@ export default function ExpoCard({ item }: Props) {
                 rounded
                 severity="secondary"
                 onClick={() => window.open(item.codeUrl, '_blank')}
+                style={{ outline: 'none', boxShadow: 'none' }}
+              />
+            )}
+            {item.productPageUrl && (
+              <Button
+                label="Details"
+                icon="pi pi-info-circle"
+                rounded
+                severity="info"
+                onClick={() => navigate(item.productPageUrl!)}
                 style={{ outline: 'none', boxShadow: 'none' }}
               />
             )}

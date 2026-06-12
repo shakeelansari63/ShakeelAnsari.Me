@@ -1,0 +1,18 @@
+export const skills: string[] = [
+    "Data Engineering",
+    "AI Engineering",
+    "Generative AI",
+    "Airflow",
+    "Docker",
+    "Kubernetes",
+    "Machine Learning",
+    "Azure",
+    "Python",
+    "SQL",
+    "Spark",
+    "Teradata",
+    "Azure Synapse",
+    "Hadoop",
+    "React",
+    "Full-Stack Development",
+];

@@ -121,7 +121,7 @@ return function (App $app, ?PDO $pdo) {
     ) {
         $folder = basename($args["folder"]);
         $name = basename($args["name"]);
-        $file = LEARN_DIR . "/" . $folder . "/" . $name;
+        $file = LEARN_DIR . "/" . $folder . "/images/" . $name;
 
         if (!file_exists($file)) {
             $file = LEARN_DIR . "/_default_thumbnail.svg";

@@ -1,7 +1,7 @@
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import type { GitProject } from '../../models/types';
-import { userData } from '../../services/data';
+import { userData } from '../../data/profile';
 
 interface Props {
   projects: GitProject[];

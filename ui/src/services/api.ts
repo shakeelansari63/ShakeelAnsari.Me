@@ -1,4 +1,4 @@
-import { userData } from "./data";
+import { userData } from "../data/profile";
 import type { BlogPost, LearnSubject, LearnChapter } from "../models/types";
 import type {
     GitProfile,
@@ -147,6 +147,18 @@ export async function fetchChapterContent(
 ): Promise<{ title: string; content: string } | null> {
     try {
         const res = await fetch(`/api/learn/chapters/${chapterId}/content`);
+        if (!res.ok) return null;
+        return res.json();
+    } catch {
+        return null;
+    }
+}
+
+export async function fetchProductContent(
+    id: string,
+): Promise<{ title: string; excerpt: string; content: string } | null> {
+    try {
+        const res = await fetch(`/api/products/${id}/content`);
         if (!res.ok) return null;
         return res.json();
     } catch {

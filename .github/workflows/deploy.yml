@@ -61,6 +61,7 @@ jobs:
           cp -r api/.env deploy/api/
           cp -r blogs deploy/blogs
           cp -r tutorial deploy/tutorial
+          cp -r products deploy/products
           cp .htaccess deploy/
 
       - name: Install lftp

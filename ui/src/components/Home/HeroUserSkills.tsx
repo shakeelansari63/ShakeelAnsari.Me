@@ -1,6 +1,6 @@
 import { Card } from "primereact/card";
 import type { GitProfile } from "../../models/types";
-import { userData } from "../../services/data";
+import { userData } from "../../data/profile";
 
 interface Props {
     profile: GitProfile | null;

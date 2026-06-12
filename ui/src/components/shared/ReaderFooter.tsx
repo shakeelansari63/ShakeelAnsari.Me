@@ -1,12 +1,12 @@
 import { Toolbar } from "primereact/toolbar";
 import { Button } from "primereact/button";
-import { userData } from "../../services/data";
+import { userData } from "../../data/profile";
 
 interface Props {
     isLight?: boolean;
 }
 
-export default function BlogFooter({ isLight }: Props) {
+export default function ReaderFooter({ isLight }: Props) {
     const startContent = (
         <span className="text-sm">
             <span className="mr-1">Published by</span>

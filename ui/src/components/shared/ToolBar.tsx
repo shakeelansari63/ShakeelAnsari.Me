@@ -2,7 +2,7 @@ import { Suspense, lazy, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Toolbar } from "primereact/toolbar";
 import { Button } from "primereact/button";
-import { userData } from "../../services/data";
+import { userData } from "../../data/profile";
 
 const Sidebar = lazy(() =>
     import("primereact/sidebar").then((m) => ({ default: m.Sidebar }))

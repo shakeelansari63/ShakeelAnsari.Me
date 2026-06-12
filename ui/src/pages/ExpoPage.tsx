@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import ToolBar from '../components/shared/ToolBar';
 import ExpoCard from '../components/Expo/ExpoCard';
-import { userData } from '../services/data';
+import { userData } from '../data/profile';
 
 export default function ExpoPage() {
   useEffect(() => { document.title = "Expo — Shakeel Ansari"; }, []);
