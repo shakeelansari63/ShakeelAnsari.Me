@@ -4,7 +4,7 @@ import ExpoCard from '../components/Expo/ExpoCard';
 import { userData } from '../data/profile';
 
 export default function ExpoPage() {
-  useEffect(() => { document.title = "Expo — Shakeel Ansari"; }, []);
+  useEffect(() => { document.title = "Expo — [{#SEO-NAME#}]"; }, []);
   return (
     <>
       <ToolBar />

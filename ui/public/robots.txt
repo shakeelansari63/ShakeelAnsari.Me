@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://shakeelansari.me/sitemap.xml
+Sitemap: https://[{#SEO-DOMAIN#}]/sitemap.xml

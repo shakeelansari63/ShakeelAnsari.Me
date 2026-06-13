@@ -15,7 +15,7 @@ import FooterSection from "../components/Home/FooterSection";
 
 export default function MainPage() {
   useEffect(() => {
-    document.title = "Shakeel Ansari — Data, AI & Full-Stack Engineer";
+    document.title = "[{#SEO-NAME#}] — [{#SEO-TITLE#}]";
   }, []);
   const [profile, setProfile] = useState<GitProfile | null>(null);
   const [projects, setProjects] = useState<GitProject[]>([]);

@@ -29,14 +29,14 @@ export default function BlogReaderPage() {
     const [liking, setLiking] = useState(false);
 
     useEffect(() => {
-        document.title = "Blog — Shakeel Ansari";
+        document.title = "Blog — [{#SEO-NAME#}]";
     }, []);
 
     useEffect(() => {
         if (!id) return;
         fetchBlogPost(id).then((data) => {
             setPost(data);
-            if (data) document.title = `${data.title} — Shakeel Ansari`;
+            if (data) document.title = `${data.title} — [{#SEO-NAME#}]`;
             setLoading(false);
         });
         fetchBlogContent(id)

@@ -197,8 +197,6 @@ Create a **production** environment in your repo settings with:
 | `DB_NAME`          | MySQL database name                  |
 | `DB_USER`          | MySQL user                           |
 | `DB_PASS`          | MySQL password                       |
-| `APP_ENV`          | `production`                         |
-| `APP_URL`          | `https://yourdomain.com`             |
 
 ---
 
@@ -236,78 +234,71 @@ Create a **production** environment in your repo settings with:
 
 ---
 
-## SEO & Customization Checklist
+## SEO & Customization
 
-Before deploying your own version of this site, update the following files with your information. Use find-and-replace across the project to catch all occurrences.
+The project uses `[{#SEO-KEY#}]` placeholders for SEO/meta values that vary per deployment. The CI/CD pipeline replaces them before build. Static personal data (profile, projects, work history) lives in source files and is edited directly.
 
-### 1. HTML Meta & SEO (`ui/index.html`)
+### SEO Placeholders
 
-| Search for | Replace with |
-|---|---|
-| `Shakeel Ansari — Data, AI & Full-Stack Engineer` | `[Your Name] — [Your Title]` |
-| `Shakeel Ansari — Data, AI & Full-Stack Engineer` (OG title) | `[Your Name] — [Your Title]` |
-| `Shakeel Ansari` (Twitter title) | `[Your Name]` |
-| `Data, AI & Full-Stack Engineer` (Twitter description) | `[Your Title / Tagline]` |
-| `Personal portfolio showcasing GitHub projects...` | `[Your portfolio description]` |
-| `https://shakeelansari.me` (canonical URL) | `https://[your-domain].com` |
-| `https://shakeelansari.me` (OG url) | `https://[your-domain].com` |
-| `https://avatars.githubusercontent.com/shakeelansari63` | `https://avatars.githubusercontent.com/[your-username]` |
-| `"name": "Shakeel Ansari"` (JSON-LD) | `"name": "[Your Name]"` |
-| `"url": "https://shakeelansari.me"` (JSON-LD) | `"url": "https://[your-domain].com"` |
-| `"jobTitle": "Data, AI & Full-Stack Engineer"` (JSON-LD) | `"jobTitle": "[Your Title]"` |
-| `https://github.com/shakeelansari63` | `https://github.com/[your-username]` |
-| `https://www.linkedin.com/in/shakeelansari63` | `https://linkedin.com/in/[your-username]` |
-| `https://twitter.com/shakeelansari63` | `https://twitter.com/[your-username]` |
+These appear in `ui/index.html`, page `document.title` calls, `ui/public/robots.txt`, and `api/public/sitemap.php`:
 
-### 2. Robots & Favicon
-
-| File | What to change |
-|---|---|
-| `ui/public/robots.txt:4` | Replace `https://shakeelansari.me` with `https://[your-domain].com` |
-| `ui/public/favicon.svg` | Replace with your own favicon SVG |
-
-### 3. Page Titles
-
-Find and replace `Shakeel Ansari` with `[Your Name]` in `document.title` across all pages:
-
-| File | Current title |
-|---|---|
-| `ui/src/pages/MainPage.tsx:16` | `Shakeel Ansari — Data, AI & Full-Stack Engineer` |
-| `ui/src/pages/BlogPage.tsx:10` | `Blogs — Shakeel Ansari` |
-| `ui/src/pages/BlogReaderPage.tsx:31,38` | `Blog — Shakeel Ansari` / `{title} — Shakeel Ansari` |
-| `ui/src/pages/ExpoPage.tsx:7` | `Expo — Shakeel Ansari` |
-| `ui/src/pages/LearnPage.tsx:15` | `Learn — Shakeel Ansari` |
-| `ui/src/pages/ChapterReaderPage.tsx:23,30` | `Learn — Shakeel Ansari` / `{title} — Learn — Shakeel Ansari` |
-| `ui/src/pages/ProductPage.tsx:20,26` | `Product — Shakeel Ansari` / `{title} — Shakeel Ansari` |
-| `ui/src/pages/NotFoundPage.tsx:7` | `404 — Shakeel Ansari` |
-
-### 4. User Data (`ui/src/services/data.ts`)
-
-| Key | Current value | Replace with |
+| Placeholder | Purpose | Example Value |
 |---|---|---|
-| `githubUser` | `shakeelansari63` | `[your-github-username]` |
-| `devUsername` | `shakeelansari63` | `[your-username]` |
-| `github` | `https://github.com/shakeelansari63` | `https://github.com/[your-username]` |
-| `linkedIn` | `https://linkedin.com/in/shakeelansari63` | `https://linkedin.com/in/[your-username]` |
-| `twitter` | `https://twitter.com/shakeelansari63` | `https://twitter.com/[your-username]` |
-| `email` | `shakeelansari63@gmail.com` | `[your@email.com]` |
-| `badges` | `https://credly.com/users/shakeelansari63` | `https://credly.com/users/[your-username]` |
-| `skills[]` | Your skills | Your skills |
-| `expo[]` | Your projects | Your projects |
+| `[{#SEO-NAME#}]` | Full name (page titles, meta, JSON-LD) | `Shakeel Ansari` |
+| `[{#SEO-TITLE#}]` | Job title / tagline | `Data, AI & Full-Stack Engineer` |
+| `[{#SEO-DOMAIN#}]` | Domain name (without protocol) | `shakeelansari.me` |
+| `[{#SEO-DESC#}]` | Meta description (long) | `Personal portfolio showcasing...` |
+| `[{#SEO-DESC-SHORT#}]` | Twitter description (short) | `Data, AI & Full-Stack Engineer. Portfolio, blogs, and projects.` |
+| `[{#SEO-GITHUB-URL#}]` | Full GitHub profile URL | `https://github.com/shakeelansari63` |
+| `[{#SEO-LINKEDIN-URL#}]` | Full LinkedIn profile URL | `https://www.linkedin.com/in/shakeelansari63/` |
+| `[{#SEO-TWITTER-USER#}]` | Twitter/X username | `shakeelansari63` |
+| `[{#SEO-AVATAR-URL#}]` | Avatar image URL (OG image) | `https://avatars.githubusercontent.com/shakeelansari63` |
 
-### 5. Environment Template (`api/.env.template`)
+### Replacing Placeholders
 
-| Variable | Default | Replace with |
+**For CI/CD (GitHub Actions):** Edit the `SEO_*` environment variables in `.github/workflows/deploy.yml` with your values:
+
+```yaml
+SEO_NAME: "Your Name"
+SEO_TITLE: "Your Title"
+SEO_DOMAIN: "yourdomain.com"
+SEO_DESC: "Your meta description"
+SEO_DESC_SHORT: "Your short description"
+SEO_GITHUB_URL: "https://github.com/your-username"
+SEO_LINKEDIN_URL: "https://linkedin.com/in/your-profile"
+SEO_TWITTER_USER: "your-handle"
+SEO_AVATAR_URL: "https://avatars.githubusercontent.com/your-username"
+```
+
+**For local development:** Run the same `sed` commands from the workflow to replace placeholders, or simply ignore them — they only affect meta tags and page titles, and won't break functionality.
+
+### Static Data (edit directly)
+
+These files contain your personal data and must be updated manually:
+
+| File | What to edit |
+|---|---|
+| `ui/src/data/profile.ts` | GitHub username, social links, email, timezone (used by footer too) |
+| `ui/src/data/skills.ts` | Skills list |
+| `ui/src/data/work.ts` | Work experience / job history |
+| `ui/src/data/expo.ts` | Portfolio projects (name, description, URLs) |
+| `ui/public/favicon.svg` | Replace with your own SVG favicon |
+| `ui/index.html:13-18` | Google Fonts (optional) |
+
+### Environment Template (`api/.env.template`)
+
+| Variable | Default | Description |
 |---|---|---|
-| `APP_ENV` | `development` | `production` on deploy |
-| `APP_URL` | `http://localhost:3000` | `https://[your-domain].com` in production |
+| `APP_ENV` | `development` | Set `production` on deploy |
+| `APP_URL` | `http://localhost:3000` | Set to `https://[your-domain].com` in production |
 | `ADMIN_USERNAME` | _(empty)_ | Your admin username |
-| `ADMIN_PASSWORD` | _(empty)_ | Your admin password |
-| `JWT_SECRET` | _(empty)_ | A random secure string |
-
-### 6. Google Fonts (Optional)
-
-The app uses `Space Grotesk`, `Fira Code`, and `JetBrains Mono` loaded from Google Fonts in `ui/index.html:13-18`. Replace with your preferred fonts if desired, and update the `font-family` references in `ui/src/App.scss:3`.
+| `ADMIN_PASSWORD` | *(empty)* | Your admin password |
+| `JWT_SECRET` | *(empty)* | A random secure string |
+| `DB_HOST` | `localhost` | MySQL host (leave empty to skip DB) |
+| `DB_PORT` | `3306` | MySQL port |
+| `DB_NAME` | *(empty)* | MySQL database name |
+| `DB_USER` | *(empty)* | MySQL user |
+| `DB_PASS` | *(empty)* | MySQL password |
 
 ---
 

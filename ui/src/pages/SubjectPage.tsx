@@ -14,7 +14,7 @@ export default function SubjectPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.title = "Learn — Shakeel Ansari";
+    document.title = "Learn — [{#SEO-NAME#}]";
     if (subjectId) {
       fetchSubjectChapters(subjectId)
         .then(setChapters)

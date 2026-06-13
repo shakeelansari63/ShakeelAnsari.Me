@@ -20,14 +20,14 @@ export default function ChapterReaderPage() {
   const [isLight, setIsLight] = useState(false);
 
   useEffect(() => {
-    document.title = "Learn — Shakeel Ansari";
+    document.title = "Learn — [{#SEO-NAME#}]";
     if (chapterId) {
       fetchChapterContent(Number(chapterId))
         .then((data) => {
           if (data) {
             setTitle(data.title);
             setContent(data.content);
-            document.title = `${data.title} — Learn — Shakeel Ansari`;
+            document.title = `${data.title} — Learn — [{#SEO-NAME#}]`;
           } else {
             setNotFound(true);
           }

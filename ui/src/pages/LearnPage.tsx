@@ -12,7 +12,7 @@ export default function LearnPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.title = "Learn — Shakeel Ansari";
+    document.title = "Learn — [{#SEO-NAME#}]";
     fetchLearnSubjects()
       .then(setSubjects)
       .finally(() => setLoading(false));

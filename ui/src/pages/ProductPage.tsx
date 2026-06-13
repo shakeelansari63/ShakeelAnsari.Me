@@ -17,13 +17,13 @@ export default function ProductPage() {
     const [isLight, setIsLight] = useState(false);
 
     useEffect(() => {
-        document.title = "Product — Shakeel Ansari";
+        document.title = "Product — [{#SEO-NAME#}]";
         if (id) {
             fetchProductContent(id).then((data) => {
                 if (data) {
                     setTitle(data.title);
                     setContent(data.content);
-                    document.title = `${data.title} — Shakeel Ansari`;
+                    document.title = `${data.title} — [{#SEO-NAME#}]`;
                 } else {
                     setNotFound(true);
                 }

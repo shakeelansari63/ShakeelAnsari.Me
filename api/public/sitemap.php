@@ -9,7 +9,7 @@ $dotenv->safeLoad();
 
 $pdo = \App\DB::connect();
 
-$appUrl = $_ENV["APP_URL"] ?? "https://shakeelansari.me";
+$appUrl = $_ENV["APP_URL"] ?? "https://[{#SEO-DOMAIN#}]";
 
 $urls = [
     ["loc" => "$appUrl/", "changefreq" => "weekly", "priority" => "1.0"],
@@ -43,7 +43,8 @@ foreach ($urls as $u) {
     if (isset($u["lastmod"])) {
         $xml .= "<lastmod>" . htmlspecialchars($u["lastmod"]) . "</lastmod>";
     }
-    $xml .= "<changefreq>" . htmlspecialchars($u["changefreq"]) . "</changefreq>";
+    $xml .=
+        "<changefreq>" . htmlspecialchars($u["changefreq"]) . "</changefreq>";
     $xml .= "<priority>" . htmlspecialchars($u["priority"]) . "</priority>";
     $xml .= "</url>";
 }

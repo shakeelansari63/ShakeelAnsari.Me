@@ -7,7 +7,7 @@ import { fetchBlogPosts } from "../services/api";
 import type { BlogPost } from "../models/types";
 
 export default function BlogPage() {
-    useEffect(() => { document.title = "Blogs — Shakeel Ansari"; }, []);
+    useEffect(() => { document.title = "Blogs — [{#SEO-NAME#}]"; }, []);
     const [posts, setPosts] = useState<BlogPost[]>([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);

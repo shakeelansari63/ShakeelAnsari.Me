@@ -4,7 +4,7 @@ import { Button } from 'primereact/button';
 import ToolBar from '../components/shared/ToolBar';
 
 export default function NotFoundPage() {
-  useEffect(() => { document.title = "404 — Shakeel Ansari"; }, []);
+  useEffect(() => { document.title = "404 — [{#SEO-NAME#}]"; }, []);
   const navigate = useNavigate();
 
   return (

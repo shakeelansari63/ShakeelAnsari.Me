@@ -264,6 +264,10 @@ html.scrolled .p-toolbar .p-button .p-button-icon {
         flex-direction: column;
         align-items: center;
     }
+    .expo-card-buttons .expo-btn {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 .image-entrance {

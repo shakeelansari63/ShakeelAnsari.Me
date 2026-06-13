@@ -27,18 +27,8 @@ export default function ExpoCard({ item }: Props) {
                 label="App"
                 icon="pi pi-external-link"
                 rounded
-                className="border-gradient-purple text-white"
+                className="border-gradient-purple text-white expo-btn"
                 onClick={() => window.open(item.appUrl, '_blank')}
-                style={{ outline: 'none', boxShadow: 'none' }}
-              />
-            )}
-            {item.codeUrl && (
-              <Button
-                label="Code"
-                icon="pi pi-github"
-                rounded
-                severity="secondary"
-                onClick={() => window.open(item.codeUrl, '_blank')}
                 style={{ outline: 'none', boxShadow: 'none' }}
               />
             )}
@@ -48,7 +38,19 @@ export default function ExpoCard({ item }: Props) {
                 icon="pi pi-info-circle"
                 rounded
                 severity="info"
+                className="expo-btn"
                 onClick={() => navigate(item.productPageUrl!)}
+                style={{ outline: 'none', boxShadow: 'none' }}
+              />
+            )}
+            {item.codeUrl && (
+              <Button
+                label="Code"
+                icon="pi pi-github"
+                rounded
+                severity="secondary"
+                className="expo-btn"
+                onClick={() => window.open(item.codeUrl, '_blank')}
                 style={{ outline: 'none', boxShadow: 'none' }}
               />
             )}

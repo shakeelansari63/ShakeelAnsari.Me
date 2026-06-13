@@ -1,86 +1,114 @@
 name: Build & Deploy
 
 on:
-  push:
-    branches: [main]
+    push:
+        branches: [main]
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    environment: production
+    build-and-deploy:
+        runs-on: ubuntu-latest
+        environment: production
 
-    env:
-      APP_ENV: production
-      APP_URL: https://shakeelansari.me
-      ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
-      ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
-      JWT_SECRET: ${{ secrets.JWT_SECRET }}
-      DB_HOST: ${{ secrets.DB_HOST }}
-      DB_NAME: ${{ secrets.DB_NAME }}
-      DB_USER: ${{ secrets.DB_USER }}
-      DB_PASS: ${{ secrets.DB_PASS }}
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Build UI
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "npm"
-          cache-dependency-path: ui/package-lock.json
-      - run: npm ci
-        working-directory: ui
-      - run: npm run build
-        working-directory: ui
-
-      - name: Build API
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.2
-          extensions: mbstring, pdo, pdo_mysql
-      - run: composer install --no-dev --optimize-autoloader
-        working-directory: api
-
-      - name: Generate .env from template
-        run: |
-          cp api/.env.template api/.env
-          grep -oP '{#\K[^#]+(?=#})' api/.env.template | while IFS= read -r var; do
-              val="${!var}"
-              sed -i "s|{#$var#}|$val|g" api/.env
-          done
-
-      - name: Assemble deployable
-        run: |
-          mkdir -p deploy/api
-          cp -r ui/dist/* deploy/
-          cp -r api/public deploy/api/public
-          cp -r api/src deploy/api/src
-          cp -r api/vendor deploy/api/vendor
-          cp -r api/.htaccess deploy/api/
-          cp -r api/.env deploy/api/
-          cp -r blogs deploy/blogs
-          cp -r tutorial deploy/tutorial
-          cp -r products deploy/products
-          cp .htaccess deploy/
-
-      - name: Install lftp
-        run: sudo apt-get update && sudo apt-get install -y lftp
-
-      - name: Deploy to Hostinger
         env:
-          HOST: ${{ secrets.DEPLOY_HOST }}
-          USER: ${{ secrets.DEPLOY_USER }}
-          PASS: ${{ secrets.DEPLOY_PASSWORD }}
-          DPTH: ${{ secrets.DEPLOY_PATH }}
-        run: |
-          lftp -c "
-            set net:connection-limit 10;
-            set mirror:parallel-transfer-count 10;
-            set net:socket-buffer 65535;
-            set ftp:ssl-force true;
-            set ssl:verify-certificate no;
-            open -u $USER,$PASS ftp://$HOST;
-            mirror -R --delete --parallel=15 --verbose deploy/ $DPTH;
-            quit
-          "
+            ## App Secrets
+            APP_ENV: production
+            APP_URL: https://shakeelansari.me
+            ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
+            ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+            JWT_SECRET: ${{ secrets.JWT_SECRET }}
+            DB_HOST: ${{ secrets.DB_HOST }}
+            DB_NAME: ${{ secrets.DB_NAME }}
+            DB_USER: ${{ secrets.DB_USER }}
+            DB_PASS: ${{ secrets.DB_PASS }}
+
+            ## SEO Values
+            SEO_NAME: "Shakeel Ansari"
+            SEO_TITLE: "Data, AI & Full-Stack Engineer"
+            SEO_DOMAIN: "shakeelansari.me"
+            SEO_DESC: "Personal portfolio showcasing GitHub projects, technical blogs, and open-source contributions."
+            SEO_DESC_SHORT: "Data, AI & Full-Stack Engineer. Portfolio, blogs, and projects."
+            SEO_GITHUB_URL: "https://github.com/shakeelansari63"
+            SEO_LINKEDIN_URL: "https://www.linkedin.com/in/shakeelansari63/"
+            SEO_TWITTER_USER: "shakeelansari63"
+            SEO_AVATAR_URL: "https://avatars.githubusercontent.com/shakeelansari63"
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Replace SEO placeholders
+              run: |
+                  grep -rlo '\[{#SEO-[^#]*#}\]' . 2>/dev/null | sort -u | while read -r file; do
+                    sed -i \
+                      -e "s|\[{#SEO-NAME#}\]|$SEO_NAME|g" \
+                      -e "s|\[{#SEO-TITLE#}\]|$SEO_TITLE|g" \
+                      -e "s|\[{#SEO-DOMAIN#}\]|$SEO_DOMAIN|g" \
+                      -e "s|\[{#SEO-DESC#}\]|$SEO_DESC|g" \
+                      -e "s|\[{#SEO-DESC-SHORT#}\]|$SEO_DESC_SHORT|g" \
+                      -e "s|\[{#SEO-GITHUB-URL#}\]|$SEO_GITHUB_URL|g" \
+                      -e "s|\[{#SEO-LINKEDIN-URL#}\]|$SEO_LINKEDIN_URL|g" \
+                      -e "s|\[{#SEO-TWITTER-USER#}\]|$SEO_TWITTER_USER|g" \
+                      -e "s|\[{#SEO-AVATAR-URL#}\]|$SEO_AVATAR_URL|g" \
+                      "$file"
+                  done
+
+            - name: Build UI
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: "npm"
+                  cache-dependency-path: ui/package-lock.json
+            - run: npm ci
+              working-directory: ui
+            - run: npm run build
+              working-directory: ui
+
+            - name: Build API
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: 8.2
+                  extensions: mbstring, pdo, pdo_mysql
+            - run: composer install --no-dev --optimize-autoloader
+              working-directory: api
+
+            - name: Generate .env from template
+              run: |
+                  cp api/.env.template api/.env
+                  grep -oP '{#\K[^#]+(?=#})' api/.env.template | while IFS= read -r var; do
+                      val="${!var}"
+                      sed -i "s|{#$var#}|$val|g" api/.env
+                  done
+
+            - name: Assemble deployable
+              run: |
+                  mkdir -p deploy/api
+                  cp -r ui/dist/* deploy/
+                  cp -r api/public deploy/api/public
+                  cp -r api/src deploy/api/src
+                  cp -r api/vendor deploy/api/vendor
+                  cp -r api/.htaccess deploy/api/
+                  cp -r api/.env deploy/api/
+                  cp -r blogs deploy/blogs
+                  cp -r tutorial deploy/tutorial
+                  cp -r products deploy/products
+                  cp .htaccess deploy/
+
+            - name: Install lftp
+              run: sudo apt-get update && sudo apt-get install -y lftp
+
+            - name: Deploy to Hostinger
+              env:
+                  HOST: ${{ secrets.DEPLOY_HOST }}
+                  USER: ${{ secrets.DEPLOY_USER }}
+                  PASS: ${{ secrets.DEPLOY_PASSWORD }}
+                  DPTH: ${{ secrets.DEPLOY_PATH }}
+              run: |
+                  lftp -c "
+                    set net:connection-limit 10;
+                    set mirror:parallel-transfer-count 10;
+                    set net:socket-buffer 65535;
+                    set ftp:ssl-force true;
+                    set ssl:verify-certificate no;
+                    open -u $USER,$PASS ftp://$HOST;
+                    mirror -R --delete --parallel=15 --verbose deploy/ $DPTH;
+                    quit
+                  "

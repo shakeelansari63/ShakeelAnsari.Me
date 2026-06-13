@@ -1,11 +1,12 @@
 import { Toolbar } from "primereact/toolbar";
 import { Button } from "primereact/button";
+import { userData } from "../../data/profile";
 
 export default function FooterSection() {
     const startContent = (
         <span className="text-sm">
             <span className="mr-1">GitHub Portfolio by</span>
-            <strong>@shakeelansari63</strong>
+            <strong>@{userData.githubUser}</strong>
         </span>
     );
 
