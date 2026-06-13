@@ -1,9 +1,9 @@
 ![NSE Chatbot](images/nse-chatbot-hero.png)
 
 ## 🌟 Overview
-The **NSE Chatbot** is an AI-powered conversational agent engineered to provide retail investors, traders, and financial analysts with rapid, accurate, and actionable information concerning the National Stock Exchange of India (NSE). 
+The **NSE Chatbot** is an AI-powered conversational agent engineered to provide you with rapid, accurate, and actionable information concerning the National Stock Exchange of India (NSE). 
 
-At its core, the application transforms complex financial data into natural, human-like conversations. The chatbot is backed by a robust **Model Context Protocol (MCP) Server**, which acts as the centralized data and processing engine. While the chatbot offers an intuitive, user-friendly chat interface for general users, the underlying MCP Server remains directly accessible via standardized APIs for advanced users, quantitative analysts, and developers looking to integrate raw financial data feeds into their own custom workflows.
+At its core, the application transforms complex financial data into natural, human-like conversations.  
 
 ---
 
@@ -14,7 +14,7 @@ The NSE Chatbot offers a comprehensive suite of tools designed to streamline sto
 | Feature | Description | Key Capabilities | Example Query |
 | :--- | :--- | :--- | :--- |
 | **📈 Query Stock Prices** | Provides real-time stock quotes and key trading metrics for NSE-listed companies. | Retrieve latest stock prices, current trading price, day high/low, and trading volume. | *"What is the current price of Reliance Industries?"* |
-| **📊 Query Stock History & Trends** | Accesses historical price data and performs automated trend analysis over specified timeframes. | Access historical closing prices, analyze market trends (upward, downward, volatile), and calculate moving averages. | *"Show me the price history and trend for TCS over the last 90 days."* |
+| **📊 Query Stock History & Trends** | Accesses historical price data and performs automated trend analysis over specified timeframes. | Access historical closing prices, analyze market trends (upward, downward, volatile), and calculate moving averages. | *"Show me the price history and trend for TCS over the last 30 days."* |
 | **🔍 Search Companies by Sector** | Allows users to filter and list companies based on their business classification. | Categorized Search by Industry (e.g., IT, Banking) or broader Sectors (e.g., Energy, Automobile). | *"List top 10 companies in the Automobile sector."* |
 | **💰 Analyze Company Financials** | Extracts and summarizes critical financial performance metrics from official corporate filings. | Structured Financial Data Extraction of Revenue, Net Profit, EPS (Earnings Per Share), and P/E ratios from recent quarterly/annual reports. | *"Summarize the Net Profit for Maruti Suzuki."* |
 
@@ -31,7 +31,7 @@ The application is split into two layers to cater to both non-technical users an
 
 ### 2. The MCP Server Engine (The Core)
 * **Model Context Protocol (MCP) Compliance:** Operates as an open architecture server that acts as a secure gateway between the LLM and the real-time financial market data layers.
-* **Developer Access:** Advanced users can bypass the chat UI entirely and prompt the MCP server via programmatic tools to pull structured JSON data directly into spreadsheets, algorithmic trading scripts, or local analytical tools.
+* **Developer Access:** Advanced users can bypass the chat UI entirely and prompt the MCP server via programmatic tools to pull structured JSON data directly into algorithmic trading scripts, or local analytical tools.
 
 ---
 
@@ -40,12 +40,3 @@ The application is split into two layers to cater to both non-technical users an
 * **No Financial Jargon Obstacles:** Ideal for beginners who want to ask simple questions without navigating complex financial terminals.
 * **Time-Saving Data Aggregation:** Eliminates the need to manually download and scroll through hundreds of pages of corporate PDF filings to find basic metrics like Net Profit or EPS.
 * **Developer-Friendly:** Standardized MCP backend ensures the tool grows with your workflow, making custom automation simple.
-
----
-
-## 🛠️ How It Works (User Journey)
-
-1. **Ask:** Enter any natural language query regarding an NSE stock, sector, or financial metric.
-2. **Process:** The LLM parses the intent and makes a structured request to the underlying MCP Server.
-3. **Fetch:** The MCP Server safely communicates with real-time and historical NSE database layers to pull the exact factual data.
-4. **Deliver:** The app formats the data into a readable summary, complete with trend conclusions or neatly organized financial blocks.

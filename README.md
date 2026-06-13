@@ -26,6 +26,9 @@ Personal portfolio website for [shakeelansari.me](https://shakeelansari.me) — 
 │   ├── src/              – Routes (blogs, admin), helpers, DB
 │   └── db/               – Database schema (schema.sql)
 ├── blogs/       – Markdown blog posts and images
+├── products/    – Markdown product pages (detailed write-ups)
+├── prompts/     – Reusable AI system prompts (e.g. blog writer)
+├── tutorial/    – Multi-subject tutorial content (Python, Golang, Scala, etc.)
 └── .github/     – CI/CD workflow
 ```
 
@@ -38,6 +41,7 @@ Personal portfolio website for [shakeelansari.me](https://shakeelansari.me) — 
 - Node.js 20+
 - PHP 8.1+
 - Composer
+- Make
 - MySQL server (optional for full features; API works without DB)
 
 ### 1. Setup
@@ -83,12 +87,14 @@ If using MySQL, create the database and run the schema:
 mysql -u root -p your_database_name < api/db/schema.sql
 ```
 
-This creates three tables:
+This creates five tables:
 - **`blog`** — Blog posts synced from markdown files
 - **`blog_views`** — View tracking (dedup by IP + 8-hour window)
 - **`blog_likes`** — Like tracking (dedup by IP)
+- **`learn_subjects`** — Tutorial subjects (e.g. Python, Golang, Scala)
+- **`learn_chapters`** — Individual tutorial chapters per subject
 
-Without a database, the API runs in degraded mode (blogs list and content still work via markdown files, but views/likes are not recorded).
+Without a database, the API runs in degraded mode (blogs list/content still work via markdown files, but views/likes and learn/tutorial features are unavailable).
 
 ### 4. Start Development Servers
 
@@ -109,13 +115,14 @@ The UI proxies `/api/*` requests to the PHP server automatically (configured in 
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### 5. Sync Blog Posts
+### 5. Sync Blog Posts & Tutorials
 
-After setting up the database, sync markdown files from `blogs/` into the DB:
+After setting up the database, sync markdown files:
 
 1. Visit `http://localhost:3000/admin`
 2. Log in with the credentials from `api/.env`
-3. Click **Sync Blogs**
+3. Click **Sync Blogs** to ingest/update blog posts from `blogs/`
+4. Click **Sync Learn** to ingest/update tutorial subjects and chapters from `tutorial/`
 
 ### Defensive Timeouts
 
@@ -152,6 +159,8 @@ public_html/
 ├── blogs/                 # from blogs/
 │   ├── images/
 │   └── *.md
+├── tutorial/              # from tutorial/ (optional — for Learn platform)
+├── products/              # from products/ (optional — for product detail pages)
 └── .htaccess              # from root .htaccess
 ```
 
@@ -195,25 +204,35 @@ Create a **production** environment in your repo settings with:
 
 ## Features
 
-- **Homepage** — GitHub profile card (avatar, bio), contribution heatmap calendar, stats cards (repos, stars, followers, total contributions), language breakdown, streak stats, project listing
-- **Blog** — Markdown-based blog with pagination, syntax-highlighted code blocks (`react-syntax-highlighter`), view tracking (IP-deduped per 8-hour window), interactive like/unlike toggle, share support via Web Share API
-- **Expo** — Portfolio/project showcase with App and Code buttons (optional URLs, hidden when not provided)
-- **Admin** — JWT-authenticated password-protected panel with file-based rate limiting (5 attempts per 15 minutes per IP), one-click blog sync from markdown files (upserts + marks deleted files)
-- **UI/UX** — Dark/light theme toggle, scroll-shrink toolbar animation, lazy image loading with skeleton placeholders, skeleton loading cards for blog list, responsive mobile sidebar navigation, custom 404 page
+- **Homepage** — GitHub profile card (avatar, bio), contribution heatmap calendar, stats cards (repos, stars, followers, total contributions), language breakdown, streak stats, project listing, work experience timeline
+- **Blog** — Markdown-based blog with pagination, syntax-highlighted code blocks (`react-syntax-highlighter`), Mermaid diagram rendering, view tracking (IP-deduped per 8-hour window), interactive like/unlike toggle, share support via Web Share API
+- **Learn/Tutorials** — Multi-subject tutorial platform with chapters, subject thumbnails, markdown content rendering with Mermaid diagram support. Subjects auto-synced from `tutorial/` directory
+- **Expo** — Portfolio/project showcase with App and Code buttons (optional URLs, hidden when not provided). Detailed product pages via markdown in `products/` directory
+- **Admin** — JWT-authenticated password-protected panel with file-based rate limiting (5 attempts per 15 minutes per IP), one-click blog sync from markdown files (upserts + marks deleted files), one-click learn/tutorial sync from `tutorial/` directory (subjects + chapters)
+- **UI/UX** — Dark/light theme toggle, scroll-shrink toolbar animation, lazy image loading with skeleton placeholders, skeleton loading cards, responsive mobile sidebar navigation, custom 404 page
+- **Performance** — Code-splitting via `React.lazy()` + `Suspense` (each page loads as its own chunk), vendor-split PrimeReact into a separate cacheable chunk, lazy-loaded mobile sidebar, below-fold chunking, gzip compression
 - **SEO** — Dynamic XML sitemap (auto-includes blog entries), Open Graph tags, Twitter cards, schema.org JSON-LD structured data, `<meta name="robots">`, canonical URL
 
 ## API Endpoints
 
-| Method | Path                  | Description                     |
-|--------|-----------------------|---------------------------------|
-| GET    | `/api/blogs`          | Paginated blog list             |
-| GET    | `/api/blogs/{id}`     | Single blog metadata            |
-| GET    | `/api/blogs/{id}/content` | Blog markdown content       |
-| GET    | `/api/blogs/{id}/stats`   | Views, likes, liked status  |
-| POST   | `/api/blogs/{id}/view`    | Record a view               |
-| POST   | `/api/blogs/{id}/like`    | Toggle like                 |
-| POST   | `/api/admin/login`        | Admin authentication        |
-| POST   | `/api/admin/sync-blogs`   | Sync markdown files to DB   |
+| Method | Path                              | Description                              |
+|--------|-----------------------------------|------------------------------------------|
+| GET    | `/api/blogs`                      | Paginated blog list                      |
+| GET    | `/api/blogs/{id}`                 | Single blog metadata                     |
+| GET    | `/api/blogs/{id}/content`         | Blog markdown content                    |
+| GET    | `/api/blogs/{id}/stats`           | Views, likes, liked status               |
+| POST   | `/api/blogs/{id}/view`            | Record a view                            |
+| POST   | `/api/blogs/{id}/like`            | Toggle like                              |
+| GET    | `/api/blogs/images/{name}`        | Blog image asset                         |
+| GET    | `/api/learn/subjects`             | List tutorial subjects                   |
+| GET    | `/api/learn/subjects/{id}/chapters` | List chapters for a subject            |
+| GET    | `/api/learn/chapters/{id}/content`  | Chapter markdown content               |
+| GET    | `/api/learn/images/{folder}/{name}` | Tutorial image asset                  |
+| GET    | `/api/products/{id}/content`      | Product detail page markdown content     |
+| GET    | `/api/products/{id}/images/{name}`  | Product image asset                    |
+| POST   | `/api/admin/login`                | Admin authentication (JWT)               |
+| POST   | `/api/admin/sync-blogs`           | Sync blog markdown files to DB           |
+| POST   | `/api/admin/sync-learn`           | Sync tutorial markdown files to DB       |
 
 ---
 
@@ -247,7 +266,7 @@ Before deploying your own version of this site, update the following files with 
 | `ui/public/robots.txt:4` | Replace `https://shakeelansari.me` with `https://[your-domain].com` |
 | `ui/public/favicon.svg` | Replace with your own favicon SVG |
 
-### 3. Page Titles (6 files)
+### 3. Page Titles
 
 Find and replace `Shakeel Ansari` with `[Your Name]` in `document.title` across all pages:
 
@@ -257,6 +276,9 @@ Find and replace `Shakeel Ansari` with `[Your Name]` in `document.title` across 
 | `ui/src/pages/BlogPage.tsx:10` | `Blogs — Shakeel Ansari` |
 | `ui/src/pages/BlogReaderPage.tsx:31,38` | `Blog — Shakeel Ansari` / `{title} — Shakeel Ansari` |
 | `ui/src/pages/ExpoPage.tsx:7` | `Expo — Shakeel Ansari` |
+| `ui/src/pages/LearnPage.tsx:15` | `Learn — Shakeel Ansari` |
+| `ui/src/pages/ChapterReaderPage.tsx:23,30` | `Learn — Shakeel Ansari` / `{title} — Learn — Shakeel Ansari` |
+| `ui/src/pages/ProductPage.tsx:20,26` | `Product — Shakeel Ansari` / `{title} — Shakeel Ansari` |
 | `ui/src/pages/NotFoundPage.tsx:7` | `404 — Shakeel Ansari` |
 
 ### 4. User Data (`ui/src/services/data.ts`)

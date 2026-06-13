@@ -1,9 +1,9 @@
 ![Poke Budgy](images/poke-budgy-hero.png)
 
 ## 🌟 Overview
-**Poké Budgy** is a minimalist, 100% offline budget manager designed for individuals who value absolute privacy, simplicity, and blazing-fast execution. 
+**Pokè Budgy** is a minimalist, 100% offline budget manager designed for individuals who value absolute privacy, simplicity, and blazing-fast execution. 
 
-Managing your money shouldn't feel like an administrative chore or an invitation for third-party trackers to inspect your financial life. Poké Budgy strips away the modern app bloat—no endless loading indicators, no mandatory cloud syncs, and no tedious sign-up flows. The moment you open the app, you are ready to budget. Your financial data stays exactly where it belongs: local, encrypted, and completely under your control on your Android device.
+Managing your money shouldn't feel like an administrative chore or an invitation for third-party trackers to inspect your financial life. Pokè Budgy strips away the modern app bloat—no endless loading indicators, no mandatory cloud syncs, and no tedious sign-up flows.
 
 [![Get it on Google Play](https://img.shields.io/badge/Google_Play-Download-black?logo=googleplay&logoColor=white&style=for-the-badge)](https://play.google.com/store/apps/details?id=com.shakeelansari63.pokebudgy)
 
@@ -11,7 +11,7 @@ Managing your money shouldn't feel like an administrative chore or an invitation
 
 ## 🔒 Your Data, Your Privacy First
 
-In an era dominated by mandatory cloud connectivity, Poké Budgy intentionally goes against the grain to guarantee absolute data sovereignty.
+In an era dominated by mandatory cloud connectivity, Pokè Budgy intentionally goes against the grain to guarantee absolute data sovereignty.
 
 * **100% Native Offline Operation:** The app requires zero internet permissions. Your account numbers, income records, and expense entries never touch an external server or cross the web.
 * **Zero Registration & Frictionless Start:** Skip the onboarding forms. There are no email addresses to verify, no passwords to manage, and no personal profile creations required.
@@ -21,7 +21,7 @@ In an era dominated by mandatory cloud connectivity, Poké Budgy intentionally g
 
 ## ⚡ Simple & Powerful Features
 
-Poké Budgy delivers a streamlined experience focusing deeply on your raw cash flow, wrapped in a beautiful, dark-themed material UI optimized for low cognitive load:
+Pokè Budgy delivers a streamlined experience focusing deeply on your raw cash flow, wrapped in a beautiful, dark-themed material UI optimized for low cognitive load:
 
 | Feature Component | Technical & Visual Capability | App Interface Highlight |
 | :--- | :--- | :--- |
@@ -32,19 +32,15 @@ Poké Budgy delivers a streamlined experience focusing deeply on your raw cash f
 
 ---
 
-## 🌟 Why Choose Poké Budgy?
+## 🌟 Why Choose Pokè Budgy?
 
-Most modern budgeting applications are engineered to trap your financial profile in the cloud to feed advertising algorithms. Poké Budgy is built for users seeking a highly practical tool for a clean, localized lifestyle. It is the perfect daily companion for:
-
-* **The Privacy Minimalist:** Users who refuse to link live bank feeds, corporate credentials, or credit profiles to third-party digital servers.
-* **The Off-Grid Explorer:** Digital nomads and frequent travelers who must reliably record real-time expenditures across remote regions with spotty cellular networks.
-* **The Functional Purist:** Anyone tired of constant interface changes, upsells for premium subscriptions, and artificial cloud synchronization screens.
+Most modern budgeting applications are engineered to trap your financial profile in the cloud to feed advertising algorithms. Pokè Budgy is built for users seeking a highly practical tool for a clean, localized lifestyle.  
 
 ---
 
 ## 📱 App Experience & Interface Preview
 
-Based on the official Android design patterns, Poké Budgy breaks down your financial management into three clear, accessible screens:
+Based on the official Android design patterns, Pokè Budgy breaks down your financial management into three clear, accessible screens:
 
 1. **My Budget (Home Screen):** Displays your dynamic financial health gauge clearly. View your primary *Savings* pool along with immediate updates on *Income vs. Allocated Budget*, paired with quick-add utility triggers.
 2. **Trend Analytics:** View historical distributions across your **Top 5 Budgets**. Deep-dive into interactive metrics comparing target budgets against actual monthly spend ratios.
@@ -57,4 +53,4 @@ Based on the official Android design patterns, Poké Budgy breaks down your fina
 Stop overcomplicating your wallet. Reclaim total ownership over your personal balance sheets with a clean, zero-compromise security environment. 
 
 * **Platform:** Android 
-* **Official Google Play Store Link:** [Download Poké Budgy on Google Play](https://play.google.com/store/apps/details?id=com.shakeelansari63.pokebudgy)
+* **Official Google Play Store Link:** [Download Pokè Budgy on Google Play](https://play.google.com/store/apps/details?id=com.shakeelansari63.pokebudgy)
