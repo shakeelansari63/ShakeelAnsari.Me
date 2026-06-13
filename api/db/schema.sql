@@ -47,3 +47,12 @@ CREATE TABLE IF NOT EXISTS learn_chapters (
     FOREIGN KEY (subject_id) REFERENCES learn_subjects(id) ON DELETE CASCADE,
     UNIQUE KEY (subject_id, chapter_id)
 );
+
+CREATE TABLE IF NOT EXISTS ip_location (
+    ip VARCHAR(45) PRIMARY KEY,
+    country VARCHAR(100) NOT NULL DEFAULT '',
+    country_code VARCHAR(2) NOT NULL DEFAULT '',
+    region VARCHAR(100) NOT NULL DEFAULT '',
+    city VARCHAR(100) NOT NULL DEFAULT '',
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);

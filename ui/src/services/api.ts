@@ -1,5 +1,5 @@
 import { userData } from "../data/profile";
-import type { BlogPost, LearnSubject, LearnChapter } from "../models/types";
+import type { BlogPost, LearnSubject, LearnChapter, AnalyticsData } from "../models/types";
 import type {
     GitProfile,
     GitProject,
@@ -159,6 +159,22 @@ export async function fetchProductContent(
 ): Promise<{ title: string; excerpt: string; content: string } | null> {
     try {
         const res = await fetch(`/api/products/${id}/content`);
+        if (!res.ok) return null;
+        return res.json();
+    } catch {
+        return null;
+    }
+}
+
+export async function fetchAnalytics(token: string): Promise<AnalyticsData | null> {
+    try {
+        const res = await fetch("/api/admin/analytics", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        });
         if (!res.ok) return null;
         return res.json();
     } catch {

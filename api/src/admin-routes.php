@@ -258,4 +258,85 @@ return function (App $app, ?PDO $pdo) {
             "message" => "Synced {$syncedSubjects} subjects and {$syncedChapters} chapters",
         ]);
     });
+
+    $app->post("/admin/analytics", function (
+        Request $request,
+        Response $response,
+    ) use ($pdo) {
+        if (!$pdo) {
+            return jsonResponse(
+                $response,
+                ["error" => "Database not available"],
+                503,
+            );
+        }
+
+        if (!verifyAdmin($request)) {
+            return jsonResponse($response, ["error" => "Unauthorized"], 401);
+        }
+
+        try {
+            $viewsByDate = $pdo->query(
+                "SELECT DATE(view_hour) AS date, COUNT(*) AS count FROM blog_views GROUP BY DATE(view_hour) ORDER BY date ASC",
+            )->fetchAll();
+
+            $likesByDate = $pdo->query(
+                "SELECT DATE(created_at) AS date, COUNT(*) AS count FROM blog_likes GROUP BY DATE(created_at) ORDER BY date ASC",
+            )->fetchAll();
+
+            $topBlogs = $pdo->query(
+                "SELECT b.id, b.title, b.views, b.likes FROM blog b WHERE b.deleted = 0 ORDER BY b.views DESC LIMIT 10",
+            )->fetchAll();
+
+            $viewIps = $pdo->query(
+                "SELECT DISTINCT ip FROM blog_views",
+            )->fetchAll(PDO::FETCH_COLUMN);
+
+            $likeIps = $pdo->query(
+                "SELECT DISTINCT ip FROM blog_likes",
+            )->fetchAll(PDO::FETCH_COLUMN);
+
+            $allIps = array_unique(array_merge($viewIps, $likeIps));
+            $countryViewCounts = [];
+            $countryLikeCounts = [];
+
+            foreach ($allIps as $ip) {
+                $loc = resolveLocation($ip, $pdo);
+                $key = $loc->country_code . "|" . $loc->country;
+                if (!isset($countryViewCounts[$key])) {
+                    $countryViewCounts[$key] = ["code" => $loc->country_code, "country" => $loc->country, "count" => 0];
+                    $countryLikeCounts[$key] = ["code" => $loc->country_code, "country" => $loc->country, "count" => 0];
+                }
+            }
+
+            foreach ($viewIps as $ip) {
+                $loc = resolveLocation($ip, $pdo);
+                $key = $loc->country_code . "|" . $loc->country;
+                $countryViewCounts[$key]["count"]++;
+            }
+
+            foreach ($likeIps as $ip) {
+                $loc = resolveLocation($ip, $pdo);
+                $key = $loc->country_code . "|" . $loc->country;
+                $countryLikeCounts[$key]["count"]++;
+            }
+
+            $totalViews = $pdo->query("SELECT COUNT(*) FROM blog_views")->fetchColumn();
+            $totalLikes = $pdo->query("SELECT COUNT(*) FROM blog_likes")->fetchColumn();
+            $uniqueVisitors = $pdo->query("SELECT COUNT(DISTINCT ip) FROM blog_views")->fetchColumn();
+
+            return jsonResponse($response, [
+                "viewsByDate" => $viewsByDate,
+                "likesByDate" => $likesByDate,
+                "viewsByCountry" => array_values($countryViewCounts),
+                "likesByCountry" => array_values($countryLikeCounts),
+                "topBlogs" => $topBlogs,
+                "totalViews" => (int) $totalViews,
+                "totalLikes" => (int) $totalLikes,
+                "uniqueVisitors" => (int) $uniqueVisitors,
+            ]);
+        } catch (PDOException $e) {
+            return jsonResponse($response, ["error" => "Database error"], 500);
+        }
+    });
 };

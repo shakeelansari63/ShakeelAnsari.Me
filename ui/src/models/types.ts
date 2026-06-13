@@ -68,6 +68,17 @@ export interface LearnSubject {
   thumbnail: string;
 }
 
+export interface AnalyticsData {
+    viewsByDate: { date: string; count: number }[];
+    likesByDate: { date: string; count: number }[];
+    viewsByCountry: { code: string; country: string; count: number }[];
+    likesByCountry: { code: string; country: string; count: number }[];
+    topBlogs: { id: string; title: string; views: number; likes: number }[];
+    totalViews: number;
+    totalLikes: number;
+    uniqueVisitors: number;
+}
+
 export interface LearnChapter {
   id: number;
   chapter_id: string;

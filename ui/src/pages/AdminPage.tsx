@@ -5,6 +5,9 @@ import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Toast } from 'primereact/toast';
 import ToolBar from '../components/shared/ToolBar';
+import type { AnalyticsData } from '../models/types';
+import { fetchAnalytics } from '../services/api';
+import AnalyticsDashboard from '../components/Admin/AnalyticsDashboard';
 
 export default function AdminPage() {
   useEffect(() => {
@@ -21,6 +24,8 @@ export default function AdminPage() {
   const [syncing, setSyncing] = useState(false);
   const [syncingLearn, setSyncingLearn] = useState(false);
   const [token, setToken] = useState(() => localStorage.getItem('admin_token'));
+  const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
+  const [analyticsLoading, setAnalyticsLoading] = useState(false);
   const toast = useRef<Toast>(null);
 
   const handleLogin = async () => {
@@ -81,6 +86,22 @@ export default function AdminPage() {
     }
   };
 
+  const handleLoadAnalytics = async () => {
+    setAnalyticsLoading(true);
+    try {
+      const data = await fetchAnalytics(token!);
+      if (data) {
+        setAnalytics(data);
+      } else {
+        toast.current?.show({ severity: 'error', summary: 'Error', detail: 'Failed to load analytics', life: 3000 });
+      }
+    } catch {
+      toast.current?.show({ severity: 'error', summary: 'Error', detail: 'Network error', life: 3000 });
+    } finally {
+      setAnalyticsLoading(false);
+    }
+  };
+
   const handleSyncLearn = async () => {
     setSyncingLearn(true);
     try {
@@ -135,6 +156,14 @@ export default function AdminPage() {
               <span className="text-gray-400">Sync learning subjects and chapters from markdown files</span>
               <Button label="Sync Learning" icon="pi pi-refresh" loading={syncingLearn} onClick={handleSyncLearn} style={{ outline: 'none', boxShadow: 'none' }} />
             </div>
+          </Card>
+
+          <Card className="mt-3">
+            <div className="flex align-items-center justify-content-between mb-3">
+              <span className="text-gray-400 text-lg font-bold">Blog Analytics &amp; Insights</span>
+              <Button label="Load Analytics" icon="pi pi-chart-bar" loading={analyticsLoading} onClick={handleLoadAnalytics} style={{ outline: 'none', boxShadow: 'none' }} />
+            </div>
+            {analytics && <AnalyticsDashboard data={analytics} />}
           </Card>
         </div>
       </>
