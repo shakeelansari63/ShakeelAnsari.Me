@@ -158,7 +158,7 @@ export default function AdminPage() {
             </div>
           </Card>
 
-          <Card className="mt-3">
+          <Card className="mt-3 no-hover">
             <div className="flex align-items-center justify-content-between mb-3">
               <span className="text-gray-400 text-lg font-bold">Blog Analytics &amp; Insights</span>
               <Button label="Load Analytics" icon="pi pi-chart-bar" loading={analyticsLoading} onClick={handleLoadAnalytics} style={{ outline: 'none', boxShadow: 'none' }} />

@@ -17,7 +17,7 @@ body {
     border: none;
 }
 
-.p-card:hover {
+.p-card:not(.no-hover):hover {
     box-shadow:
         -2px -2px 8px 1px #d53a9d,
         2px 2px 8px 1px #743ad5;
