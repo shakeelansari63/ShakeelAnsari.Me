@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import ScrollShrink from "./components/shared/ScrollShrink";
 import ScrollToTop from "./components/shared/ScrollToTop";
 import LoadingSpinner from "./components/shared/LoadingSpinner";
+import { settings } from "./data/settings";
 
 // Eager Load Main Page
 import MainPage from "./pages/MainPage";
@@ -26,16 +27,28 @@ function App() {
             <Suspense fallback={<LoadingSpinner />}>
                 <Routes>
                     <Route path="/" element={<MainPage />} />
-                    <Route path="/blog" element={<BlogPage />} />
-                    <Route path="/blog/:id" element={<BlogReaderPage />} />
-                    <Route path="/expo" element={<ExpoPage />} />
-                    <Route path="/learn" element={<LearnPage />} />
-                    <Route path="/learn/:subjectId" element={<SubjectPage />} />
-                    <Route
-                        path="/learn/:subjectId/:chapterId"
-                        element={<ChapterReaderPage />}
-                    />
-                    <Route path="/product/:id" element={<ProductPage />} />
+                    {settings.showBlogs && (
+                        <>
+                            <Route path="/blog" element={<BlogPage />} />
+                            <Route path="/blog/:id" element={<BlogReaderPage />} />
+                        </>
+                    )}
+                    {settings.showExpo && (
+                        <>
+                            <Route path="/expo" element={<ExpoPage />} />
+                            <Route path="/product/:id" element={<ProductPage />} />
+                        </>
+                    )}
+                    {settings.showTutorial && (
+                        <>
+                            <Route path="/learn" element={<LearnPage />} />
+                            <Route path="/learn/:subjectId" element={<SubjectPage />} />
+                            <Route
+                                path="/learn/:subjectId/:chapterId"
+                                element={<ChapterReaderPage />}
+                            />
+                        </>
+                    )}
                     <Route path="/admin" element={<AdminPage />} />
                     <Route path="*" element={<NotFoundPage />} />
                 </Routes>

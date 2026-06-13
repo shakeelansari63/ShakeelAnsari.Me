@@ -279,6 +279,7 @@ These files contain your personal data and must be updated manually:
 | File | What to edit |
 |---|---|
 | `ui/src/data/profile.ts` | GitHub username, social links, email, timezone (used by footer too) |
+| `ui/src/data/settings.ts` | Feature toggles — `showExpo`, `showBlogs`, `showTutorial` (set `false` to hide from toolbar + routes) |
 | `ui/src/data/skills.ts` | Skills list |
 | `ui/src/data/work.ts` | Work experience / job history |
 | `ui/src/data/expo.ts` | Portfolio projects (name, description, URLs) |

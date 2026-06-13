@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Toolbar } from "primereact/toolbar";
 import { Button } from "primereact/button";
 import { userData } from "../../data/profile";
+import { settings } from "../../data/settings";
 
 const Sidebar = lazy(() =>
     import("primereact/sidebar").then((m) => ({ default: m.Sidebar }))
@@ -36,33 +37,45 @@ export default function ToolBar({ isLight, onToggleTheme }: Props) {
     };
 
     const menuItems = [
-        {
-            label: "Expo",
-            icon: "pi pi-briefcase",
-            visible: !location.pathname.startsWith("/expo"),
-            action: () => {
-                setMenuOpen(false);
-                navigate("/expo");
-            },
-        },
-        {
-            label: "Blogs",
-            icon: "pi pi-book",
-            visible: !location.pathname.startsWith("/blog"),
-            action: () => {
-                setMenuOpen(false);
-                navigate("/blog");
-            },
-        },
-        {
-            label: "Learn",
-            icon: "pi pi-graduation-cap",
-            visible: !location.pathname.startsWith("/learn"),
-            action: () => {
-                setMenuOpen(false);
-                navigate("/learn");
-            },
-        },
+        ...(settings.showExpo
+            ? [
+                  {
+                      label: "Expo",
+                      icon: "pi pi-briefcase",
+                      visible: !location.pathname.startsWith("/expo"),
+                      action: () => {
+                          setMenuOpen(false);
+                          navigate("/expo");
+                      },
+                  },
+              ]
+            : []),
+        ...(settings.showBlogs
+            ? [
+                  {
+                      label: "Blogs",
+                      icon: "pi pi-book",
+                      visible: !location.pathname.startsWith("/blog"),
+                      action: () => {
+                          setMenuOpen(false);
+                          navigate("/blog");
+                      },
+                  },
+              ]
+            : []),
+        ...(settings.showTutorial
+            ? [
+                  {
+                      label: "Learn",
+                      icon: "pi pi-graduation-cap",
+                      visible: !location.pathname.startsWith("/learn"),
+                      action: () => {
+                          setMenuOpen(false);
+                          navigate("/learn");
+                      },
+                  },
+              ]
+            : []),
         {
             label: "Stats",
             icon: "pi pi-chart-bar",
@@ -106,7 +119,7 @@ export default function ToolBar({ isLight, onToggleTheme }: Props) {
     const endContent = (
         <>
             <div className="hidden md:flex gap-2">
-                {!location.pathname.startsWith("/expo") && (
+                {settings.showExpo && !location.pathname.startsWith("/expo") && (
                     <Button
                         text
                         severity="secondary"
@@ -117,7 +130,7 @@ export default function ToolBar({ isLight, onToggleTheme }: Props) {
                         style={{ outline: "none", boxShadow: "none" }}
                     />
                 )}
-                {!location.pathname.startsWith("/blog") && (
+                {settings.showBlogs && !location.pathname.startsWith("/blog") && (
                     <Button
                         text
                         severity="secondary"
@@ -128,7 +141,7 @@ export default function ToolBar({ isLight, onToggleTheme }: Props) {
                         style={{ outline: "none", boxShadow: "none" }}
                     />
                 )}
-                {!location.pathname.startsWith("/learn") && (
+                {settings.showTutorial && !location.pathname.startsWith("/learn") && (
                     <Button
                         text
                         severity="secondary"
