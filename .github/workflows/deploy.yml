@@ -37,17 +37,18 @@ jobs:
 
             - name: Replace SEO placeholders
               run: |
+                  escape_val() { printf '%s\n' "$1" | sed -e 's/[&/\]/\\&/g'; }
                   grep -rlo '\[{#SEO-[^#]*#}\]' . 2>/dev/null | sort -u | while read -r file; do
                     sed -i \
-                      -e "s|\[{#SEO-NAME#}\]|$SEO_NAME|g" \
-                      -e "s|\[{#SEO-TITLE#}\]|$SEO_TITLE|g" \
-                      -e "s|\[{#SEO-DOMAIN#}\]|$SEO_DOMAIN|g" \
-                      -e "s|\[{#SEO-DESC#}\]|$SEO_DESC|g" \
-                      -e "s|\[{#SEO-DESC-SHORT#}\]|$SEO_DESC_SHORT|g" \
-                      -e "s|\[{#SEO-GITHUB-URL#}\]|$SEO_GITHUB_URL|g" \
-                      -e "s|\[{#SEO-LINKEDIN-URL#}\]|$SEO_LINKEDIN_URL|g" \
-                      -e "s|\[{#SEO-TWITTER-USER#}\]|$SEO_TWITTER_USER|g" \
-                      -e "s|\[{#SEO-AVATAR-URL#}\]|$SEO_AVATAR_URL|g" \
+                      -e "s|\[{#SEO-NAME#}\]|$(escape_val "$SEO_NAME")|g" \
+                      -e "s|\[{#SEO-TITLE#}\]|$(escape_val "$SEO_TITLE")|g" \
+                      -e "s|\[{#SEO-DOMAIN#}\]|$(escape_val "$SEO_DOMAIN")|g" \
+                      -e "s|\[{#SEO-DESC#}\]|$(escape_val "$SEO_DESC")|g" \
+                      -e "s|\[{#SEO-DESC-SHORT#}\]|$(escape_val "$SEO_DESC_SHORT")|g" \
+                      -e "s|\[{#SEO-GITHUB-URL#}\]|$(escape_val "$SEO_GITHUB_URL")|g" \
+                      -e "s|\[{#SEO-LINKEDIN-URL#}\]|$(escape_val "$SEO_LINKEDIN_URL")|g" \
+                      -e "s|\[{#SEO-TWITTER-USER#}\]|$(escape_val "$SEO_TWITTER_USER")|g" \
+                      -e "s|\[{#SEO-AVATAR-URL#}\]|$(escape_val "$SEO_AVATAR_URL")|g" \
                       "$file"
                   done
 
