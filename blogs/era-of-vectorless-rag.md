@@ -16,7 +16,7 @@ If you have built any application using Large Language Models (LLMs) over the pa
 
 Before we look at what is changing, let us establish what we are building on. RAG is a technique used to improve the accuracy of Large Language Models (LLMs). Instead of relying solely on the information the AI was originally trained on, a RAG system fetches up-to-date or specific facts from external sources (like your private documents or the live internet) and feeds them to the AI to generate a highly accurate, fact-based response.
 
-## Why did RAG becode the Industry Standard
+## Why did RAG become the Industry Standard
 
 It did not take long for the tech world to adopt RAG as a foundational pattern. The architecture achieved industry-standard status quickly because it solved three massive problems:
 
