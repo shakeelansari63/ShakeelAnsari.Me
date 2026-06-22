@@ -33,6 +33,53 @@ if ($pdo) {
     } catch (PDOException) {
         // proceed without blog entries
     }
+
+    try {
+        $stmt = $pdo->query(
+            "SELECT id FROM learn_subjects ORDER BY id ASC",
+        );
+        foreach ($stmt as $row) {
+            $urls[] = [
+                "loc" => "$appUrl/learn/{$row["id"]}",
+                "changefreq" => "monthly",
+                "priority" => "0.6",
+            ];
+        }
+    } catch (PDOException) {
+        // proceed without subject entries
+    }
+
+    try {
+        $stmt = $pdo->query(
+            "SELECT lc.id, ls.id AS subject_id
+             FROM learn_chapters lc
+             JOIN learn_subjects ls ON ls.id = lc.subject_id
+             ORDER BY ls.id ASC, lc.sort_order ASC",
+        );
+        foreach ($stmt as $row) {
+            $urls[] = [
+                "loc" => "$appUrl/learn/{$row["subject_id"]}/{$row["id"]}",
+                "changefreq" => "monthly",
+                "priority" => "0.5",
+            ];
+        }
+    } catch (PDOException) {
+        // proceed without chapter entries
+    }
+}
+
+$productsDir = __DIR__ . "/../../products";
+if (is_dir($productsDir)) {
+    $dirs = array_filter(glob($productsDir . "/*", GLOB_ONLYDIR), "is_dir");
+    sort($dirs);
+    foreach ($dirs as $dir) {
+        $productId = basename($dir);
+        $urls[] = [
+            "loc" => "$appUrl/product/$productId",
+            "changefreq" => "monthly",
+            "priority" => "0.6",
+        ];
+    }
 }
 
 $xml = '<?xml version="1.0" encoding="UTF-8"?>';
