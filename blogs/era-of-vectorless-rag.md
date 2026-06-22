@@ -358,7 +358,7 @@ Let us look closely at how this page index system is actually implemented. First
 
 Once these leaf-level records are generated, they are fed into `merge_leaves_into_tree`. This function uses LangChain structured output capability to synthesize a nested, hierarchical `PageIndexNode` tree layout complete with unique IDs, parent titles, consolidated summary mappings, and dynamic page range boundaries. Finally, we stand up an interactive reasoning agent. The system injects the full tree structure into the agent system prompt and provides an executable custom tool (`fetch_pages_content`) that extracts localized, full-page content whenever the agent navigates to a designated node branch.
 
-### Sample Page index for PDF Ingestion
+### Sample Page index after PDF Ingestion
 
 ![Sample Page Index Graph](images/4-4-page-index-graph.png)
 
