@@ -363,24 +363,36 @@ if __name__ == "__main__":
 
 ```
 At first glance, you should have noticed we did not employ any Vector store or an embedding model in this code example. Let us look closely at how this page index system is actually implemented here. 
-  
-* First, we load our text and structure it as a clean map sorted by physical page numbers. 
-* Next, the `build_leaf_nodes` function runs sequentially through small page groups (e.g., group of 5 pages) to generate foundational PageIndex nodes with micro-summaries. Each leaf node has following schema:
 
-```javascript
-{
-  node_id: "Unique id of Node",
-  start_page: "Start page number for reference data in document",
-  end_page: "End page number for reference data in document",
-  title: "Title for reference data",
-  summary: "Short summary of reference data",
-  sub_nodes: []
-}
-```
+### Deep-Dive Code Breakdown
 
-* Once these leaf-level records are generated, they are fed into `merge_leaves_into_tree`. This function generates hierarchical `PageIndexNode` tree layout complete with unique IDs, parent titles, consolidated summary mappings, and dynamic page range boundaries.
-* Finally, we stand up an interactive reasoning agent. The system injects the full tree structure into the agent system context and provides an executable custom tool (`fetch_pages_content`) that extracts localized, full-page content whenever the agent requests it.
-* So, the LLM can now use its reasoning to fetch it's reference data instead on relying on mathematical similarity search to give documents. 
+To fully understand how this Vectorless RAG system operates under the hood, let us unpack the code into four key structural components:
+
+#### 1. Defining the Hierarchical Schema with Pydantic
+
+The bedrock of this strategy is the `PageIndexNode` class, which inherits from Pydantic's `BaseModel`.
+
+* **Self-Referencing Architecture:** The field `sub_nodes: List["PageIndexNode"]` allows the tree structure to be infinitely recursive. Because it references itself before the class definition is fully complete, `PageIndexNode.model_rebuild()` is explicitly called right after to register the internal forward references.
+* **Metadata Boundaries:** Every single node captures explicit `start_page` and `end_page` coordinates, forcing the LLM to map its semantic summaries back to physical, queryable document segments.
+
+#### 2. Two-Pass Dynamic Tree Construction
+
+Instead of trying to pass a massive 100-page document to the LLM all at once (which would cause context bloat and hallucinated details), the tree is built in two specialized passes:
+
+* **Pass 1 (`build_leaf_nodes`):** This function chunks the document sequentially based on a physical `chunk_size` (defaulting to 5 pages). The `leaf_chain` processes pages 1–5, then 6–10, creating flat, primitive dictionary summaries.
+* **Pass 2 (`merge_leaves_into_tree`):** The code passes these flat micro-summaries into `llm.with_structured_output(PageIndexNode)`. The LLM reads all the micro-summaries and decides which pages logically belong together (e.g., merging pages 1–5 and 6–10 into a single parent chapter spanning pages 1–10), structuring them into a nested JSON payload.
+
+#### 3. Context Injection and Tools Execution
+
+The full JSON string representing our tree (`dynamic_tree_context`) is injected directly into the `system_prompt` string. The LLM acts as the "navigator" of this map.
+
+* **The Bridge (`fetch_pages_content`):** The agent does not guess text; it is strictly provisioned with the `@tool` decorated function `fetch_pages_content`.
+* When the agent receives a query, it reads the JSON index map in its system prompt, finds the matching node ID, extracts the precise `start_page` and `end_page`, and passes them to this python function to retrieve the raw string content dynamically from `page_db`.
+
+#### 4. The Agent Loop
+
+Inside the `if __name__ == "__main__":` block, `create_agent` orchestrates a reasoning loop. Instead of doing a single shot retrieval like traditional semantic search, the agent can loop recursively: it reads the tree, fetches a range of pages, evaluates the text, and if it sees an internal cross-reference, it consults the tree again to query another page range before generating the final output.
+
 
 ### Here is how a PageIndex tree would look after PDF Ingestion
 
