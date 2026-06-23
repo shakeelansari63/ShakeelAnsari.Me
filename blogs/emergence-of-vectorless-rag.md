@@ -412,11 +412,11 @@ By shifting the system from numerical calculation toward reasoning navigation, w
 
 * **Context Preservation:** The framework explicitly maintains logical connections by analyzing consecutive blocks of text and building parent summaries over them instead of dividing text pieces randomly.
 * **Structural Context Survival:** Headings, logical page flows, and structural indices stay unified because the system operates over native structural pages rather than sliced token boundaries.
-* **LLM Reasoning for Retrieval:** Since LLM has access to full page index tree, it can decide which documents to retrieve for answering the question. 
-
+* **LLM Reasoning for Retrieval:** Since LLM has access to full page index tree, it can decide which documents to retrieve for answering the question.  
+  
 ## The Trade-offs of Going Vectorless
 
-While this architecture avoids vector database complexities, it does come with specific operational costs that you must evaluate before implementing it in production:
+Although, PagIndex has great potential, it is not a silver bullet. There are few trade-offs one should consider before implementing it in production. 
 
 * **High Query-Time Costs:** Because retrieval relies on a language model iteratively traversing, reasoning, and selecting nodes in a tree, it calls the model repeatedly during the search path.
 * **Increased Latency:** The requirement for multiple LLM calls to process summaries and traverse the index inherently introduces response delays compared to sub-millisecond database vector matching.
@@ -425,7 +425,7 @@ While this architecture avoids vector database complexities, it does come with s
 
 ## Where to go next?
 
-If you want to read deeper on how this paradigm operates in production, check out the core concepts on the [PageIndex Blog](https://pageindex.ai/blog/pageindex-intro). I have also uploaded complete working scripts for both the vector-based model and this vectorless system in this [GitHub Repository](https://github.com/shakeelansari63/random_programs/tree/master/RAG) so you can pull down the files and benchmark them side by side on your local environments.
+If you want to read deeper on how this paradigm operates, check out the core concepts on the [PageIndex Blog](https://pageindex.ai/blog/pageindex-intro). I have also uploaded complete working scripts for both the vector-based and vectorless system in this [GitHub Repository](https://github.com/shakeelansari63/random_programs/tree/master/RAG) so you can pull down the files and benchmark them side by side on your local environments.
 
 Let me know what you think about ditching embeddings for explicit document indices. Catch you in the next post!
 
