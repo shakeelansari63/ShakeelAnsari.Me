@@ -130,6 +130,10 @@ When a user queries the application, the system converts the query into an embed
 ### Here is the output of above code
 ![Vector based RAG Output](images/4-3-rag-vector-output.png)
 
+🎉 Amazing!! With just few lines of code, we have created a QnA chatbot.  
+Now you must be thinking if this technology is so cool, why are we replacing it?  
+Let's look at the limitations of RAG, next. 
+   
 ## Crucial Limitations of Traditional RAG
 
 While vector-based RAG works well for straightforward phrase matches, it hits severe operational walls when processing complex, highly structured business or engineering documents:
@@ -379,6 +383,8 @@ At first glance, you should have noticed we did not employ any Vector store or a
 ### And here is output of Page Index based vectorless RAG
 
 ![Sample Page Index Graph](images/4-5-rag-pageindex-output.png)
+  
+Now, isn't it cool that we were able to implement this RAG without using a vector store? It certainly is. 🎉🎉
 
 ## How Vectorless Indexing Fixes Traditional Bottlenecks
 
