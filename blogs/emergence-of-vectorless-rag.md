@@ -394,15 +394,17 @@ The full JSON string representing our tree (`dynamic_tree_context`) is injected 
 Inside the `if __name__ == "__main__":` block, `create_agent` orchestrates a reasoning loop. Instead of doing a single shot retrieval like traditional semantic search, the agent can loop recursively: it reads the tree, fetches a range of pages, evaluates the text, and if it sees an internal cross-reference, it consults the tree again to query another page range before generating the final output.
 
 
-### Here is how a PageIndex tree would look after PDF Ingestion
+### Here is how a PageIndex tree would look after ingesting the PDF document
 
 ![Sample Page Index Graph](images/4-4-page-index-graph.png)
+
+🤞🏻 Moment of truth! Let's run the scripts and see how this RAG behaves.
 
 ### And here is output of Page Index based vectorless RAG
 
 ![Sample Page Index Graph](images/4-5-rag-pageindex-output.png)
   
-Now, isn't it cool that we were able to implement this RAG without using a vector store? It certainly is. 🎉🎉
+🤯 Wow!! Isn't it cool that we were able to implement this RAG without using a vector store? It certainly is. 🎉
 
 ## How Vectorless Indexing Fixes Traditional Bottlenecks
 
@@ -421,7 +423,7 @@ While this architecture avoids vector database complexities, it does come with s
 * **Over-Reliance on LLM Reasoning:** If the LLM mischaracterizes a section summary during the initial indexing phase, or if the reasoning agent chooses the wrong branch of the tree, it will completely miss the factual section.
 * **Compounding API Token Expenses:** Running active reasoning iterations over a JSON tree layout consumes significantly higher token counts than simple k-nearest neighbor retrieval setups.
 
-## Where to go Next?
+## Where to go next?
 
 If you want to read deeper on how this paradigm operates in production, check out the core concepts on the [PageIndex Blog](https://pageindex.ai/blog/pageindex-intro). I have also uploaded complete working scripts for both the vector-based model and this vectorless system in this [GitHub Repository](https://github.com/shakeelansari63/random_programs/tree/master/RAG) so you can pull down the files and benchmark them side by side on your local environments.
 
