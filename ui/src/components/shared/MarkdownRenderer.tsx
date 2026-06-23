@@ -64,9 +64,7 @@ export default function MarkdownRenderer({ content, isLight }: Props) {
               {children}
             </strong>
           ),
-          li: ({ children }) => (
-            <li className="m-0 mb-2">{children}</li>
-          ),
+          li: ({ children }) => <li className="m-0 mb-2">{children}</li>,
           a: ({ href, children }) => (
             <a href={href} target="_blank" rel="noopener noreferrer">
               {children}
@@ -89,7 +87,11 @@ export default function MarkdownRenderer({ content, isLight }: Props) {
             </div>
           ),
           thead: ({ children }) => (
-            <thead style={{ borderBottom: `2px solid ${isLight ? "#d53a9d" : "#d53a9d"}` }}>
+            <thead
+              style={{
+                borderBottom: `2px solid ${isLight ? "#d53a9d" : "#d53a9d"}`,
+              }}
+            >
               {children}
             </thead>
           ),
@@ -127,8 +129,9 @@ export default function MarkdownRenderer({ content, isLight }: Props) {
               {children}
             </td>
           ),
-          ul: ({ children }) => (
-            <ul className="m-0 mb-2">{children}</ul>
+          ul: ({ children }) => <ul className="m-0 mb-2 pl-0">{children}</ul>,
+          ol: ({ children }) => (
+            <ol className="m-0 mb-2 pl-3 list-decimal">{children}</ol>
           ),
           code: ({ className, children }) => {
             const match = /language-(\w+)/.exec(className ?? "");
