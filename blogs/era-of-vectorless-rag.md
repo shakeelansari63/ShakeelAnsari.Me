@@ -18,7 +18,7 @@ Before we look at what is changing, let us establish what we are building on.
   
 RAG is a technique used to improve the accuracy of Large Language Models (LLMs). Instead of relying solely on the information the AI was originally trained on, a RAG system can fetch up-to-date or specific facts from external sources (like your private documents or the live internet) and feeds them to the AI to generate a highly accurate and fact-based response.  
   
-It did not take long for the tech world to adopt RAG as a foundational pattern. The architecture achieved industry-standard status quickly because it solved three massive problems:
+RAG was a path breaking architecture when it came out and it did not take long for the tech world to adopt it as a foundational pattern. The architecture achieved industry-standard status quickly because it solved three massive problems:
 
 * **Improved Accuracy:** RAG anchors the model responses to a verified reference material, hence increasing the response accuracy.
 * **Works with Changing Data:** You do not need to retrain a massive model every time a document updates; you just update the connected data source and your RAG will fetch latest information.  
