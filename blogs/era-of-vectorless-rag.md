@@ -131,8 +131,10 @@ When a user queries the application, the system converts the query into an embed
 ![Vector based RAG Output](images/4-3-rag-vector-output.png)
 
 🎉 Amazing!! With just few lines of code, we have created a QnA chatbot.  
+
 Now you must be thinking if this technology is so cool, why are we replacing it?  
-Let's look at the limitations of RAG, next. 
+
+Let's look at some limitations of this vector based RAG, next. 
    
 ## Crucial Limitations of Traditional RAG
 
