@@ -26,7 +26,7 @@ RAG was absolutely path breaking when it came out and it did not take long for t
   
 ## The Traditional Approach: Vector-Based RAG
 
-Before we dive into vectorless world, let's see how the vector-based RAG works. Traditionally, building a RAG includes chunking the knowledge document, runnjng those text pieces through an embedding model, and storing the resulting math vectors into a specialized database which is then used as a knowledge repository.
+Before we dive into vectorless world, let's see how the vector-based RAG works. Traditionally, building a RAG includes chunking the knowledge document, running those text pieces through an embedding model, and storing the resulting math vectors into a specialized database which is then used as a knowledge repository.
 
 ![How Vector Based RAG Works](images/4-2-vector-based-rag-works.png)
 
