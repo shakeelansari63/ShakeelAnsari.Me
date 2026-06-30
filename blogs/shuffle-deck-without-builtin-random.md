@@ -3,7 +3,8 @@ title: Shuffling a Deck Without Built‑in Random
 excerpt: A step‑by‑step look at a Python function that uses timestamps and SHA‑512 to generate a shuffled deck without the random module.  
 date: 2019-08-07  
 readTime: 8 min read  
-tags: Python, Algorithms, Randomness, Shuffling, Hashing  
+tags: Python, Algorithms, Randomness, Shuffling, Hashing
+bannerImage: 1-1-shuffle-deck.webp  
 ---
 
 ![Shuffling a deck](images/1-1-shuffle-deck.webp)

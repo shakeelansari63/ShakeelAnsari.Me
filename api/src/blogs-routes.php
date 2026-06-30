@@ -33,7 +33,7 @@ return function (App $app, ?PDO $pdo) {
         if ($total > 0) {
             $offset = ($page - 1) * $limit;
             $stmt = $pdo->prepare(
-                'SELECT id, title, excerpt, date, read_time, tags, views, likes
+                'SELECT id, title, excerpt, date, read_time, tags, banner_image, views, likes
                  FROM blog
                  WHERE deleted = 0
                  ORDER BY date DESC, id ASC
@@ -49,6 +49,7 @@ return function (App $app, ?PDO $pdo) {
                     "date" => $row["date"],
                     "readTime" => $row["read_time"],
                     "tags" => json_decode($row["tags"] ?? "[]", true),
+                    "bannerImage" => $row["banner_image"] ?? "",
                     "views" => (int) $row["views"],
                     "likes" => (int) $row["likes"],
                 ];
@@ -111,7 +112,7 @@ return function (App $app, ?PDO $pdo) {
         }
 
         $stmt = $pdo->prepare(
-            "SELECT id, title, excerpt, date, read_time, tags, views, likes FROM blog WHERE id = ? AND deleted = 0",
+            "SELECT id, title, excerpt, date, read_time, tags, banner_image, views, likes FROM blog WHERE id = ? AND deleted = 0",
         );
         $stmt->execute([$id]);
         $row = $stmt->fetch();
@@ -127,6 +128,7 @@ return function (App $app, ?PDO $pdo) {
             "date" => $row["date"],
             "readTime" => $row["read_time"],
             "tags" => json_decode($row["tags"] ?? "[]", true),
+            "bannerImage" => $row["banner_image"] ?? "",
             "views" => (int) $row["views"],
             "likes" => (int) $row["likes"],
         ]);

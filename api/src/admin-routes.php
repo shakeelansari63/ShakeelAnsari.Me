@@ -97,14 +97,15 @@ return function (App $app, ?PDO $pdo) {
         }
 
         $upsert = $pdo->prepare(
-            'INSERT INTO blog (id, title, excerpt, date, read_time, tags, md_file, deleted)
-             VALUES (?, ?, ?, ?, ?, ?, ?, 0)
+            'INSERT INTO blog (id, title, excerpt, date, read_time, tags, banner_image, md_file, deleted)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0)
              ON DUPLICATE KEY UPDATE
                  title = VALUES(title),
                  excerpt = VALUES(excerpt),
                  date = VALUES(date),
                  read_time = VALUES(read_time),
                  tags = VALUES(tags),
+                 banner_image = VALUES(banner_image),
                  md_file = VALUES(md_file),
                  deleted = 0',
         );
@@ -124,6 +125,7 @@ return function (App $app, ?PDO $pdo) {
                 $meta["date"],
                 $meta["readTime"],
                 json_encode($meta["tags"]),
+                $meta["bannerImage"] ?? "",
                 basename($file),
             ]);
             $parsed++;

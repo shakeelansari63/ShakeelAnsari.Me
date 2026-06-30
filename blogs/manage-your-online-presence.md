@@ -4,6 +4,7 @@ excerpt: Ever wondered how to build and host your own portfolio website? Here is
 date: 2026-06-13
 readTime: 14 min read
 tags: Personal Portfolio, Online Presence, Web Development, React, PHP, DevOps
+bannerImage: 3-1-portfolio-hero.png
 ---
 
 ![Portfolio](images/3-1-portfolio-hero.png)

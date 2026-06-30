@@ -50,6 +50,7 @@ export interface BlogPost {
   date: string;
   readTime: string;
   tags: string[];
+  bannerImage?: string;
   views: number;
   likes: number;
 }

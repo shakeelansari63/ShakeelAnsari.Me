@@ -20,14 +20,31 @@ export default function BlogCard({ post }: Props) {
   return (
     <div className="col-12">
       <Card className="cursor-pointer" footer={footer} onClick={() => navigate(`/blog/${post.id}`)}>
-        <div className="flex flex-column">
-          <span className="font-bold text-xl text-pink-400 mb-2">{post.title}</span>
-          <span className="text-sm text-gray-400 mb-2">{post.date} &middot; {post.readTime}</span>
-          <p className="text-blue-400 m-0 mb-2" style={{ fontFamily: '"Space Grotesk", sans-serif' }}>{post.excerpt}</p>
-          <div className="flex gap-2 flex-wrap">
-            {post.tags.map((tag) => (
-              <Chip key={tag} label={tag} className="text-sm" />
-            ))}
+        <div className="flex flex-column md:flex-row gap-3">
+          {post.bannerImage && (
+            <img
+              src={`/api/blogs/images/${post.bannerImage}`}
+              alt={post.title}
+              className="w-full md:w-16rem"
+              style={{
+                aspectRatio: '16 / 9',
+                objectFit: 'cover',
+                borderRadius: '6px',
+                display: 'block',
+                background: '#1a1a1a',
+              }}
+              loading="lazy"
+            />
+          )}
+          <div className="flex flex-column flex-1">
+            <span className="font-bold text-xl text-pink-400 mb-2">{post.title}</span>
+            <span className="text-sm text-gray-400 mb-2">{post.date} &middot; {post.readTime}</span>
+            <p className="text-blue-400 m-0 mb-2" style={{ fontFamily: '"Space Grotesk", sans-serif' }}>{post.excerpt}</p>
+            <div className="flex gap-2 flex-wrap">
+              {post.tags.map((tag) => (
+                <Chip key={tag} label={tag} className="text-sm" />
+              ))}
+            </div>
           </div>
         </div>
       </Card>

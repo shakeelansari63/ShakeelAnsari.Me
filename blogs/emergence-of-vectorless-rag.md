@@ -4,6 +4,7 @@ excerpt: Moving past traditional vector stores toward structured page indexing f
 date: 2026-06-23
 readTime: 12 min read
 tags: RAG, Vectorless, PageIndex, LLM, Python
+bannerImage: 4-1-era-or-vectorless-rags.png
 ---
 
 ![Era of Vectorless RAGs](images/4-1-era-or-vectorless-rags.png)

@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS blog (
     date DATE,
     read_time VARCHAR(50),
     tags JSON,
+    banner_image VARCHAR(512) NOT NULL DEFAULT '',
     md_file VARCHAR(512) NOT NULL DEFAULT '',
     deleted TINYINT(1) NOT NULL DEFAULT 0,
     views INT NOT NULL DEFAULT 0,
