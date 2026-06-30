@@ -26,7 +26,7 @@ Named return values create local variables initialized to zero. A bare `return` 
 
 ## Call by Value vs Call by Reference
 
-Primitives and structs are passed **by value** — the function receives a copy. Slices and maps are passed **by reference** — the function shares the underlying data.
+Everything in Go is passed **by value** — the function receives a copy. Slices and maps contain references to underlying data, so changes to elements inside the function affect the caller, but reassigning the slice header itself does not propagate.
 
 ```go
 func callByValue(x, y string) {

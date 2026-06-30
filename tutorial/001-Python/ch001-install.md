@@ -36,7 +36,7 @@ sudo pacman -S python python-pip
 
 ## macOS
 
-macOS comes with Python 2.x pre-installed. For Python 3, use one of these methods:
+macOS no longer ships with Python pre-installed. For Python 3, use one of these methods:
 
 **Using Homebrew (recommended):**
 ```bash

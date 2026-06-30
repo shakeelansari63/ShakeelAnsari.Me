@@ -97,8 +97,8 @@ print(df.T)          # Transpose
 
 ```python
 print(df.iloc[1])         # 2nd row
-print(df['name'])         # Name column
-print(df['name'].iloc[1]) # Name in 2nd row
+print(df.index)           # Index column (name)
+print(df.index[1])        # Name in 2nd row
 ```
 
 ### Reading CSV

@@ -24,7 +24,7 @@ val jd = new Employee7("John", "Doe")
 println(jd.fullName) // John Doe
 
 val ac = new Manager1("Alan", "Croft", "Mathematics")
-println(ac.fullName)      // John Doe (inherited from Employee7)
+println(ac.fullName)      // Alan Croft (inherited from Employee7)
 println(ac.department)    // Mathematics (only available on Manager1)
 ```
 

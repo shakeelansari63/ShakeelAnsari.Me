@@ -26,8 +26,7 @@ flask run
 Or with debug mode:
 ```bash
 export FLASK_APP=app.py
-export FLASK_DEBUG=1
-flask run
+flask --debug run
 ```
 
 ## Routes
@@ -148,7 +147,7 @@ def token_required(f):
         if not token:
             return jsonify({'message': 'Token missing!!'}), 401
         try:
-            jwt.decode(token, app.config['secret'])
+            jwt.decode(token, app.config['secret'], algorithms=["HS256"])
         except:
             return jsonify({'message': 'Invalid Token!!'}), 401
         return f(*args, **kwargs)
@@ -168,9 +167,9 @@ def login():
     auth = request.authorization
     if auth and auth.password == 'secret':
         token = jwt.encode({'user': auth.username,
-                            'exp': dt.datetime.utcnow() + dt.timedelta(seconds=30)},
-                           app.config['secret'])
-        return jsonify({'token': token.decode('UTF8')})
+                            'exp': dt.datetime.now(dt.timezone.utc) + dt.timedelta(seconds=30)},
+                           app.config['secret'], algorithm="HS256")
+        return jsonify({'token': token})
     return make_response('Could not Authenticate!', 401,
                          {'WWW-Authenticate': 'Basic realm="Login required"'})
 ```

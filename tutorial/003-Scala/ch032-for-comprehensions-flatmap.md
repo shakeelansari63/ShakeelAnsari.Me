@@ -54,7 +54,7 @@ println(for {
 
 ## FlatMap
 
-`flatMap` is like `map` but flattens nested collections by one level. Its signature is `flatMap(f: A => Traversable[B]): Collection[B]`.
+`flatMap` is like `map` but flattens nested collections by one level. Its signature is `flatMap(f: A => IterableOnce[B]): List[B]` (Scala 2.13+).
 
 ### Flattening Multi-dimensional Lists
 

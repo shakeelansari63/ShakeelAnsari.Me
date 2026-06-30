@@ -22,9 +22,18 @@ public final class Runner {
 
 The Scala compiler generates a static `main` method that Java's runtime can find and invoke.
 
-## Using `extends App`
+## Using `@main` (Scala 3, recommended)
 
-If you don't want to write the `main` method boilerplate, extend `App`:
+Scala 3 introduces `@main` annotation for concise entry points:
+
+```scala
+@main def runner2: Unit =
+    println("Hello from @main def")
+```
+
+## Using `extends App` (Scala 2)
+
+In Scala 2, you can extend `App` (deprecated in Scala 2.13, removed in Scala 3):
 
 ```scala
 object Runner2 extends App {
@@ -44,4 +53,4 @@ public final class Runner2 {
 
 `App` generates the `main` method automatically, plus `delayedInit` (which executes the body) and `executionStart` (a timestamp for measuring program duration).
 
-The `extends App` approach is more concise and is preferred for simple scripts and applications, while the explicit `main` method gives you more control and matches the familiar Java pattern.
+The explicit `main` method gives you full control and works in both Scala 2 and 3. The `@main` syntax is preferred for Scala 3 projects.

@@ -110,8 +110,8 @@ println("Hello".indexOf("ell"))
 // Replace
 println("Hello Scala".replace("Scala", "Java"))
 
-// Substring (start, end)
-println("Hello Scala Devs".substring(6, 11))
+// Substring (start, end) — substring is deprecated since 2.13, use slice instead
+println("Hello Scala Devs".slice(6, 11))
 
 // Trim leading and trailing spaces
 println("   trim me   ".trim)

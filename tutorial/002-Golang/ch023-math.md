@@ -33,11 +33,12 @@ fmt.Println("E:", math.E)
 
 ## Random Numbers
 
-To get different values on each run, seed the random generator with the current time before generating numbers:
+Since Go 1.20, the global random source is automatically seeded. For older Go versions, seed explicitly:
 
 ```go
-rand.Seed(time.Now().UnixNano())
+// Go <1.20 only — auto-seeded in Go 1.20+
+// rand.Seed(time.Now().UnixNano())
 fmt.Println("Random [0-5]:", rand.Intn(6))  // Intn(n) returns [0, n)
 ```
 
-Without seeding, `rand` produces the same sequence of numbers every time the program runs.
+Without explicit seeding in older versions, `rand` produces the same sequence every run. Since Go 1.20, this is no longer necessary.

@@ -5,7 +5,7 @@
 On Linux, you also need `espeak`:
 
 ```bash
-sudo apt install espeak
+sudo apt install espeak-ng
 ```
 
 ## Basic Usage

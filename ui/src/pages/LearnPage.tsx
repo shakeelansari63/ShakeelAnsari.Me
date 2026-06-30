@@ -27,10 +27,10 @@ export default function LearnPage() {
         {loading ? (
           <div className="grid">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="md:col-4 col-12">
+              <div key={i} className="md:col-6 col-12">
                 <Card className="h-full">
-                  <Skeleton width="60%" height="1.5rem" className="mb-2" />
-                  <Skeleton width="40%" height="1rem" />
+                  <Skeleton width="100%" height="8rem" className="mb-2" />
+                  <Skeleton width="60%" height="1.5rem" />
                 </Card>
               </div>
             ))}
@@ -43,7 +43,7 @@ export default function LearnPage() {
         ) : (
           <div className="grid">
             {subjects.map((subject) => (
-              <div key={subject.id} className="md:col-4 col-12">
+              <div key={subject.id} className="md:col-6 col-12">
                 <Card
                   className="cursor-pointer h-full overflow-hidden"
                   onClick={() => navigate(`/learn/${subject.id}`)}

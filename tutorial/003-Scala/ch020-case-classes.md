@@ -59,6 +59,6 @@ println(emp5)  // Employee11(John, Dae)
 
 ## Limitations
 
-Case classes cannot inherit from other case classes. This is because `copy` has default parameter values, and if a subclass tried to override `copy`, it would conflict with the parent's `copy` method (Scala does not allow overloading methods with default parameters).
+In Scala 2, case classes cannot inherit from other case classes — `copy` has default parameter values that would conflict. In Scala 3, this restriction is lifted and case classes can extend other case classes.
 
 Case classes can, however, extend regular classes or traits.

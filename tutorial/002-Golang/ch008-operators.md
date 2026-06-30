@@ -27,7 +27,7 @@ fmt.Println("a >> 3 =", a>>3)  // Right shift: 1 (a / 2^3)
 - `&` — bitwise AND
 - `|` — bitwise OR
 - `^` — bitwise XOR
-- `&^` — bitwise NOR (AND NOT) — clears bits in `a` that are set in `b`
+- `&^` — bitwise AND NOT (bit clear) — clears bits in `a` that are set in `b`
 - `<<` — left shift (multiply by power of 2)
 - `>>` — right shift (divide by power of 2)
 

@@ -6,6 +6,7 @@ Pygame is a library for writing video games. Install with `pip install pygame`.
 
 ```python
 import pygame
+import sys
 from pygame import mixer
 
 # Initialize Pygame

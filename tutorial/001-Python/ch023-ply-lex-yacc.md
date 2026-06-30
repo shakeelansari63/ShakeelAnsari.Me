@@ -109,4 +109,4 @@ print(result)
 2. **Lexer rules** use regex to match tokens from input text.
 3. **Grammar rules** define how tokens combine into expressions.
 4. `p[0]` holds the result of the rule; `p[1]`, `p[2]`, etc. are the components.
-5. Precedence is handled by rule order — rules listed first have higher precedence.
+5. Precedence is handled using `precedence` declarations (`%left`, `%right`, `%nonassoc`) — not rule order.

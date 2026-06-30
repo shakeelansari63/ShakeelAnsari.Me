@@ -18,7 +18,6 @@ Models in GORM are plain Go structs with struct tags for column configuration:
 ```go
 type User struct {
     gorm.Model           // embeds ID, CreatedAt, UpdatedAt, DeletedAt
-    ID   int    `gorm:"primaryKey"`
     Name string `gorm:"size:255"`
 }
 ```

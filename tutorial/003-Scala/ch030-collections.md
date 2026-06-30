@@ -44,7 +44,7 @@ def demoRepeatedParam(x: Int, y: String, z: Any*) = {
     println(x); println(y); println(z)
 }
 
-// Unravel a list into varargs with :_*
+// Unravel a list into varargs with : _* (Scala 2) or .* (Scala 3)
 demoRepeatedParam(3, "Hi", List("yeah", "this", "is", "stupid", 3.00): _*)
 ```
 
@@ -84,10 +84,10 @@ println(map.get("a"))  // Some(1)
 println(map.get("x"))  // None
 ```
 
-Symbols (interned strings) are a good fit for map keys:
+String keys are the standard choice for maps — symbol literals are deprecated since Scala 2.13:
 
 ```scala
-val symMap = Map('SymbolA -> 1, 'SymbolB -> 2)
+val symMap = Map("keyA" -> 1, "keyB" -> 2)
 ```
 
 ## Ranges

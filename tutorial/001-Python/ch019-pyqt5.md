@@ -13,7 +13,6 @@ from PyQt5.QtCore import Qt
 
 class HelloWindow(QMainWindow):
     def __init__(self, *args, **kwargs):
-        self.app = QApplication(sys.argv)
         super().__init__(*args, **kwargs)
 
         self.setWindowTitle("Hello World Program")
@@ -23,9 +22,10 @@ class HelloWindow(QMainWindow):
         self.setCentralWidget(label)
 
 if __name__ == '__main__':
+    app = QApplication(sys.argv)
     win = HelloWindow()
     win.show()
-    win.app.exec_()
+    app.exec_()
 ```
 
 ## Key Concepts

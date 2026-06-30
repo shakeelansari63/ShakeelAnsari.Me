@@ -50,7 +50,7 @@ The `real()` and `imag()` built-in functions extract the real and imaginary part
 
 ## Strings, Runes & Booleans
 
-Strings are UTF-8 characters enclosed in double quotes `""` or backticks ```` ``` ``. Default is `""`.
+Strings are byte sequences (typically UTF-8) enclosed in double quotes `""` or backticks ```` ``` ``. Default is `""`.
 
 ```go
 var str1 string = "Hello World"

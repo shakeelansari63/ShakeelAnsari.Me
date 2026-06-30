@@ -37,7 +37,7 @@ If you want to ignore one of the return values, use the blank identifier `_`:
 num, _ := reader.ReadString('\n')
 ```
 
-This is called the "comma ok" syntax. The second returned value is discarded.
+This uses the blank identifier `_` to discard the second returned value (the error). This is not the "comma ok" pattern — comma ok refers to `value, ok := map[key]`.
 
 To see what the error object looks like, capture it:
 

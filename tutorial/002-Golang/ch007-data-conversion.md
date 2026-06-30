@@ -6,17 +6,15 @@ When data comes in as a string (for example, from user input), you cannot perfor
 package main
 
 import (
-    "bufio"
     "fmt"
-    "os"
     "strconv"
-    "strings"
 )
 
 func main() {
     n1s := "32"
     n1, _ := strconv.ParseFloat(n1s, 32)
     fmt.Println("Added 1:", n1+1)
+}
 ```
 
 ## Error Handling

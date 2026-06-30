@@ -122,7 +122,7 @@ class Employee(val firstName: String, val lastName: String) {
     def fullName = s"$firstName $lastName"
 }
 
-// This throws: java.lang.IllegalArgumentException: requirement failed: Last Name cannot be empty
+// This throws: java.lang.IllegalArgumentException: requirement failed: Last name cannot be empty
 val jd = new Employee(firstName = "John", lastName = "")
 ```
 
