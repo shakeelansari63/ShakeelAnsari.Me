@@ -17,11 +17,12 @@ class DB
                 $_ENV["DB_PORT"] ?? "3306",
                 $_ENV["DB_NAME"],
             );
+
             $pdo = new \PDO($dsn, $_ENV["DB_USER"], $_ENV["DB_PASS"], [
                 \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
                 \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
                 \PDO::ATTR_EMULATE_PREPARES => false,
-                \PDO::ATTR_TIMEOUT => 2,
+                \PDO::ATTR_TIMEOUT => 5,
             ]);
             try {
                 $pdo->exec("SET SESSION max_execution_time = 30000");

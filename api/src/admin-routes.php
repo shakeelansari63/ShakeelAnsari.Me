@@ -171,7 +171,7 @@ return function (App $app, ?PDO $pdo) {
         $syncedSubjects = 0;
         $syncedChapters = 0;
 
-        $catalogExts = ['png', 'jpg', 'jpeg', 'webp', 'bmp'];
+        $catalogExts = ["png", "jpg", "jpeg", "webp", "bmp"];
 
         $upsertSubject = $pdo->prepare(
             'INSERT INTO learn_subjects (id, title, folder, sort_order, thumbnail)
@@ -193,46 +193,55 @@ return function (App $app, ?PDO $pdo) {
         );
 
         $subjectIds = [];
+        $subjectChapterIds = [];
 
         foreach ($subjectFolders as $folderPath) {
             $folder = basename($folderPath);
 
             if (preg_match('/^(\d+)-(.*)$/', $folder, $m)) {
                 $sortOrder = (int) $m[1];
-                $title = trim(str_replace(['-', '_'], ' ', $m[2]));
+                $title = trim(str_replace(["-", "_"], " ", $m[2]));
                 $id = strtolower($folder);
             } else {
                 $sortOrder = 0;
-                $title = trim(str_replace(['-', '_'], ' ', $folder));
+                $title = trim(str_replace(["-", "_"], " ", $folder));
                 $id = strtolower($folder);
             }
 
-            $thumbnail = '_default_thumbnail.svg';
-            $imagesDir = $folderPath . '/images';
+            $thumbnail = "_default_thumbnail.svg";
+            $imagesDir = $folderPath . "/images";
             if (is_dir($imagesDir)) {
                 foreach ($catalogExts as $ext) {
-                    $candidate = $imagesDir . '/thumbnail.' . $ext;
+                    $candidate = $imagesDir . "/thumbnail." . $ext;
                     if (file_exists($candidate)) {
-                        $thumbnail = 'thumbnail.' . $ext;
+                        $thumbnail = "thumbnail." . $ext;
                         break;
                     }
                 }
             }
 
             $subjectIds[] = $id;
-            $upsertSubject->execute([$id, $title, $folder, $sortOrder, $thumbnail]);
+            $subjectChapterIds[$id] = [];
+            $upsertSubject->execute([
+                $id,
+                $title,
+                $folder,
+                $sortOrder,
+                $thumbnail,
+            ]);
             $syncedSubjects++;
 
             $chapterFiles = glob($folderPath . "/*.md");
             foreach ($chapterFiles as $filePath) {
                 $chapterId = pathinfo($filePath, PATHINFO_FILENAME);
+                $subjectChapterIds[$id][] = $chapterId;
 
                 if (preg_match('/^ch(\d+)-(.*)$/', $chapterId, $cm)) {
                     $chSort = (int) $cm[1];
-                    $chTitle = trim(str_replace(['-', '_'], ' ', $cm[2]));
+                    $chTitle = trim(str_replace(["-", "_"], " ", $cm[2]));
                 } else {
                     $chSort = 0;
-                    $chTitle = trim(str_replace(['-', '_'], ' ', $chapterId));
+                    $chTitle = trim(str_replace(["-", "_"], " ", $chapterId));
                 }
 
                 $upsertChapter->execute([
@@ -247,13 +256,33 @@ return function (App $app, ?PDO $pdo) {
         }
 
         if (!empty($subjectIds)) {
-            $placeholders = implode(",", array_fill(0, count($subjectIds), "?"));
+            $placeholders = implode(
+                ",",
+                array_fill(0, count($subjectIds), "?"),
+            );
             $pdo->prepare(
                 "DELETE FROM learn_chapters WHERE subject_id NOT IN ({$placeholders})",
             )->execute($subjectIds);
             $pdo->prepare(
                 "DELETE FROM learn_subjects WHERE id NOT IN ({$placeholders})",
             )->execute($subjectIds);
+        }
+
+        // Delete stale chapters for subjects that still exist
+        foreach ($subjectChapterIds as $subjectId => $chapterIds) {
+            if (!empty($chapterIds)) {
+                $chPlaceholders = implode(
+                    ",",
+                    array_fill(0, count($chapterIds), "?"),
+                );
+                $pdo->prepare(
+                    "DELETE FROM learn_chapters WHERE subject_id = ? AND chapter_id NOT IN ({$chPlaceholders})",
+                )->execute(array_merge([$subjectId], $chapterIds));
+            } else {
+                $pdo->prepare(
+                    "DELETE FROM learn_chapters WHERE subject_id = ?",
+                )->execute([$subjectId]);
+            }
         }
 
         return jsonResponse($response, [
@@ -278,25 +307,31 @@ return function (App $app, ?PDO $pdo) {
         }
 
         try {
-            $viewsByDate = $pdo->query(
-                "SELECT DATE(view_hour) AS date, COUNT(*) AS count FROM blog_views GROUP BY DATE(view_hour) ORDER BY date ASC",
-            )->fetchAll();
+            $viewsByDate = $pdo
+                ->query(
+                    "SELECT DATE(view_hour) AS date, COUNT(*) AS count FROM blog_views GROUP BY DATE(view_hour) ORDER BY date ASC",
+                )
+                ->fetchAll();
 
-            $likesByDate = $pdo->query(
-                "SELECT DATE(created_at) AS date, COUNT(*) AS count FROM blog_likes GROUP BY DATE(created_at) ORDER BY date ASC",
-            )->fetchAll();
+            $likesByDate = $pdo
+                ->query(
+                    "SELECT DATE(created_at) AS date, COUNT(*) AS count FROM blog_likes GROUP BY DATE(created_at) ORDER BY date ASC",
+                )
+                ->fetchAll();
 
-            $topBlogs = $pdo->query(
-                "SELECT b.id, b.title, b.views, b.likes FROM blog b WHERE b.deleted = 0 ORDER BY b.views DESC LIMIT 10",
-            )->fetchAll();
+            $topBlogs = $pdo
+                ->query(
+                    "SELECT b.id, b.title, b.views, b.likes FROM blog b WHERE b.deleted = 0 ORDER BY b.views DESC LIMIT 10",
+                )
+                ->fetchAll();
 
-            $viewIps = $pdo->query(
-                "SELECT DISTINCT ip FROM blog_views",
-            )->fetchAll(PDO::FETCH_COLUMN);
+            $viewIps = $pdo
+                ->query("SELECT DISTINCT ip FROM blog_views")
+                ->fetchAll(PDO::FETCH_COLUMN);
 
-            $likeIps = $pdo->query(
-                "SELECT DISTINCT ip FROM blog_likes",
-            )->fetchAll(PDO::FETCH_COLUMN);
+            $likeIps = $pdo
+                ->query("SELECT DISTINCT ip FROM blog_likes")
+                ->fetchAll(PDO::FETCH_COLUMN);
 
             $allIps = array_unique(array_merge($viewIps, $likeIps));
             $countryViewCounts = [];
@@ -306,8 +341,16 @@ return function (App $app, ?PDO $pdo) {
                 $loc = resolveLocation($ip, $pdo);
                 $key = $loc->country_code . "|" . $loc->country;
                 if (!isset($countryViewCounts[$key])) {
-                    $countryViewCounts[$key] = ["code" => $loc->country_code, "country" => $loc->country, "count" => 0];
-                    $countryLikeCounts[$key] = ["code" => $loc->country_code, "country" => $loc->country, "count" => 0];
+                    $countryViewCounts[$key] = [
+                        "code" => $loc->country_code,
+                        "country" => $loc->country,
+                        "count" => 0,
+                    ];
+                    $countryLikeCounts[$key] = [
+                        "code" => $loc->country_code,
+                        "country" => $loc->country,
+                        "count" => 0,
+                    ];
                 }
             }
 
@@ -323,9 +366,15 @@ return function (App $app, ?PDO $pdo) {
                 $countryLikeCounts[$key]["count"]++;
             }
 
-            $totalViews = $pdo->query("SELECT COUNT(*) FROM blog_views")->fetchColumn();
-            $totalLikes = $pdo->query("SELECT COUNT(*) FROM blog_likes")->fetchColumn();
-            $uniqueVisitors = $pdo->query("SELECT COUNT(DISTINCT ip) FROM blog_views")->fetchColumn();
+            $totalViews = $pdo
+                ->query("SELECT COUNT(*) FROM blog_views")
+                ->fetchColumn();
+            $totalLikes = $pdo
+                ->query("SELECT COUNT(*) FROM blog_likes")
+                ->fetchColumn();
+            $uniqueVisitors = $pdo
+                ->query("SELECT COUNT(DISTINCT ip) FROM blog_views")
+                ->fetchColumn();
 
             return jsonResponse($response, [
                 "viewsByDate" => $viewsByDate,
