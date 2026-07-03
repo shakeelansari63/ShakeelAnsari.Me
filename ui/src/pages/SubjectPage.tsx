@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { useParams, useNavigate } from "react-router-dom";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
@@ -6,6 +7,7 @@ import { Skeleton } from "primereact/skeleton";
 import ToolBar from "../components/shared/ToolBar";
 import { fetchSubjectChapters } from "../services/api";
 import type { LearnChapter } from "../models/types";
+import { seo } from "../data/seo";
 
 export default function SubjectPage() {
   const { subjectId } = useParams<{ subjectId: string }>();
@@ -14,7 +16,6 @@ export default function SubjectPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.title = "Learn — [{#SEO-NAME#}]";
     if (subjectId) {
       fetchSubjectChapters(subjectId)
         .then(setChapters)
@@ -31,6 +32,12 @@ export default function SubjectPage() {
 
   return (
     <>
+      <Helmet>
+        <title>{subjectTitle ? `${subjectTitle} — Learn — ${seo.name}` : `Learn — ${seo.name}`}</title>
+        <meta name="description" content={`${subjectTitle} — learning resources by ${seo.name}.`} />
+        <meta property="og:title" content={subjectTitle ? `${subjectTitle} — Learn — ${seo.name}` : `Learn — ${seo.name}`} />
+        <meta property="og:url" content={`https://${seo.domain}/learn/${subjectId}`} />
+      </Helmet>
       <ToolBar />
       <div className="app-container">
         <div className="mb-3">

@@ -1,14 +1,19 @@
-import { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import ToolBar from '../components/shared/ToolBar';
+import { seo } from '../data/seo';
 
 export default function NotFoundPage() {
-  useEffect(() => { document.title = "404 — [{#SEO-NAME#}]"; }, []);
   const navigate = useNavigate();
 
   return (
     <>
+      <Helmet>
+        <title>{`404 — ${seo.name}`}</title>
+        <meta name="description" content="Page not found." />
+        <meta name="robots" content="noindex, follow" />
+      </Helmet>
       <ToolBar />
       <div className="app-container flex flex-column align-items-center justify-content-center" style={{ minHeight: '60vh' }}>
         <h1 className="text-pink-500 text-6xl font-bold m-0">404</h1>

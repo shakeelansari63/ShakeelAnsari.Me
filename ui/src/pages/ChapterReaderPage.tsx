@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
 import { Skeleton } from "primereact/skeleton";
@@ -6,6 +7,7 @@ import ToolBar from "../components/shared/ToolBar";
 import MarkdownRenderer from "../components/shared/MarkdownRenderer";
 import ReaderFooter from "../components/shared/ReaderFooter";
 import { fetchChapterContent } from "../services/api";
+import { seo } from "../data/seo";
 
 export default function ChapterReaderPage() {
   const { subjectId, chapterId } = useParams<{
@@ -20,14 +22,12 @@ export default function ChapterReaderPage() {
   const [isLight, setIsLight] = useState(false);
 
   useEffect(() => {
-    document.title = "Learn — [{#SEO-NAME#}]";
     if (chapterId) {
       fetchChapterContent(Number(chapterId))
         .then((data) => {
           if (data) {
             setTitle(data.title);
             setContent(data.content);
-            document.title = `${data.title} — Learn — [{#SEO-NAME#}]`;
           } else {
             setNotFound(true);
           }
@@ -36,8 +36,16 @@ export default function ChapterReaderPage() {
     }
   }, [chapterId]);
 
+  const metaTitle = title ? `${title} — Learn — ${seo.name}` : `Learn — ${seo.name}`;
+
   return (
     <>
+      <Helmet>
+        <title>{metaTitle}</title>
+        <meta name="description" content={title ? `${title} — ${seo.name}` : seo.description} />
+        <meta property="og:title" content={metaTitle} />
+        <meta property="og:url" content={`https://${seo.domain}/learn/${subjectId}/${chapterId}`} />
+      </Helmet>
       <ToolBar
         isLight={isLight}
         onToggleTheme={() => setIsLight((p) => !p)}

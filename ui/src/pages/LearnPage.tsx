@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { Card } from "primereact/card";
 import { Skeleton } from "primereact/skeleton";
 import ToolBar from "../components/shared/ToolBar";
 import { fetchLearnSubjects } from "../services/api";
 import type { LearnSubject } from "../models/types";
+import { seo } from "../data/seo";
 
 export default function LearnPage() {
   const navigate = useNavigate();
@@ -12,7 +14,6 @@ export default function LearnPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.title = "Learn — [{#SEO-NAME#}]";
     fetchLearnSubjects()
       .then(setSubjects)
       .finally(() => setLoading(false));
@@ -20,6 +21,13 @@ export default function LearnPage() {
 
   return (
     <>
+      <Helmet>
+        <title>{`Learn — ${seo.name}`}</title>
+        <meta name="description" content={`Tutorials and learning resources by ${seo.name}.`} />
+        <meta property="og:title" content={`Learn — ${seo.name}`} />
+        <meta property="og:description" content={`Tutorials and learning resources by ${seo.name}.`} />
+        <meta property="og:url" content={`https://${seo.domain}/learn`} />
+      </Helmet>
       <ToolBar />
       <div className="app-container pb-4">
         <h1 className="text-white text-3xl font-bold mb-4 mt-3">Learn</h1>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
 import { Skeleton } from "primereact/skeleton";
@@ -6,6 +7,7 @@ import ToolBar from "../components/shared/ToolBar";
 import MarkdownRenderer from "../components/shared/MarkdownRenderer";
 import ReaderFooter from "../components/shared/ReaderFooter";
 import { fetchProductContent } from "../services/api";
+import { seo } from "../data/seo";
 
 export default function ProductPage() {
     const { id } = useParams<{ id: string }>();
@@ -17,13 +19,11 @@ export default function ProductPage() {
     const [isLight, setIsLight] = useState(false);
 
     useEffect(() => {
-        document.title = "Product — [{#SEO-NAME#}]";
         if (id) {
             fetchProductContent(id).then((data) => {
                 if (data) {
                     setTitle(data.title);
                     setContent(data.content);
-                    document.title = `${data.title} — [{#SEO-NAME#}]`;
                 } else {
                     setNotFound(true);
                 }
@@ -32,8 +32,16 @@ export default function ProductPage() {
         }
     }, [id]);
 
+    const metaTitle = title ? `${title} — ${seo.name}` : `Product — ${seo.name}`;
+
     return (
         <>
+            <Helmet>
+                <title>{metaTitle}</title>
+                <meta name="description" content={title ? `${title} — ${seo.name}` : seo.description} />
+                <meta property="og:title" content={metaTitle} />
+                <meta property="og:url" content={`https://${seo.domain}/product/${id}`} />
+            </Helmet>
             <ToolBar
                 isLight={isLight}
                 onToggleTheme={() => setIsLight((p) => !p)}

@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
@@ -8,15 +9,9 @@ import ToolBar from '../components/shared/ToolBar';
 import type { AnalyticsData } from '../models/types';
 import { fetchAnalytics } from '../services/api';
 import AnalyticsDashboard from '../components/Admin/AnalyticsDashboard';
+import { seo } from '../data/seo';
 
 export default function AdminPage() {
-  useEffect(() => {
-    const meta = document.createElement('meta');
-    meta.name = 'robots';
-    meta.content = 'noindex, nofollow';
-    document.head.appendChild(meta);
-    return () => meta.remove();
-  }, []);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -135,6 +130,10 @@ export default function AdminPage() {
   if (token) {
     return (
       <>
+        <Helmet>
+          <title>{`Admin — ${seo.name}`}</title>
+          <meta name="robots" content="noindex, nofollow" />
+        </Helmet>
         <ToolBar />
         <Toast ref={toast} />
         <div className="app-container">
@@ -172,6 +171,10 @@ export default function AdminPage() {
 
   return (
     <>
+      <Helmet>
+        <title>{`Admin — ${seo.name}`}</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       <ToolBar />
       <div className="app-container">
         <div className="flex justify-content-center mt-6">

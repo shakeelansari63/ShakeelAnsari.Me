@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
 import { Skeleton } from "primereact/skeleton";
@@ -15,6 +16,7 @@ import {
 } from "../services/api";
 import type { BlogPost } from "../models/types";
 import type { BlogStats } from "../services/api";
+import { seo } from "../data/seo";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
 
 export default function BlogReaderPage() {
@@ -29,14 +31,9 @@ export default function BlogReaderPage() {
     const [liking, setLiking] = useState(false);
 
     useEffect(() => {
-        document.title = "Blog — [{#SEO-NAME#}]";
-    }, []);
-
-    useEffect(() => {
         if (!id) return;
         fetchBlogPost(id).then((data) => {
             setPost(data);
-            if (data) document.title = `${data.title} — [{#SEO-NAME#}]`;
             setLoading(false);
         });
         fetchBlogContent(id)
@@ -52,8 +49,21 @@ export default function BlogReaderPage() {
         });
     }, [id]);
 
+    const metaTitle = post ? `${post.title} — ${seo.name}` : `Blog — ${seo.name}`;
+    const metaDesc = post?.excerpt || seo.description;
+
     return (
         <>
+            <Helmet>
+                <title>{metaTitle}</title>
+                <meta name="description" content={metaDesc} />
+                <meta property="og:title" content={metaTitle} />
+                <meta property="og:description" content={metaDesc} />
+                <meta property="og:url" content={`https://${seo.domain}/blog/${id}`} />
+                <meta property="og:type" content="article" />
+                <meta name="twitter:title" content={metaTitle} />
+                <meta name="twitter:description" content={metaDesc} />
+            </Helmet>
             <ToolBar
                 isLight={isLight}
                 onToggleTheme={() => setIsLight((p) => !p)}

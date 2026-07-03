@@ -79,6 +79,31 @@ All API response types are defined here. Key interfaces:
 - Each function has a typed return matching its API response.
 - Use `fetch` directly — no Axios or other HTTP libraries.
 
+### SEO / Head Management (`react-helmet-async`)
+- The app uses `react-helmet-async` for per-page `<title>`, meta tags (OG, Twitter, description), and robots directives.
+- **Setup:** `main.tsx` wraps the app in `<HelmetProvider>`.
+- **Config:** Placeholder values live in `ui/src/data/seo.ts` mirroring the `[{#SEO-*#}]` tokens that CI/CD replaces at build time.
+  - Import `seo` from `"../data/seo"` and use `seo.name`, `seo.domain`, etc. — never hardcode these values.
+- **Pattern:**
+  ```tsx
+  import { Helmet } from "react-helmet-async";
+  import { seo } from "../data/seo";
+
+  <Helmet>
+    <title>{`Page — ${seo.name}`}</title>
+    <meta name="description" content="..." />
+    <meta property="og:title" content={`Page — ${seo.name}`} />
+    <meta property="og:url" content={`https://${seo.domain}/page-path`} />
+  </Helmet>
+  ```
+- For pages with dynamic data (e.g. `BlogReaderPage`), compute meta tags reactively:
+  ```tsx
+  const metaTitle = post ? `${post.title} — ${seo.name}` : `Blog — ${seo.name}`;
+  ```
+- **Do NOT** use `document.title = ...` directly — Helmet handles it.
+- **Do NOT** manually create/append `<meta>` elements — use `<Helmet>` instead.
+- The `[{#SEO-*#}]` placeholders in `ui/index.html` remain as CI/CD-replaced static fallback for crawlers that don't execute JavaScript.
+
 ### Static Data Layer (`ui/src/data/`)
 These files are intentionally static (no API calls):
 - `profile.ts` — central user profile object re-exporting skills, work, expo, social links.
@@ -86,6 +111,7 @@ These files are intentionally static (no API calls):
 - `skills.ts` — string array of skill names.
 - `work.ts` — work experience timeline entries.
 - `expo.ts` — portfolio project entries.
+- `seo.ts` — SEO placeholder values (`[{#SEO-*#}]` tokens).
 - **Do NOT create API endpoints for these** — they are intentionally client-side only.
 
 ### Markdown Rendering
@@ -102,6 +128,8 @@ These files are intentionally static (no API calls):
 
 ### Critical Guardrails
 - ❌ **Never modify `[{#SEO-*#}]` placeholders** in `ui/index.html` or anywhere in source. These are replaced by CI/CD pipeline.
+- ❌ **No `document.title = ...`** — use `<Helmet>` from `react-helmet-async` instead.
+- ❌ **No manual `document.createElement('meta')`** — use `<Helmet>` with `<meta>` children.
 - ❌ **No Tailwind CSS** — use PrimeFlex utilities.
 - ❌ **No Redux/Zustand** — use local state with hooks.
 - ❌ **No class components** — use functional components with hooks.

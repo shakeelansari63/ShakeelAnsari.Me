@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { Button } from "primereact/button";
 import ToolBar from "../components/shared/ToolBar";
 import BlogCard from "../components/Blog/BlogCard";
 import SkeletonCard from "../components/Blog/SkeletonCard";
 import { fetchBlogPosts } from "../services/api";
 import type { BlogPost } from "../models/types";
+import { seo } from "../data/seo";
 
 export default function BlogPage() {
-    useEffect(() => { document.title = "Blogs — [{#SEO-NAME#}]"; }, []);
     const [posts, setPosts] = useState<BlogPost[]>([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
@@ -25,6 +26,13 @@ export default function BlogPage() {
 
     return (
         <>
+            <Helmet>
+                <title>{`Blogs — ${seo.name}`}</title>
+                <meta name="description" content={`Read blogs by ${seo.name} on data engineering, AI, and software development.`} />
+                <meta property="og:title" content={`Blogs — ${seo.name}`} />
+                <meta property="og:description" content={`Read blogs by ${seo.name} on data engineering, AI, and software development.`} />
+                <meta property="og:url" content={`https://${seo.domain}/blog`} />
+            </Helmet>
             <ToolBar />
             <div className="app-container pb-4">
                 <h1 className="text-white text-3xl font-bold mb-4">Blogs</h1>
