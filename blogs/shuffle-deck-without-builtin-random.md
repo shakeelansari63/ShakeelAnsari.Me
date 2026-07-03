@@ -4,7 +4,7 @@ excerpt: A step‑by‑step look at a Python function that uses timestamps and S
 date: 2019-08-07  
 readTime: 8 min read  
 tags: Python, Algorithms, Randomness, Shuffling, Hashing
-bannerImage: 1-1-shuffle-deck.webp  
+bannerImage: 1-0-shuffle-deck-thumb.webp  
 ---
 
 ![Shuffling a deck](images/1-1-shuffle-deck.webp)

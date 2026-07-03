@@ -2,7 +2,7 @@
 title: Why AI Coding Assistants Feel So Expensive Now?
 excerpt: Ever wondered why your AI coding assistant feel so costly now? As companies move to metered, per-token billing, the exponential math of agentic loops is finally being revealed.
 date: 2026-07-03
-bannerImage: 5-1-hidden-cost-of-ai-agents-autonomy.png
+bannerImage: 5-0-hidden-cost-of-ai-agents-autonomy-thumb.png
 readTime: 8 min read
 tags: AI, Large Language Models, LLMs, Developer Tools, Software Engineering, Subscriptions, AI Costs
 ---

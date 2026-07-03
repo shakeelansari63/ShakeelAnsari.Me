@@ -22,19 +22,14 @@ export default function BlogCard({ post }: Props) {
       <Card className="cursor-pointer" footer={footer} onClick={() => navigate(`/blog/${post.id}`)}>
         <div className="flex flex-column md:flex-row gap-3">
           {post.bannerImage && (
-            <img
-              src={`/api/blogs/images/${post.bannerImage}`}
-              alt={post.title}
-              className="w-full md:w-16rem"
-              style={{
-                aspectRatio: '16 / 9',
-                objectFit: 'cover',
-                borderRadius: '6px',
-                display: 'block',
-                background: '#1a1a1a',
-              }}
-              loading="lazy"
-            />
+            <div className="w-full md:w-16rem" style={{ aspectRatio: '16 / 9', flexShrink: 0, borderRadius: '6px', overflow: 'hidden', background: '#1a1a1a' }}>
+              <img
+                src={`/api/blogs/images/${post.bannerImage}`}
+                alt={post.title}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                loading="lazy"
+              />
+            </div>
           )}
           <div className="flex flex-column flex-1">
             <span className="font-bold text-xl text-pink-400 mb-2">{post.title}</span>

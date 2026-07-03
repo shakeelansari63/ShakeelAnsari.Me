@@ -4,7 +4,7 @@ excerpt: Ever wondered what goes into a production-grade AI app? Let's dissect a
 date: 2026-06-05
 readTime: 13 min read
 tags: AI, LangGraph, MCP, LangSmith, Python, Gradio
-bannerImage: 2-1-anatomy-ai-app.png
+bannerImage: 2-0-anatomy-ai-app-thumb.png
 ---
 
 ![Anatomy of AI Application](images/2-1-anatomy-ai-app.png)  
