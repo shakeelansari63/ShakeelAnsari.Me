@@ -1,8 +1,14 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Button } from 'primereact/button';
 
 export default function ScrollToTop() {
+  const { pathname } = useLocation();
   const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   useEffect(() => {
     const check = () => setVisible(document.documentElement.classList.contains('scrolled'));
