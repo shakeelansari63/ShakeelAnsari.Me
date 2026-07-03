@@ -143,10 +143,11 @@ export async function fetchSubjectChapters(
 }
 
 export async function fetchChapterContent(
-    chapterId: number,
+    subjectId: string,
+    chapterId: string,
 ): Promise<{ title: string; content: string } | null> {
     try {
-        const res = await fetch(`/api/learn/chapters/${chapterId}/content`);
+        const res = await fetch(`/api/learn/subjects/${subjectId}/chapters/${chapterId}/content`);
         if (!res.ok) return null;
         return res.json();
     } catch {

@@ -22,8 +22,8 @@ export default function ChapterReaderPage() {
   const [isLight, setIsLight] = useState(false);
 
   useEffect(() => {
-    if (chapterId) {
-      fetchChapterContent(Number(chapterId))
+    if (subjectId && chapterId) {
+      fetchChapterContent(subjectId, chapterId)
         .then((data) => {
           if (data) {
             setTitle(data.title);
@@ -34,7 +34,7 @@ export default function ChapterReaderPage() {
         })
         .finally(() => setLoading(false));
     }
-  }, [chapterId]);
+  }, [subjectId, chapterId]);
 
   const metaTitle = title ? `${title} — Learn — ${seo.name}` : `Learn — ${seo.name}`;
 

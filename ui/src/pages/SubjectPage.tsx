@@ -72,7 +72,7 @@ export default function SubjectPage() {
                 key={chapter.id}
                 className="cursor-pointer"
                 onClick={() =>
-                  navigate(`/learn/${subjectId}/${chapter.id}`)
+                  navigate(`/learn/${subjectId}/${chapter.chapter_id}`)
                 }
               >
                 <div className="flex align-items-center gap-3">

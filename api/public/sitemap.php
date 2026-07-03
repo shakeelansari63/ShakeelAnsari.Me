@@ -51,14 +51,14 @@ if ($pdo) {
 
     try {
         $stmt = $pdo->query(
-            "SELECT lc.id, ls.id AS subject_id
+            "SELECT lc.chapter_id, ls.id AS subject_id
              FROM learn_chapters lc
              JOIN learn_subjects ls ON ls.id = lc.subject_id
              ORDER BY ls.id ASC, lc.sort_order ASC",
         );
         foreach ($stmt as $row) {
             $urls[] = [
-                "loc" => "$appUrl/learn/{$row["subject_id"]}/{$row["id"]}",
+                "loc" => "$appUrl/learn/{$row["subject_id"]}/{$row["chapter_id"]}",
                 "changefreq" => "monthly",
                 "priority" => "0.5",
             ];

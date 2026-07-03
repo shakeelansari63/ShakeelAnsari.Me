@@ -60,12 +60,13 @@ return function (App $app, ?PDO $pdo) {
         }
     });
 
-    $app->get("/learn/chapters/{id}/content", function (
+    $app->get("/learn/subjects/{subjectId}/chapters/{chapterId}/content", function (
         Request $request,
         Response $response,
         array $args,
     ) use ($pdo) {
-        $chapterId = (int) $args["id"];
+        $subjectId = basename($args["subjectId"]);
+        $chapterId = basename($args["chapterId"]);
 
         if (!$pdo) {
             return jsonResponse(
@@ -80,9 +81,9 @@ return function (App $app, ?PDO $pdo) {
                 "SELECT c.md_file, c.title, s.folder
                  FROM learn_chapters c
                  JOIN learn_subjects s ON s.id = c.subject_id
-                 WHERE c.id = ?",
+                 WHERE c.subject_id = ? AND c.chapter_id = ?",
             );
-            $stmt->execute([$chapterId]);
+            $stmt->execute([$subjectId, $chapterId]);
             $row = $stmt->fetch();
 
             if (!$row) {
