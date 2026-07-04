@@ -14,6 +14,7 @@ import yaml from "react-syntax-highlighter/dist/esm/languages/prism/yaml";
 import php from "react-syntax-highlighter/dist/esm/languages/prism/php";
 import go from "react-syntax-highlighter/dist/esm/languages/prism/go";
 import scala from "react-syntax-highlighter/dist/esm/languages/prism/scala";
+import cypher from "react-syntax-highlighter/dist/esm/languages/prism/cypher";
 
 SyntaxHighlighter.registerLanguage("tsx", tsx);
 SyntaxHighlighter.registerLanguage("typescript", typescript);
@@ -28,6 +29,7 @@ SyntaxHighlighter.registerLanguage("php", php);
 SyntaxHighlighter.registerLanguage("go", go);
 SyntaxHighlighter.registerLanguage("golang", go);
 SyntaxHighlighter.registerLanguage("scala", scala);
+SyntaxHighlighter.registerLanguage("cypher", cypher);
 
 interface Props {
   code: string;
