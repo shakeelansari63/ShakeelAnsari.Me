@@ -14,7 +14,9 @@ bannerImage: 4-0-era-or-vectorless-rags-thumb.png
 If you have built any application using Large Language Models (LLMs) over the past couple of years, you have almost certainly crossed paths with Retrieval-Augmented Generation (RAG). It has practically become the default architecture for grounded AI applications. But the industry is shifting, and a new paradigm is gaining traction: Vectorless RAG. Today, we are diving deep into why this shift is happening and how you can implement a vectorless RAG setup yourself using a structured page-index strategy.
 
 Before we look at what is changing, let us establish what we are building on.  
-
+   
+---
+   
 ## So, What Exactly is RAG?
   
 RAG (Retrieval-Augmented Generation) is a technique used to improve the accuracy of Large Language Models (LLMs). Instead of relying solely on the information the AI was originally trained on, a RAG system can fetch up-to-date or specific facts from external sources (like your private documents or the live internet) and feeds them to the AI to generate a highly accurate and fact-based response.  
@@ -24,7 +26,9 @@ RAG was absolutely path breaking when it came out and it did not take long for t
 * **Improved Accuracy:** RAG anchors the model responses to a verified reference material, hence increasing the response accuracy.
 * **Works with Changing Data:** You do not need to retrain a massive model every time a document updates; you just update the connected data source and your RAG will fetch latest information.  
 * **Reduces Hallucination:** By providing strict context boundaries, the LLM is far less likely to invent fictitious details.  
-  
+   
+---
+   
 ## The Traditional Approach: Vector-Based RAG
 
 Before we dive into vectorless world, let's see how the vector-based RAG works. Traditionally, building a RAG includes chunking the knowledge document, running those text pieces through an embedding model, and storing the resulting math vectors into a specialized database which is then used as a knowledge repository.
@@ -147,7 +151,9 @@ While vector-based RAG works well for straightforward phrase matches, it hits se
 * **The Nearest-Neighbor Fallacy:** Vector search assumes that the correct answer should be closest semantic match in mathematical space to the asked question. But often the real answer requires aggregating contextual summaries across separate areas rather than pulling isolated snippets.
 * **Broken In-Document References:** Internal pointers, cross-references, or sequential transitions are lost entirely during the chunking phase.
 * **Infrastructure Overhead:** Teams must deploy, scale, and maintain an entirely separate specialized vector database asset alongside their standard production databases.
-
+   
+---
+   
 ## Enter Vectorless RAG with Page Index
 
 To address these flaws, the industry is experimenting with structured layouts that mimic how humans actually read books. Instead of breaking texts into disjointed vectors, we build a conscious hierarchical map of the document pages. This is the core logic driving the PageIndex strategy, where an engine leverages LLM intelligence and reasoning to build and read a dynamic, structured representation of the text instead of relying on mathematical vector distances.
@@ -406,7 +412,9 @@ Inside the `if __name__ == "__main__":` block, `create_agent` orchestrates a rea
 ![Sample Page Index Graph](images/4-5-rag-pageindex-output.png)
   
 🤯 Wow!! Isn't it cool that we were able to implement this RAG without using a vector store? It certainly is. 🎉
-
+   
+---
+   
 ## How Vectorless Indexing Fixes Traditional Bottlenecks
 
 By shifting the system from numerical calculation toward reasoning navigation, we effectively bypass the structural bugs of basic text chunking:
@@ -423,7 +431,9 @@ Although, PagIndex has great potential, it is not a silver bullet. There are few
 * **Increased Latency:** The requirement for multiple LLM calls to process summaries and traverse the index inherently introduces response delays compared to sub-millisecond database vector matching.
 * **Over-Reliance on LLM Reasoning:** If the LLM mischaracterizes a section summary during the initial indexing phase, or if the reasoning agent chooses the wrong branch of the tree, it will completely miss the factual section.
 * **Compounding API Token Expenses:** Running active reasoning iterations over a JSON tree layout consumes significantly higher token counts than simple k-nearest neighbor retrieval setups.
-
+   
+---
+   
 ## Where to go next?
 
 If you want to read deeper on how this paradigm operates, check out the core concepts on the [PageIndex Blog](https://pageindex.ai/blog/pageindex-intro). I have also uploaded complete working scripts for both the vector-based and vectorless system in this [GitHub Repository](https://github.com/shakeelansari63/random_programs/tree/master/RAG) so you can pull down the files and benchmark them side by side on your local environments.
