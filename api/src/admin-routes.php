@@ -306,16 +306,22 @@ return function (App $app, ?PDO $pdo) {
             return jsonResponse($response, ["error" => "Unauthorized"], 401);
         }
 
+        $body = json_decode((string) $request->getBody(), true);
+        $blogId = is_string($body["blog_id"] ?? null) ? $body["blog_id"] : null;
+
+        $viewsWhere = $blogId ? "WHERE blog_id = " . $pdo->quote($blogId) : "";
+        $likesWhere = $blogId ? "WHERE blog_id = " . $pdo->quote($blogId) : "";
+
         try {
             $viewsByDate = $pdo
                 ->query(
-                    "SELECT DATE(view_hour) AS date, COUNT(*) AS count FROM blog_views GROUP BY DATE(view_hour) ORDER BY date ASC",
+                    "SELECT DATE(view_hour) AS date, COUNT(*) AS count FROM blog_views {$viewsWhere} GROUP BY DATE(view_hour) ORDER BY date ASC",
                 )
                 ->fetchAll();
 
             $likesByDate = $pdo
                 ->query(
-                    "SELECT DATE(created_at) AS date, COUNT(*) AS count FROM blog_likes GROUP BY DATE(created_at) ORDER BY date ASC",
+                    "SELECT DATE(created_at) AS date, COUNT(*) AS count FROM blog_likes {$likesWhere} GROUP BY DATE(created_at) ORDER BY date ASC",
                 )
                 ->fetchAll();
 
@@ -326,11 +332,11 @@ return function (App $app, ?PDO $pdo) {
                 ->fetchAll();
 
             $viewIps = $pdo
-                ->query("SELECT DISTINCT ip FROM blog_views")
+                ->query("SELECT DISTINCT ip FROM blog_views {$viewsWhere}")
                 ->fetchAll(PDO::FETCH_COLUMN);
 
             $likeIps = $pdo
-                ->query("SELECT DISTINCT ip FROM blog_likes")
+                ->query("SELECT DISTINCT ip FROM blog_likes {$likesWhere}")
                 ->fetchAll(PDO::FETCH_COLUMN);
 
             $allIps = array_unique(array_merge($viewIps, $likeIps));
@@ -367,13 +373,13 @@ return function (App $app, ?PDO $pdo) {
             }
 
             $totalViews = $pdo
-                ->query("SELECT COUNT(*) FROM blog_views")
+                ->query("SELECT COUNT(*) FROM blog_views {$viewsWhere}")
                 ->fetchColumn();
             $totalLikes = $pdo
-                ->query("SELECT COUNT(*) FROM blog_likes")
+                ->query("SELECT COUNT(*) FROM blog_likes {$likesWhere}")
                 ->fetchColumn();
             $uniqueVisitors = $pdo
-                ->query("SELECT COUNT(DISTINCT ip) FROM blog_views")
+                ->query("SELECT COUNT(DISTINCT ip) FROM blog_views {$viewsWhere}")
                 ->fetchColumn();
 
             return jsonResponse($response, [

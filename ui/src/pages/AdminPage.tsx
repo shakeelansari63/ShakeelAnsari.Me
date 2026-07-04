@@ -6,8 +6,6 @@ import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Toast } from 'primereact/toast';
 import ToolBar from '../components/shared/ToolBar';
-import type { AnalyticsData } from '../models/types';
-import { fetchAnalytics } from '../services/api';
 import AnalyticsDashboard from '../components/Admin/AnalyticsDashboard';
 import { seo } from '../data/seo';
 
@@ -19,8 +17,6 @@ export default function AdminPage() {
   const [syncing, setSyncing] = useState(false);
   const [syncingLearn, setSyncingLearn] = useState(false);
   const [token, setToken] = useState(() => localStorage.getItem('admin_token'));
-  const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
-  const [analyticsLoading, setAnalyticsLoading] = useState(false);
   const toast = useRef<Toast>(null);
 
   const handleLogin = async () => {
@@ -78,22 +74,6 @@ export default function AdminPage() {
       toast.current?.show({ severity: 'error', summary: 'Error', detail: 'Network error', life: 3000 });
     } finally {
       setSyncing(false);
-    }
-  };
-
-  const handleLoadAnalytics = async () => {
-    setAnalyticsLoading(true);
-    try {
-      const data = await fetchAnalytics(token!);
-      if (data) {
-        setAnalytics(data);
-      } else {
-        toast.current?.show({ severity: 'error', summary: 'Error', detail: 'Failed to load analytics', life: 3000 });
-      }
-    } catch {
-      toast.current?.show({ severity: 'error', summary: 'Error', detail: 'Network error', life: 3000 });
-    } finally {
-      setAnalyticsLoading(false);
     }
   };
 
@@ -158,11 +138,8 @@ export default function AdminPage() {
           </Card>
 
           <Card className="mt-3 no-hover">
-            <div className="flex align-items-center justify-content-between mb-3">
-              <span className="text-gray-400 text-lg font-bold">Blog Analytics &amp; Insights</span>
-              <Button label="Load Analytics" icon="pi pi-chart-bar" loading={analyticsLoading} onClick={handleLoadAnalytics} style={{ outline: 'none', boxShadow: 'none' }} />
-            </div>
-            {analytics && <AnalyticsDashboard data={analytics} />}
+            <span className="text-gray-400 text-lg font-bold block mb-3">Blog Analytics &amp; Insights</span>
+            <AnalyticsDashboard token={token} />
           </Card>
         </div>
       </>

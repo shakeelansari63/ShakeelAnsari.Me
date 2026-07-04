@@ -167,14 +167,17 @@ export async function fetchProductContent(
     }
 }
 
-export async function fetchAnalytics(token: string): Promise<AnalyticsData | null> {
+export async function fetchAnalytics(token: string, blogId?: string): Promise<AnalyticsData | null> {
     try {
+        const body: Record<string, string> = {};
+        if (blogId) body.blog_id = blogId;
         const res = await fetch("/api/admin/analytics", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
             },
+            body: JSON.stringify(body),
         });
         if (!res.ok) return null;
         return res.json();

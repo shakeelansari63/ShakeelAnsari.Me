@@ -1,5 +1,4 @@
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
-import type { PieLabelRenderProps } from "recharts";
 import { Card } from "primereact/card";
 
 const COLORS = ["#d53a9d", "#743ad5", "#22c55e", "#f59e0b", "#3b82f6", "#ef4444", "#14b8a6", "#f97316", "#8b5cf6", "#ec4899"];
@@ -28,9 +27,6 @@ export default function CountryPieChart({ title, data }: Props) {
                         cx="50%"
                         cy="50%"
                         outerRadius={100}
-                        label={({ payload }: PieLabelRenderProps) =>
-                            `${payload?.country ?? ""} (${payload?.count ?? 0})`
-                        }
                     >
                         {data.map((_, i) => (
                             <Cell key={i} fill={COLORS[i % COLORS.length]} />
