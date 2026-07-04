@@ -1,4 +1,4 @@
-# UI Development Skill — `shakeelansari.me`
+# UI Development Skill
 
 ## Context
 This is a **React 18 SPA** with **TypeScript**, **Vite**, **PrimeReact** (lara-dark-pink theme), and **PrimeFlex** utilities. No Tailwind CSS. No Redux. No class components.

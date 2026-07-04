@@ -1,4 +1,4 @@
-# API Development Skill — `shakeelansari.me`
+# API Development Skill
 
 ## Context
 This project is a **PHP 8.1+ REST API** using **Slim Framework 4** with naked **PDO** for database access and **JWT** for admin auth. There is **no ORM, no Node.js backend, no Express/Fastify**.

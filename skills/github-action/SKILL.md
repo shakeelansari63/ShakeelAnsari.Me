@@ -1,4 +1,4 @@
-# GitHub Actions CI/CD Skill — `shakeelansari.me`
+# GitHub Actions CI/CD Skill
 
 ## Pipeline Overview
 **File:** `.github/workflows/deploy.yml`  
