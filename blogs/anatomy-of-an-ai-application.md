@@ -23,7 +23,7 @@ When you use the app, it smoothly handles financial queries that require multi-s
 
 * **"Give me list of 3 pharmaceutical stocks"**: The agent queries the database where industry information is stored and filters the results by market capitalization to give the top three.
 
-## Major parts of AI an Application
+## Major parts of AI Application
 ![AI Application Components](images/2-2-ai-agent-components.png)  
 
 Now let's break down exactly how these components work internally.
@@ -37,13 +37,17 @@ Our application relies on two distinct data sources to ensure the agent gives ac
 * **Dynamic Data**: Real-time information, like the fluctuating price of a stock, cannot be stored in a static database. For this, the agent pulls dynamic data at runtime directly via live NSE APIs.
 
 The reasoning here is simple: you want your "lookup" data to be fast and local (database), while your "volatile" data must be fetched fresh from the source (API).
-
+   
+---
+   
 ## 2. Decoupling Actions with MCP Tools
 
 An agent is only as good as the tools it can use. To perform actions like searching for a company symbol or getting a stock price, I used the Model Context Protocol (MCP).
 
 I chose MCP specifically because it is agent-framework agnostic. This means the tools we build are not locked into one specific library. If we decided to move away from our current setup in the future, these tools would remain completely reusable. This modularity is a massive win for long-term maintenance.
-
+   
+---
+   
 ## 3. Orchestrating the Agent with LangGraph
 
 ![Agent Flow](images/2-3-agent-request-flow.png)  
@@ -69,13 +73,17 @@ The shortlister node receives only the list of these tool names and the user's q
 ### The Worker Node and LLM Choice
 
 The worker node is a classic ReAct agent. It takes the user's question and the filtered tool list, decides which tool to call, processes the result, and finally answers the user. For the LLM, I utilized Groq's free tier running the `gpt-oss-20b` model. Groq provides incredible inference speeds, and their free-tier rate limits are surprisingly generous for a project of this scale.
-
+   
+---
+   
 ## 4. Monitoring with LangSmith
 
 You cannot run an agent reliably in production if you are flying blind. Monitoring helps us see the exact decisions the agent made, which tools were called, and where things might have gone sideways.
 
 I used LangSmith for all agent monitoring and tracing. It is free and integrates perfectly with the LangChain/LangGraph ecosystem. By looking at the traces, we can see exactly which tools the `ToolShortlister` picked and track exactly when the `OutOfScopeDetector` triggered a termination. If the agent starts making weird choices, we can tweak the tool names or the node logic to get it back on track.
-
+   
+---
+   
 ## 5. The User Interface and Hosting
 
 For the UI, I wrote a simple, functional chat interface using Gradio. Gradio is a fantastic FOSS (Free and Open Source Software) tool developed by the HuggingFace team that lets you build machine learning interfaces in pure Python.
@@ -95,7 +103,9 @@ Finally, the part everyone asks about: **The Cost**. Here is the breakdown of ho
 | | **_Total Cost_** | **_$0.0_** |
   
 So, I did not pay a single penny for this entire project. It is a testament to how far the free-tier ecosystem has come for AI engineers.
-
+   
+---
+   
 ## Acknowledging the Road Ahead
 
 While this project covers the "anatomy" of a functional app, there are a few limitations to keep in mind. The Azure free tier does have a "cold start" issue where the app takes a moment to wake up. Additionally, the Groq free tier has rate limits that wouldn't support a massive viral user base.
