@@ -44,6 +44,9 @@ return function (App $app, ?PDO $pdo) {
         }
 
         $subjectId = basename($args["id"]);
+        if (!validateId($subjectId)) {
+            return jsonResponse($response, ["error" => "Invalid subject ID"], 400);
+        }
 
         try {
             $stmt = $pdo->prepare(
@@ -67,6 +70,10 @@ return function (App $app, ?PDO $pdo) {
     ) use ($pdo) {
         $subjectId = basename($args["subjectId"]);
         $chapterId = basename($args["chapterId"]);
+
+        if (!validateId($subjectId) || !validateId($chapterId)) {
+            return jsonResponse($response, ["error" => "Invalid ID format"], 400);
+        }
 
         if (!$pdo) {
             return jsonResponse(
@@ -122,6 +129,10 @@ return function (App $app, ?PDO $pdo) {
     ) {
         $folder = basename($args["folder"]);
         $name = basename($args["name"]);
+        if (!validateId($folder, '/^[a-zA-Z0-9_-]+$/') || !validateId($name, '/^[a-zA-Z0-9_\.-]+$/')) {
+            $response->getBody()->write("");
+            return $response->withStatus(400);
+        }
         $file = LEARN_DIR . "/" . $folder . "/images/" . $name;
 
         if (!file_exists($file)) {

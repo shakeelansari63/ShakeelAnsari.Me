@@ -43,47 +43,81 @@ function rewriteImageUrls(string $content): string
     return preg_replace("/\]\((images\/)/", '](/api/blogs/$1', $content);
 }
 
+function attemptsFile(string $ip): string
+{
+    return sys_get_temp_dir() . "/login_attempts_" . md5($ip) . ".lock";
+}
+
 function isRateLimited(string $ip): bool
 {
-    $file = sys_get_temp_dir() . "/login_attempts_" . md5($ip) . ".lock";
+    $file = attemptsFile($ip);
 
     if (!file_exists($file)) {
         return false;
     }
 
     if (time() - filemtime($file) > 900) {
-        unlink($file);
+        @unlink($file);
         return false;
     }
 
-    $attempts = (int) (@file_get_contents($file) ?: 0);
+    $fh = @fopen($file, "r");
+    if (!$fh) {
+        return false;
+    }
+    if (flock($fh, LOCK_SH)) {
+        $attempts = (int) (fread($fh, 1024) ?: 0);
+        flock($fh, LOCK_UN);
+    } else {
+        $attempts = 0;
+    }
+    fclose($fh);
     return $attempts >= 5;
 }
 
 function incrementAttempts(string $ip): void
 {
-    $file = sys_get_temp_dir() . "/login_attempts_" . md5($ip) . ".lock";
-    $attempts = (int) (@file_get_contents($file) ?: 0);
-    file_put_contents($file, $attempts + 1);
+    $file = attemptsFile($ip);
+    $fh = @fopen($file, "c+");
+    if (!$fh) {
+        return;
+    }
+    if (flock($fh, LOCK_EX)) {
+        $attempts = (int) (fread($fh, 1024) ?: 0);
+        rewind($fh);
+        ftruncate($fh, 0);
+        fwrite($fh, (string) ($attempts + 1));
+        fflush($fh);
+        flock($fh, LOCK_UN);
+    }
+    fclose($fh);
 }
 
 function resetAttempts(string $ip): void
 {
-    $file = sys_get_temp_dir() . "/login_attempts_" . md5($ip) . ".lock";
+    $file = attemptsFile($ip);
     if (file_exists($file)) {
-        unlink($file);
+        @unlink($file);
     }
 }
 
 function clientIp(Request $request): string
 {
     $remote = $request->getServerParams()["REMOTE_ADDR"] ?? "127.0.0.1";
-    $forwarded = $request->getHeaderLine("X-Forwarded-For");
-    if ($forwarded !== "") {
-        $ips = array_map("trim", explode(",", $forwarded));
-        foreach ($ips as $ip) {
-            if (filter_var($ip, FILTER_VALIDATE_IP)) {
-                return $ip;
+    $trustedProxies = $_ENV["TRUSTED_PROXIES"] ?? "";
+    $proxies = array_filter(array_map("trim", explode(",", $trustedProxies)));
+
+    if (in_array($remote, $proxies, true)) {
+        $forwarded = $request->getHeaderLine("X-Forwarded-For");
+        if ($forwarded !== "") {
+            $ips = array_map("trim", explode(",", $forwarded));
+            foreach ($ips as $ip) {
+                if (
+                    filter_var($ip, FILTER_VALIDATE_IP) &&
+                    filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)
+                ) {
+                    return $ip;
+                }
             }
         }
     }
@@ -105,7 +139,8 @@ function resolveLocation(string $ip, PDO $pdo): object
         return (object) $cached;
     }
 
-    $data = @file_get_contents("http://ip-api.com/json/" . $ip . "?fields=status,country,countryCode,region,regionName,city");
+    $ctx = stream_context_create(["http" => ["timeout" => 3]]);
+    $data = @file_get_contents("https://ip-api.com/json/" . $ip . "?fields=status,country,countryCode,region,regionName,city", false, $ctx);
     if ($data) {
         $json = json_decode($data);
         if ($json && ($json->status ?? "") === "success") {
@@ -120,6 +155,11 @@ function resolveLocation(string $ip, PDO $pdo): object
     }
 
     return (object) ["country" => "Unknown", "country_code" => "??", "region" => "", "city" => ""];
+}
+
+function validateId(string $id, string $pattern = '/^[a-zA-Z0-9_@\.\-\/]+$/'): bool
+{
+    return preg_match($pattern, $id) === 1;
 }
 
 function jsonResponse(

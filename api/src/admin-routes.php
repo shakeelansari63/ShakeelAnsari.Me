@@ -6,8 +6,22 @@ use Slim\App;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
+function jwtSecret(): string
+{
+    $secret = $_ENV["JWT_SECRET"] ?? "";
+    if ($secret === "" || strlen($secret) < 16) {
+        error_log("JWT_SECRET is missing or too short");
+        return "";
+    }
+    return $secret;
+}
+
 function verifyAdmin(Request $request): bool
 {
+    $secret = jwtSecret();
+    if ($secret === "") {
+        return false;
+    }
     $header = $request->getHeaderLine("Authorization");
     if (!str_starts_with($header, "Bearer ")) {
         return false;
@@ -15,7 +29,7 @@ function verifyAdmin(Request $request): bool
     try {
         JWT::decode(
             substr($header, 7),
-            new Key($_ENV["JWT_SECRET"] ?? "", "HS256"),
+            new Key($secret, "HS256"),
         );
         return true;
     } catch (\Exception $e) {
@@ -40,7 +54,16 @@ return function (App $app, ?PDO $pdo) {
 
         $adminUser = $_ENV["ADMIN_USERNAME"] ?? "";
         $adminPass = $_ENV["ADMIN_PASSWORD"] ?? "";
-        $jwtSecret = $_ENV["JWT_SECRET"] ?? "";
+
+        if ($adminUser === "" || $adminPass === "") {
+            error_log("Admin credentials not configured");
+            return jsonResponse($response, ["error" => "Server misconfigured"], 500);
+        }
+
+        $jwtSecret = jwtSecret();
+        if ($jwtSecret === "") {
+            return jsonResponse($response, ["error" => "Server misconfigured"], 500);
+        }
 
         if (
             !hash_equals($adminUser, $username) ||
@@ -290,6 +313,19 @@ return function (App $app, ?PDO $pdo) {
         ]);
     });
 
+    function blogViewsSql(string $base, ?string $blogId): array
+    {
+        if ($blogId !== null) {
+            $where = "WHERE blog_id = ?";
+            $replaced = preg_replace('/\b(GROUP\s+BY)\b/i', $where . " $1", $base, 1);
+            if ($replaced !== $base) {
+                return [$replaced, [$blogId]];
+            }
+            return [$base . " " . $where, [$blogId]];
+        }
+        return [$base, []];
+    }
+
     $app->post("/admin/analytics", function (
         Request $request,
         Response $response,
@@ -309,21 +345,47 @@ return function (App $app, ?PDO $pdo) {
         $body = json_decode((string) $request->getBody(), true);
         $blogId = is_string($body["blog_id"] ?? null) ? $body["blog_id"] : null;
 
-        $viewsWhere = $blogId ? "WHERE blog_id = " . $pdo->quote($blogId) : "";
-        $likesWhere = $blogId ? "WHERE blog_id = " . $pdo->quote($blogId) : "";
-
         try {
-            $viewsByDate = $pdo
-                ->query(
-                    "SELECT DATE(view_hour) AS date, COUNT(*) AS count FROM blog_views {$viewsWhere} GROUP BY DATE(view_hour) ORDER BY date ASC",
-                )
-                ->fetchAll();
+            [$viewsSql, $viewsParams] = blogViewsSql(
+                "SELECT DATE(view_hour) AS date, COUNT(*) AS count FROM blog_views GROUP BY DATE(view_hour) ORDER BY date ASC",
+                $blogId,
+            );
+            [$likesSql, $likesParams] = blogViewsSql(
+                "SELECT DATE(created_at) AS date, COUNT(*) AS count FROM blog_likes GROUP BY DATE(created_at) ORDER BY date ASC",
+                $blogId,
+            );
+            [$viewIpsSql, $viewIpsParams] = blogViewsSql(
+                "SELECT DISTINCT ip FROM blog_views",
+                $blogId,
+            );
+            [$likeIpsSql, $likeIpsParams] = blogViewsSql(
+                "SELECT DISTINCT ip FROM blog_likes",
+                $blogId,
+            );
+            [$totalViewsSql, $totalViewsParams] = blogViewsSql(
+                "SELECT COUNT(*) FROM blog_views",
+                $blogId,
+            );
+            [$totalLikesSql, $totalLikesParams] = blogViewsSql(
+                "SELECT COUNT(*) FROM blog_likes",
+                $blogId,
+            );
+            [$uniqueSql, $uniqueParams] = blogViewsSql(
+                "SELECT COUNT(DISTINCT ip) FROM blog_views",
+                $blogId,
+            );
 
-            $likesByDate = $pdo
-                ->query(
-                    "SELECT DATE(created_at) AS date, COUNT(*) AS count FROM blog_likes {$likesWhere} GROUP BY DATE(created_at) ORDER BY date ASC",
-                )
-                ->fetchAll();
+            $exec = function (string $sql, array $params) use ($pdo): mixed {
+                if ($params) {
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute($params);
+                    return $stmt;
+                }
+                return $pdo->query($sql);
+            };
+
+            $viewsByDate = $exec($viewsSql, $viewsParams)->fetchAll();
+            $likesByDate = $exec($likesSql, $likesParams)->fetchAll();
 
             $topBlogs = $pdo
                 ->query(
@@ -331,13 +393,8 @@ return function (App $app, ?PDO $pdo) {
                 )
                 ->fetchAll();
 
-            $viewIps = $pdo
-                ->query("SELECT DISTINCT ip FROM blog_views {$viewsWhere}")
-                ->fetchAll(PDO::FETCH_COLUMN);
-
-            $likeIps = $pdo
-                ->query("SELECT DISTINCT ip FROM blog_likes {$likesWhere}")
-                ->fetchAll(PDO::FETCH_COLUMN);
+            $viewIps = $exec($viewIpsSql, $viewIpsParams)->fetchAll(PDO::FETCH_COLUMN);
+            $likeIps = $exec($likeIpsSql, $likeIpsParams)->fetchAll(PDO::FETCH_COLUMN);
 
             $allIps = array_unique(array_merge($viewIps, $likeIps));
             $countryViewCounts = [];
@@ -372,15 +429,9 @@ return function (App $app, ?PDO $pdo) {
                 $countryLikeCounts[$key]["count"]++;
             }
 
-            $totalViews = $pdo
-                ->query("SELECT COUNT(*) FROM blog_views {$viewsWhere}")
-                ->fetchColumn();
-            $totalLikes = $pdo
-                ->query("SELECT COUNT(*) FROM blog_likes {$likesWhere}")
-                ->fetchColumn();
-            $uniqueVisitors = $pdo
-                ->query("SELECT COUNT(DISTINCT ip) FROM blog_views {$viewsWhere}")
-                ->fetchColumn();
+            $totalViews = (int) $exec($totalViewsSql, $totalViewsParams)->fetchColumn();
+            $totalLikes = (int) $exec($totalLikesSql, $totalLikesParams)->fetchColumn();
+            $uniqueVisitors = (int) $exec($uniqueSql, $uniqueParams)->fetchColumn();
 
             return jsonResponse($response, [
                 "viewsByDate" => $viewsByDate,
@@ -393,6 +444,7 @@ return function (App $app, ?PDO $pdo) {
                 "uniqueVisitors" => (int) $uniqueVisitors,
             ]);
         } catch (PDOException $e) {
+            error_log("Analytics query failed: " . $e->getMessage());
             return jsonResponse($response, ["error" => "Database error"], 500);
         }
     });

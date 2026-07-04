@@ -11,6 +11,9 @@ return function (App $app) {
         array $args,
     ) {
         $id = basename($args["id"]);
+        if (!validateId($id, '/^[a-zA-Z0-9_-]+$/')) {
+            return jsonResponse($response, ["error" => "Invalid product ID"], 400);
+        }
         $file = PRODUCTS_DIR . "/" . $id . "/index.md";
 
         if (!file_exists($file)) {
@@ -40,6 +43,9 @@ return function (App $app) {
     ) {
         $id = basename($args["id"]);
         $name = basename($args["name"]);
+        if (!validateId($id, '/^[a-zA-Z0-9_-]+$/') || !validateId($name, '/^[a-zA-Z0-9_\.-]+$/')) {
+            return jsonResponse($response, ["error" => "Invalid path"], 400);
+        }
         $file = PRODUCTS_DIR . "/" . $id . "/images/" . $name;
 
         if (!file_exists($file)) {

@@ -14,7 +14,8 @@ $dotenv->safeLoad();
 
 $app = AppFactory::create();
 
-$displayErrors = ($_ENV["APP_ENV"] ?? "development") === "development";
+$env = $_ENV["APP_ENV"] ?? "production";
+$displayErrors = $env === "development";
 $app->addErrorMiddleware($displayErrors, true, true);
 
 $app->add(new BodyParsingMiddleware());
@@ -28,8 +29,12 @@ $app->add(function (Request $request, $handler) {
         $response = $handler->handle($request);
     }
 
+    $origin = $_ENV["APP_URL"] ?? "";
+    if ($origin === "") {
+        $origin = "http://localhost:5173";
+    }
     return $response
-        ->withHeader("Access-Control-Allow-Origin", $_ENV["APP_URL"] ?? "*")
+        ->withHeader("Access-Control-Allow-Origin", $origin)
         ->withHeader(
             "Access-Control-Allow-Headers",
             "Content-Type, Accept, Authorization",
