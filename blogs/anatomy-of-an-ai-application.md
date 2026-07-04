@@ -22,7 +22,9 @@ When you use the app, it smoothly handles financial queries that require multi-s
 * **"Give me current price of Infosys"**: Here, the agent first realizes it doesn't have the stock symbol. It translates "Infosys" to `INFY` and then calls the NSE API to get the latest price.
 
 * **"Give me list of 3 pharmaceutical stocks"**: The agent queries the database where industry information is stored and filters the results by market capitalization to give the top three.
-
+   
+---
+   
 ## Major parts of AI Application
 ![AI Application Components](images/2-2-ai-agent-components.png)  
 
