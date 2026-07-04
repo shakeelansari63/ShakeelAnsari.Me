@@ -42,8 +42,16 @@ This project is a **PHP 8.1+ REST API** using **Slim Framework 4** with naked **
 ### Security Rules
 - Use `basename()` when dealing with file paths to prevent directory traversal.
 - Use `hash_equals()` for string comparison of secrets.
-- Parameterize ALL SQL queries — never interpolate user input.
+- Parameterize ALL SQL queries — never interpolate user input. Use prepared statements with `?` placeholders via `$pdo->prepare()` — never `$pdo->quote()` string interpolation.
 - CORS middleware handles OPTIONS preflight and sets `Access-Control-Allow-Origin`, `Access-Control-Allow-Headers`, `Access-Control-Allow-Methods`, `Content-Security-Policy`.
+- `Access-Control-Allow-Origin` must fall back to `http://localhost:5173` in dev, never `*`.
+- `APP_ENV` defaults to `production`, not `development`.
+- **Conditional WHERE clauses:** When building dynamic SQL that conditionally appends `WHERE` clauses (e.g., analytics blog filter), insert the clause BEFORE `GROUP BY`/`ORDER BY`. Use `preg_replace('/\b(GROUP\s+BY)\b/i', 'WHERE ... $1', $base, 1)` to insert at the correct position.
+- **JWT:** Guard with `jwtSecret()` — reject empty or <16-char `JWT_SECRET`. Login must check for empty credentials early. Use `verifyAdmin(Request $request): bool` with HS256 decode.
+- **Input validation:** Use `validateId(string $id, string $pattern): bool` with regex pattern checks on ALL route parameters (learn subjects, chapters, images; products, images; blogs).
+- **Trusted proxies:** In `clientIp()`, restrict `X-Forwarded-For` trust to `TRUSTED_PROXIES` env var only. Reject private/reserved IPs from the header (`FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE`).
+- **IP geolocation:** Always use `https://` for ip-api.com with a 3-second timeout via `stream_context_create`.
+- **Rate limiting:** Login rate limiter file operations must use `flock(LOCK_EX)` for atomic read-modify-write and `flock(LOCK_SH)` for reads.
 
 ### Image Serving
 - Blog images: serve from `blogs/images/` at `/api/blogs/images/{name}`.
