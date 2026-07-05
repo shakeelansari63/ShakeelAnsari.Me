@@ -1,27 +1,20 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import type { GitProfile, GitProject } from "../models/types";
-import { fetchUserProfile, fetchUserProjects } from "../services/api";
+import type { GitProfile } from "../models/types";
+import { fetchUserProfile } from "../services/api";
 import { seo } from "../data/seo";
 import ToolBar from "../components/shared/ToolBar";
 import Hero from "../components/Home/Hero";
 import WorkSection from "../components/Home/WorkSection";
 import SectionTitle from "../components/Home/SectionTitle";
-import StatsSection from "../components/Home/StatsSection";
-import ProjectsSection from "../components/Home/ProjectsSection";
 import AlsoSeeSection from "../components/Home/AlsoSeeSection";
-import LanguagesSection from "../components/Home/LanguagesSection";
-import StreakSection from "../components/Home/StreakSection";
-import ActivitySection from "../components/Home/ActivitySection";
 import FooterSection from "../components/Home/FooterSection";
 
 export default function MainPage() {
   const [profile, setProfile] = useState<GitProfile | null>(null);
-  const [projects, setProjects] = useState<GitProject[]>([]);
 
   useEffect(() => {
     fetchUserProfile().then(setProfile);
-    fetchUserProjects().then(setProjects);
   }, []);
 
   return (
@@ -44,23 +37,6 @@ export default function MainPage() {
 
         <SectionTitle anchor="experience">Work Experience</SectionTitle>
         <WorkSection />
-
-        <SectionTitle anchor="stats">GitHub Statistics</SectionTitle>
-        <StatsSection />
-
-        <SectionTitle anchor="languages">GitHub Languages</SectionTitle>
-        <LanguagesSection />
-
-        <SectionTitle anchor="contributions">
-          Streaks &amp; Productivity
-        </SectionTitle>
-        <StreakSection />
-
-        <SectionTitle anchor="activity">Activity Graph</SectionTitle>
-        <ActivitySection />
-
-        <SectionTitle anchor="projects">GitHub Projects</SectionTitle>
-        <ProjectsSection projects={projects} />
 
         <SectionTitle anchor="see-also">Explore Further</SectionTitle>
         <AlsoSeeSection />

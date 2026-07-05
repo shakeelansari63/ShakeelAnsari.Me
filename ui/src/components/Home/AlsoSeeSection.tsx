@@ -23,12 +23,18 @@ export default function AlsoSeeSection() {
       description: 'Tutorials on programming languages and tech topics.',
       route: '/learn',
     },
+    {
+      icon: 'pi-briefcase',
+      title: 'Portfolio',
+      description: 'GitHub statistics, languages, streaks and projects.',
+      route: '/portfolio',
+    },
   ];
 
   return (
     <div className="grid">
       {items.map((item) => (
-          <div key={item.route} className="md:col-4 col-12">
+          <div key={item.route} className="md:col-6 col-12">
           <Card
             className="cursor-pointer h-full"
             onClick={() => navigate(item.route)}

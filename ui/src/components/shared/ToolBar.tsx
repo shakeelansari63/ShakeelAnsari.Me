@@ -26,10 +26,10 @@ export default function ToolBar({ isLight, onToggleTheme }: Props) {
         }
     };
 
-    const homeNav = (id: string) => {
+    const portfolioNav = (id: string) => {
         setMenuOpen(false);
-        if (location.pathname !== "/") {
-            navigate("/");
+        if (location.pathname !== "/portfolio") {
+            navigate("/portfolio");
             setTimeout(() => scrollTo(id), 300);
         } else {
             scrollTo(id);
@@ -41,7 +41,7 @@ export default function ToolBar({ isLight, onToggleTheme }: Props) {
             ? [
                   {
                       label: "Expo",
-                      icon: "pi pi-briefcase",
+                      icon: "pi pi-star",
                       visible: !location.pathname.startsWith("/expo"),
                       action: () => {
                           setMenuOpen(false);
@@ -77,27 +77,36 @@ export default function ToolBar({ isLight, onToggleTheme }: Props) {
               ]
             : []),
         {
+            label: "Portfolio",
+            icon: "pi pi-briefcase",
+            visible: !location.pathname.startsWith("/portfolio"),
+            action: () => {
+                setMenuOpen(false);
+                navigate("/portfolio");
+            },
+        },
+        {
             label: "Stats",
             icon: "pi pi-chart-bar",
-            visible: location.pathname === "/",
-            action: () => homeNav("stats"),
+            visible: location.pathname === "/portfolio",
+            action: () => portfolioNav("stats"),
         },
         {
             label: "Contributions",
             icon: "pi pi-calendar",
-            visible: location.pathname === "/",
-            action: () => homeNav("contributions"),
+            visible: location.pathname === "/portfolio",
+            action: () => portfolioNav("contributions"),
         },
         {
             label: "Projects",
             icon: "pi pi-folder",
-            visible: location.pathname === "/",
-            action: () => homeNav("projects"),
+            visible: location.pathname === "/portfolio",
+            action: () => portfolioNav("projects"),
         },
     ];
 
     const startContent =
-        location.pathname === "/" ? (
+        location.pathname === "/" || location.pathname === "/portfolio" ? (
             <span
                 className="text-pink-500 font-bold text-2xl no-underline cursor-pointer"
                 onClick={() => navigate("/")}
@@ -124,7 +133,7 @@ export default function ToolBar({ isLight, onToggleTheme }: Props) {
                         text
                         severity="secondary"
                         className="text-pink-500"
-                        icon="pi pi-briefcase"
+                        icon="pi pi-star"
                         label="Expo"
                         onClick={() => navigate("/expo")}
                         style={{ outline: "none", boxShadow: "none" }}
@@ -152,7 +161,18 @@ export default function ToolBar({ isLight, onToggleTheme }: Props) {
                         style={{ outline: "none", boxShadow: "none" }}
                     />
                 )}
-                {location.pathname === "/" && (
+                {!location.pathname.startsWith("/portfolio") && (
+                    <Button
+                        text
+                        severity="secondary"
+                        className="text-pink-500"
+                        icon="pi pi-briefcase"
+                        label="Portfolio"
+                        onClick={() => navigate("/portfolio")}
+                        style={{ outline: "none", boxShadow: "none" }}
+                    />
+                )}
+                {location.pathname === "/portfolio" && (
                     <>
                         <Button
                             text
@@ -160,7 +180,7 @@ export default function ToolBar({ isLight, onToggleTheme }: Props) {
                             className="text-pink-500"
                             icon="pi pi-chart-bar"
                             label="Stats"
-                            onClick={() => scrollTo("stats")}
+                            onClick={() => portfolioNav("stats")}
                             style={{ outline: "none", boxShadow: "none" }}
                         />
                         <Button
@@ -169,7 +189,7 @@ export default function ToolBar({ isLight, onToggleTheme }: Props) {
                             className="text-pink-500"
                             icon="pi pi-calendar"
                             label="Contributions"
-                            onClick={() => scrollTo("contributions")}
+                            onClick={() => portfolioNav("contributions")}
                             style={{ outline: "none", boxShadow: "none" }}
                         />
                         <Button
@@ -178,7 +198,7 @@ export default function ToolBar({ isLight, onToggleTheme }: Props) {
                             className="text-pink-500"
                             icon="pi pi-folder"
                             label="Projects"
-                            onClick={() => scrollTo("projects")}
+                            onClick={() => portfolioNav("projects")}
                             style={{ outline: "none", boxShadow: "none" }}
                         />
                     </>

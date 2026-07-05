@@ -16,6 +16,7 @@ const LearnPage = lazy(() => import("./pages/LearnPage"));
 const SubjectPage = lazy(() => import("./pages/SubjectPage"));
 const ChapterReaderPage = lazy(() => import("./pages/ChapterReaderPage"));
 const ProductPage = lazy(() => import("./pages/ProductPage"));
+const PortfolioPage = lazy(() => import("./pages/PortfolioPage"));
 const AdminPage = lazy(() => import("./pages/AdminPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
@@ -49,6 +50,7 @@ function App() {
                             />
                         </>
                     )}
+                    <Route path="/portfolio" element={<PortfolioPage />} />
                     <Route path="/admin" element={<AdminPage />} />
                     <Route path="*" element={<NotFoundPage />} />
                 </Routes>
