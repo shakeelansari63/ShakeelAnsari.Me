@@ -15,6 +15,7 @@ $urls = [
     ["loc" => "$appUrl/", "changefreq" => "weekly", "priority" => "1.0"],
     ["loc" => "$appUrl/blog", "changefreq" => "weekly", "priority" => "0.8"],
     ["loc" => "$appUrl/expo", "changefreq" => "monthly", "priority" => "0.6"],
+    ["loc" => "$appUrl/portfolio", "changefreq" => "weekly", "priority" => "0.7"],
 ];
 
 if ($pdo) {

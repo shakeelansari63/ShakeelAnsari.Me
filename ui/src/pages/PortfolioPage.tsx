@@ -23,22 +23,13 @@ export default function PortfolioPage() {
     <>
       <Helmet>
         <title>{`${seo.name} — Portfolio`}</title>
-        <meta
-          name="description"
-          content={`GitHub Portfolio of ${seo.name}`}
-        />
-        <meta
-          property="og:title"
-          content={`${seo.name} — Portfolio`}
-        />
+        <meta name="description" content={`GitHub Portfolio of ${seo.name}`} />
+        <meta property="og:title" content={`${seo.name} — Portfolio`} />
         <meta
           property="og:description"
           content={`GitHub Portfolio of ${seo.name}`}
         />
-        <meta
-          property="og:url"
-          content={`https://${seo.domain}/portfolio`}
-        />
+        <meta property="og:url" content={`https://${seo.domain}/portfolio`} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content={seo.avatarUrl} />
         <meta name="twitter:card" content="summary_large_image" />
@@ -50,7 +41,7 @@ export default function PortfolioPage() {
       </Helmet>
       <ToolBar />
       <div className="app-container">
-        <SectionTitle anchor="stats">GitHub Statistics</SectionTitle>
+        <div id="stats" className="mb-6 h-2rem"></div>
         <StatsSection />
 
         <SectionTitle anchor="languages">GitHub Languages</SectionTitle>
