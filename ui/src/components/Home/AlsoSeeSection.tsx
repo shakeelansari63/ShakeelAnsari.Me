@@ -24,10 +24,10 @@ export default function AlsoSeeSection() {
       route: '/learn',
     },
     {
-      icon: 'pi-briefcase',
-      title: 'Portfolio',
+      icon: 'pi-chart-bar',
+      title: 'Stats',
       description: 'GitHub statistics, languages, streaks and projects.',
-      route: '/portfolio',
+      route: '/stats',
     },
   ];
 

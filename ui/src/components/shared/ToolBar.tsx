@@ -26,10 +26,10 @@ export default function ToolBar({ isLight, onToggleTheme }: Props) {
         }
     };
 
-    const portfolioNav = (id: string) => {
+    const statsNav = (id: string) => {
         setMenuOpen(false);
-        if (location.pathname !== "/portfolio") {
-            navigate("/portfolio");
+        if (location.pathname !== "/stats") {
+            navigate("/stats");
             setTimeout(() => scrollTo(id), 300);
         } else {
             scrollTo(id);
@@ -77,36 +77,30 @@ export default function ToolBar({ isLight, onToggleTheme }: Props) {
               ]
             : []),
         {
-            label: "Portfolio",
-            icon: "pi pi-briefcase",
-            visible: !location.pathname.startsWith("/portfolio"),
-            action: () => {
-                setMenuOpen(false);
-                navigate("/portfolio");
-            },
-        },
-        {
             label: "Stats",
             icon: "pi pi-chart-bar",
-            visible: location.pathname === "/portfolio",
-            action: () => portfolioNav("stats"),
+            visible: !location.pathname.startsWith("/stats"),
+            action: () => {
+                setMenuOpen(false);
+                navigate("/stats");
+            },
         },
         {
             label: "Contributions",
             icon: "pi pi-calendar",
-            visible: location.pathname === "/portfolio",
-            action: () => portfolioNav("contributions"),
+            visible: location.pathname === "/stats",
+            action: () => statsNav("contributions"),
         },
         {
             label: "Projects",
             icon: "pi pi-folder",
-            visible: location.pathname === "/portfolio",
-            action: () => portfolioNav("projects"),
+            visible: location.pathname === "/stats",
+            action: () => statsNav("projects"),
         },
     ];
 
     const startContent =
-        location.pathname === "/" || location.pathname === "/portfolio" ? (
+        location.pathname === "/" || location.pathname === "/stats" ? (
             <span
                 className="text-pink-500 font-bold text-2xl no-underline cursor-pointer"
                 onClick={() => navigate("/")}
@@ -161,35 +155,26 @@ export default function ToolBar({ isLight, onToggleTheme }: Props) {
                         style={{ outline: "none", boxShadow: "none" }}
                     />
                 )}
-                {!location.pathname.startsWith("/portfolio") && (
+                {!location.pathname.startsWith("/stats") && (
                     <Button
                         text
                         severity="secondary"
                         className="text-pink-500"
-                        icon="pi pi-briefcase"
-                        label="Portfolio"
-                        onClick={() => navigate("/portfolio")}
+                        icon="pi pi-chart-bar"
+                        label="Stats"
+                        onClick={() => navigate("/stats")}
                         style={{ outline: "none", boxShadow: "none" }}
                     />
                 )}
-                {location.pathname === "/portfolio" && (
+                {location.pathname === "/stats" && (
                     <>
-                        <Button
-                            text
-                            severity="secondary"
-                            className="text-pink-500"
-                            icon="pi pi-chart-bar"
-                            label="Stats"
-                            onClick={() => portfolioNav("stats")}
-                            style={{ outline: "none", boxShadow: "none" }}
-                        />
                         <Button
                             text
                             severity="secondary"
                             className="text-pink-500"
                             icon="pi pi-calendar"
                             label="Contributions"
-                            onClick={() => portfolioNav("contributions")}
+                            onClick={() => statsNav("contributions")}
                             style={{ outline: "none", boxShadow: "none" }}
                         />
                         <Button
@@ -198,7 +183,7 @@ export default function ToolBar({ isLight, onToggleTheme }: Props) {
                             className="text-pink-500"
                             icon="pi pi-folder"
                             label="Projects"
-                            onClick={() => portfolioNav("projects")}
+                            onClick={() => statsNav("projects")}
                             style={{ outline: "none", boxShadow: "none" }}
                         />
                     </>

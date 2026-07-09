@@ -12,7 +12,7 @@ import StreakSection from "../components/Home/StreakSection";
 import ActivitySection from "../components/Home/ActivitySection";
 import FooterSection from "../components/Home/FooterSection";
 
-export default function PortfolioPage() {
+export default function StatsPage() {
   const [projects, setProjects] = useState<GitProject[]>([]);
 
   useEffect(() => {
@@ -22,21 +22,21 @@ export default function PortfolioPage() {
   return (
     <>
       <Helmet>
-        <title>{`${seo.name} — Portfolio`}</title>
-        <meta name="description" content={`GitHub Portfolio of ${seo.name}`} />
-        <meta property="og:title" content={`${seo.name} — Portfolio`} />
+        <title>{`${seo.name} — Stats`}</title>
+        <meta name="description" content={`GitHub Stats of ${seo.name}`} />
+        <meta property="og:title" content={`${seo.name} — Stats`} />
         <meta
           property="og:description"
-          content={`GitHub Portfolio of ${seo.name}`}
+          content={`GitHub Stats of ${seo.name}`}
         />
-        <meta property="og:url" content={`https://${seo.domain}/portfolio`} />
+        <meta property="og:url" content={`https://${seo.domain}/stats`} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content={seo.avatarUrl} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={seo.name} />
         <meta
           name="twitter:description"
-          content={`GitHub Portfolio of ${seo.name}`}
+          content={`GitHub Stats of ${seo.name}`}
         />
       </Helmet>
       <ToolBar />
