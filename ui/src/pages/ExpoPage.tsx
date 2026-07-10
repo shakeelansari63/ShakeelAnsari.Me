@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import ToolBar from '../components/shared/ToolBar';
+import PageFooter from '../components/shared/PageFooter';
 import ExpoCard from '../components/Expo/ExpoCard';
 import { userData } from '../data/profile';
 import { seo } from '../data/seo';
@@ -22,6 +23,7 @@ export default function ExpoPage() {
             <ExpoCard key={item.name} item={item} />
           ))}
         </div>
+        <PageFooter />
       </div>
     </>
   );

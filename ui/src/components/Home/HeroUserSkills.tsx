@@ -90,24 +90,6 @@ export default function HeroUserSkills({ profile }: Props) {
                     <span className="px-1 min-w-max">,</span>
                 </div>
                 <div className="flex flex-row">
-                    <span className="pl-6" />
-                    <span className="px-1 min-w-max">skills :</span>
-                    <span className="px-1 flex flex-wrap">
-                        [&nbsp;
-                        {userData.skills.map((skill, i) => (
-                            <span key={skill} className="flex-nowrap">
-                                <span className="text-blue-400">
-                                    &quot;{skill}&quot;
-                                </span>
-                                {i < userData.skills.length - 1 && (
-                                    <span className="text-white">,&nbsp;</span>
-                                )}
-                            </span>
-                        ))}
-                        &nbsp;],
-                    </span>
-                </div>
-                <div className="flex flex-row">
                     <span className="px-1">{"};"}</span>
                 </div>
             </div>

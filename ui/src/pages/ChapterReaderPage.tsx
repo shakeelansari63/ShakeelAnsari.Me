@@ -5,7 +5,7 @@ import { Button } from "primereact/button";
 import { Skeleton } from "primereact/skeleton";
 import ToolBar from "../components/shared/ToolBar";
 import MarkdownRenderer from "../components/shared/MarkdownRenderer";
-import ReaderFooter from "../components/shared/ReaderFooter";
+import PageFooter from "../components/shared/PageFooter";
 import { fetchChapterContent } from "../services/api";
 import { seo } from "../data/seo";
 
@@ -94,7 +94,7 @@ export default function ChapterReaderPage() {
                 {title}
               </h1>
               <MarkdownRenderer content={content} isLight={isLight} />
-              <ReaderFooter isLight={isLight} />
+              <PageFooter isLight={isLight} />
             </article>
           )}
         </div>

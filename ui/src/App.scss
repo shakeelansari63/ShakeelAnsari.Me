@@ -168,6 +168,16 @@ html.scrolled .p-toolbar .p-button .p-button-icon {
     fill: currentColor;
 }
 
+.skill-pill {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: default;
+}
+
+.skill-pill:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 12px rgba(213, 58, 157, 0.6);
+}
+
 .text-small {
     font-size: 10px;
 }

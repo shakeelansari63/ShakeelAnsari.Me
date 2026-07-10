@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Card } from "primereact/card";
 import { Skeleton } from "primereact/skeleton";
 import ToolBar from "../components/shared/ToolBar";
+import PageFooter from "../components/shared/PageFooter";
 import { fetchLearnSubjects } from "../services/api";
 import type { LearnSubject } from "../models/types";
 import { seo } from "../data/seo";
@@ -79,6 +80,7 @@ export default function LearnPage() {
             ))}
           </div>
         )}
+        <PageFooter />
       </div>
     </>
   );

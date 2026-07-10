@@ -6,7 +6,7 @@ import { Skeleton } from "primereact/skeleton";
 import ToolBar from "../components/shared/ToolBar";
 import ArticleHeader from "../components/BlogReader/ArticleHeader";
 import ArticleContent from "../components/BlogReader/ArticleContent";
-import ReaderFooter from "../components/shared/ReaderFooter";
+import PageFooter from "../components/shared/PageFooter";
 import {
     fetchBlogPost,
     fetchBlogContent,
@@ -165,7 +165,7 @@ export default function BlogReaderPage() {
                                     isLight={isLight}
                                 />
                             ) : null}
-                            {post && <ReaderFooter isLight={isLight} />}
+                            {post && <PageFooter isLight={isLight} />}
                         </article>
                     )}
                 </div>

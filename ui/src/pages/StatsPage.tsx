@@ -10,7 +10,7 @@ import ProjectsSection from "../components/Home/ProjectsSection";
 import LanguagesSection from "../components/Home/LanguagesSection";
 import StreakSection from "../components/Home/StreakSection";
 import ActivitySection from "../components/Home/ActivitySection";
-import FooterSection from "../components/Home/FooterSection";
+import PageFooter from "../components/shared/PageFooter";
 
 export default function StatsPage() {
   const [projects, setProjects] = useState<GitProject[]>([]);
@@ -59,7 +59,7 @@ export default function StatsPage() {
         <ProjectsSection projects={projects} />
 
         <SectionTitle hideTitle />
-        <FooterSection />
+        <PageFooter />
       </div>
     </>
   );

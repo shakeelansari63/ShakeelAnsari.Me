@@ -5,10 +5,11 @@ import { fetchUserProfile } from "../services/api";
 import { seo } from "../data/seo";
 import ToolBar from "../components/shared/ToolBar";
 import Hero from "../components/Home/Hero";
+import SkillsSection from "../components/Home/SkillsSection";
 import WorkSection from "../components/Home/WorkSection";
 import SectionTitle from "../components/Home/SectionTitle";
 import AlsoSeeSection from "../components/Home/AlsoSeeSection";
-import FooterSection from "../components/Home/FooterSection";
+import PageFooter from "../components/shared/PageFooter";
 
 export default function MainPage() {
   const [profile, setProfile] = useState<GitProfile | null>(null);
@@ -35,6 +36,9 @@ export default function MainPage() {
       <div className="app-container">
         <Hero profile={profile} />
 
+        <SectionTitle anchor="skills">Skills &amp; Expertise</SectionTitle>
+        <SkillsSection />
+
         <SectionTitle anchor="experience">Work Experience</SectionTitle>
         <WorkSection />
 
@@ -42,7 +46,7 @@ export default function MainPage() {
         <AlsoSeeSection />
 
         <SectionTitle hideTitle />
-        <FooterSection />
+        <PageFooter />
       </div>
     </>
   );

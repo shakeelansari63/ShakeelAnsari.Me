@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Button } from "primereact/button";
 import ToolBar from "../components/shared/ToolBar";
+import PageFooter from "../components/shared/PageFooter";
 import BlogCard from "../components/Blog/BlogCard";
 import SkeletonCard from "../components/Blog/SkeletonCard";
 import { fetchBlogPosts } from "../services/api";
@@ -84,6 +85,7 @@ export default function BlogPage() {
                         )}
                     </>
                 )}
+                <PageFooter />
             </div>
         </>
     );

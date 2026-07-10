@@ -1,21 +1,33 @@
 import { Toolbar } from "primereact/toolbar";
 import { Button } from "primereact/button";
+import { seo } from "../../data/seo";
 import { userData } from "../../data/profile";
 
 interface Props {
     isLight?: boolean;
 }
 
-export default function ReaderFooter({ isLight }: Props) {
+export default function PageFooter({ isLight }: Props) {
     const startContent = (
-        <span className="text-sm">
-            <span className="mr-1">Published by</span>
-            <strong>@{userData.githubUser}</strong>
+        <span className="text-sm text-gray-400">
+            <strong>&copy; {seo.domain}</strong>
         </span>
     );
 
+    const repoUrl = "https://github.com/shakeelansari63/ShakeelAnsari.Me";
+
     const endContent = (
         <div className="flex gap-2">
+            <Button
+                text
+                severity="secondary"
+                size="small"
+                icon="pi pi-star"
+                label="Star"
+                className={isLight ? "" : "text-pink-500"}
+                onClick={() => window.open(repoUrl, "_blank")}
+                style={{ outline: "none", boxShadow: "none" }}
+            />
             <a href={userData.github} target="_blank" title="GitHub">
                 <Button
                     icon="pi pi-github"

@@ -5,6 +5,7 @@ import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 import { Skeleton } from "primereact/skeleton";
 import ToolBar from "../components/shared/ToolBar";
+import PageFooter from "../components/shared/PageFooter";
 import { fetchSubjectChapters } from "../services/api";
 import type { LearnChapter } from "../models/types";
 import { seo } from "../data/seo";
@@ -39,7 +40,7 @@ export default function SubjectPage() {
         <meta property="og:url" content={`https://${seo.domain}/learn/${subjectId}`} />
       </Helmet>
       <ToolBar />
-      <div className="app-container">
+      <div className="app-container pb-4">
         <div className="mb-3">
           <Button
             icon="pi pi-arrow-left"
@@ -87,6 +88,7 @@ export default function SubjectPage() {
             ))}
           </div>
         )}
+        <PageFooter />
       </div>
     </>
   );
