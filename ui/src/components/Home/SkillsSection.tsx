@@ -11,7 +11,7 @@ export default function SkillsSection() {
                         background: "#d53a9d",
                         color: "#fff",
                         padding: "0.375rem 1rem",
-                        fontSize: "1.2rem",
+                        fontSize: "1.1rem",
                         borderRadius: "999px",
                         lineHeight: 1.5,
                         whiteSpace: "nowrap",
