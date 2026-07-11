@@ -13,9 +13,10 @@ $appUrl = $_ENV["APP_URL"] ?? "https://[{#SEO-DOMAIN#}]";
 
 $urls = [
     ["loc" => "$appUrl/", "changefreq" => "weekly", "priority" => "1.0"],
-    ["loc" => "$appUrl/blog", "changefreq" => "weekly", "priority" => "0.8"],
-    ["loc" => "$appUrl/expo", "changefreq" => "monthly", "priority" => "0.6"],
-    ["loc" => "$appUrl/portfolio", "changefreq" => "weekly", "priority" => "0.7"],
+    ["loc" => "$appUrl/blog", "changefreq" => "weekly", "priority" => "0.9"],
+    ["loc" => "$appUrl/expo", "changefreq" => "monthly", "priority" => "0.8"],
+    ["loc" => "$appUrl/stats", "changefreq" => "weekly", "priority" => "0.8"],
+    ["loc" => "$appUrl/learn", "changefreq" => "monthly", "priority" => "0.8"],
 ];
 
 if ($pdo) {
@@ -28,7 +29,7 @@ if ($pdo) {
                 "loc" => "$appUrl/blog/{$row["id"]}",
                 "lastmod" => $row["date"],
                 "changefreq" => "monthly",
-                "priority" => "0.7",
+                "priority" => "0.9",
             ];
         }
     } catch (PDOException) {
