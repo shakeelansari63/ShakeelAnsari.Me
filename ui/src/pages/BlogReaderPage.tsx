@@ -6,11 +6,13 @@ import { Skeleton } from "primereact/skeleton";
 import ToolBar from "../components/shared/ToolBar";
 import ArticleHeader from "../components/BlogReader/ArticleHeader";
 import ArticleContent from "../components/BlogReader/ArticleContent";
+import AlsoReadSection from "../components/BlogReader/AlsoReadSection";
 import PageFooter from "../components/shared/PageFooter";
 import {
     fetchBlogPost,
     fetchBlogContent,
     fetchBlogStats,
+    fetchRelatedBlogPosts,
     recordBlogView,
     likeBlog,
 } from "../services/api";
@@ -29,6 +31,7 @@ export default function BlogReaderPage() {
     const [isLight, setIsLight] = useState(false);
     const [stats, setStats] = useState<BlogStats>({ views: 0, likes: 0 });
     const [liking, setLiking] = useState(false);
+    const [related, setRelated] = useState<BlogPost[]>([]);
 
     useEffect(() => {
         if (!id) return;
@@ -40,6 +43,7 @@ export default function BlogReaderPage() {
             .then(setContent)
             .finally(() => setContentLoading(false));
         fetchBlogStats(id).then(setStats);
+        fetchRelatedBlogPosts(id).then(setRelated);
         recordBlogView(id).then((res) => {
             if (res?.views !== undefined) {
                 setStats((s) => ({ ...s, views: res.views }));
@@ -165,6 +169,12 @@ export default function BlogReaderPage() {
                                     isLight={isLight}
                                 />
                             ) : null}
+                            {post && (
+                                <AlsoReadSection
+                                    posts={related}
+                                    isLight={isLight}
+                                />
+                            )}
                             {post && <PageFooter isLight={isLight} />}
                         </article>
                     )}

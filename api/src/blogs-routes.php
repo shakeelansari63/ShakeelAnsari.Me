@@ -134,6 +134,78 @@ return function (App $app, ?PDO $pdo) {
         ]);
     });
 
+    $app->get("/blogs/{id}/related", function (
+        Request $request,
+        Response $response,
+        array $args,
+    ) use ($pdo) {
+        if (!$pdo) {
+            return jsonResponse(
+                $response,
+                ["error" => "Database not available"],
+                503,
+            );
+        }
+        $id = basename($args["id"]);
+
+        $stmt = $pdo->prepare("SELECT tags FROM blog WHERE id = ? AND deleted = 0");
+        $stmt->execute([$id]);
+        $row = $stmt->fetch();
+
+        if (!$row) {
+            return jsonResponse($response, ["data" => []]);
+        }
+
+        $tagsJson = $row["tags"] ?? "[]";
+        $related = [];
+
+        if ($tagsJson !== "[]" && $tagsJson !== "null") {
+            $stmt = $pdo->prepare(
+                "SELECT id, title, excerpt, date, read_time
+                 FROM blog
+                 WHERE deleted = 0
+                   AND id != ?
+                   AND JSON_OVERLAPS(tags, ?)
+                 ORDER BY RAND()
+                 LIMIT 3",
+            );
+            $stmt->execute([$id, $tagsJson]);
+
+            foreach ($stmt as $r) {
+                $related[] = [
+                    "id" => $r["id"],
+                    "title" => $r["title"],
+                    "excerpt" => $r["excerpt"],
+                    "date" => $r["date"],
+                    "readTime" => $r["read_time"],
+                ];
+            }
+        }
+
+        if (empty($related)) {
+            $stmt = $pdo->prepare(
+                "SELECT id, title, excerpt, date, read_time
+                 FROM blog
+                 WHERE deleted = 0 AND id != ?
+                 ORDER BY RAND()
+                 LIMIT 2",
+            );
+            $stmt->execute([$id]);
+
+            foreach ($stmt as $r) {
+                $related[] = [
+                    "id" => $r["id"],
+                    "title" => $r["title"],
+                    "excerpt" => $r["excerpt"],
+                    "date" => $r["date"],
+                    "readTime" => $r["read_time"],
+                ];
+            }
+        }
+
+        return jsonResponse($response, ["data" => $related]);
+    });
+
     $app->get("/blogs/images/{name}", function (
         Request $request,
         Response $response,

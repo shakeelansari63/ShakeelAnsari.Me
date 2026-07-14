@@ -62,6 +62,19 @@ export async function fetchBlogPosts(
   }
 }
 
+export async function fetchRelatedBlogPosts(
+  id: string,
+): Promise<BlogPost[]> {
+  try {
+    const res = await fetch(`/api/blogs/${id}/related`);
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.data ?? [];
+  } catch {
+    return [];
+  }
+}
+
 export async function fetchBlogContent(id: string): Promise<string | null> {
   try {
     const res = await fetch(`/api/blogs/${id}/content`);
