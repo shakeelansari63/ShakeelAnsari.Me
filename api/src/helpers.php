@@ -151,7 +151,7 @@ function resolveLocation(string $ip, PDO $pdo): object
         return $loc;
     }
 
-    $loc = lookupGeoPlugin($ip);
+    $loc = lookupHoskesGeoPlugin($ip);
     if ($loc !== null) {
         cacheLocation($pdo, $ip, $loc);
         return $loc;
@@ -179,18 +179,18 @@ function lookupIpApi(string $ip): ?object
     return null;
 }
 
-function lookupGeoPlugin(string $ip): ?object
+function lookupHoskesGeoPlugin(string $ip): ?object
 {
     $ctx = stream_context_create(["http" => ["timeout" => 3]]);
-    $data = @file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip, false, $ctx);
+    $data = @file_get_contents("https://geoapi-hoskes.onrender.com/json.gp?ip=" . $ip, false, $ctx);
     if ($data) {
         $json = json_decode($data);
-        if ($json && ($json->geoplugin_status ?? 0) == 200) {
+        if ($json && ($json->hoskes_locplugin_status ?? 0) == 200) {
             return (object) [
-                "country" => $json->geoplugin_countryName ?? "",
-                "country_code" => $json->geoplugin_countryCode ?? "",
-                "region" => $json->geoplugin_region ?? "",
-                "city" => $json->geoplugin_city ?? "",
+                "country" => $json->hoskes_locplugin_countryName ?? "",
+                "country_code" => $json->hoskes_locplugin_countryCode ?? "",
+                "region" => $json->hoskes_locplugin_region ?? "",
+                "city" => $json->hoskes_locplugin_city ?? "",
             ];
         }
     }
