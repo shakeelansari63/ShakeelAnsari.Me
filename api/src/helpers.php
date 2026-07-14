@@ -131,30 +131,76 @@ function resolveLocation(string $ip, PDO $pdo): object
         return (object) ["country" => "Local", "country_code" => "XX", "region" => "", "city" => ""];
     }
 
-    $stmt = $pdo->prepare("SELECT country, country_code, region, city FROM ip_location WHERE ip = ?");
+    $stmt = $pdo->prepare("SELECT country, country_code, region, city, updated_at FROM ip_location WHERE ip = ?");
     $stmt->execute([$ip]);
     $cached = $stmt->fetch();
 
     if ($cached) {
-        return (object) $cached;
+        if ($cached["country_code"] !== "??") {
+            return (object) $cached;
+        }
+        $updated = strtotime($cached["updated_at"]);
+        if ($updated && (time() - $updated) < 300) {
+            return (object) $cached;
+        }
     }
 
+    $loc = lookupIpApi($ip);
+    if ($loc !== null) {
+        cacheLocation($pdo, $ip, $loc);
+        return $loc;
+    }
+
+    $loc = lookupGeoPlugin($ip);
+    if ($loc !== null) {
+        cacheLocation($pdo, $ip, $loc);
+        return $loc;
+    }
+
+    cacheLocation($pdo, $ip, (object) ["country" => "Unknown", "country_code" => "??", "region" => "", "city" => ""]);
+    return (object) ["country" => "Unknown", "country_code" => "??", "region" => "", "city" => ""];
+}
+
+function lookupIpApi(string $ip): ?object
+{
     $ctx = stream_context_create(["http" => ["timeout" => 3]]);
     $data = @file_get_contents("https://ip-api.com/json/" . $ip . "?fields=status,country,countryCode,region,regionName,city", false, $ctx);
     if ($data) {
         $json = json_decode($data);
         if ($json && ($json->status ?? "") === "success") {
-            $country = $json->country ?? "";
-            $countryCode = $json->countryCode ?? "";
-            $region = $json->regionName ?? $json->region ?? "";
-            $city = $json->city ?? "";
-            $upsert = $pdo->prepare("INSERT INTO ip_location (ip, country, country_code, region, city) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE country = VALUES(country), country_code = VALUES(country_code), region = VALUES(region), city = VALUES(city)");
-            $upsert->execute([$ip, $country, $countryCode, $region, $city]);
-            return (object) ["country" => $country, "country_code" => $countryCode, "region" => $region, "city" => $city];
+            return (object) [
+                "country" => $json->country ?? "",
+                "country_code" => $json->countryCode ?? "",
+                "region" => $json->regionName ?? $json->region ?? "",
+                "city" => $json->city ?? "",
+            ];
         }
     }
+    return null;
+}
 
-    return (object) ["country" => "Unknown", "country_code" => "??", "region" => "", "city" => ""];
+function lookupGeoPlugin(string $ip): ?object
+{
+    $ctx = stream_context_create(["http" => ["timeout" => 3]]);
+    $data = @file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip, false, $ctx);
+    if ($data) {
+        $json = json_decode($data);
+        if ($json && ($json->geoplugin_status ?? 0) == 200) {
+            return (object) [
+                "country" => $json->geoplugin_countryName ?? "",
+                "country_code" => $json->geoplugin_countryCode ?? "",
+                "region" => $json->geoplugin_region ?? "",
+                "city" => $json->geoplugin_city ?? "",
+            ];
+        }
+    }
+    return null;
+}
+
+function cacheLocation(PDO $pdo, string $ip, object $loc): void
+{
+    $upsert = $pdo->prepare("INSERT INTO ip_location (ip, country, country_code, region, city) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE country = VALUES(country), country_code = VALUES(country_code), region = VALUES(region), city = VALUES(city)");
+    $upsert->execute([$ip, $loc->country, $loc->country_code, $loc->region ?? "", $loc->city ?? ""]);
 }
 
 function validateId(string $id, string $pattern = '/^[a-zA-Z0-9_@\.\-\/]+$/'): bool

@@ -397,11 +397,13 @@ return function (App $app, ?PDO $pdo) {
             $likeIps = $exec($likeIpsSql, $likeIpsParams)->fetchAll(PDO::FETCH_COLUMN);
 
             $allIps = array_unique(array_merge($viewIps, $likeIps));
+            $ipLocations = [];
             $countryViewCounts = [];
             $countryLikeCounts = [];
 
             foreach ($allIps as $ip) {
                 $loc = resolveLocation($ip, $pdo);
+                $ipLocations[$ip] = $loc;
                 $key = $loc->country_code . "|" . $loc->country;
                 if (!isset($countryViewCounts[$key])) {
                     $countryViewCounts[$key] = [
@@ -418,13 +420,13 @@ return function (App $app, ?PDO $pdo) {
             }
 
             foreach ($viewIps as $ip) {
-                $loc = resolveLocation($ip, $pdo);
+                $loc = $ipLocations[$ip];
                 $key = $loc->country_code . "|" . $loc->country;
                 $countryViewCounts[$key]["count"]++;
             }
 
             foreach ($likeIps as $ip) {
-                $loc = resolveLocation($ip, $pdo);
+                $loc = $ipLocations[$ip];
                 $key = $loc->country_code . "|" . $loc->country;
                 $countryLikeCounts[$key]["count"]++;
             }
