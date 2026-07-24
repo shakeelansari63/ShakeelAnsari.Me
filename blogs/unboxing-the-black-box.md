@@ -4,7 +4,7 @@ excerpt: From SHAP and LIME to Chain-of-Thought and RAG, let's explore how to de
 date: 2026-07-24
 bannerImage: 6-0-llm-explainability-banner.png
 readTime: 6 min read
-tags: AI, GenAI, MachineLearning, LLM, EnterpriseAI, ExplainableAI
+tags: AI, GenAI, MachineLearning, LLM, EnterpriseAI, ExplainableAI, AIGovernance
 ---
 
 ![Hero](images/6-1-hero-llm-explainability.png)
