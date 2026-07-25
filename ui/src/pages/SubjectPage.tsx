@@ -9,6 +9,7 @@ import PageFooter from "../components/shared/PageFooter";
 import { fetchSubjectChapters } from "../services/api";
 import type { LearnChapter } from "../models/types";
 import { seo } from "../data/seo";
+import { buildSubjectTitle } from "../services/helper";
 
 export default function SubjectPage() {
   const { subjectId } = useParams<{ subjectId: string }>();
@@ -25,10 +26,7 @@ export default function SubjectPage() {
   }, [subjectId]);
 
   const subjectTitle = subjectId
-    ? subjectId
-        .replace(/^\d+-/, "")
-        .replace(/[-_]/g, " ")
-        .replace(/\b\w/g, (c) => c.toUpperCase())
+    ? buildSubjectTitle(subjectId)
     : "";
 
   return (

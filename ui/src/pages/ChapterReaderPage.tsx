@@ -8,6 +8,7 @@ import MarkdownRenderer from "../components/shared/MarkdownRenderer";
 import PageFooter from "../components/shared/PageFooter";
 import { fetchChapterContent } from "../services/api";
 import { seo } from "../data/seo";
+import { buildSubjectTitle } from "../services/helper";
 
 export default function ChapterReaderPage() {
   const { subjectId, chapterId } = useParams<{
@@ -26,7 +27,8 @@ export default function ChapterReaderPage() {
       fetchChapterContent(subjectId, chapterId)
         .then((data) => {
           if (data) {
-            setTitle(data.title);
+            const subjectTitle = buildSubjectTitle(subjectId);
+            setTitle(`${data.title} — ${subjectTitle}`);
             setContent(data.content);
           } else {
             setNotFound(true);
