@@ -21,7 +21,7 @@ return function (App $app, ?PDO $pdo) {
             $stmt = $pdo->query(
                 "SELECT id, title, folder, sort_order, thumbnail
                  FROM learn_subjects
-                 ORDER BY sort_order ASC, id ASC",
+                 ORDER BY sort_order DESC, id ASC",
             );
             $subjects = $stmt->fetchAll();
             return jsonResponse($response, ["data" => $subjects]);
