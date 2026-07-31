@@ -9,7 +9,11 @@ $dotenv->safeLoad();
 
 $pdo = \App\DB::connect();
 
-$appUrl = $_ENV["APP_URL"] ?? "https://[{#SEO-DOMAIN#}]";
+$appUrl = $_ENV["APP_URL"] ?? "";
+if ($appUrl === "") {
+    $domain = $_ENV["SEO_DOMAIN"] ?? "[{#SEO-DOMAIN#}]";
+    $appUrl = "https://" . preg_replace('/^https?:\/\//', "", $domain);
+}
 
 $urls = [
     ["loc" => "$appUrl/", "changefreq" => "weekly", "priority" => "1.0"],

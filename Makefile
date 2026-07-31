@@ -1,6 +1,9 @@
-.PHONY: all setup ui-deps api-deps ui api start
+.PHONY: all setup ui-deps api-deps ui api start test-prod test-prod-image
 
 all: start
+
+PORT ?= 8081
+TEST_PROD_IMAGE ?= test-portfolio-prod
 
 setup: ui-deps api-deps
 
@@ -22,3 +25,19 @@ start:
 		$(MAKE) api & \
 		$(MAKE) ui & \
 		wait
+
+# Build a production-parity image and serve it with Apache in Podman.
+# The multi-stage test-prod.dockerfile builds the UI, PHP deps, and final
+# docroot inside the image — nothing is compiled or assembled locally.
+# api/.env is mounted read-only at runtime (not baked into the image).
+# Requires api/.env to exist locally (run `make api-deps` first if vendor is
+# missing, and copy api/.env.template to api/.env). Stop with Ctrl-C.
+test-prod: test-prod-image
+	@test -f api/.env || { echo "error: api/.env missing — copy api/.env.template to api/.env first"; exit 1; }
+	@echo "Serving production-like site at http://localhost:$(PORT) (Apache in Podman)"
+	podman run --rm -p $(PORT):80 \
+		-v "$(CURDIR)/api/.env:/var/www/html/api/.env:ro" \
+		$(TEST_PROD_IMAGE)
+
+test-prod-image:
+	podman build -t $(TEST_PROD_IMAGE) -f test-prod.dockerfile .

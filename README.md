@@ -20,15 +20,17 @@ Personal portfolio website for [shakeelansari.me](https://shakeelansari.me) — 
 │   │   ├── pages/        – Page-level components
 │   │   ├── services/     – API client, data, stats
 │   │   └── models/       – TypeScript interfaces
-│   └── index.html        – Vite entry with meta tags, OG, schema.org JSON-LD
+│   └── index.html        – Vite entry; in production the <head> is server-rendered per-URL by api/public/page.php
 ├── api/         – PHP API backend (Slim Framework)
-│   ├── public/           – Entry point (index.php, sitemap.php)
-│   ├── src/              – Routes (blogs, admin), helpers, DB
+│   ├── public/           – Entry points (index.php API, page.php per-URL SEO shell, sitemap.php)
+│   ├── src/              – Routes (blogs, admin), helpers, DB, seo-helpers
 │   └── db/               – Database schema (schema.sql)
 ├── blogs/       – Markdown blog posts and images
 ├── products/    – Markdown product pages (detailed write-ups)
 ├── prompts/     – Reusable AI system prompts (e.g. blog writer)
 ├── tutorial/    – Multi-subject tutorial content (Python, Golang, Scala, etc.)
+├── test-prod.dockerfile – Multi-stage Podman image for the local production test
+├── .dockerignore        – Keeps the test image build context lean
 └── .github/     – CI/CD workflow
 ```
 
@@ -43,6 +45,7 @@ Personal portfolio website for [shakeelansari.me](https://shakeelansari.me) — 
 - Composer
 - Make
 - MySQL server (optional for full features; API works without DB)
+- Podman (optional — for the `make test-prod` local production test)
 
 ### 1. Setup
 
@@ -78,6 +81,17 @@ Edit `api/.env` and fill in your values:
 | `DB_NAME`        | MySQL database name             |
 | `DB_USER`        | MySQL user                      |
 | `DB_PASS`        | MySQL password                  |
+| `SEO_NAME`       | Full name (page titles, JSON-LD) |
+| `SEO_TITLE`      | Job title / tagline             |
+| `SEO_DOMAIN`     | Domain without protocol (e.g. `shakeelansari.me`) |
+| `SEO_DESC`       | Long meta description           |
+| `SEO_DESC_SHORT` | Short Twitter description       |
+| `SEO_GITHUB_URL` | Full GitHub profile URL         |
+| `SEO_LINKEDIN_URL` | Full LinkedIn profile URL     |
+| `SEO_TWITTER_USER` | Twitter/X username            |
+| `SEO_AVATAR_URL` | Avatar image URL (OG image)     |
+
+> Values containing spaces are double-quoted in the template (`SEO_NAME="{#SEO_NAME#}"`) — keep the quotes, otherwise phpdotenv will refuse to parse the file and the API won't boot.
 
 ### 3. Database Setup (Optional)
 
@@ -124,11 +138,27 @@ After setting up the database, sync markdown files:
 3. Click **Sync Blogs** to ingest/update blog posts from `blogs/`
 4. Click **Sync Learn** to ingest/update tutorial subjects and chapters from `tutorial/`
 
+### 6. Local Production Test (`make test-prod`)
+
+`make test-prod` builds and serves a production-parity environment locally with **Podman** — nothing is compiled or assembled on your host.
+
+```bash
+make test-prod            # build image (cached) + run on http://localhost:8081
+PORT=9000 make test-prod  # different port
+```
+
+How it works:
+1. `test-prod.dockerfile` is a **multi-stage** image: `node:20` builds the UI (`npm ci` + `npm run build`), `composer:2` installs API dependencies, and a final `php:8.2-apache` stage (with `pdo_mysql`, `mbstring`, mod_rewrite) assembles the document root exactly like the production deploy.
+2. Apache inside the container processes the **same `.htaccess` chain** as production, so `api/public/page.php` serves the per-URL SEO `<head>` and `/api/*` is handled by Slim.
+3. Your real `api/.env` is **mounted read-only at runtime** (not baked into the image), so DB/SEO value changes don't require a rebuild.
+
+Requires [Podman](https://podman.io/) and an `api/.env` file (copy from `api/.env.template`). Stop with Ctrl-C; the container is removed automatically.
+
 ### Defensive Timeouts
 
 The app includes two layers of timeout protection:
 
-- **PHP `max_execution_time = 60`** — set in `api/public/index.php:3` and `api/public/sitemap.php:3`. Self-terminates any script that hangs for 60 seconds of CPU time.
+- **PHP `max_execution_time = 60`** — set in `api/public/index.php:3`, `api/public/sitemap.php:3`, and `api/public/page.php:3`. Self-terminates any script that hangs for 60 seconds of CPU time.
 - **MySQL query timeout** — `SET SESSION max_execution_time = 30000` (30 seconds) executed after every DB connection in `api/src/DB.php:26-29`. Kills SELECT queries that exceed 30 seconds (MySQL 8.0+).
 
 ---
@@ -150,8 +180,7 @@ public_html/
 ├── index.html             # from ui/dist/
 ├── assets/                # from ui/dist/assets/
 ├── api/
-│   ├── public/            # from api/public/
-│   │   └── index.php
+│   ├── public/            # from api/public/ (index.php, page.php, sitemap.php)
 │   ├── src/               # from api/src/
 │   ├── vendor/            # from api/vendor/
 │   ├── .htaccess          # from api/.htaccess
@@ -172,7 +201,7 @@ mysql -u your_user -p your_database < api/db/schema.sql
 
 4. **Configure `api/.env`** on the server with your production values (DB credentials, admin login, JWT secret, `APP_ENV=production`).
 
-5. **Set up Apache rewrite** — the root `.htaccess` routes API calls to `api/` and SPA routes to `index.html`. Ensure `mod_rewrite` and `AllowOverride` are enabled.
+5. **Set up Apache rewrite** — the root `.htaccess` routes API calls to `api/` and all non-file routes to `api/public/page.php`, which renders a per-URL HTML shell (unique title, description, canonical, OG/Twitter, JSON-LD) around the same built React bundle. Ensure `mod_rewrite` and `AllowOverride` are enabled.
 
 6. **Sync blog posts** by visiting `https://yoursite.com/admin`.
 
@@ -209,7 +238,7 @@ Create a **production** environment in your repo settings with:
 - **Admin** — JWT-authenticated password-protected panel with file-based rate limiting (5 attempts per 15 minutes per IP), one-click blog sync from markdown files (upserts + marks deleted files), one-click learn/tutorial sync from `tutorial/` directory (subjects + chapters)
 - **UI/UX** — Dark/light theme toggle, scroll-shrink toolbar animation, lazy image loading with skeleton placeholders, skeleton loading cards, responsive mobile sidebar navigation, custom 404 page
 - **Performance** — Code-splitting via `React.lazy()` + `Suspense` (each page loads as its own chunk), vendor-split PrimeReact into a separate cacheable chunk, lazy-loaded mobile sidebar, below-fold chunking, gzip compression
-- **SEO** — Dynamic XML sitemap (auto-includes blog entries), Open Graph tags, Twitter cards, schema.org JSON-LD structured data, `<meta name="robots">`, canonical URL
+- **SEO** — Per-URL server-rendered `<head>` via `api/public/page.php`: unique title, description, canonical URL, Open Graph/Twitter cards, and JSON-LD (`Person`, `BlogPosting`, `LearningResource`, `Product`) served even to crawlers that don't execute JavaScript. Dynamic XML sitemap (auto-includes blog entries, learn subjects/chapters, products), `noindex` on the admin panel and 404 pages
 
 ## API Endpoints
 
@@ -224,7 +253,7 @@ Create a **production** environment in your repo settings with:
 | GET    | `/api/blogs/images/{name}`        | Blog image asset                         |
 | GET    | `/api/learn/subjects`             | List tutorial subjects                   |
 | GET    | `/api/learn/subjects/{id}/chapters` | List chapters for a subject            |
-| GET    | `/api/learn/chapters/{id}/content`  | Chapter markdown content               |
+| GET    | `/api/learn/subjects/{subjectId}/chapters/{chapterId}/content` | Chapter markdown content |
 | GET    | `/api/learn/images/{folder}/{name}` | Tutorial image asset                  |
 | GET    | `/api/products/{id}/content`      | Product detail page markdown content     |
 | GET    | `/api/products/{id}/images/{name}`  | Product image asset                    |
@@ -236,11 +265,11 @@ Create a **production** environment in your repo settings with:
 
 ## SEO & Customization
 
-The project uses `[{#SEO-KEY#}]` placeholders for SEO/meta values that vary per deployment. The CI/CD pipeline replaces them before build. Static personal data (profile, projects, work history) lives in source files and is edited directly.
+The project uses `[{#SEO-KEY#}]` placeholders for SEO/meta values that vary per deployment. The CI/CD pipeline replaces them before build. In production, `api/public/page.php` renders a **unique server-side `<head>` per URL** (title, description, canonical, OG/Twitter, JSON-LD) at runtime, reading the `SEO_*` values from `api/.env` (helpers in `api/src/seo-helpers.php`). Static personal data (profile, projects, work history) lives in source files and is edited directly.
 
 ### SEO Placeholders
 
-These appear in `ui/index.html`, page `document.title` calls, `ui/public/robots.txt`, and `api/public/sitemap.php`:
+These appear in `ui/index.html`, page `document.title` calls, `ui/public/robots.txt`, `api/public/sitemap.php`, and as fallback defaults in `api/src/seo-helpers.php`:
 
 | Placeholder | Purpose | Example Value |
 |---|---|---|
@@ -270,7 +299,7 @@ SEO_TWITTER_USER: "your-handle"
 SEO_AVATAR_URL: "https://avatars.githubusercontent.com/your-username"
 ```
 
-**For local development:** Run the same `sed` commands from the workflow to replace placeholders, or simply ignore them — they only affect meta tags and page titles, and won't break functionality.
+**For local development / `make test-prod`:** Add the `SEO_*` values to `api/.env` — `page.php` and `sitemap.php` read them at runtime, so no `sed` step is needed. The placeholders only show up as fallbacks when the variables are missing.
 
 ### Static Data (edit directly)
 
@@ -300,6 +329,17 @@ These files contain your personal data and must be updated manually:
 | `DB_NAME` | *(empty)* | MySQL database name |
 | `DB_USER` | *(empty)* | MySQL user |
 | `DB_PASS` | *(empty)* | MySQL password |
+| `SEO_NAME` | *(empty)* | Full name (page titles, JSON-LD) |
+| `SEO_TITLE` | *(empty)* | Job title / tagline |
+| `SEO_DOMAIN` | *(empty)* | Domain without protocol |
+| `SEO_DESC` | *(empty)* | Long meta description |
+| `SEO_DESC_SHORT` | *(empty)* | Short description |
+| `SEO_GITHUB_URL` | *(empty)* | GitHub profile URL |
+| `SEO_LINKEDIN_URL` | *(empty)* | LinkedIn profile URL |
+| `SEO_TWITTER_USER` | *(empty)* | Twitter/X username |
+| `SEO_AVATAR_URL` | *(empty)* | Avatar URL (OG image) |
+
+> The `SEO_*` values are double-quoted in the template because they contain spaces; keep the quotes when editing `api/.env`.
 
 ---
 

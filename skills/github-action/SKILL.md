@@ -57,6 +57,8 @@ Generate `api/.env` from `api/.env.template` by replacing `{#VAR#}` placeholders
 ```
 - Never commit `.env` to the repository.
 - Source of truth for production env vars is GitHub Secrets.
+- The template includes `SEO_*` vars (name, title, domain, desc, desc_short, github, linkedin, twitter_user, avatar_url). They must be **double-quoted in the template** (`SEO_NAME="{#SEO_NAME#}"`) because their values contain spaces — an unquoted value makes phpdotenv throw `InvalidFileException`, which `safeLoad()` does NOT catch, crashing the whole API.
+- The `grep -oP '{#\K[^#]+(?=#})'` + `sed` loop automatically picks up any new `{#VAR#}` token added to the template, so no workflow change is needed when adding vars.
 
 ### 6. Assemble Deployable
 Copy all artifacts into a `deploy/` directory:
@@ -65,7 +67,7 @@ deploy/
 ├── index.html              # from ui/dist/
 ├── assets/                 # from ui/dist/assets/
 ├── api/
-│   ├── public/             # from api/public/
+│   ├── public/             # from api/public/ (index.php, page.php, sitemap.php, .htaccess)
 │   ├── src/                # from api/src/
 │   ├── vendor/             # from api/vendor/
 │   ├── .htaccess           # from api/.htaccess
@@ -92,6 +94,21 @@ deploy/
   - `ADMIN_USERNAME`, `ADMIN_PASSWORD`, `JWT_SECRET`
   - `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASS`
   - SEO token values as `vars` (organization variables) or `secrets`.
+
+## Local Pre-Deploy Test (`make test-prod`)
+
+Before pushing to `main`, test the production build locally with **Podman** (no Node/PHP/Apache install needed on the host):
+- `test-prod.dockerfile` is a **multi-stage** build: `node:20` runs `npm ci` + `npm run build` (mirrors deploy.yml's Build UI), `composer:2` runs `composer install --no-dev --optimize-autoloader` (Build API), and the final `php:8.2-apache` stage (`pdo_mysql`, `mbstring`, `mod_rewrite`) assembles the docroot exactly like the deploy step does — UI dist, `api/public`, `api/src`, `api/vendor`, `api/.htaccess`, content dirs, root `.htaccess`.
+- `make test-prod-image` builds `shakeel-test-prod`; `make test-prod` builds (cached) and runs:
+  ```
+  podman run --rm -p 127.0.0.1:8081:80 \
+      -v ./api/.env:/var/www/html/api/.env:ro \
+      shakeel-test-prod
+  ```
+- The container's Apache processes the **real `.htaccess` chain** (root → `api/` → `api/public/`), so `page.php` serves per-URL SEO heads exactly like production on Hostinger. **No router file, no local build.**
+- `api/.env` is **not baked into the image** — it's mounted read-only at runtime (so `.env` edits don't require a rebuild, and no secrets land in image storage). Requires `api/.env` to exist locally; run `make api-deps` first if you haven't `composer install`ed. The API's remote DB (`DB_HOST`) is reachable over bridge networking.
+- `.dockerignore` keeps `.git`, `node_modules`, `vendor`, `.env`, etc. out of the build context.
+- Stop with Ctrl-C; `--rm` removes the container. Override port with `PORT=xxxx make test-prod`.
 
 ## Workflow Best Practices
 

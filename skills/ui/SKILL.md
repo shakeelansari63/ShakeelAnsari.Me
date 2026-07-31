@@ -80,7 +80,8 @@ All API response types are defined here. Key interfaces:
 - Use `fetch` directly — no Axios or other HTTP libraries.
 
 ### SEO / Head Management (`react-helmet-async`)
-- The app uses `react-helmet-async` for per-page `<title>`, meta tags (OG, Twitter, description), and robots directives.
+- The app uses `react-helmet-async` for per-page `<title>`, meta tags (OG, Twitter, description), and robots directives **during client-side navigation**.
+- **Production initial HTML** is server-rendered per-URL by `api/public/page.php` (root `.htaccess` rewrites non-file GETs to it). Crawlers that don't execute JS receive unique server `<head>` (title, description, canonical, OG/Twitter, JSON-LD) straight from the API content sources. Helmet then hydrates it — keep client and server titles consistent (both `${title} — ${seo.name}`).
 - **Setup:** `main.tsx` wraps the app in `<HelmetProvider>`.
 - **Config:** Placeholder values live in `ui/src/data/seo.ts` mirroring the `[{#SEO-*#}]` tokens that CI/CD replaces at build time.
   - Import `seo` from `"../data/seo"` and use `seo.name`, `seo.domain`, etc. — never hardcode these values.
@@ -102,7 +103,7 @@ All API response types are defined here. Key interfaces:
   ```
 - **Do NOT** use `document.title = ...` directly — Helmet handles it.
 - **Do NOT** manually create/append `<meta>` elements — use `<Helmet>` instead.
-- The `[{#SEO-*#}]` placeholders in `ui/index.html` remain as CI/CD-replaced static fallback for crawlers that don't execute JavaScript.
+- The `[{#SEO-*#}]` placeholders in `ui/index.html` remain as the build template for `page.php`; `page.php` overrides the head at runtime from `api/.env` `SEO_*` vars.
 
 ### Static Data Layer (`ui/src/data/`)
 These files are intentionally static (no API calls):

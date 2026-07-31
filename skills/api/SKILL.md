@@ -84,6 +84,14 @@ This project is a **PHP 8.1+ REST API** using **Slim Framework 4** with naked **
 - `resolveLocation(string $ip, PDO $pdo): object` — IP geolocation via ip-api.com with DB caching.
 - `jsonResponse($response, $data, $status): ResponseInterface` — standard JSON response.
 
+### Server-Rendered SEO Shell (`api/public/page.php`)
+- In production the SPA fallback is **not** `index.html` — the root `.htaccess` rewrites non-file, non-`/api` GETs to `api/public/page.php`, which renders a per-URL HTML document (unique `<title>`, description, canonical, OG/Twitter, JSON-LD) around the same built React bundle. The SPA hydrates identically; Helmet takes over during client-side navigation.
+- `page.php` loads the built `ui/dist/index.html` from `../../index.html`, strips its SEO tags via `stripSeoTags()`, and injects fresh tags via `seoHead()` from `api/src/seo-helpers.php`. **Preserve the `<script>`/`<link>` asset tags** in the template — never rebuild them by hand.
+- Route resolution mirrors `ui/src/App.tsx` (`/`, `/blog`, `/blog/{id}`, `/expo`, `/product/{id}`, `/learn`, `/learn/{subject}`, `/learn/{subject}/{chapter}`, `/stats`, `/admin`). Unknown routes → 404 status + `noindex, follow`; `/admin` → `noindex, nofollow`.
+- Content is read **from the same sources** as the API: `blog` DB table (fallback `blogs/{id}.md` frontmatter), `learn_subjects`/`learn_chapters` + `tutorial/{folder}/*.md`, and `products/{id}/index.md`. Reuse `parseFrontmatter()`, `validateId()`, `BLOGS_DIR`/`LEARN_DIR`/`PRODUCTS_DIR` from `helpers.php`. Always `basename()`+`validateId()` route segments (traversal safety).
+- `seo-helpers.php` builders: `seoDefaults()`, `seoHead()`, `stripSeoTags()`, `markdownExcerpt()`, `jsonLdPerson()`, `jsonLdBlogPosting()`, `jsonLdLearningResource()`, `jsonLdProduct()`. Escaping: `htmlspecialchars(..., ENT_QUOTES)` for all head text, `json_encode` for JSON-LD.
+- **`.env` quoting is load-bearing:** values with spaces/symbols must be double-quoted in `api/.env.template` (`SEO_NAME="{#SEO_NAME#}"`). phpdotenv `safeLoad()` only swallows `InvalidPathException` — an unquoted value crashes **every** PHP entrypoint (`index.php`, `page.php`, `sitemap.php`).
+
 ### Coding Style
 - No classes for route handlers — pure functions.
 - Variables in `camelCase`.

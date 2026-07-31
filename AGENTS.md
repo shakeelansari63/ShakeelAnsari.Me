@@ -42,6 +42,7 @@ This project is a hybrid personal portfolio application:
     *   All DB connections run with a strict 30-second query execution limit (`SET SESSION max_execution_time = 30000`).
     *   PHP runtime has a `max_execution_time` cap of 60 seconds. Do not write complex long-running loops without optimizing chunk size.
     *   Admin endpoints (`/api/admin/*`) **must** gatecheck requests using the JWT verification middleware, except for the initial login endpoint.
+*   **SEO / Per-URL HTML Shell:** In production the SPA fallback is `api/public/page.php` (root `.htaccess` rewrites non-file, non-`/api` GETs to it). It renders a unique server-side `<head>` (title, description, canonical, OG/Twitter, JSON-LD) per URL from `api/src/seo-helpers.php`, wrapping the same built React bundle — the SPA hydrates unchanged and `react-helmet-async` takes over during navigation. Content comes from the same DB/markdown sources as the API (see `skills/api/SKILL.md`). Any new public route added to `ui/src/App.tsx` **must** also be added to `page.php`'s route resolution.
 
 ### 4. Database Schema Changes
 *   Any schema mutations must be manually appended or reflected in `api/db/schema.sql`.

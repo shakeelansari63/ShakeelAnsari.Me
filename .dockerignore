@@ -1,0 +1,6 @@
+.git
+deploy
+test-prod
+ui/node_modules
+api/vendor
+api/.env
