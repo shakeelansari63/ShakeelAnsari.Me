@@ -6,7 +6,8 @@ RewriteRule ^api/ - [L]
 # Dynamic sitemap from API
 RewriteRule ^sitemap\.xml$ api/public/sitemap.php [L]
 
-# SPA fallback - render per-URL HTML shell via page.php for non-file routes
+# SPA fallback - render per-URL HTML shell via page.php for non-file routes.
+# Directories are also routed here so every page (including "/") gets the
+# same security headers / SEO shell and directory listings stay disabled.
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ api/public/page.php [L]

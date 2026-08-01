@@ -433,4 +433,7 @@ if (preg_match('/<head\b[^>]*>/i', $template, $m, PREG_OFFSET_CAPTURE)) {
 }
 
 header("Content-Type: text/html; charset=UTF-8");
+foreach (securityHeaders() as $name => $value) {
+    header("{$name}: {$value}");
+}
 echo $template;

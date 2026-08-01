@@ -101,6 +101,60 @@ function resetAttempts(string $ip): void
     }
 }
 
+function actionRateFile(string $ip, string $action): string
+{
+    return sys_get_temp_dir() . "/rate_limit_{$action}_" . md5($ip) . ".lock";
+}
+
+function isActionRateLimited(
+    string $ip,
+    string $action,
+    int $max = 60,
+    int $window = 60,
+): bool {
+    $file = actionRateFile($ip, $action);
+
+    if (!file_exists($file)) {
+        return false;
+    }
+
+    if (time() - filemtime($file) > $window) {
+        @unlink($file);
+        return false;
+    }
+
+    $fh = @fopen($file, "r");
+    if (!$fh) {
+        return false;
+    }
+    if (flock($fh, LOCK_SH)) {
+        $count = (int) (fread($fh, 1024) ?: 0);
+        flock($fh, LOCK_UN);
+    } else {
+        $count = 0;
+    }
+    fclose($fh);
+    return $count >= $max;
+}
+
+function incrementActionRateLimit(string $ip, string $action): void
+{
+    $file = actionRateFile($ip, $action);
+    $fh = @fopen($file, "c+");
+    if (!$fh) {
+        return;
+    }
+    if (flock($fh, LOCK_EX)) {
+        $count = (int) (fread($fh, 1024) ?: 0);
+        rewind($fh);
+        ftruncate($fh, 0);
+        fwrite($fh, (string) ($count + 1));
+        fflush($fh);
+        flock($fh, LOCK_UN);
+    }
+    fclose($fh);
+}
+
 function clientIp(Request $request): string
 {
     $remote = $request->getServerParams()["REMOTE_ADDR"] ?? "127.0.0.1";
@@ -206,6 +260,40 @@ function cacheLocation(PDO $pdo, string $ip, object $loc): void
 function validateId(string $id, string $pattern = '/^[a-zA-Z0-9_@\.\-\/]+$/'): bool
 {
     return preg_match($pattern, $id) === 1;
+}
+
+function blogExists(PDO $pdo, string $id): bool
+{
+    if (file_exists(BLOGS_DIR . "/" . $id . ".md")) {
+        return true;
+    }
+    $stmt = $pdo->prepare("SELECT 1 FROM blog WHERE id = ? AND deleted = 0");
+    $stmt->execute([$id]);
+    return (bool) $stmt->fetchColumn();
+}
+
+function htmlCsp(): string
+{
+    return "default-src 'self'; "
+        . "script-src 'self'; "
+        . "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+        . "font-src 'self' data: https://fonts.gstatic.com; "
+        . "img-src 'self' https: data:; "
+        . "connect-src 'self' https://api.github.com https://gh-calendar.rschristian.dev; "
+        . "object-src 'none'; "
+        . "base-uri 'self'; "
+        . "form-action 'self'; "
+        . "frame-ancestors 'none';";
+}
+
+function securityHeaders(): array
+{
+    return [
+        "Content-Security-Policy" => htmlCsp(),
+        "X-Frame-Options" => "DENY",
+        "X-Content-Type-Options" => "nosniff",
+        "Referrer-Policy" => "strict-origin-when-cross-origin",
+    ];
 }
 
 function jsonResponse(

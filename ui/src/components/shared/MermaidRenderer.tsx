@@ -11,8 +11,8 @@ mermaid.initialize({
     secondaryColor: "#1a1a2e",
     tertiaryColor: "#2d2d5e",
   },
-  flowchart: { useMaxWidth: true, htmlLabels: true },
-  securityLevel: "loose",
+  flowchart: { useMaxWidth: true, htmlLabels: false },
+  securityLevel: "strict",
 });
 
 interface Props {

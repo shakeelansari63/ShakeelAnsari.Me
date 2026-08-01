@@ -33,20 +33,21 @@ $app->add(function (Request $request, $handler) {
     if ($origin === "") {
         $origin = "http://localhost:5173";
     }
-    return $response
+    $response = $response
         ->withHeader("Access-Control-Allow-Origin", $origin)
+        ->withHeader("Vary", "Origin")
         ->withHeader(
             "Access-Control-Allow-Headers",
             "Content-Type, Accept, Authorization",
         )
         ->withHeader(
             "Access-Control-Allow-Methods",
-            "GET, POST, PUT, DELETE, OPTIONS",
-        )
-        ->withHeader(
-            "Content-Security-Policy",
-            "default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; script-src 'self'",
+            "GET, POST, OPTIONS",
         );
+    foreach (securityHeaders() as $name => $value) {
+        $response = $response->withHeader($name, $value);
+    }
+    return $response;
 });
 
 require __DIR__ . "/../src/helpers.php";

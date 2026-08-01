@@ -281,6 +281,22 @@ return function (App $app, ?PDO $pdo) {
         }
         $id = basename($args["id"]);
         $ip = clientIp($request);
+
+        if (!validateId($id)) {
+            return jsonResponse($response, ["error" => "Blog not found"], 404);
+        }
+        if (isActionRateLimited($ip, "blog_view")) {
+            return jsonResponse(
+                $response,
+                ["error" => "Too many requests"],
+                429,
+            );
+        }
+        incrementActionRateLimit($ip, "blog_view");
+        if (!blogExists($pdo, $id)) {
+            return jsonResponse($response, ["error" => "Blog not found"], 404);
+        }
+
         $windowStart = floor((int) date("G") / 8) * 8;
         $hour = date("Y-m-d {$windowStart}:00:00");
 
@@ -328,40 +344,63 @@ return function (App $app, ?PDO $pdo) {
         $id = basename($args["id"]);
         $ip = clientIp($request);
 
-        $pdo->beginTransaction();
-
-        $pdo->prepare("INSERT IGNORE INTO blog (id) VALUES (?)")->execute([
-            $id,
-        ]);
-
-        $check = $pdo->prepare(
-            "SELECT 1 FROM blog_likes WHERE blog_id = ? AND ip = ?",
-        );
-        $check->execute([$id, $ip]);
-        $liked = (bool) $check->fetchColumn();
-
-        if ($liked) {
-            $pdo->prepare(
-                "DELETE FROM blog_likes WHERE blog_id = ? AND ip = ?",
-            )->execute([$id, $ip]);
-            $liked = false;
-        } else {
-            $pdo->prepare(
-                "INSERT INTO blog_likes (blog_id, ip) VALUES (?, ?)",
-            )->execute([$id, $ip]);
-            $liked = true;
+        if (!validateId($id)) {
+            return jsonResponse($response, ["error" => "Blog not found"], 404);
+        }
+        if (isActionRateLimited($ip, "blog_like")) {
+            return jsonResponse(
+                $response,
+                ["error" => "Too many requests"],
+                429,
+            );
+        }
+        incrementActionRateLimit($ip, "blog_like");
+        if (!blogExists($pdo, $id)) {
+            return jsonResponse($response, ["error" => "Blog not found"], 404);
         }
 
-        $cnt = $pdo->prepare(
-            "SELECT COUNT(*) FROM blog_likes WHERE blog_id = ?",
-        );
-        $cnt->execute([$id]);
-        $pdo->prepare("UPDATE blog SET likes = ? WHERE id = ?")->execute([
-            (int) $cnt->fetchColumn(),
-            $id,
-        ]);
+        try {
+            $pdo->beginTransaction();
 
-        $pdo->commit();
+            $pdo->prepare("INSERT IGNORE INTO blog (id) VALUES (?)")->execute([
+                $id,
+            ]);
+
+            $check = $pdo->prepare(
+                "SELECT 1 FROM blog_likes WHERE blog_id = ? AND ip = ?",
+            );
+            $check->execute([$id, $ip]);
+            $liked = (bool) $check->fetchColumn();
+
+            if ($liked) {
+                $pdo->prepare(
+                    "DELETE FROM blog_likes WHERE blog_id = ? AND ip = ?",
+                )->execute([$id, $ip]);
+                $liked = false;
+            } else {
+                $pdo->prepare(
+                    "INSERT INTO blog_likes (blog_id, ip) VALUES (?, ?)",
+                )->execute([$id, $ip]);
+                $liked = true;
+            }
+
+            $cnt = $pdo->prepare(
+                "SELECT COUNT(*) FROM blog_likes WHERE blog_id = ?",
+            );
+            $cnt->execute([$id]);
+            $pdo->prepare("UPDATE blog SET likes = ? WHERE id = ?")->execute([
+                (int) $cnt->fetchColumn(),
+                $id,
+            ]);
+
+            $pdo->commit();
+        } catch (PDOException $e) {
+            if ($pdo->inTransaction()) {
+                $pdo->rollBack();
+            }
+            error_log("Like toggle failed: " . $e->getMessage());
+            return jsonResponse($response, ["error" => "Database error"], 500);
+        }
 
         $stmt = $pdo->prepare("SELECT likes FROM blog WHERE id = ?");
         $stmt->execute([$id]);

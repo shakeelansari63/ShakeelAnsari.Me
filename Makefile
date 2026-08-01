@@ -4,6 +4,9 @@ all: start
 
 PORT ?= 8081
 TEST_PROD_IMAGE ?= test-portfolio-prod
+# Strip a polluted LD_LIBRARY_PATH (e.g. leaked from the Flatpak Zed runtime)
+# so conmon loads the system glib instead of crashing on missing symbols.
+PODMAN := env -u LD_LIBRARY_PATH podman
 
 setup: ui-deps api-deps
 
@@ -35,9 +38,9 @@ start:
 test-prod: test-prod-image
 	@test -f api/.env || { echo "error: api/.env missing — copy api/.env.template to api/.env first"; exit 1; }
 	@echo "Serving production-like site at http://localhost:$(PORT) (Apache in Podman)"
-	podman run --rm -p $(PORT):80 \
+	$(PODMAN) run --rm -p $(PORT):80 \
 		-v "$(CURDIR)/api/.env:/var/www/html/api/.env:ro" \
 		$(TEST_PROD_IMAGE)
 
 test-prod-image:
-	podman build -t $(TEST_PROD_IMAGE) -f test-prod.dockerfile .
+	$(PODMAN) build -t $(TEST_PROD_IMAGE) -f test-prod.dockerfile .
