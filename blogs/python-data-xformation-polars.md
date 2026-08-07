@@ -10,13 +10,15 @@ tags: Python, Polars, Data Engineering, Rust, DataFrames, SQL
 
 ## Hey there, fellow data enthusiasts!👋
 
-If you have ever stared at a spinning notebook cell while Pandas chews through a multi-gigabyte CSV—or worse, watched your kernel crash with an `Out Of Memory` error—I feel your pain. We have all been there! Pandas has been our trusty sidekick for years, but as our datasets keep growing bigger and bigger, traditional tools start to feel like they are moving through molasses.
+If you have ever stared at a spinning notebook cell while Pandas chews through a multi-gigabyte CSV - or worse, watched your kernel crash with an `Out Of Memory` error, I feel your pain. We have all been there! Pandas has been our trusty sidekick for years, but as our datasets keep growing bigger and bigger, traditional tools start to feel like they are moving through molasses.
 
 I recently spent time digging into a deep-dive session on modern data engineering tools, and one library completely blew me away: **Polars**.
 
 Today, let's grab a hot cup of coffee and walk step-by-step through why Polars is such a game-changer, how its engine actually works under the hood, and how you can use it to make your data cleaning lightning fast! 🚀
 
 Before we jump into the mechanics, let's make sure we are on the same page about what makes Polars tick.
+
+---
 
 ## So What Exactly is Polars?
 
@@ -27,6 +29,8 @@ Why does that matter to us as Python developers? Well, Pandas was designed back 
 Polars, on the other hand, was written specifically for modern multi-core computers. It brings multi-threading, memory efficiency, and rock-solid type safety right out of the box, all while letting us write clean Python code!
 
 Let's look at a quick head-to-head comparison to see what changing from Pandas to Polars actually buys us.
+
+---
 
 ## Why Choose Polars over Pandas?
 
@@ -40,15 +44,34 @@ Here is a breakdown of how Polars tackles the big headaches we encounter with tr
 
 Now, let's roll up our sleeves and look at how we actually write Polars code in practice.
 
+---
+
 ## Core Concepts & Implementation Deep-Dive
 
+### 1. Installing Polars
+
+Install polars like any other **Python** library.
+
+**Using PIP**
+```bash
+pip install polars
+```
+
+**Using UV**
+```bash
+# Add Polars as a dependency in the current project
+uv add polars
+
+# Or install polars to system python 
+uv pip install polars
+```
+
+### 2. Creating Your First DataFrame
 Just like in Pandas, we work with two primary building blocks in Polars:
 
 * **Series:** A single, one-dimensional column of data.
 * **DataFrames:** A two-dimensional table made up of multiple Series stacked side-by-side.
-
-### 1. Creating Your First DataFrame
-
+  
 Setting up a table in Polars feels super natural if you already know Python dictionaries:
 
 ```python
@@ -63,7 +86,7 @@ df = pl.DataFrame({
 
 ```
 
-### 2. Demystifying Expressions: `select` vs. `with_columns`
+### 3. Demystifying Expressions: `select` vs. `with_columns`
 
 Here is where Polars gets really fun! In Polars, we use **Expressions** (like `pl.col("name")`). Think of an expression as a recipe or a set of instructions. It describes *what* transformation you want to do without tying it to a specific dataset right away. Because these expressions are context-free, Polars can run dozens of them in parallel behind the scenes!
 
@@ -87,69 +110,9 @@ filtered_df = df.select(pl.col("name"), pl.col("BMI")).filter(pl.col("BMI") > 22
 
 ```
 
-Notice how readable that chain is? It reads almost like plain English!
+Notice how readable that chain is? It is very easy to understand.
 
-## Working with SQL in Polars
-
-If you have an existing SQL codebase or simply prefer SQL syntax, Polars has you covered. While it's recommended to get comfortable with the expression API (since new features usually land there first), Polars offers a robust way to bridge the gap.
-
-### How it works
-
-There is no separate SQL engine. Instead, Polars translates your SQL queries directly into its native expressions, which are then executed by its optimized engine. This ensures you keep all the performance and scalability advantages of a native DataFrame library.
-
-You'll use the `SQLContext` object to manage this:
-
-```python
-ctx = pl.SQLContext()
-
-```
-
-### Registering DataFrames
-
-Before you can query your data, you need to register your DataFrames as tables in the SQL context. You have a few options:
-
-* **Global Namespace:** Registers everything automatically.
-* **Dictionary Mapping:** Explicitly maps names to frames.
-* **Kwargs:** A concise way to register frames as specific identifiers.
-
-```python
-df1 = pl.DataFrame({"a": [1, 2, 3]})
-df2 = pl.DataFrame({"b": [4, 5, 6]})
-
-# Register all dataframes in the global namespace
-ctx = pl.SQLContext(register_globals=True)
-
-# Register an explicit mapping
-ctx = pl.SQLContext(frames={"table_one": df1, "table_two": df2})
-
-# Register frames using kwargs
-ctx = pl.SQLContext(df1=df1, df2=df2)
-
-```
-
-### Executing Queries
-
-Since queries are executed in lazy mode to enable planning optimizations, you can either set `eager_execution=True` in your `SQLContext` or call `.collect()` on the result.
-
-```python
-user_data = pl.DataFrame({
-    "name": ["Alice", "Bob", "Charlie"],
-    "height": [184, 192, 165],
-    "weight": [80, 95, None]
-})
-
-with pl.SQLContext(register_globals=True, eager=True) as ctx:
-    df_small = ctx.execute("SELECT * from user_data LIMIT 2")
-    print(df_small)
-
-```
-
-### Compatibility Constraints
-
-Polars supports a subset of common SQL statement types.
-
-* **Supported:** `SELECT` (WHERE, ORDER, LIMIT, GROUP BY, UNION, JOIN), `CREATE TABLE AS`, `WITH` (CTEs), `EXPLAIN`, `SHOW TABLES`, `DROP TABLE`, `TRUNCATE`.
-* **Not Yet Supported:** `INSERT`, `UPDATE`, `DELETE`, and meta-queries like `ANALYZE`.
+---
 
 ## Eager vs. Lazy Execution: `read_csv` vs. `scan_csv` 🤯
 
@@ -192,8 +155,9 @@ lazy_plan = (
 
 # Execute the optimized query plan
 df_result = lazy_plan.collect()
-
 ```
+
+---
 
 ## Real-World Data Operations: Cleaning, Missing Data, and Joins
 
@@ -256,6 +220,71 @@ df.with_columns(
 
 > ⚠️ **A Friendly Warning:** Native Polars expressions run vectorized at blazing speeds in Rust. Dropping back into custom Python lambdas via `.map_elements()` slows things down and can prevent Polars from using its streaming engine. Use native expressions whenever you can!
 
+---
+
+## Working with SQL syntax in Polars DataFrames
+
+If you are an SQL lover like me, Polars has you covered. While it's recommended to get comfortable with the expression API (since new features usually land there first), Polars offers a robust way to bridge the gap between Python Expression API and SQL.
+
+### How it works
+
+There is no separate SQL engine. Instead, Polars translates your SQL queries directly into its native expressions, which are then executed by its optimized engine. This ensures you keep all the performance and scalability advantages of a native DataFrame library.
+
+You'll use the `SQLContext` object to manage this:
+
+```python
+ctx = pl.SQLContext()
+```
+
+### Registering DataFrames
+
+Before you can query your data, you need to register your DataFrames as tables in the SQL context. You have a few options:
+
+* **Global Namespace:** Registers everything automatically.
+* **Dictionary Mapping:** Explicitly maps names to frames.
+* **Kwargs:** A concise way to register frames as specific identifiers.
+
+```python
+df1 = pl.DataFrame({"a": [1, 2, 3]})
+df2 = pl.DataFrame({"b": [4, 5, 6]})
+
+# Register all dataframes in the global namespace
+ctx = pl.SQLContext(register_globals=True)
+
+# Register an explicit mapping
+ctx = pl.SQLContext(frames={"table_one": df1, "table_two": df2})
+
+# Register frames using kwargs
+ctx = pl.SQLContext(df1=df1, df2=df2)
+
+```
+
+### Executing Queries
+
+Since queries are executed in lazy mode to enable planning optimizations, you can either set `eager=True` in your `SQLContext` or call `.collect()` on the result.
+
+```python
+user_data = pl.DataFrame({
+    "name": ["Alice", "Bob", "Charlie"],
+    "height": [184, 192, 165],
+    "weight": [80, 95, None]
+})
+
+with pl.SQLContext(register_globals=True, eager=True) as ctx:
+    df_small = ctx.execute("SELECT * from user_data LIMIT 2")
+    print(df_small)
+
+```
+
+### Compatibility Constraints
+
+Polars supports a subset of common SQL statement types.
+
+* **Supported:** `SELECT` (WHERE, ORDER, LIMIT, GROUP BY, UNION, JOIN), `CREATE TABLE AS`, `WITH` (CTEs), `EXPLAIN`, `SHOW TABLES`, `DROP TABLE`, `TRUNCATE`.
+* **Not Yet Supported:** `INSERT`, `UPDATE`, `DELETE`, and meta-queries like `ANALYZE`.
+
+---
+
 ## Handling Massive Datasets: Streaming API & GPU Acceleration ⚡
 
 What if your dataset is 50 GB, but your laptop only has 16 GB of RAM? No problem!
@@ -272,7 +301,92 @@ result = (
 
 ```
 
-And if you happen to have a compatible NVIDIA graphics card, Polars even supports **GPU acceleration via `cudf**` (by passing `engine="gpu"`) for insane speedups on massive enterprise pipelines!
+And if you happen to have a compatible NVIDIA graphics card, Polars even supports **GPU acceleration via `cuDF`** (by passing `engine="gpu"`) for insane speedups on massive enterprise pipelines!
+
+---
+
+## Supported File Formats & Data Sources
+
+Data comes in all shapes and sizes, and Polars provides native support for the most common formats and database interfaces. Whether you're working with local files, cloud storage, or relational databases, Polars makes reading and writing effortless.
+
+### 1. CSV Files (Delimited Data)
+
+CSV files are fully supported with fast reading, writing, and lazy scanning options out of the box:
+
+* **Eager Read:** `pl.read_csv()`
+* **Write:** `pl.write_csv()`
+* **Lazy Scan:** `pl.scan_csv()` *(Recommended for large CSVs to optimize memory usage)*
+
+### 2. Parquet Files (Columnar Storage)
+
+For production data pipelines using Apache Parquet, Polars offers top-tier performance:
+
+* **Eager Read:** `pl.read_parquet()`
+* **Write:** `pl.write_parquet()`
+* **Lazy Scan:** `pl.scan_parquet()`
+
+### 3. JSON & NDJSON (Newline Delimited JSON)
+
+Polars easily handles standard JSON structures as well as streaming-friendly NDJSON datasets:
+
+* **Standard JSON:** `pl.read_json()` and `pl.write_json()`
+* **Newline Delimited JSON:** `pl.read_ndjson()`, `pl.write_ndjson()`, and `pl.scan_ndjson()`
+
+### 4. Excel Worksheets
+
+Working with spreadsheet files requires lightweight third-party helper libraries:
+
+* **Installation:**
+```bash
+pip install python-calamine xlsxwriter
+```
+
+
+* **Read & Write:** Use `pl.read_excel()` to import sheets and `pl.write_excel()` to export DataFrames.
+
+> 💡 *Note: Because Excel files must be loaded completely into memory, there is no lazy `scan_excel()` method available.*
+
+### 5. Connecting Directly to Databases
+
+Polars supports running SQL queries directly against SQL databases. Rather than managing database connections internally, Polars relies on the high-performance **ConnectorX** library for fast data transfer.
+
+First, install the connector:
+
+```bash
+pip install connectorx
+
+```
+
+**Option A: Using a Database Connection URI**
+
+Pass your database URI directly to `pl.read_database_uri()` for low-overhead extraction:
+
+```python
+import polars as pl
+
+uri = "postgresql://username:password@server:port/database"
+query = "SELECT * FROM foo"
+
+df = pl.read_database_uri(query=query, uri=uri)
+
+```
+
+**Option B: Using an Engine Connection (SQLAlchemy)**
+
+If you already use connection pools like SQLAlchemy in your Python application, pass the active connection instance to `pl.read_database()`:
+
+```python
+import polars as pl
+from sqlalchemy import create_engine
+
+conn = create_engine("sqlite:///test.db")
+query = "SELECT * FROM foo"
+
+df = pl.read_database(query=query, connection=conn.connect())
+
+```
+
+---
 
 ## Migrating from Pandas to Polars 🔄
 
@@ -290,6 +404,8 @@ polars_df = pl.from_pandas(pandas_df)
 
 *(Just make sure you have `pyarrow` installed in your environment for the fastest memory transfer!)*
 
+---
+
 ## When Should You Stick with Pandas?
 
 As much as I adore Polars, I always want to be completely honest about trade-offs. Pandas is still the better choice if:
@@ -301,6 +417,8 @@ As much as I adore Polars, I always want to be completely honest about trade-off
 Credit for these core concepts goes to the technical session breakdown, which you can watch on [YouTube](https://www.youtube.com/watch?v=OlsRyy-au0E).
 
 Want to learn more? Check out the [official Polars documentation](https://docs.pola.rs/) for more details.
+
+---
 
 ## The Wrap-Up
 
