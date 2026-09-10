@@ -1,8 +1,12 @@
+import { Spin, Typography } from 'antd';
+
 export default function LoadingSpinner() {
-    return (
-        <i
-            className="pi pi-spin pi-spinner text-pink-500"
-            style={{ fontSize: "2rem" }}
-        />
-    );
+  const { Text } = Typography;
+
+  return (
+    <div className="flex flex-col justify-center items-center" style={{ minHeight: '200px', gap: 12 }}>
+      <Spin size="large" />
+      <Text type="secondary">Loading...</Text>
+    </div>
+  );
 }

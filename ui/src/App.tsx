@@ -25,8 +25,9 @@ function App() {
         <>
             <ScrollShrink />
             <ScrollToTop />
-            <Suspense fallback={<LoadingSpinner />}>
-                <Routes>
+            <div className="app-layout">
+              <Suspense fallback={<LoadingSpinner />}>
+                  <Routes>
                     <Route path="/" element={<MainPage />} />
                     {settings.showBlogs && (
                         <>
@@ -55,6 +56,7 @@ function App() {
                     <Route path="*" element={<NotFoundPage />} />
                 </Routes>
             </Suspense>
+            </div>
         </>
     );
 }

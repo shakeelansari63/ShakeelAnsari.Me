@@ -1,15 +1,14 @@
-import { useState, useEffect } from "react";
-import { Helmet } from "react-helmet-async";
-import { useParams, useNavigate } from "react-router-dom";
-import { Card } from "primereact/card";
-import { Button } from "primereact/button";
-import { Skeleton } from "primereact/skeleton";
-import ToolBar from "../components/shared/ToolBar";
-import PageFooter from "../components/shared/PageFooter";
-import { fetchSubjectChapters } from "../services/api";
-import type { LearnChapter } from "../models/types";
-import { seo } from "../data/seo";
-import { buildSubjectTitle } from "../services/helper";
+import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Card, Button, Skeleton, Space, Typography } from 'antd';
+import { LeftOutlined } from '@ant-design/icons';
+import ToolBar from '../components/shared/ToolBar';
+import PageFooter from '../components/shared/PageFooter';
+import { fetchSubjectChapters } from '../services/api';
+import type { LearnChapter } from '../models/types';
+import { seo } from '../data/seo';
+import { buildSubjectTitle } from '../services/helper';
 
 export default function SubjectPage() {
   const { subjectId } = useParams<{ subjectId: string }>();
@@ -25,9 +24,7 @@ export default function SubjectPage() {
     }
   }, [subjectId]);
 
-  const subjectTitle = subjectId
-    ? buildSubjectTitle(subjectId)
-    : "";
+  const subjectTitle = subjectId ? buildSubjectTitle(subjectId) : '';
 
   return (
     <>
@@ -39,49 +36,56 @@ export default function SubjectPage() {
       </Helmet>
       <ToolBar />
       <div className="app-container pb-4">
-        <div className="mb-3">
+        <div className="mb-6">
           <Button
-            icon="pi pi-arrow-left"
-            label="Back"
-            text
-            severity="secondary"
-            className="text-pink-500"
-            onClick={() => navigate("/learn")}
-            style={{ outline: "none", boxShadow: "none" }}
-          />
+            type="text"
+            icon={<LeftOutlined />}
+            onClick={() => navigate('/learn')}
+            style={{ color: 'var(--ant-color-primary)' }}
+          >
+            Back to Learn
+          </Button>
         </div>
 
-        <h1 className="text-white text-2xl font-bold mb-4">{subjectTitle}</h1>
+        <h1 className="text-2xl font-bold mb-6" style={{ color: 'var(--ant-color-text)' }}>{subjectTitle}</h1>
 
         {loading ? (
-          <div className="flex flex-column gap-2">
-            {[1, 2, 3].map((i) => (
-              <Skeleton key={i} width="100%" height="3rem" />
-            ))}
+          <div className="space-y-3">
+            <Skeleton active avatar={{ size: 'default' }} paragraph={{ rows: 1 }} />
+            <Skeleton active avatar={{ size: 'default' }} paragraph={{ rows: 1 }} />
+            <Skeleton active avatar={{ size: 'default' }} paragraph={{ rows: 1 }} />
           </div>
         ) : chapters.length === 0 ? (
-          <div className="text-center mt-8">
-            <i className="pi pi-inbox text-4xl text-gray-500 mb-3" />
-            <p className="text-gray-400 m-0">No chapters yet.</p>
+          <div className="text-center py-12">
+            <div style={{ fontSize: '3rem', color: 'var(--ant-color-text-tertiary)', marginBottom: 16 }}>
+              📖
+            </div>
+            <Typography.Title level={4} style={{ color: 'var(--ant-color-text-secondary)' }}>
+              No chapters yet.
+            </Typography.Title>
           </div>
         ) : (
-          <div className="flex flex-column gap-2">
-            {chapters.map((chapter) => (
+          <div className="space-y-3">
+            {chapters.map(chapter => (
               <Card
                 key={chapter.id}
-                className="cursor-pointer"
-                onClick={() =>
-                  navigate(`/learn/${subjectId}/${chapter.chapter_id}`)
-                }
+                hoverable
+                style={{
+                  cursor: 'pointer',
+                  borderRadius: 10,
+                  border: '1px solid var(--ant-color-border)',
+                  transition: 'all 0.2s',
+                }}
+                onClick={() => navigate(`/learn/${subjectId}/${chapter.chapter_id}`)}
               >
-                <div className="flex align-items-center gap-3">
-                  <span className="text-sm text-gray-500">
-                    {`Topic: ${parseInt(chapter.chapter_id.replace(/^ch(\d+).*$/, "$1"), 10)}`}
-                  </span>
-                  <span className="text-pink-400 font-bold">
+                <Space>
+                  <Typography.Text type="secondary" style={{ fontSize: '0.875rem' }}>
+                    {`Topic: ${parseInt(chapter.chapter_id.replace(/^ch(\d+).*$/, '$1'), 10)}`}
+                  </Typography.Text>
+                  <Typography.Text strong style={{ color: 'var(--ant-color-primary)' }}>
                     {chapter.title}
-                  </span>
-                </div>
+                  </Typography.Text>
+                </Space>
               </Card>
             ))}
           </div>

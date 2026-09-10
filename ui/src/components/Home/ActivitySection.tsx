@@ -1,4 +1,4 @@
-import { Card } from 'primereact/card';
+import { Card } from 'antd';
 import { useEffect, useState } from 'react';
 import type { ContribSubject, HeatMapDate } from '../../models/types';
 import { fetchUserContributions } from '../../services/api';
@@ -23,7 +23,7 @@ export default function ActivitySection() {
   }, []);
 
   return (
-    <Card className="text-center" style={{ background: "transparent", boxShadow: "none" }}>
+    <Card style={{ background: 'transparent', boxShadow: 'none', border: 'none', borderRadius: 0 }}>
       {contrib ? (
         <HeatmapCalendar
           dates={contrib.data}
@@ -32,7 +32,9 @@ export default function ActivitySection() {
           classForValue={classForValue}
         />
       ) : (
-        <p className="text-gray-400">Loading contribution data...</p>
+        <p style={{ color: 'var(--ant-color-text-tertiary)', textAlign: 'center', padding: 32 }}>
+          Loading contribution data...
+        </p>
       )}
     </Card>
   );

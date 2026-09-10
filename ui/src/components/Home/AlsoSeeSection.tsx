@@ -1,30 +1,37 @@
 import { useNavigate } from 'react-router-dom';
-import { Card } from 'primereact/card';
+import { Card, Row, Col, Space, Typography } from 'antd';
+import {
+  FileTextOutlined,
+  StarOutlined,
+  BookOutlined,
+  BarChartOutlined,
+} from '@ant-design/icons';
+import { settings } from '../../data/settings';
 
 export default function AlsoSeeSection() {
   const navigate = useNavigate();
 
   const items = [
     {
-      icon: 'pi-book',
+      icon: <FileTextOutlined />,
       title: 'Blogs',
       description: 'Thoughts on data engineering, AI, and software development.',
       route: '/blog',
     },
     {
-      icon: 'pi-star',
+      icon: <StarOutlined />,
       title: 'Expo',
       description: 'Showcase of projects and experiments I have built.',
       route: '/expo',
     },
     {
-      icon: 'pi-graduation-cap',
+      icon: <BookOutlined />,
       title: 'Learn',
       description: 'Tutorials on programming languages and tech topics.',
       route: '/learn',
     },
     {
-      icon: 'pi-chart-bar',
+      icon: <BarChartOutlined />,
       title: 'Stats',
       description: 'GitHub statistics, languages, streaks and projects.',
       route: '/stats',
@@ -32,23 +39,34 @@ export default function AlsoSeeSection() {
   ];
 
   return (
-    <div className="grid">
-      {items.map((item) => (
-          <div key={item.route} className="md:col-6 col-12">
+    <Row gutter={[16, 16]}>
+      {items.map(item => (
+        <Col key={item.route} xs={24} md={12}>
           <Card
-            className="cursor-pointer h-full"
+            hoverable
+            style={{
+              cursor: 'pointer',
+              borderRadius: 12,
+              height: '100%',
+              textAlign: 'center',
+              transition: 'all 0.3s',
+            }}
             onClick={() => navigate(item.route)}
           >
-            <div className="flex flex-column align-items-center text-center gap-2">
-              <i className={`pi ${item.icon} text-4xl text-pink-400`} />
-              <span className="font-bold text-xl text-pink-400">{item.title}</span>
-              <p className="text-sm text-blue-400 m-0" style={{ fontFamily: '"Space Grotesk", sans-serif' }}>
+            <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+              <div style={{ color: settings.themeColor, fontSize: '2.5rem' }}>
+                {item.icon}
+              </div>
+              <Typography.Title level={4} style={{ color: settings.themeColor, margin: 0 }}>
+                {item.title}
+              </Typography.Title>
+              <Typography.Text type="secondary" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                 {item.description}
-              </p>
-            </div>
+              </Typography.Text>
+            </Space>
           </Card>
-        </div>
+        </Col>
       ))}
-    </div>
+    </Row>
   );
 }

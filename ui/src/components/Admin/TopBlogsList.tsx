@@ -1,38 +1,57 @@
-import { Card } from "primereact/card";
+import { Card, Space, Typography } from 'antd';
+import { EyeOutlined, HeartOutlined } from '@ant-design/icons';
 
 interface BlogEntry {
-    id: string;
-    title: string;
-    views: number;
-    likes: number;
+  id: string;
+  title: string;
+  views: number;
+  likes: number;
 }
 
 interface Props {
-    blogs: BlogEntry[];
+  blogs: BlogEntry[];
 }
 
 export default function TopBlogsList({ blogs }: Props) {
-    return (
-        <Card>
-            <h3 className="text-white text-lg font-bold mb-3">Top Blogs by Views</h3>
-            <div className="flex flex-column gap-2">
-                {blogs.map((blog, i) => (
-                    <div
-                        key={blog.id}
-                        className="flex align-items-center justify-content-between"
-                        style={{ padding: "0.5rem 0", borderBottom: "1px solid #333" }}
-                    >
-                        <div className="flex align-items-center gap-3">
-                            <span className="text-gray-500 text-sm">{i + 1}.</span>
-                            <span className="text-pink-400">{blog.title || blog.id}</span>
-                        </div>
-                        <div className="flex gap-3 text-sm">
-                            <span className="text-gray-400"><i className="pi pi-eye mr-1" />{blog.views}</span>
-                            <span className="text-gray-400"><i className="pi pi-heart mr-1" />{blog.likes}</span>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </Card>
-    );
+  const { Text } = Typography;
+
+  return (
+    <Card style={{ borderRadius: 12 }}>
+      <Typography.Title level={4} style={{ color: 'var(--ant-color-text)', marginBottom: 16 }}>
+        Top Blogs by Views
+      </Typography.Title>
+      <div className="space-y-3">
+        {blogs.map((blog, i) => (
+          <div
+            key={blog.id}
+            className="flex items-center justify-between"
+            style={{ padding: '8px 0', borderBottom: '1px solid var(--ant-color-border)' }}
+          >
+            <Space>
+              <Text type="secondary" style={{ fontSize: '0.875rem' }}>
+                {i + 1}.
+              </Text>
+              <Text strong style={{ color: 'var(--ant-color-primary)' }}>
+                {blog.title || blog.id}
+              </Text>
+            </Space>
+            <Space>
+              <Space>
+                <EyeOutlined />
+                <Text type="secondary" style={{ fontSize: '0.875rem' }}>
+                  {blog.views}
+                </Text>
+              </Space>
+              <Space>
+                <HeartOutlined />
+                <Text type="secondary" style={{ fontSize: '0.875rem' }}>
+                  {blog.likes}
+                </Text>
+              </Space>
+            </Space>
+          </div>
+        ))}
+      </div>
+    </Card>
+  );
 }

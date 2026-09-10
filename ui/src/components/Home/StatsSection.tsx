@@ -1,18 +1,17 @@
-import { Card } from 'primereact/card';
+import { Card, Row, Col, Space } from 'antd';
 import LazyImage from '../shared/LazyImage';
 import { getUserMainStats } from '../../services/stats';
 
 export default function StatsSection() {
   return (
-    <div className="grid">
-      <div className="col-12">
-        <Card className="text-center">
-          <LazyImage
-            src={getUserMainStats()}
-            alt="Profile stats"
-          />
-        </Card>
-      </div>
-    </div>
+    <Row gutter={[16, 16]}>
+      <Col xs={24}>
+        <Space direction="vertical" style={{ width: '100%' }}>
+          <Card style={{ textAlign: 'center', borderRadius: 12 }}>
+            <LazyImage src={getUserMainStats()} alt="Profile stats" />
+          </Card>
+        </Space>
+      </Col>
+    </Row>
   );
 }

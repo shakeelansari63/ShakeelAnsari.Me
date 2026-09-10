@@ -1,4 +1,5 @@
 import type { GitProfile } from '../../models/types';
+import { Row, Col } from 'antd';
 import HeroUserDetail from './HeroUserDetail';
 import HeroUserSkills from './HeroUserSkills';
 
@@ -8,13 +9,13 @@ interface Props {
 
 export default function Hero({ profile }: Props) {
   return (
-    <div className="grid mt-4">
-      <div className="md:col-6 col-12">
+    <Row gutter={[24, 24]} style={{ marginTop: 16 }}>
+      <Col xs={24} md={12}>
         <HeroUserDetail profile={profile} />
-      </div>
-      <div className="md:col-6 col-12">
+      </Col>
+      <Col xs={24} md={12}>
         <HeroUserSkills profile={profile} />
-      </div>
-    </div>
+      </Col>
+    </Row>
   );
 }

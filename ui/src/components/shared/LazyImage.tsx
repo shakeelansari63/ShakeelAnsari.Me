@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState } from 'react';
+import { Skeleton } from 'antd';
 
 interface Props {
   src: string;
@@ -15,59 +16,44 @@ export default function LazyImage({
   alt,
   maxWidth,
   maxHeight,
-  aspectRatio = "2 / 1",
+  aspectRatio = '2 / 1',
   rounded = false,
-  className = "",
+  className = '',
 }: Props) {
   const [loaded, setLoaded] = useState(false);
 
-  const borderRadius = rounded ? "50%" : "8px";
+  const borderRadius = rounded ? '50%' : '8px';
 
   return (
     <div
-      className={`flex justify-content-center my-3 ${className}`}
+      className={`flex justify-center my-3 ${className}`}
       style={{
-        position: "relative",
+        position: 'relative',
         ...(maxWidth !== undefined && { maxWidth: `${maxWidth}px` }),
-        marginLeft: "auto",
-        marginRight: "auto",
+        marginLeft: 'auto',
+        marginRight: 'auto',
       }}
     >
       {!loaded && (
-        <div
-          className="skeleton-image"
+        <Skeleton
+          active
+          avatar={{ size: 'large', shape: rounded ? 'circle' : 'square' }}
           style={{
-            width: "100%",
+            width: '100%',
             aspectRatio,
             borderRadius,
           }}
-        >
-          <svg
-            width="48"
-            height="48"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="skeleton-image-icon"
-          >
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-            <circle cx="8.5" cy="8.5" r="1.5" />
-            <polyline points="21 15 16 10 5 21" />
-          </svg>
-        </div>
+        />
       )}
       <div
         style={{
-          position: "relative",
-          maxWidth: "100%",
+          position: 'relative',
+          maxWidth: '100%',
           ...(maxHeight !== undefined && { maxHeight: `${maxHeight}px` }),
-          overflow: "hidden",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          overflow: 'hidden',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           borderRadius,
         }}
       >
@@ -76,13 +62,13 @@ export default function LazyImage({
           alt={alt}
           loading="lazy"
           onLoad={() => setLoaded(true)}
-          className={loaded ? "image-entrance" : ""}
+          className={loaded ? 'image-entrance' : ''}
           style={{
-            maxWidth: "100%",
+            maxWidth: '100%',
             ...(maxHeight !== undefined && { maxHeight: `${maxHeight}px` }),
-            width: "auto",
-            height: "auto",
-            display: "block",
+            width: 'auto',
+            height: 'auto',
+            display: 'block',
             opacity: loaded ? 1 : 0,
           }}
         />

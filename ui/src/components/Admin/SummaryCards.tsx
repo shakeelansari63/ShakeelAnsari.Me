@@ -1,28 +1,33 @@
-import { Card } from "primereact/card";
+import { Card, Row, Col, Typography } from 'antd';
+import { settings } from '../../data/settings';
 
 interface Props {
-    totalViews: number;
-    totalLikes: number;
-    uniqueVisitors: number;
+  totalViews: number;
+  totalLikes: number;
+  uniqueVisitors: number;
 }
 
 export default function SummaryCards({ totalViews, totalLikes, uniqueVisitors }: Props) {
-    const items = [
-        { value: totalViews, label: "Total Views" },
-        { value: totalLikes, label: "Total Likes" },
-        { value: uniqueVisitors, label: "Unique Visitors" },
-    ];
+  const items = [
+    { value: totalViews, label: 'Total Views', color: settings.themeColor },
+    { value: totalLikes, label: 'Total Likes', color: '#22c55e' },
+    { value: uniqueVisitors, label: 'Unique Visitors', color: '#1890ff' },
+  ];
 
-    return (
-        <div className="grid">
-            {items.map((item) => (
-                <div key={item.label} className="md:col-4 col-12">
-                    <Card className="text-center">
-                        <span className="text-3xl font-bold text-pink-400">{item.value}</span>
-                        <p className="text-gray-400 m-0 mt-1">{item.label}</p>
-                    </Card>
-                </div>
-            ))}
-        </div>
-    );
+  return (
+    <Row gutter={[16, 16]}>
+      {items.map(item => (
+        <Col key={item.label} xs={24} md={8}>
+          <Card style={{ textAlign: 'center', borderRadius: 12, height: '100%' }}>
+            <Typography.Text strong style={{ fontSize: '2.5rem', color: item.color, display: 'block', marginBottom: 8 }}>
+              {item.value}
+            </Typography.Text>
+            <Typography.Text type="secondary" style={{ margin: 0 }}>
+              {item.label}
+            </Typography.Text>
+          </Card>
+        </Col>
+      ))}
+    </Row>
+  );
 }

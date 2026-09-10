@@ -1,276 +1,230 @@
-import { Suspense, lazy, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { Toolbar } from "primereact/toolbar";
-import { Button } from "primereact/button";
-import { userData } from "../../data/profile";
-import { settings } from "../../data/settings";
+import { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Layout, Menu, Button, Drawer, Tooltip, Space } from 'antd';
+import {
+  HomeOutlined,
+  StarOutlined,
+  BookOutlined,
+  ReadOutlined,
+  BarChartOutlined,
+  CalendarOutlined,
+  FolderOutlined,
+  SunOutlined,
+  MoonOutlined,
+  MenuOutlined,
+} from '@ant-design/icons';
+import { userData } from '../../data/profile';
+import { settings } from '../../data/settings';
+import { useTheme } from '../../context/ThemeContext';
+import styles from './ToolBar.module.scss';
 
-const Sidebar = lazy(() =>
-    import("primereact/sidebar").then((m) => ({ default: m.Sidebar }))
-);
+const { Header } = Layout;
 
-interface Props {
-    isLight?: boolean;
-    onToggleTheme?: () => void;
-}
+export default function ToolBar() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
-export default function ToolBar({ isLight, onToggleTheme }: Props) {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const [menuOpen, setMenuOpen] = useState(false);
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
-    const scrollTo = (id: string) => {
-        const el = document.getElementById(id);
-        if (el) {
-            el.scrollIntoView({ behavior: "smooth" });
-        }
-    };
+  const statsNav = (id: string) => {
+    setMenuOpen(false);
+    if (location.pathname !== '/stats') {
+      navigate('/stats');
+      setTimeout(() => scrollTo(id), 300);
+    } else {
+      scrollTo(id);
+    }
+  };
 
-    const statsNav = (id: string) => {
-        setMenuOpen(false);
-        if (location.pathname !== "/stats") {
-            navigate("/stats");
-            setTimeout(() => scrollTo(id), 300);
-        } else {
-            scrollTo(id);
-        }
-    };
-
-    const menuItems = [
-        ...(settings.showExpo
-            ? [
-                  {
-                      label: "Expo",
-                      icon: "pi pi-star",
-                      visible: !location.pathname.startsWith("/expo"),
-                      action: () => {
-                          setMenuOpen(false);
-                          navigate("/expo");
-                      },
-                  },
-              ]
-            : []),
-        ...(settings.showBlogs
-            ? [
-                  {
-                      label: "Blogs",
-                      icon: "pi pi-book",
-                      visible: !location.pathname.startsWith("/blog"),
-                      action: () => {
-                          setMenuOpen(false);
-                          navigate("/blog");
-                      },
-                  },
-              ]
-            : []),
-        ...(settings.showTutorial
-            ? [
-                  {
-                      label: "Learn",
-                      icon: "pi pi-graduation-cap",
-                      visible: !location.pathname.startsWith("/learn"),
-                      action: () => {
-                          setMenuOpen(false);
-                          navigate("/learn");
-                      },
-                  },
-              ]
-            : []),
-        {
-            label: "Stats",
-            icon: "pi pi-chart-bar",
-            visible: !location.pathname.startsWith("/stats"),
+  const menuItems = [
+    ...(settings.showExpo
+      ? [
+          {
+            key: 'expo',
+            label: 'Expo',
+            icon: <StarOutlined />,
+            visible: !location.pathname.startsWith('/expo'),
             action: () => {
-                setMenuOpen(false);
-                navigate("/stats");
+              setMenuOpen(false);
+              navigate('/expo');
             },
-        },
-        {
-            label: "Contributions",
-            icon: "pi pi-calendar",
-            visible: location.pathname === "/stats",
-            action: () => statsNav("contributions"),
-        },
-        {
-            label: "Projects",
-            icon: "pi pi-folder",
-            visible: location.pathname === "/stats",
-            action: () => statsNav("projects"),
-        },
-    ];
+          },
+        ]
+      : []),
+    ...(settings.showBlogs
+      ? [
+          {
+            key: 'blogs',
+            label: 'Blogs',
+            icon: <BookOutlined />,
+            visible: !location.pathname.startsWith('/blog'),
+            action: () => {
+              setMenuOpen(false);
+              navigate('/blog');
+            },
+          },
+        ]
+      : []),
+    ...(settings.showTutorial
+      ? [
+          {
+            key: 'learn',
+            label: 'Learn',
+            icon: <ReadOutlined />,
+            visible: !location.pathname.startsWith('/learn'),
+            action: () => {
+              setMenuOpen(false);
+              navigate('/learn');
+            },
+          },
+        ]
+      : []),
+    {
+      key: 'stats',
+      label: 'Stats',
+      icon: <BarChartOutlined />,
+      visible: !location.pathname.startsWith('/stats'),
+      action: () => {
+        setMenuOpen(false);
+        navigate('/stats');
+      },
+    },
+    {
+      key: 'contributions',
+      label: 'Contributions',
+      icon: <CalendarOutlined />,
+      visible: location.pathname === '/stats',
+      action: () => statsNav('contributions'),
+    },
+    {
+      key: 'projects',
+      label: 'Projects',
+      icon: <FolderOutlined />,
+      visible: location.pathname === '/stats',
+      action: () => statsNav('projects'),
+    },
+  ];
 
-    const startContent =
-        location.pathname === "/" || location.pathname === "/stats" ? (
-            <span
-                className="text-pink-500 font-bold text-2xl no-underline cursor-pointer"
-                onClick={() => navigate("/")}
-            >
-                @{userData.devUsername}
-            </span>
-        ) : (
-            <Button
-                text
-                severity="secondary"
-                className="text-pink-500 no-hover-bg"
-                icon="pi pi-home"
-                label="Home"
-                onClick={() => navigate("/")}
-                style={{ outline: "none", boxShadow: "none" }}
-            />
-        );
+  const visibleMenuItems = menuItems.filter(item => item.visible);
 
-    const endContent = (
+  const handleMenuClick = (key: string) => {
+    const item = visibleMenuItems.find(m => m.key === key);
+    if (item) item.action();
+  };
+
+  const startContent = location.pathname === '/' || location.pathname === '/stats' ? (
+    <span
+      className={styles.brand}
+      onClick={() => navigate('/')}
+    >
+      @{userData.devUsername}
+    </span>
+  ) : (
+    <Button type="text" icon={<HomeOutlined />} onClick={() => navigate('/')}>
+      Home
+    </Button>
+  );
+
+  const navItems = (
+    <Space className={styles.navGroup} size="small">
+      {settings.showExpo && !location.pathname.startsWith('/expo') && (
+        <Button type="text" icon={<StarOutlined />} onClick={() => navigate('/expo')}>
+          Expo
+        </Button>
+      )}
+      {settings.showBlogs && !location.pathname.startsWith('/blog') && (
+        <Button type="text" icon={<BookOutlined />} onClick={() => navigate('/blog')}>
+          Blogs
+        </Button>
+      )}
+      {settings.showTutorial && !location.pathname.startsWith('/learn') && (
+        <Button type="text" icon={<ReadOutlined />} onClick={() => navigate('/learn')}>
+          Learn
+        </Button>
+      )}
+      {!location.pathname.startsWith('/stats') && (
+        <Button type="text" icon={<BarChartOutlined />} onClick={() => navigate('/stats')}>
+          Stats
+        </Button>
+      )}
+      {location.pathname === '/stats' && (
         <>
-            <div className="hidden md:flex gap-2">
-                {settings.showExpo && !location.pathname.startsWith("/expo") && (
-                    <Button
-                        text
-                        severity="secondary"
-                        className="text-pink-500"
-                        icon="pi pi-star"
-                        label="Expo"
-                        onClick={() => navigate("/expo")}
-                        style={{ outline: "none", boxShadow: "none" }}
-                    />
-                )}
-                {settings.showBlogs && !location.pathname.startsWith("/blog") && (
-                    <Button
-                        text
-                        severity="secondary"
-                        className="text-pink-500"
-                        icon="pi pi-book"
-                        label="Blogs"
-                        onClick={() => navigate("/blog")}
-                        style={{ outline: "none", boxShadow: "none" }}
-                    />
-                )}
-                {settings.showTutorial && !location.pathname.startsWith("/learn") && (
-                    <Button
-                        text
-                        severity="secondary"
-                        className="text-pink-500"
-                        icon="pi pi-graduation-cap"
-                        label="Learn"
-                        onClick={() => navigate("/learn")}
-                        style={{ outline: "none", boxShadow: "none" }}
-                    />
-                )}
-                {!location.pathname.startsWith("/stats") && (
-                    <Button
-                        text
-                        severity="secondary"
-                        className="text-pink-500"
-                        icon="pi pi-chart-bar"
-                        label="Stats"
-                        onClick={() => navigate("/stats")}
-                        style={{ outline: "none", boxShadow: "none" }}
-                    />
-                )}
-                {location.pathname === "/stats" && (
-                    <>
-                        <Button
-                            text
-                            severity="secondary"
-                            className="text-pink-500"
-                            icon="pi pi-calendar"
-                            label="Contributions"
-                            onClick={() => statsNav("contributions")}
-                            style={{ outline: "none", boxShadow: "none" }}
-                        />
-                        <Button
-                            text
-                            severity="secondary"
-                            className="text-pink-500"
-                            icon="pi pi-folder"
-                            label="Projects"
-                            onClick={() => statsNav("projects")}
-                            style={{ outline: "none", boxShadow: "none" }}
-                        />
-                    </>
-                )}
-            </div>
-            {onToggleTheme && (
-                <Button
-                    text
-                    severity="secondary"
-                    className="text-pink-500"
-                    icon={isLight ? "pi pi-moon" : "pi pi-sun"}
-                    onClick={onToggleTheme}
-                    tooltip={isLight ? "Dark Mode" : "Light Mode"}
-                    tooltipOptions={{ position: "bottom" }}
-                    style={{ outline: "none", boxShadow: "none" }}
-                />
-            )}
-            <div className="md:hidden">
-                <Button
-                    icon="pi pi-bars"
-                    text
-                    severity="secondary"
-                    className="text-pink-500"
-                    onClick={() => setMenuOpen(true)}
-                    style={{ outline: "none", boxShadow: "none" }}
-                />
-            </div>
+          <Button type="text" icon={<CalendarOutlined />} onClick={() => statsNav('contributions')}>
+            Contributions
+          </Button>
+          <Button type="text" icon={<FolderOutlined />} onClick={() => statsNav('projects')}>
+            Projects
+          </Button>
         </>
-    );
+      )}
+    </Space>
+  );
 
-    return (
-        <>
-            <Suspense fallback={null}>
-                <Sidebar
-                    visible={menuOpen}
-                    onHide={() => setMenuOpen(false)}
-                    position="right"
-                    style={{
-                        background: "#18181b",
-                        border: "none",
-                        width: "220px",
-                    }}
-                >
-                    <div className="flex flex-column gap-2 mt-4">
-                        {menuItems
-                            .filter((item) => item.visible)
-                            .map((item) => (
-                                <Button
-                                    key={item.label}
-                                    text
-                                    severity="secondary"
-                                    className="text-pink-500"
-                                    icon={item.icon}
-                                    label={item.label}
-                                    onClick={item.action}
-                                    style={{
-                                        outline: "none",
-                                        boxShadow: "none",
-                                        justifyContent: "flex-start",
-                                        width: "100%",
-                                    }}
-                                    pt={{
-                                        label: {
-                                            style: {
-                                                flex: "none",
-                                                textAlign: "left" as const,
-                                            },
-                                        },
-                                    }}
-                                />
-                            ))}
-                    </div>
-                </Sidebar>
-            </Suspense>
-            <Toolbar
-                start={startContent}
-                end={endContent}
-                className="border-none"
-                style={{
-                    position: "sticky",
-                    top: 0,
-                    zIndex: 1000,
-                    background: "#18181b",
-                    borderRadius: "0 0 8px 8px",
-                    boxShadow: "0 2px 4px -1px rgba(128, 128, 128, 0.3)",
-                }}
-            />
-        </>
-    );
+  const themeToggle = (
+    <Tooltip title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}>
+      <Button
+        type="text"
+        icon={theme === 'light' ? <MoonOutlined /> : <SunOutlined />}
+        onClick={toggleTheme}
+        aria-label={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+        className={styles.themeToggle}
+      />
+    </Tooltip>
+  );
+
+  const mobileMenuButton = (
+    <Button
+      type="text"
+      icon={<MenuOutlined />}
+      onClick={() => setMenuOpen(true)}
+      aria-label="Open menu"
+      className={styles.mobileMenuBtn}
+    />
+  );
+
+  return (
+    <>
+      <Drawer
+        title="Navigation"
+        placement="right"
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        width={240}
+        styles={{
+          header: { borderBottom: 'none', padding: '16px 20px' },
+          body: { padding: '8px 16px' },
+        }}
+        className={styles.drawer}
+      >
+        <Menu
+          mode="inline"
+          selectable
+          onClick={({ key }) => handleMenuClick(key)}
+          style={{ borderRight: 'none' }}
+          items={visibleMenuItems.map(item => ({
+            key: item.key,
+            label: item.label,
+            icon: item.icon,
+          }))}
+        />
+      </Drawer>
+      <Header className={styles.header}>
+        <div className={styles.headerInner}>
+          <div className={styles.start}>{startContent}</div>
+          <div className={styles.end}>
+            {navItems}
+            {themeToggle}
+            {mobileMenuButton}
+          </div>
+        </div>
+      </Header>
+    </>
+  );
 }

@@ -79,37 +79,37 @@ jobs:
                       sed -i "s|{#$var#}|$val|g" api/.env
                   done
 
-            - name: Assemble deployable
-              run: |
-                  mkdir -p deploy/api
-                  cp -r ui/dist/* deploy/
-                  cp -r api/public deploy/api/public
-                  cp -r api/src deploy/api/src
-                  cp -r api/vendor deploy/api/vendor
-                  cp -r api/.htaccess deploy/api/
-                  cp -r api/.env deploy/api/
-                  cp -r blogs deploy/blogs
-                  cp -r tutorial deploy/tutorial
-                  cp -r products deploy/products
-                  cp .htaccess deploy/
+            # - name: Assemble deployable
+            #   run: |
+            #       mkdir -p deploy/api
+            #       cp -r ui/dist/* deploy/
+            #       cp -r api/public deploy/api/public
+            #       cp -r api/src deploy/api/src
+            #       cp -r api/vendor deploy/api/vendor
+            #       cp -r api/.htaccess deploy/api/
+            #       cp -r api/.env deploy/api/
+            #       cp -r blogs deploy/blogs
+            #       cp -r tutorial deploy/tutorial
+            #       cp -r products deploy/products
+            #       cp .htaccess deploy/
 
-            - name: Install lftp
-              run: sudo apt-get update && sudo apt-get install -y lftp
+            # - name: Install lftp
+            #   run: sudo apt-get update && sudo apt-get install -y lftp
 
-            - name: Deploy to Hostinger
-              env:
-                  HOST: ${{ secrets.DEPLOY_HOST }}
-                  USER: ${{ secrets.DEPLOY_USER }}
-                  PASS: ${{ secrets.DEPLOY_PASSWORD }}
-                  DPTH: ${{ secrets.DEPLOY_PATH }}
-              run: |
-                  lftp -c "
-                    set net:connection-limit 10;
-                    set mirror:parallel-transfer-count 10;
-                    set net:socket-buffer 65535;
-                    set ftp:ssl-force true;
-                    set ssl:verify-certificate no;
-                    open -u $USER,$PASS ftp://$HOST;
-                    mirror -R --delete --parallel=15 --verbose deploy/ $DPTH;
-                    quit
-                  "
+            # - name: Deploy to Hostinger
+            #   env:
+            #       HOST: ${{ secrets.DEPLOY_HOST }}
+            #       USER: ${{ secrets.DEPLOY_USER }}
+            #       PASS: ${{ secrets.DEPLOY_PASSWORD }}
+            #       DPTH: ${{ secrets.DEPLOY_PATH }}
+            #   run: |
+            #       lftp -c "
+            #         set net:connection-limit 10;
+            #         set mirror:parallel-transfer-count 10;
+            #         set net:socket-buffer 65535;
+            #         set ftp:ssl-force true;
+            #         set ssl:verify-certificate no;
+            #         open -u $USER,$PASS ftp://$HOST;
+            #         mirror -R --delete --parallel=15 --verbose deploy/ $DPTH;
+            #         quit
+            #       "

@@ -10,10 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.3.0",
+    "antd": "^5.14.0",
     "mermaid": "^11.15.0",
-    "primeflex": "^3.3.1",
-    "primeicons": "^7.0.0",
-    "primereact": "^10.9.8",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet-async": "^3.0.0",
