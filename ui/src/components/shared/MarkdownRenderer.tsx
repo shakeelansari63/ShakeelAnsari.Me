@@ -23,7 +23,6 @@ export default function MarkdownRenderer({ content }: Props) {
         lineHeight: '1.8',
         fontSize: '1.125rem',
         color: 'var(--ant-color-text)',
-        ['--md-h3' as string]: `color-mix(in srgb, ${settings.themeColor} 75%, white)`,
       }}
     >
       <ReactMarkdown

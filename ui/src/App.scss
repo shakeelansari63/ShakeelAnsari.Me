@@ -67,6 +67,9 @@ body {
 }
 
 :root {
+  --base-ascent-theme-color: #d53a9b;
+  --md-h3: color-mix(in srgb, var(--base-ascent-theme-color) 75%, white);
+  --card-shadow: color-mix(in srgb, var(--base-ascent-theme-color) 55%, white);
   --fill-value-0: #161b22;
   --fill-value-1: #0e4429;
   --fill-value-2: #006d32;
@@ -241,14 +244,19 @@ body {
 
 .ant-card:hover {
   transform: none;
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.18), 0 0 32px rgba(0, 0, 0, 0.10);
+  box-shadow: 0 0 16px rgba(from var(--card-shadow) r g b / 0.4), 0 0 32px rgba(from var(--card-shadow) r g b / 0.05) !important;
 }
 
-[data-theme='dark'] .ant-card:hover,
-.dark .ant-card:hover {
+.ant-card.no-glow {
   transform: none;
-  box-shadow: 0 0 16px rgba(255, 255, 255, 0.28), 0 0 32px rgba(255, 255, 255, 0.12);
+  box-shadow: none !important;
 }
+
+// [data-theme='dark'] .ant-card:hover,
+// .dark .ant-card:hover {
+//   transform: none;
+//   box-shadow: 0 0 16px rgba(255, 255, 255, 0.28), 0 0 32px rgba(255, 255, 255, 0.12);
+// }
 
 /* Expo cards: no lift animation, theme-aware neutral glow only on hover
    (light theme: greyish glow, dark theme: whitish glow) */
@@ -259,14 +267,14 @@ body {
 
 .expo-card:hover {
   transform: none;
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.18), 0 0 32px rgba(0, 0, 0, 0.10);
+  box-shadow: 0 0 16px rgba(from var(--card-shadow) r g b / 0.4), 0 0 32px rgba(from var(--card-shadow) r g b / 0.05) !important;
 }
 
-[data-theme='dark'] .expo-card:hover,
-.dark .expo-card:hover {
-  transform: none;
-  box-shadow: 0 0 16px rgba(255, 255, 255, 0.28), 0 0 32px rgba(255, 255, 255, 0.12);
-}
+// [data-theme='dark'] .expo-card:hover,
+// .dark .expo-card:hover {
+//   transform: none;
+//   box-shadow: 0 0 16px rgba(255, 255, 255, 0.28), 0 0 32px rgba(255, 255, 255, 0.12);
+// }
 
 /* Shared glow-on-hover, no movement (overrides global .ant-card:hover lift
    and any inline base shadows; !important beats inline style on hover) */
@@ -277,14 +285,14 @@ body {
 
 .ant-card.glow-card:hover {
   transform: none !important;
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.18), 0 0 32px rgba(0, 0, 0, 0.10) !important;
+  box-shadow: 0 0 16px rgba(from var(--card-shadow) r g b / 0.4), 0 0 32px rgba(from var(--card-shadow) r g b / 0.05) !important;
 }
 
-[data-theme='dark'] .ant-card.glow-card:hover,
-.dark .ant-card.glow-card:hover {
-  transform: none !important;
-  box-shadow: 0 0 16px rgba(255, 255, 255, 0.28), 0 0 32px rgba(255, 255, 255, 0.12) !important;
-}
+// [data-theme='dark'] .ant-card.glow-card:hover,
+// .dark .ant-card.glow-card:hover {
+//   transform: none !important;
+//   box-shadow: 0 0 16px rgba(255, 255, 255, 0.28), 0 0 32px rgba(255, 255, 255, 0.12) !important;
+// }
 
 .ant-btn-primary {
   background: linear-gradient(135deg, var(--ant-color-primary) 0%, #743ad5 100%);

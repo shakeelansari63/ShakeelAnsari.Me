@@ -31,7 +31,7 @@ export default function LearnPage() {
         <meta property="og:url" content={`https://${seo.domain}/learn`} />
       </Helmet>
       <ToolBar />
-      <div className="app-container pb-4">
+      <div className="app-container">
         <Title level={2} className="mb-6" style={{ color: 'var(--ant-color-text)' }}>
           Learn
         </Title>

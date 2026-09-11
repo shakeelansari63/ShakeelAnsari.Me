@@ -35,7 +35,7 @@ export default function BlogPage() {
         <meta property="og:url" content={`https://${seo.domain}/blog`} />
       </Helmet>
       <ToolBar />
-      <div className="app-container pb-4">
+      <div className="app-container">
         <h1 className="text-3xl font-bold mb-6" style={{ color: 'var(--ant-color-text)' }}>Blogs</h1>
         {loading ? (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '24px' }}>

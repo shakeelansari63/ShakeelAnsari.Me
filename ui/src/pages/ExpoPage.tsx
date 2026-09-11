@@ -17,7 +17,7 @@ export default function ExpoPage() {
         <meta property="og:url" content={`https://${seo.domain}/expo`} />
       </Helmet>
       <ToolBar />
-      <div className="app-container pb-4">
+      <div className="app-container">
         <h1 className="text-3xl font-bold mb-6" style={{ color: 'var(--ant-color-text)' }}>Expo</h1>
         <Row gutter={[16, 16]}>
           {userData.expo.map(item => (

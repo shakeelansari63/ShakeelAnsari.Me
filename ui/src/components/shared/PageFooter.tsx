@@ -47,6 +47,7 @@ export default function PageFooter({ className }: Props) {
         >
           <GithubOutlined />
         </a>
+        &nbsp;
         <a
           href={userData.linkedIn}
           target="_blank"
@@ -57,6 +58,7 @@ export default function PageFooter({ className }: Props) {
         >
           <LinkedinOutlined />
         </a>
+        &nbsp;
         <a
           href={userData.twitter}
           target="_blank"

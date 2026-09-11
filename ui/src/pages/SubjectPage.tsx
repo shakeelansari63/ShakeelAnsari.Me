@@ -36,7 +36,7 @@ export default function SubjectPage() {
         <meta property="og:url" content={`https://${seo.domain}/learn/${subjectId}`} />
       </Helmet>
       <ToolBar />
-      <div className="app-container pb-4">
+      <div className="app-container">
         <div className="mb-6">
           <Button
             type="text"

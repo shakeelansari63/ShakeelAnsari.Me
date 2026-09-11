@@ -40,7 +40,7 @@ export default function HeroUserDetail({ profile }: Props) {
             ⚡{profile.bio}⚡
           </div>
         )}
-        <div className="mt-1 flex flex-wrap w-full px-12" style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', gap: 20, marginTop: 28, marginBottom: 12 }}>
+        <div className="mt-2 flex flex-wrap w-full px-12" style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
           {socialLinks.map((link, index) => (
             <a
               key={index}
@@ -49,13 +49,13 @@ export default function HeroUserDetail({ profile }: Props) {
               rel="noopener noreferrer"
               title={link.label}
               className="social-link"
-              style={{ color: settings.themeColor, padding: '4px 8px' }}
+              style={{ color: settings.themeColor }}
             >
               <span style={{ fontSize: '1.15rem' }}>{link.icon}</span>
             </a>
           ))}
         </div>
-        <div className="mt-1" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+        <div className="mt-2" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
           <Button
             type="primary"
             icon={<CheckCircleOutlined />}

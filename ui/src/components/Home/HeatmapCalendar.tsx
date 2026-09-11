@@ -84,7 +84,7 @@ export default function HeatmapCalendar({ dates, startDate, endDate, classForVal
 
   // Color values matching GitHub contribution graph (light/dark theme compatible)
   const colors = {
-    'fill-value-0': 'var(--ant-color-bg-container)',
+    'fill-value-0': '#aaaaaa',
     'fill-value-1': '#0e4429',
     'fill-value-2': '#006d32',
     'fill-value-3': '#26a641',

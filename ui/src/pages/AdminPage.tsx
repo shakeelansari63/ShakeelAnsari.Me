@@ -132,13 +132,14 @@ export default function AdminPage() {
             </div>
           </Card>
 
-          <Card style={{ marginTop: 16, borderRadius: 12 }}>
+          <Card className="no-glow" style={{ marginTop: 16, borderRadius: 12 }}>
             <span className="text-lg font-bold block mb-4" style={{ color: 'var(--ant-color-text)' }}>
               Blog Analytics & Insights
             </span>
             <AnalyticsDashboard token={token} />
           </Card>
         </div>
+        <span className='mt-2 mb-2'>&nbsp;</span>
       </>
     );
   }
