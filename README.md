@@ -6,7 +6,7 @@ Personal portfolio website for [shakeelansari.me](https://shakeelansari.me) — 
 
 | Layer    | Technology                                      |
 |----------|-------------------------------------------------|
-| Frontend | React 18, TypeScript, Vite, PrimeReact, PrimeFlex |
+| Frontend | React 18, TypeScript, Vite, Ant Design (AntD) v5, Tailwind CSS v3 |
 | Backend  | PHP 8.1+, Slim Framework 4, PDO, JWT Auth       |
 | Database | MySQL                                           |
 | Deploy   | GitHub Actions → FTP                            |
@@ -16,10 +16,13 @@ Personal portfolio website for [shakeelansari.me](https://shakeelansari.me) — 
 ```
 ├── ui/          – React frontend (Vite)
 │   ├── src/
-│   │   ├── components/   – React components
-│   │   ├── pages/        – Page-level components
+│   │   ├── components/   – React components (Home, Blog, BlogReader, Expo, Admin/analytics, shared)
+│   │   ├── pages/        – Page-level components (incl. Stats, Admin, NotFound)
+│   │   ├── context/      – ThemeContext (persisted dark/light mode)
 │   │   ├── services/     – API client, data, stats
 │   │   └── models/       – TypeScript interfaces
+│   ├── tailwind.config.js – Tailwind v3 (Preflight disabled; AntD ships its own reset)
+│   ├── postcss.config.js – PostCSS/Autoprefixer
 │   └── index.html        – Vite entry; in production the <head> is server-rendered per-URL by api/public/page.php
 ├── api/         – PHP API backend (Slim Framework)
 │   ├── public/           – Entry points (index.php API, page.php per-URL SEO shell, sitemap.php)
@@ -40,8 +43,8 @@ Personal portfolio website for [shakeelansari.me](https://shakeelansari.me) — 
 
 ### Prerequisites
 
-- Node.js 20+
-- PHP 8.1+
+- Node.js 24+
+- PHP 8.1+ (CI uses PHP 8.2; local prod test uses `php:8.2-apache`)
 - Composer
 - Make
 - MySQL server (optional for full features; API works without DB)
@@ -232,12 +235,13 @@ Create a **production** environment in your repo settings with:
 ## Features
 
 - **Homepage** — GitHub profile card (avatar, bio), contribution heatmap calendar, stats cards (repos, stars, followers, total contributions), language breakdown, streak stats, project listing, work experience timeline
-- **Blog** — Markdown-based blog with pagination, syntax-highlighted code blocks (`react-syntax-highlighter`), Mermaid diagram rendering, view tracking (IP-deduped per 8-hour window), interactive like/unlike toggle, share support via Web Share API
+- **Stats page (`/stats`)** — Standalone GitHub stats view (stats cards, languages, streaks, activity graph, projects)
+- **Blog** — Markdown-based blog with pagination, syntax-highlighted code blocks (`react-syntax-highlighter`), Mermaid diagram rendering, view tracking (IP-deduped per 8-hour window), interactive like/unlike toggle, share support via Web Share API, tag-based "Also read" related posts (`/api/blogs/{id}/related`)
 - **Learn/Tutorials** — Multi-subject tutorial platform with chapters, subject thumbnails, markdown content rendering with Mermaid diagram support. Subjects auto-synced from `tutorial/` directory
 - **Expo** — Portfolio/project showcase with App and Code buttons (optional URLs, hidden when not provided). Detailed product pages via markdown in `products/` directory
-- **Admin** — JWT-authenticated password-protected panel with file-based rate limiting (5 attempts per 15 minutes per IP), one-click blog sync from markdown files (upserts + marks deleted files), one-click learn/tutorial sync from `tutorial/` directory (subjects + chapters)
-- **UI/UX** — Dark/light theme toggle, scroll-shrink toolbar animation, lazy image loading with skeleton placeholders, skeleton loading cards, responsive mobile sidebar navigation, custom 404 page
-- **Performance** — Code-splitting via `React.lazy()` + `Suspense` (each page loads as its own chunk), vendor-split PrimeReact into a separate cacheable chunk, lazy-loaded mobile sidebar, below-fold chunking, gzip compression
+- **Admin** — JWT-authenticated password-protected panel with file-based rate limiting (5 attempts per 15 minutes per IP), one-click blog sync from markdown files (upserts + marks deleted files), one-click learn/tutorial sync from `tutorial/` directory (subjects + chapters), analytics dashboard (Recharts daily views/likes charts, country breakdown, top blogs, summary cards; per-blog filter via `POST /api/admin/analytics`)
+- **UI/UX** — Ant Design components + Tailwind utilities, persisted dark/light theme via `ThemeContext`/`ThemeWrapper` (follows `prefers-color-scheme`, saved to `localStorage`), scroll-shrink toolbar animation, lazy image loading with skeleton placeholders, skeleton loading cards, responsive mobile sidebar navigation (Drawer), custom 404 page
+- **Performance** — Code-splitting via `React.lazy()` + `Suspense` (each page loads as its own chunk), vendor-split chunks (`vendor-antd` incl. `@ant-design/icons` kept as one chunk to avoid a load-time cycle, `vendor-react`, `vendor-highlight`, `vendor-charts`), lazy-loaded mobile sidebar, below-fold chunking, gzip compression
 - **SEO** — Per-URL server-rendered `<head>` via `api/public/page.php`: unique title, description, canonical URL, Open Graph/Twitter cards, and JSON-LD (`Person`, `BlogPosting`, `LearningResource`, `Product`) served even to crawlers that don't execute JavaScript. Dynamic XML sitemap (auto-includes blog entries, learn subjects/chapters, products), `noindex` on the admin panel and 404 pages
 
 ## API Endpoints
@@ -250,6 +254,7 @@ Create a **production** environment in your repo settings with:
 | GET    | `/api/blogs/{id}/stats`           | Views, likes, liked status               |
 | POST   | `/api/blogs/{id}/view`            | Record a view                            |
 | POST   | `/api/blogs/{id}/like`            | Toggle like                              |
+| GET    | `/api/blogs/{id}/related`         | Tag-overlap related posts ("Also read"), random fallback |
 | GET    | `/api/blogs/images/{name}`        | Blog image asset                         |
 | GET    | `/api/learn/subjects`             | List tutorial subjects                   |
 | GET    | `/api/learn/subjects/{id}/chapters` | List chapters for a subject            |
@@ -260,6 +265,7 @@ Create a **production** environment in your repo settings with:
 | POST   | `/api/admin/login`                | Admin authentication (JWT)               |
 | POST   | `/api/admin/sync-blogs`           | Sync blog markdown files to DB           |
 | POST   | `/api/admin/sync-learn`           | Sync tutorial markdown files to DB       |
+| POST   | `/api/admin/analytics`            | Blog analytics (views/likes by date & country, top blogs; optional `blog_id` filter) |
 
 ---
 
@@ -308,7 +314,7 @@ These files contain your personal data and must be updated manually:
 | File | What to edit |
 |---|---|
 | `ui/src/data/profile.ts` | GitHub username, social links, email, timezone (used by footer too) |
-| `ui/src/data/settings.ts` | Feature toggles — `showExpo`, `showBlogs`, `showTutorial` (set `false` to hide from toolbar + routes) |
+| `ui/src/data/settings.ts` | Feature toggles — `showExpo`, `showBlogs`, `showTutorial` (set `false` to hide from toolbar + routes), `themeColor` accent |
 | `ui/src/data/skills.ts` | Skills list |
 | `ui/src/data/work.ts` | Work experience / job history |
 | `ui/src/data/expo.ts` | Portfolio projects (name, description, URLs) |
@@ -347,7 +353,7 @@ These files contain your personal data and must be updated manually:
 
 This work wouldn't be possible without the hard work of following repos' amazing owners.
 
-- [`@primefaces/primereact`](https://github.com/primefaces/primereact)
+- [`@ant-design/ant-design`](https://github.com/ant-design/ant-design)
 - [`@said7388/github-portfolio`](https://github.com/said7388/github-portfolio)
 - [`@vn7n24fzkq/github-profile-summary-cards`](https://github.com/vn7n24fzkq/github-profile-summary-cards)
 - [`@anuraghazra/github-readme-stats`](https://github.com/anuraghazra/github-readme-stats)
