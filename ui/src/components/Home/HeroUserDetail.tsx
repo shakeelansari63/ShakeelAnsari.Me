@@ -1,88 +1,78 @@
-import { Card } from "primereact/card";
-import { Button } from "primereact/button";
-import LazyImage from "../shared/LazyImage";
-import type { GitProfile } from "../../models/types";
-import { userData } from "../../data/profile";
+import { Card, Button } from 'antd';
+import { GithubOutlined, MailOutlined, LinkedinOutlined, TwitterOutlined, CheckCircleOutlined } from '@ant-design/icons';
+import LazyImage from '../shared/LazyImage';
+import type { GitProfile } from '../../models/types';
+import { userData } from '../../data/profile';
+import { settings } from '../../data/settings';
 
 interface Props {
-    profile: GitProfile | null;
+  profile: GitProfile | null;
 }
 
 export default function HeroUserDetail({ profile }: Props) {
-    const footer = (
-        <div className="flex flex-column align-items-center">
-            <div className="flex align-items-center justify-content-center flex-wrap gap-3">
-                <a href={userData.github} target="_blank" title="GitHub">
-                    <Button
-                        icon="pi pi-github"
-                        text
-                        rounded
-                        severity="secondary"
-                        className="text-xl text-pink-500"
-                        style={{ outline: "none", boxShadow: "none" }}
-                    />
-                </a>
-                <a href={userData.email} title="Email">
-                    <Button
-                        icon="pi pi-envelope"
-                        text
-                        rounded
-                        severity="secondary"
-                        className="text-xl text-pink-500"
-                        style={{ outline: "none", boxShadow: "none" }}
-                    />
-                </a>
-                <a href={userData.linkedIn} target="_blank" title="LinkedIn">
-                    <Button
-                        icon="pi pi-linkedin"
-                        text
-                        rounded
-                        severity="secondary"
-                        className="text-xl text-pink-500"
-                        style={{ outline: "none", boxShadow: "none" }}
-                    />
-                </a>
-                <a href={userData.twitter} target="_blank" title="Twitter">
-                    <Button
-                        icon="pi pi-twitter"
-                        text
-                        rounded
-                        severity="secondary"
-                        className="text-xl text-pink-500"
-                        style={{ outline: "none", boxShadow: "none" }}
-                    />
-                </a>
-            </div>
-            <div className="mt-3">
-                <Button
-                    label="Check my badges"
-                    icon="pi pi-verified"
-                    rounded
-                    className="border-gradient-purple text-white"
-                    onClick={() => window.open(userData.badges, "_blank")}
-                    style={{ outline: "none", boxShadow: "none" }}
-                />
-            </div>
-        </div>
-    );
+  const socialLinks = [
+    { href: userData.github, icon: <GithubOutlined />, label: 'GitHub' },
+    { href: userData.email, icon: <MailOutlined />, label: 'Email' },
+    { href: userData.linkedIn, icon: <LinkedinOutlined />, label: 'LinkedIn' },
+    { href: userData.twitter, icon: <TwitterOutlined />, label: 'Twitter' },
+  ];
 
-    return (
-        <Card footer={footer} className="h-full">
-            <div className="flex flex-column align-items-center p-3">
-                <LazyImage
-                    src={profile?.avatar_url ?? ""}
-                    alt="Avatar"
-                    maxWidth={180}
-                    maxHeight={180}
-                    aspectRatio="1 / 1"
-                    rounded
-                />
-                <div className="flex align-items-center justify-content-center mb-2 text-center">
-                    <span className="text-orange-300 text-lg">
-                        {profile?.bio ? `⚡${profile.bio}⚡` : ""}
-                    </span>
-                </div>
-            </div>
-        </Card>
-    );
+  return (
+    <Card
+      className="h-full glow-card"
+      style={{
+        borderRadius: 12,
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
+        transition: 'box-shadow 0.3s',
+      }}
+    >
+      <div className="flex flex-col items-center p-2 text-center">
+        <LazyImage
+          src={profile?.avatar_url ?? ''}
+          alt="Avatar"
+          maxWidth={180}
+          maxHeight={180}
+          aspectRatio="1 / 1"
+          rounded
+        />
+        {profile?.bio && (
+          <div className="mt-2" style={{ color: 'var(--ant-color-text-secondary)', fontSize: '1.2rem', lineHeight: 1.5, textAlign: 'center' }}>
+            ⚡{profile.bio}⚡
+          </div>
+        )}
+        <div className="mt-1 flex flex-wrap w-full px-12" style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', gap: 20, marginTop: 28, marginBottom: 12 }}>
+          {socialLinks.map((link, index) => (
+            <a
+              key={index}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              title={link.label}
+              className="social-link"
+              style={{ color: settings.themeColor, padding: '4px 8px' }}
+            >
+              <span style={{ fontSize: '1.15rem' }}>{link.icon}</span>
+            </a>
+          ))}
+        </div>
+        <div className="mt-1" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+          <Button
+            type="primary"
+            icon={<CheckCircleOutlined />}
+            shape="round"
+            className="gradient-btn"
+            onClick={() => window.open(userData.badges, '_blank')}
+            style={{
+              background: `linear-gradient(135deg, ${settings.themeColor} 0%, #743ad5 100%)`,
+              border: 'none',
+              color: '#fff',
+              fontWeight: 500,
+            }}
+          >
+            Check my badges
+          </Button>
+        </div>
+      </div>
+    </Card>
+  );
 }

@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Button } from 'primereact/button';
+import { Button } from 'antd';
+import { UpOutlined } from '@ant-design/icons';
+import { settings } from '../../data/settings';
 
 export default function ScrollToTop() {
   const { pathname } = useLocation();
@@ -22,18 +24,21 @@ export default function ScrollToTop() {
 
   return (
     <Button
-      icon="pi pi-chevron-up"
-      rounded
-      severity="secondary"
+      type="primary"
+      shape="circle"
+      icon={<UpOutlined style={{ color: '#fff' }} />}
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      className="gradient-btn"
       style={{
         position: 'fixed',
-        bottom: '1.5rem',
-        right: '1.5rem',
+        bottom: 24,
+        right: 24,
         zIndex: 1100,
-        outline: 'none',
-        boxShadow: 'none',
+        background: `linear-gradient(135deg, ${settings.themeColor} 0%, #743ad5 100%)`,
+        border: 'none',
+        color: '#fff',
       }}
+      aria-label="Scroll to top"
     />
   );
 }

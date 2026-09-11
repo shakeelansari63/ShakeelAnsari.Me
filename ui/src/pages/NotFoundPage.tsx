@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
-import { Button } from 'primereact/button';
+import { Button, Result } from 'antd';
+import { HomeOutlined } from '@ant-design/icons';
 import ToolBar from '../components/shared/ToolBar';
 import { seo } from '../data/seo';
 
@@ -15,17 +16,17 @@ export default function NotFoundPage() {
         <meta name="robots" content="noindex, follow" />
       </Helmet>
       <ToolBar />
-      <div className="app-container flex flex-column align-items-center justify-content-center" style={{ minHeight: '60vh' }}>
-        <h1 className="text-pink-500 text-6xl font-bold m-0">404</h1>
-        <p className="text-gray-400 text-xl mt-3 mb-4">Page not found</p>
-        <Button
-          label="Go Home"
-          icon="pi pi-home"
-          text
-          severity="secondary"
-          className="text-pink-500"
-          onClick={() => navigate('/')}
-          style={{ outline: 'none', boxShadow: 'none' }}
+      <div className="app-container" style={{ minHeight: '60vh' }}>
+        <Result
+          status="404"
+          title="404"
+          subTitle="Page not found"
+          extra={
+            <Button type="primary" icon={<HomeOutlined />} onClick={() => navigate('/')}>
+              Go Home
+            </Button>
+          }
+          style={{ textAlign: 'center' }}
         />
       </div>
     </>

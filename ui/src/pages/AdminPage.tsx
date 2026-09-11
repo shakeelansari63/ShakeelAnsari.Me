@@ -1,13 +1,11 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { InputText } from 'primereact/inputtext';
-import { Password } from 'primereact/password';
-import { Button } from 'primereact/button';
-import { Card } from 'primereact/card';
-import { Toast } from 'primereact/toast';
+import { Input, Button, Card, message } from 'antd';
+import { LockOutlined, UserOutlined, LogoutOutlined, SyncOutlined } from '@ant-design/icons';
 import ToolBar from '../components/shared/ToolBar';
 import AnalyticsDashboard from '../components/Admin/AnalyticsDashboard';
 import { seo } from '../data/seo';
+import { settings } from '../data/settings';
 
 export default function AdminPage() {
   const [username, setUsername] = useState('');
@@ -17,7 +15,6 @@ export default function AdminPage() {
   const [syncing, setSyncing] = useState(false);
   const [syncingLearn, setSyncingLearn] = useState(false);
   const [token, setToken] = useState(() => localStorage.getItem('admin_token'));
-  const toast = useRef<Toast>(null);
 
   const handleLogin = async () => {
     setError('');
@@ -35,8 +32,10 @@ export default function AdminPage() {
       }
       localStorage.setItem('admin_token', data.token);
       setToken(data.token);
+      message.success('Logged in successfully');
     } catch {
       setError('Network error');
+      message.error('Network error');
     } finally {
       setLoading(false);
     }
@@ -45,6 +44,7 @@ export default function AdminPage() {
   const handleLogout = () => {
     localStorage.removeItem('admin_token');
     setToken(null);
+    message.success('Logged out');
   };
 
   const handleSync = async () => {
@@ -60,18 +60,13 @@ export default function AdminPage() {
       if (res.status === 401) {
         localStorage.removeItem('admin_token');
         setToken(null);
-        toast.current?.show({ severity: 'warn', summary: 'Session Expired', detail: 'Please log in again', life: 5000 });
+        message.warning('Session expired. Please log in again.');
         return;
       }
       const data = await res.json();
-      toast.current?.show({
-        severity: res.ok ? 'success' : 'error',
-        summary: res.ok ? 'Synced' : 'Error',
-        detail: data.message || data.error || 'Unknown error',
-        life: 3000,
-      });
+      message[res.ok ? 'success' : 'error'](data.message || data.error || (res.ok ? 'Synced' : 'Error'));
     } catch {
-      toast.current?.show({ severity: 'error', summary: 'Error', detail: 'Network error', life: 3000 });
+      message.error('Network error');
     } finally {
       setSyncing(false);
     }
@@ -90,18 +85,13 @@ export default function AdminPage() {
       if (res.status === 401) {
         localStorage.removeItem('admin_token');
         setToken(null);
-        toast.current?.show({ severity: 'warn', summary: 'Session Expired', detail: 'Please log in again', life: 5000 });
+        message.warning('Session expired. Please log in again.');
         return;
       }
       const data = await res.json();
-      toast.current?.show({
-        severity: res.ok ? 'success' : 'error',
-        summary: res.ok ? 'Synced' : 'Error',
-        detail: data.message || data.error || 'Unknown error',
-        life: 3000,
-      });
+      message[res.ok ? 'success' : 'error'](data.message || data.error || (res.ok ? 'Synced' : 'Error'));
     } catch {
-      toast.current?.show({ severity: 'error', summary: 'Error', detail: 'Network error', life: 3000 });
+      message.error('Network error');
     } finally {
       setSyncingLearn(false);
     }
@@ -115,30 +105,37 @@ export default function AdminPage() {
           <meta name="robots" content="noindex, nofollow" />
         </Helmet>
         <ToolBar />
-        <Toast ref={toast} />
         <div className="app-container">
-          <div className="flex align-items-center justify-content-between mt-4 mb-4">
-            <h1 className="text-white text-3xl font-bold m-0">Admin</h1>
-            <Button label="Logout" icon="pi pi-sign-out" text severity="secondary" className="text-pink-500" onClick={handleLogout} style={{ outline: 'none', boxShadow: 'none' }} />
+          <div className="flex items-center justify-between mt-4 mb-6">
+            <h1 className="text-3xl font-bold m-0" style={{ color: 'var(--ant-color-text)' }}>Admin</h1>
+            <Button type="text" icon={<LogoutOutlined />} onClick={handleLogout} danger>
+              Logout
+            </Button>
           </div>
-          <Card className="mb-3">
-            <p className="text-gray-400 m-0">Welcome to the admin panel.</p>
+          <Card style={{ marginBottom: 16, borderRadius: 12 }}>
+            <p className="m-0" style={{ color: 'var(--ant-color-text-secondary)' }}>Welcome to the admin panel.</p>
           </Card>
-          <Card className="mb-3">
-            <div className="flex align-items-center justify-content-between">
-              <span className="text-gray-400">Sync blog metadata from markdown files</span>
-              <Button label="Sync Blogs" icon="pi pi-refresh" loading={syncing} onClick={handleSync} style={{ outline: 'none', boxShadow: 'none' }} />
+          <Card style={{ marginBottom: 16, borderRadius: 12 }}>
+            <div className="flex items-center justify-between">
+              <span style={{ color: 'var(--ant-color-text-secondary)' }}>Sync blog metadata from markdown files</span>
+              <Button icon={<SyncOutlined />} loading={syncing} onClick={handleSync}>
+                Sync Blogs
+              </Button>
             </div>
           </Card>
-          <Card>
-            <div className="flex align-items-center justify-content-between">
-              <span className="text-gray-400">Sync learning subjects and chapters from markdown files</span>
-              <Button label="Sync Learning" icon="pi pi-refresh" loading={syncingLearn} onClick={handleSyncLearn} style={{ outline: 'none', boxShadow: 'none' }} />
+          <Card style={{ marginBottom: 16, borderRadius: 12 }}>
+            <div className="flex items-center justify-between">
+              <span style={{ color: 'var(--ant-color-text-secondary)' }}>Sync learning subjects and chapters from markdown files</span>
+              <Button icon={<SyncOutlined />} loading={syncingLearn} onClick={handleSyncLearn}>
+                Sync Learning
+              </Button>
             </div>
           </Card>
 
-          <Card className="mt-3 no-hover">
-            <span className="text-gray-400 text-lg font-bold block mb-3">Blog Analytics &amp; Insights</span>
+          <Card style={{ marginTop: 16, borderRadius: 12 }}>
+            <span className="text-lg font-bold block mb-4" style={{ color: 'var(--ant-color-text)' }}>
+              Blog Analytics & Insights
+            </span>
             <AnalyticsDashboard token={token} />
           </Card>
         </div>
@@ -154,34 +151,54 @@ export default function AdminPage() {
       </Helmet>
       <ToolBar />
       <div className="app-container">
-        <div className="flex justify-content-center mt-6">
-          <Card title="Admin Login" className="w-full" style={{ maxWidth: '400px' }} pt={{ body: { className: 'p-3' } }}>
-            <div className="flex flex-column gap-3">
+        <div className="flex justify-center mt-12">
+          <Card title="Admin Login" style={{ maxWidth: 400, width: '100%', borderRadius: 12 }}>
+            <div className="space-y-4">
               <div>
-                <label htmlFor="username" className="text-white block mb-1">Username</label>
-                <InputText
+                <label htmlFor="username" className="block mb-1" style={{ color: 'var(--ant-color-text)' }}>
+                  Username
+                </label>
+                <Input
                   id="username"
+                  prefix={<UserOutlined />}
                   value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  className="w-full"
-                  style={{ outline: 'none', boxShadow: 'none' }}
+                  onChange={e => setUsername(e.target.value)}
+                  style={{ width: '100%' }}
+                  onPressEnter={handleLogin}
                 />
               </div>
               <div>
-                <label htmlFor="password" className="text-white block mb-1">Password</label>
-                <Password
+                <label htmlFor="password" className="block mb-1" style={{ color: 'var(--ant-color-text)' }}>
+                  Password
+                </label>
+                <Input.Password
                   id="password"
+                  prefix={<LockOutlined />}
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  feedback={false}
-                  className="w-full"
-                  inputClassName="w-full"
-                  inputStyle={{ outline: 'none', boxShadow: 'none' }}
-                  onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
+                  onChange={e => setPassword(e.target.value)}
+                  style={{ width: '100%' }}
+                  onPressEnter={handleLogin}
                 />
               </div>
-              {error && <p className="text-pink-500 m-0">{error}</p>}
-              <Button label="Login" icon="pi pi-lock" loading={loading} onClick={handleLogin} style={{ outline: 'none', boxShadow: 'none' }} />
+              {error && <p className="m-0" style={{ color: '#ff4d4f' }}>{error}</p>}
+              <Button
+                type="primary"
+                icon={<LockOutlined />}
+                loading={loading}
+                onClick={handleLogin}
+                block
+                shape="round"
+                className="gradient-btn"
+                style={{
+                  marginTop: 8,
+                  background: `linear-gradient(135deg, ${settings.themeColor} 0%, #743ad5 100%)`,
+                  border: 'none',
+                  color: '#fff',
+                  fontWeight: 500,
+                }}
+              >
+                Login
+              </Button>
             </div>
           </Card>
         </div>

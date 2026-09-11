@@ -1,6 +1,7 @@
-import { Card } from 'primereact/card';
+import { Card, Timeline, Typography } from 'antd';
 import { userData } from '../../data/profile';
 import type { WorkRole } from '../../data/work';
+import { settings } from '../../data/settings';
 
 const monthNames = [
   'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -22,77 +23,83 @@ function companyDateRange(roles: WorkRole[]) {
 }
 
 export default function WorkSection() {
-  return (
-    <div className="grid">
-      {userData.work.map((job, i) => {
-        const range = companyDateRange(job.roles);
-        return (
-          <div key={i} className="col-12">
-            <Card className="h-full">
-              <div className="flex align-items-start gap-3">
-                <div className="flex flex-column align-items-center" style={{ minWidth: '2px' }}>
+  const { Text } = Typography;
+  const items = userData.work.map((job) => {
+    const range = companyDateRange(job.roles);
+    const rangeLabel = range.start ? formatDate(range.start) + (range.end ? ` — ${formatDate(range.end)}` : ' — Present') : '';
+    return {
+      dot: (
+        <div
+          style={{
+            width: 14,
+            height: 14,
+            borderRadius: '50%',
+            background: `linear-gradient(135deg, ${settings.themeColor}, #743ad5)`,
+            boxShadow: '0 0 0 3px var(--ant-color-bg-container)',
+          }}
+        />
+      ),
+      children: (
+        <Card className="glow-card" style={{ borderRadius: 10, width: '100%' }}>
+          <Typography.Title level={5} style={{ color: settings.themeColor, marginBottom: 4 }}>
+            {job.company}
+          </Typography.Title>
+          {rangeLabel && (
+            <Text type="secondary" style={{ display: 'block', fontSize: '0.75rem', marginBottom: 8 }}>
+              {rangeLabel}
+            </Text>
+          )}
+          <div style={{ marginLeft: 8 }}>
+            {job.roles.map((role, j) => (
+              <div key={j} style={{ marginBottom: j < job.roles.length - 1 ? 16 : 0 }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
                   <div
                     style={{
-                      width: '14px',
-                      height: '14px',
+                      width: 8,
+                      height: 8,
                       borderRadius: '50%',
-                      background: 'linear-gradient(135deg, #d53a9d, #743ad5)',
-                      marginTop: '6px',
+                      background: settings.themeColor,
                       flexShrink: 0,
+                      marginTop: 5,
                     }}
                   />
-                  {i < userData.work.length - 1 && (
-                    <div style={{ width: '2px', flex: 1, background: 'linear-gradient(to bottom, #d53a9d, #271250)', minHeight: '24px' }} />
-                  )}
-                </div>
-                <div className="flex-1" style={{ marginTop: '-2px' }}>
-                  <div className="flex flex-column md:flex-row md:align-items-center md:justify-content-between gap-1 mb-2">
-                    <span className="font-bold text-lg text-pink-400">{job.company}</span>
-                    <span className="text-sm" style={{ color: '#888' }}>
-                      {range.start ? formatDate(range.start) : ''}
-                      {range.start ? (range.end ? ` — ${formatDate(range.end)}` : ' — Present') : ''}
-                    </span>
-                  </div>
-                  <div className="flex flex-column gap-3 ml-1">
-                    {job.roles.map((role, j) => (
-                      <div key={j}>
-                        <div className="flex align-items-start gap-2">
-                          <div
-                            style={{
-                              width: '8px',
-                              height: '8px',
-                              borderRadius: '50%',
-                              background: '#d53a9d',
-                              marginTop: '6px',
-                              flexShrink: 0,
-                            }}
-                          />
-                          <div className="flex-1">
-                            <div className="flex flex-wrap align-items-center gap-2">
-                              <span className="text-sm" style={{ color: '#ccc' }}>{role.title}</span>
-                              {role.startDate && (
-                                <span className="text-xs" style={{ color: '#666' }}>
-                                  {formatDate(role.startDate)}
-                                  {role.endDate ? ` — ${formatDate(role.endDate)}` : ' — Present'}
-                                </span>
-                              )}
-                            </div>
-                            {role.description && (
-                              <p className="text-sm text-blue-400 mt-1 mb-0" style={{ fontFamily: '"Space Grotesk", sans-serif' }}>
-                                {role.description}
-                              </p>
-                            )}
-                          </div>
-                        </div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+                      <Text type="secondary" style={{ fontSize: '0.875rem', fontWeight: 500, color: settings.themeColor }}>
+                        {role.title}
+                      </Text>
+                      {role.startDate && (
+                        <Text style={{ fontSize: '0.75rem', color: '#9ca3af', whiteSpace: 'nowrap', marginLeft: 'auto' }}>
+                          {formatDate(role.startDate)}
+                          {role.endDate ? ` — ${formatDate(role.endDate)}` : ' — Present'}
+                        </Text>
+                      )}
+                    </div>
+                    {role.description && (
+                      <div
+                        style={{
+                          marginTop: 8,
+                          fontFamily: "'Space Grotesk', sans-serif",
+                          fontSize: '0.875rem',
+                          color: 'var(--ant-color-text-secondary)',
+                        }}
+                      >
+                        {role.description}
                       </div>
-                    ))}
+                    )}
                   </div>
                 </div>
               </div>
-            </Card>
+            ))}
           </div>
-        );
-      })}
+        </Card>
+      ),
+    };
+  });
+
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', width: '100%', maxWidth: 900, margin: '0 auto' }}>
+      <Timeline pending={false} items={items} style={{ width: '100%' }} />
     </div>
   );
 }

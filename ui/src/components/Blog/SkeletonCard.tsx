@@ -1,25 +1,13 @@
-import { Card } from 'primereact/card';
-import { Skeleton } from 'primereact/skeleton';
+import { Card, Skeleton } from 'antd';
 
 export default function SkeletonCard() {
   return (
-    <div className="col-12">
-      <Card>
-        <div className="flex flex-column md:flex-row gap-3">
-          <div className="w-full md:w-16rem">
-            <Skeleton width="100%" height="8rem" borderRadius="6px" />
-          </div>
-          <div className="flex flex-column flex-1">
-            <Skeleton width="75%" height="1.5rem" className="mb-2" />
-            <Skeleton width="33%" height="0.875rem" className="mb-2" />
-            <Skeleton width="100%" height="0.875rem" className="mb-1" />
-            <Skeleton width="85%" height="0.875rem" className="mb-3" />
-            <div className="flex gap-2">
-              <Skeleton width="4rem" height="1.5rem" borderRadius="16px" />
-              <Skeleton width="5rem" height="1.5rem" borderRadius="16px" />
-              <Skeleton width="3.5rem" height="1.5rem" borderRadius="16px" />
-            </div>
-          </div>
+    <div style={{ width: '100%' }}>
+      <Card style={{ height: '100%', borderRadius: 12 }}>
+        <Skeleton active avatar={{ size: 'large', shape: 'square' }} title={{ width: '70%' }} paragraph={{ rows: 3, width: ['80%', '60%', '100%'] }} />
+        <div className="mt-3 flex items-center justify-end gap-2" style={{ color: 'var(--ant-color-text-tertiary)' }}>
+          <Skeleton active style={{ width: 60, height: 16, borderRadius: 4 }} />
+          <Skeleton active style={{ width: 60, height: 16, borderRadius: 4 }} />
         </div>
       </Card>
     </div>

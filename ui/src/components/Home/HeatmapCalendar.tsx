@@ -61,7 +61,7 @@ export default function HeatmapCalendar({ dates, startDate, endDate, classForVal
   function generateCell(index: number): CellData {
     const adjustedIndex = index - emptyDays;
     const currentDate = new Date(normStart.getTime() + adjustedIndex * MILISECONDS_IN_DAY);
-    const matched = dates.find((d) => convertToDate(d.date).getTime() === currentDate.getTime());
+    const matched = dates.find(d => convertToDate(d.date).getTime() === currentDate.getTime());
     const value = matched ? matched.value : null;
     return {
       date: currentDate,
@@ -82,8 +82,32 @@ export default function HeatmapCalendar({ dates, startDate, endDate, classForVal
     return d.toLocaleDateString('en-US', { month: 'short' });
   }
 
+  // Color values matching GitHub contribution graph (light/dark theme compatible)
+  const colors = {
+    'fill-value-0': 'var(--ant-color-bg-container)',
+    'fill-value-1': '#0e4429',
+    'fill-value-2': '#006d32',
+    'fill-value-3': '#26a641',
+    'fill-value-4': '#39d353',
+  };
+
   return (
-    <svg viewBox={`0 0 ${width} ${height}`} width="100%" style={{ maxWidth: `${width}px`, height: 'auto' }}>
+    <svg viewBox={`0 0 ${width} ${height}`} width="100%" style={{ maxWidth: '100%', height: 'auto', overflow: 'visible', display: 'block', margin: '0 auto' }}>
+      <defs>
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            .fill-current { fill: currentColor; }
+            .text-small { font-size: 9px; }
+            .text-month { font-size: 11px; }
+            .fill-value-0 { fill: ${colors['fill-value-0']}; }
+            .fill-value-1 { fill: ${colors['fill-value-1']}; }
+            .fill-value-2 { fill: ${colors['fill-value-2']}; }
+            .fill-value-3 { fill: ${colors['fill-value-3']}; }
+            .fill-value-4 { fill: ${colors['fill-value-4']}; }
+          `
+        }} />
+      </defs>
+
       {Array.from({ length: weeks }, (_, weekIdx) => {
         const label = getMonthLabel(weekIdx);
         return label ? (
@@ -94,7 +118,7 @@ export default function HeatmapCalendar({ dates, startDate, endDate, classForVal
             dominantBaseline="central"
             textAnchor="start"
             className="fill-current text-month"
-            style={{ alignmentBaseline: 'text-before-edge' }}
+            style={{ alignmentBaseline: 'text-before-edge', color: 'var(--ant-color-text-tertiary)' }}
           >
             {label}
           </text>
@@ -126,11 +150,11 @@ export default function HeatmapCalendar({ dates, startDate, endDate, classForVal
           <text
             key={`day-${i}`}
             x={0}
-            y={i * (RECT_SIZE + GAP) + HEIGHT_LABEL}
-            dominantBaseline="central"
-            textAnchor="start"
+            y={i * (RECT_SIZE + GAP) + HEIGHT_LABEL + RECT_SIZE / 2}
+            dominantBaseline="middle"
+            textAnchor="end"
             className="fill-current text-small"
-            style={{ alignmentBaseline: 'text-before-edge' }}
+            style={{ alignmentBaseline: 'text-before-edge', color: 'var(--ant-color-text-tertiary)' }}
           >
             {label}
           </text>

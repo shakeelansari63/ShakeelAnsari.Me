@@ -1,42 +1,52 @@
-import { Chip } from 'primereact/chip';
-import { Button } from 'primereact/button';
+import { Tag, Button, Space } from 'antd';
+import { HeartOutlined, HeartFilled, ShareAltOutlined, EyeOutlined } from '@ant-design/icons';
 import type { BlogPost } from '../../models/types';
+import { settings } from '../../data/settings';
 
 interface Props {
   post: BlogPost;
-  isLight?: boolean;
   stats: { views: number; likes: number; liked?: boolean };
   liking?: boolean;
   onLike?: () => void;
 }
 
-export default function ArticleHeader({ post, isLight, stats, liking, onLike }: Props) {
+const tagStyle = {
+  backgroundColor: `${settings.themeColor}1a`,
+  borderColor: `${settings.themeColor}4d`,
+  color: settings.themeColor,
+  fontSize: '0.75rem',
+};
+
+export default function ArticleHeader({ post, stats, liking, onLike }: Props) {
   return (
     <>
-      <h1 className={`text-2xl md:text-3xl font-bold mb-2 ${isLight ? 'text-pink-600' : 'text-pink-400'}`}>{post.title}</h1>
-      <div className={`flex flex-column sm:flex-row align-items-start sm:align-items-center justify-content-between mb-3 text-sm md:text-base gap-1 sm:gap-0 ${isLight ? 'text-gray-500' : 'text-gray-400'}`}>
-        <div className="flex align-items-center gap-2">
+      <h1 className="text-2xl md:text-3xl font-bold mb-2" style={{ color: 'var(--ant-color-text)' }}>
+        {post.title}
+      </h1>
+      <div className="article-meta" style={{ color: 'var(--ant-color-text-secondary)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <span>{post.date}</span>
-          <span>&middot;</span>
+          <span>·</span>
           <span>{post.readTime}</span>
         </div>
-        <div className="flex align-items-center gap-2">
-          <span><i className="pi pi-eye mr-1" />{stats.views}</span>
+        <div className="article-meta-stats">
+          <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+            <EyeOutlined />
+            {stats.views}
+          </span>
           <Button
-            text
-            severity="secondary"
-            className={`p-0 ${isLight ? '' : 'text-pink-500'}`}
-            icon={stats.liked ? 'pi pi-heart-fill' : 'pi pi-heart'}
-            label={String(stats.likes)}
+            type="text"
+            icon={stats.liked ? <HeartFilled style={{ color: '#ff4d4f' }} /> : <HeartOutlined />}
             loading={liking}
             onClick={onLike}
-            style={{ outline: 'none', boxShadow: 'none', color: isLight ? '#d53a9d' : undefined }}
-          />
+            danger={stats.liked}
+            style={{ padding: '0 8px', fontSize: '0.875rem', color: settings.themeColor }}
+          >
+            {stats.likes}
+          </Button>
           <Button
-            text
-            severity="secondary"
-            className={`p-0 ${isLight ? '' : 'text-pink-500'}`}
-            icon="pi pi-share-alt"
+            type="text"
+            icon={<ShareAltOutlined />}
             onClick={() => {
               const url = window.location.href;
               if (navigator.share) {
@@ -47,17 +57,19 @@ export default function ArticleHeader({ post, isLight, stats, liking, onLike }: 
                 navigator.clipboard.writeText(url);
               }
             }}
-            tooltip="Share"
-            tooltipOptions={{ position: 'top' }}
-            style={{ outline: 'none', boxShadow: 'none', color: isLight ? '#d53a9d' : undefined }}
-          />
+            style={{ padding: '0 8px', color: settings.themeColor }}
+          >
+            Share
+          </Button>
         </div>
       </div>
-      <div className="flex gap-2 flex-wrap mb-4">
-        {post.tags.map((tag) => (
-          <Chip key={tag} label={tag} className="text-sm" />
+      <Space wrap size={[8, 4]} className="mb-6" style={{ marginBottom: 32, display: 'flex' }}>
+        {post.tags.map(tag => (
+          <Tag key={tag} style={tagStyle}>
+            {tag}
+          </Tag>
         ))}
-      </div>
+      </Space>
     </>
   );
 }

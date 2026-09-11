@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
-import { Helmet } from "react-helmet-async";
-import { useParams, useNavigate } from "react-router-dom";
-import { Button } from "primereact/button";
-import { Skeleton } from "primereact/skeleton";
-import ToolBar from "../components/shared/ToolBar";
-import MarkdownRenderer from "../components/shared/MarkdownRenderer";
-import PageFooter from "../components/shared/PageFooter";
-import { fetchChapterContent } from "../services/api";
-import { seo } from "../data/seo";
-import { buildSubjectTitle } from "../services/helper";
+import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Button, Skeleton } from 'antd';
+import { LeftOutlined } from '@ant-design/icons';
+import ToolBar from '../components/shared/ToolBar';
+import MarkdownRenderer from '../components/shared/MarkdownRenderer';
+import PageFooter from '../components/shared/PageFooter';
+import { fetchChapterContent } from '../services/api';
+import { seo } from '../data/seo';
+import { buildSubjectTitle } from '../services/helper';
 
 export default function ChapterReaderPage() {
   const { subjectId, chapterId } = useParams<{
@@ -16,16 +16,15 @@ export default function ChapterReaderPage() {
     chapterId: string;
   }>();
   const navigate = useNavigate();
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
-  const [isLight, setIsLight] = useState(false);
 
   useEffect(() => {
     if (subjectId && chapterId) {
       fetchChapterContent(subjectId, chapterId)
-        .then((data) => {
+        .then(data => {
           if (data) {
             const subjectTitle = buildSubjectTitle(subjectId);
             setTitle(`${data.title} — ${subjectTitle}`);
@@ -48,58 +47,43 @@ export default function ChapterReaderPage() {
         <meta property="og:title" content={metaTitle} />
         <meta property="og:url" content={`https://${seo.domain}/learn/${subjectId}/${chapterId}`} />
       </Helmet>
-      <ToolBar
-        isLight={isLight}
-        onToggleTheme={() => setIsLight((p) => !p)}
-      />
-      <div
-        style={{
-          minHeight: "100vh",
-          background: isLight ? "#f5f5f5" : "transparent",
-          color: isLight ? "#1a1a2e" : "inherit",
-        }}
-      >
-        <div className="app-container">
-          <div className="mb-3">
-            <Button
-              icon="pi pi-arrow-left"
-              label="Back"
-              text
-              severity="secondary"
-              className="text-pink-500"
-              onClick={() => navigate(`/learn/${subjectId}`)}
-              style={{ outline: "none", boxShadow: "none" }}
-            />
-          </div>
-
-          {loading ? (
-            <div className="flex flex-column gap-3">
-              <Skeleton width="60%" height="2rem" />
-              <Skeleton width="100%" height="1rem" className="mb-2" />
-              <Skeleton width="100%" height="1rem" className="mb-2" />
-              <Skeleton width="75%" height="1rem" />
-            </div>
-          ) : notFound ? (
-            <div className="text-center mt-8">
-              <h2 className={isLight ? "text-gray-800" : "text-white"}>Chapter not found</h2>
-              <Button
-                label="Back to Subject"
-                text
-                severity="secondary"
-                className="text-pink-500"
-                onClick={() => navigate(`/learn/${subjectId}`)}
-              />
-            </div>
-          ) : (
-            <article>
-              <h1 className="text-2xl md:text-3xl font-bold mb-6 text-pink-400">
-                {title}
-              </h1>
-              <MarkdownRenderer content={content} isLight={isLight} />
-              <PageFooter isLight={isLight} />
-            </article>
-          )}
+      <ToolBar />
+      <div className="app-container">
+        <div className="mb-6">
+          <Button
+            type="text"
+            icon={<LeftOutlined />}
+            onClick={() => navigate(`/learn/${subjectId}`)}
+            style={{ color: 'var(--ant-color-primary)' }}
+          >
+            Back to Subject
+          </Button>
         </div>
+
+        {loading ? (
+          <div className="space-y-4">
+            <Skeleton active avatar paragraph={{ rows: 3 }} />
+          </div>
+        ) : notFound ? (
+          <div className="text-center py-12">
+            <h2 style={{ color: 'var(--ant-color-text)' }}>Chapter not found</h2>
+            <Button
+              type="text"
+              onClick={() => navigate(`/learn/${subjectId}`)}
+              style={{ marginTop: 16, color: 'var(--ant-color-primary)' }}
+            >
+              Back to Subject
+            </Button>
+          </div>
+        ) : (
+          <article>
+            <h1 className="text-2xl md:text-3xl font-bold mb-6" style={{ color: 'var(--ant-color-primary)' }}>
+              {title}
+            </h1>
+            <MarkdownRenderer content={content} />
+            <PageFooter />
+          </article>
+        )}
       </div>
     </>
   );

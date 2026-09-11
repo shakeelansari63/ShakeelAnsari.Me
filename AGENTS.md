@@ -18,7 +18,7 @@ The skill files contain exhaustive coding conventions and rules for each domain.
 ## 🚀 Overview & Tech Stack
 
 This project is a hybrid personal portfolio application:
-*   **Frontend (`/ui`):** Single Page Application (SPA) built with **React 18**, **TypeScript**, **Vite**, **PrimeReact**, and **PrimeFlex**.
+*   **Frontend (`/ui`):** Single Page Application (SPA) built with **React 18**, **TypeScript**, **Vite**, **Ant Design (AntD) v5**, and **Tailwind CSS v3** (Preflight disabled; AntD ships its own reset).
 *   **Backend (`/api`):** REST API built with **PHP 8.1+**, **Slim Framework 4**, naked **PDO** for database interaction, and **JWT Auth** for administration security.
 *   **Database:** **MySQL 8.0+** (Optional/Degraded mode supported).
 *   **CMS Style:** Markdown-based content files (`/blogs`, `/products`, `/tutorial`) ingested and synchronized into the MySQL DB via admin endpoints.
@@ -30,7 +30,7 @@ This project is a hybrid personal portfolio application:
 *   **Degraded Mode Awareness:** The application must remain functionally stable even if the database is disconnected (`DB_HOST` empty). Ensure UI components handle empty data or specific failure states gracefully if the API layer returns structural errors or fallbacks.
 
 ### 2. Frontend Development (`/ui`)
-*   **Styling:** Use **PrimeFlex** utilities for layouts and styling wherever possible instead of custom CSS. Use **PrimeReact** components for UI building blocks (Skeletons, Sidebars, Toggles).
+*   **Styling:** Use **Tailwind CSS** utilities for layouts and styling wherever possible instead of custom CSS. Use **Ant Design** components for UI building blocks (Skeletons, Drawers, Toggles).
 *   **Performance Constraints:** 
     *   Keep route elements wrapped in `React.lazy()` and `Suspense` inside `App.tsx`.
     *   Do not bloat the main vendor bundle; keep third-party additions separate or lazy-loaded.
@@ -57,4 +57,4 @@ This project is a hybrid personal portfolio application:
 
 1.  **Do NOT touch `[{#SEO-...#}]` strings:** The placeholders in `ui/index.html` and `api/public/sitemap.php` are heavily dependent on the CI/CD GitHub Actions pipeline. Never replace or break these placeholder formats in source files with static strings during feature refactoring.
 2.  **No Node.js Backend Code:** The backend runs entirely on native PHP. Never try to inject Express, Fastify, or Node scripts for handling API functionality.
-3.  **No Tailwind CSS:** The utility CSS layer is **PrimeFlex**. Do not mix utility systems or attempt to run Tailwind generation steps in Vite.
+3.  **No PrimeFlex / PrimeReact:** The utility CSS layer is **Tailwind CSS** (Preflight disabled) and components come from **Ant Design**. Do not mix utility systems or reintroduce PrimeFlex/PrimeReact.

@@ -1,325 +1,500 @@
 body {
-    margin: 0 !important;
-    font-family: "Space Grotesk", sans-serif;
+  margin: 0 !important;
+  font-family: 'Space Grotesk', sans-serif;
 }
 
 .bg-transparent {
-    background-color: rgba(0, 0, 0, 0) !important;
+  background-color: rgba(0, 0, 0, 0) !important;
 }
 
-.no-hover-bg.p-button.p-button-text:hover {
-    background: transparent !important;
+.app-layout {
+  padding-top: 56px;
 }
 
-.p-card {
-    background-color: #1f2023 !important;
-    transition: box-shadow 0.25s ease-in-out;
-    border: none;
+/* Offset anchor/page content below fixed toolbar so tops aren't hidden */
+.app-container {
+  padding-top: 24px;
+  scroll-margin-top: 80px;
 }
 
-.p-card:not(.no-hover):hover {
-    box-shadow:
-        -2px -2px 8px 1px #d53a9d,
-        2px 2px 8px 1px #743ad5;
+@media (max-width: 768px) {
+  .app-layout {
+    padding-top: 56px;
+  }
 }
 
-.p-card .p-card-body {
-    padding: 0;
-}
-
-.p-card .p-card-content {
-    padding: 1.25rem;
-}
-
-.p-card .p-card-footer {
-    padding: 0 1.25rem 1.25rem;
-}
-
-.p-toolbar {
-    padding: 0.75rem 1rem;
-    transition:
-        padding 0.3s ease,
-        font-size 0.3s ease;
-}
-
-html.scrolled .p-toolbar {
-    padding: 0.45rem 0.6rem !important;
-}
-
-html.scrolled .p-toolbar .text-2xl {
-    font-size: 1.1rem !important;
-    transition: font-size 0.3s ease;
-}
-
-html.scrolled .p-toolbar .p-button .p-button-label {
-    font-size: 0.75rem !important;
-    transition: font-size 0.3s ease;
-}
-
-html.scrolled .p-toolbar .p-button .p-button-icon {
-    font-size: 0.85rem !important;
-    transition: font-size 0.3s ease;
-}
-
-.border-gradient-purple {
-    border: 0;
-    position: relative;
-    overflow: hidden;
-    background:
-        linear-gradient(
-                to left,
-                rgb(116, 58, 213) 0%,
-                rgb(186, 58, 143) 70%,
-                transparent 70%,
-                transparent 85%,
-                rgb(201, 58, 128) 85%,
-                rgb(213, 58, 157) 100%
-            )
-            top/100% 2px,
-        linear-gradient(to left, #743ad5 0%, #d53a9d 100%) bottom/100% 2px;
-}
-
-.border-gradient-purple::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.2),
-        transparent
-    );
-    transition: left 0.5s ease;
-}
-
-.border-gradient-purple:hover::after {
-    left: 100%;
+@media (max-width: 600px) {
+  .app-layout {
+    padding-top: 56px;
+  }
 }
 
 .app-container {
-    margin-left: auto;
-    margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @media only screen and (max-width: 600px) {
-    .app-container {
-        max-width: 100%;
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
+  .app-container {
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 
 @media only screen and (min-width: 600px) {
-    .app-container {
-        max-width: 540px;
-    }
+  .app-container {
+    max-width: 540px;
+  }
 }
 
 @media only screen and (min-width: 768px) {
-    .app-container {
-        max-width: 700px;
-    }
+  .app-container {
+    max-width: 700px;
+  }
 }
 
 @media only screen and (min-width: 992px) {
-    .app-container {
-        max-width: 900px;
-    }
+  .app-container {
+    max-width: 900px;
+  }
 }
 
 @media only screen and (min-width: 1200px) {
-    .app-container {
-        max-width: 1120px;
-    }
+  .app-container {
+    max-width: 1120px;
+  }
 }
 
 :root {
-    --fill-value-0: #161b22;
-    --fill-value-1: #0e4429;
-    --fill-value-2: #006d32;
-    --fill-value-3: #26a641;
-    --fill-value-4: #39d353;
+  --fill-value-0: #161b22;
+  --fill-value-1: #0e4429;
+  --fill-value-2: #006d32;
+  --fill-value-3: #26a641;
+  --fill-value-4: #39d353;
 }
 
 .fill-value-0 {
-    fill: var(--fill-value-0);
+  fill: var(--fill-value-0);
 }
 
 .fill-value-1 {
-    fill: var(--fill-value-1);
+  fill: var(--fill-value-1);
 }
 
 .fill-value-2 {
-    fill: var(--fill-value-2);
+  fill: var(--fill-value-2);
 }
 
 .fill-value-3 {
-    fill: var(--fill-value-3);
+  fill: var(--fill-value-3);
 }
 
 .fill-value-4 {
-    fill: var(--fill-value-4);
+  fill: var(--fill-value-4);
 }
 
 .fill-current {
-    fill: currentColor;
-}
-
-.skill-pill {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    cursor: default;
-}
-
-.skill-pill:hover {
-    transform: scale(1.08);
-    box-shadow: 0 0 12px rgba(213, 58, 157, 0.6);
+  fill: currentColor;
 }
 
 .text-small {
-    font-size: 10px;
+  font-size: 10px;
 }
 
 .text-month {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .code-header {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 10px 12px;
-    background-color: rgba(0, 0, 0, 0.25);
-    border-radius: 6px 6px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  background-color: rgba(0, 0, 0, 0.25);
+  border-radius: 6px 6px 0 0;
 }
 
 .dot-red {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background-color: #ff5f56;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #ff5f56;
 }
 
 .dot-orange {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background-color: #ffbd2e;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #ffbd2e;
 }
 
 .dot-green {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background-color: #27c93f;
-}
-
-.blog-content ul li {
-    list-style: none;
-    position: relative;
-    padding-left: 1.25rem;
-}
-
-.blog-content ul li::before {
-    content: "•";
-    color: #d53a9d;
-    position: absolute;
-    left: 0;
-    font-weight: bold;
-}
-
-.blog-content ol li {
-    position: relative;
-    padding-left: 0.5rem; /* minimal gap between number and text */
-}
-
-.blog-content ol li::marker {
-    color: #d53a9d;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #27c93f;
 }
 
 .skeleton-image {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    overflow: hidden;
-    background: #1e1f22;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--ant-color-bg-container);
 }
 
 .skeleton-image::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        110deg,
-        transparent 30%,
-        rgba(255, 255, 255, 0.04) 50%,
-        transparent 70%
-    );
-    background-size: 200% 100%;
-    animation: skeletonSweep 1.8s ease-in-out infinite;
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.04) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  animation: skeletonSweep 1.8s ease-in-out infinite;
 }
 
 .skeleton-image-icon {
-    color: rgba(255, 255, 255, 0.08);
-    z-index: 1;
+  color: rgba(255, 255, 255, 0.08);
+  z-index: 1;
 }
 
 @keyframes skeletonSweep {
-    0% {
-        background-position: 200% 0;
-    }
-    100% {
-        background-position: -200% 0;
-    }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.blog-content ol,
+.blog-content ul {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  list-style-position: inside;
+}
+
+.blog-content li::marker {
+  color: var(--md-h3);
 }
 
 @media only screen and (max-width: 600px) {
-    .blog-content {
-        padding: 0 0.5rem;
-        font-size: 1rem;
-        line-height: 1.7 !important;
-    }
+  .blog-content {
+    padding: 0 0.5rem;
+    font-size: 1rem;
+    line-height: 1.7 !important;
+  }
 
-    .blog-content img {
-        max-width: 100% !important;
-        height: auto !important;
-    }
+  .blog-content img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
 
-    .blog-content h2 {
-        font-size: 1.25rem !important;
-    }
+  .blog-content h2 {
+    font-size: 1.25rem !important;
+  }
 
-    .blog-content h3 {
-        font-size: 1.1rem !important;
-    }
+  .blog-content h3 {
+    font-size: 1.1rem !important;
+  }
 }
 
 @media only screen and (max-width: 480px) {
-    .expo-card-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-    .expo-card-buttons .expo-btn {
-        width: 100%;
-        justify-content: center;
-    }
+  .expo-card-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  .expo-card-buttons .expo-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 .image-entrance {
-    animation: imageFadeIn 0.6s ease-out forwards;
+  animation: imageFadeIn 0.6s ease-out forwards;
 }
 
 @keyframes imageFadeIn {
-    0% {
-        opacity: 0;
-        transform: scale(0.98);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
+  0% {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Ant Design custom overrides: no lift on any card, neutral glow on hover
+   (light theme: greyish glow, dark theme: whitish glow) */
+.ant-card {
+  border-radius: 12px;
+  transition: box-shadow 0.3s;
+}
+
+.ant-card:hover {
+  transform: none;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.18), 0 0 32px rgba(0, 0, 0, 0.10);
+}
+
+[data-theme='dark'] .ant-card:hover,
+.dark .ant-card:hover {
+  transform: none;
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.28), 0 0 32px rgba(255, 255, 255, 0.12);
+}
+
+/* Expo cards: no lift animation, theme-aware neutral glow only on hover
+   (light theme: greyish glow, dark theme: whitish glow) */
+.expo-card {
+  transform: none;
+  transition: box-shadow 0.3s;
+}
+
+.expo-card:hover {
+  transform: none;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.18), 0 0 32px rgba(0, 0, 0, 0.10);
+}
+
+[data-theme='dark'] .expo-card:hover,
+.dark .expo-card:hover {
+  transform: none;
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.28), 0 0 32px rgba(255, 255, 255, 0.12);
+}
+
+/* Shared glow-on-hover, no movement (overrides global .ant-card:hover lift
+   and any inline base shadows; !important beats inline style on hover) */
+.ant-card.glow-card {
+  transform: none;
+  transition: box-shadow 0.3s;
+}
+
+.ant-card.glow-card:hover {
+  transform: none !important;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.18), 0 0 32px rgba(0, 0, 0, 0.10) !important;
+}
+
+[data-theme='dark'] .ant-card.glow-card:hover,
+.dark .ant-card.glow-card:hover {
+  transform: none !important;
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.28), 0 0 32px rgba(255, 255, 255, 0.12) !important;
+}
+
+.ant-btn-primary {
+  background: linear-gradient(135deg, var(--ant-color-primary) 0%, #743ad5 100%);
+  border: none;
+}
+
+.ant-btn-primary:hover,
+.ant-btn-primary:focus {
+  background: linear-gradient(135deg, var(--ant-color-primary-hover) 0%, #a855f7 100%);
+}
+
+/* Skeleton shimmer: use AntD's native active animation (a custom
+   .ant-skeleton-content background override would cover it and kill
+   the visible loading motion) */
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ant-color-bg-layout);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ant-color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ant-color-text-tertiary);
+}
+
+/* Focus visible styles */
+:focus-visible {
+  outline: 2px solid var(--ant-color-primary);
+  outline-offset: 2px;
+}
+
+/* Custom tag colors for blog tags */
+.ant-tag-blue {
+  background: rgba(213, 58, 157, 0.1);
+  color: var(--ant-color-primary);
+  border-color: rgba(213, 58, 157, 0.3);
+}
+
+/* Timeline customization */
+.ant-timeline {
+  width: 100%;
+}
+.ant-timeline.ant-timeline-label {
+  width: 100%;
+}
+.ant-timeline-item-tail {
+  background: linear-gradient(to bottom, var(--ant-color-primary), var(--ant-color-primary-light));
+}
+
+/* Custom dots: neutralize AntD's default head circle so only the custom
+   dot shows, with no halo from the head container */
+.ant-timeline-item-head {
+  background: transparent !important;
+  border: none;
+  box-shadow: none;
+}
+
+/* Themed list cards (Also Read, Chapters): light theme keeps pinkish tint
+   from inline style; dark theme overrides to container grey like blog cards */
+[data-theme='dark'] .themed-list-card,
+.dark .themed-list-card {
+  background: var(--ant-color-bg-container) !important;
+}
+
+/* Article header meta row: date left, stats right on one row;
+   below 576px the stats drop directly beneath the date, left-aligned */
+.article-meta {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 0.875rem;
+}
+
+.article-meta-stats {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+@media only screen and (max-width: 575px) {
+  .article-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .article-meta-stats {
+    margin-left: 0;
+  }
+}
+
+/* CSS-only hover effects (replaces onMouseEnter/onMouseLeave handlers) */
+
+/* Gradient pill buttons (Expo App, See all Projects, Check my badges) */
+.gradient-btn {
+  transition: box-shadow 0.3s, filter 0.3s;
+}
+
+.gradient-btn:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 12px rgba(213, 58, 157, 0.53);
+}
+
+/* Theme-outline pill button (Expo Details) */
+.outline-theme-btn {
+  background: transparent;
+  transition: box-shadow 0.3s, background 0.3s;
+}
+
+.outline-theme-btn:hover {
+  background: rgba(213, 58, 157, 0.08) !important;
+}
+
+/* Hero social links */
+.social-link {
+  transition: transform 0.2s, filter 0.2s;
+}
+
+.social-link:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2);
+}
+
+/* Skill tags */
+.skill-tag {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.skill-tag:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(213, 58, 157, 0.4);
+}
+
+/* Footer links */
+.footer-link {
+  transition: color 0.2s;
+}
+
+.footer-link:hover {
+  color: #d53a9b !important;
+}
+
+/* Code block copy button reveal */
+.code-block-copy {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.code-block:hover .code-block-copy {
+  opacity: 1;
+}
+
+/* Card meta styles */
+.ant-card-meta-title {
+  margin-bottom: 8px;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+}
+
+.ant-card-meta-description {
+  color: var(--ant-color-text-secondary);
+}
+
+/* Breadcrumb */
+.ant-breadcrumb {
+  margin-bottom: 16px;
+}
+
+/* Modal and Drawer */
+.ant-modal-content {
+  border-radius: 12px;
+}
+
+/* Select dropdown */
+.ant-select-dropdown {
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Tooltip */
+.ant-tooltip-inner {
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+/* Spin */
+.ant-spin-dot-item {
+  background-color: var(--ant-color-primary);
+}
+
+/* Pagination */
+.ant-pagination-item-active {
+  background-color: var(--ant-color-primary);
+  border-color: var(--ant-color-primary);
+}
+
+.ant-pagination-item-active a {
+  color: white;
 }

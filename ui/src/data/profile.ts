@@ -17,6 +17,7 @@ export const userData = {
   email: "mailto:shakeelansari63@gmail.com",
   badges: "https://credly.com/users/shakeelansari63",
   skills,
+  comment: "☕ fueled by coffee",
   timezone: "+5.5",
   work,
   expo,

@@ -1,64 +1,53 @@
-import { useNavigate } from "react-router-dom";
-import type { BlogPost } from "../../models/types";
+import { useNavigate } from 'react-router-dom';
+import { Card, Typography } from 'antd';
+import type { BlogPost } from '../../models/types';
+import { settings } from '../../data/settings';
 
 interface Props {
   posts: BlogPost[];
-  isLight?: boolean;
 }
 
-export default function AlsoReadSection({ posts, isLight }: Props) {
+export default function AlsoReadSection({ posts }: Props) {
   const navigate = useNavigate();
 
   if (posts.length === 0) return null;
 
+  const { Text } = Typography;
+
   return (
-    <div className="mt-6">
-      <h2
-        className={`text-xl font-bold mb-3 ${
-          isLight ? "text-pink-600" : "text-pink-400"
-        }`}
-      >
+    <div className="mt-10">
+      <h2 className="text-xl font-bold mb-6" style={{ color: 'var(--ant-color-primary)' }}>
         Also Read
       </h2>
-      {posts.map((post, i) => (
-        <div
-          key={post.id}
-          className={`flex flex-column gap-1 p-3 cursor-pointer ${
-            i < posts.length - 1
-              ? isLight
-                ? "border-bottom-1 border-gray-200"
-                : "border-bottom-1 border-gray-700"
-              : ""
-          }`}
-          onClick={() => {
-            window.scrollTo(0, 0);
-            navigate(`/blog/${post.id}`);
-          }}
-        >
-          <span
-            className={`font-bold ${
-              isLight ? "text-pink-600" : "text-pink-400"
-            }`}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        {posts.map(post => (
+          <Card
+            key={post.id}
+            className="glow-card"
+            style={{
+              borderRadius: 12,
+              cursor: 'pointer',
+              transition: 'box-shadow 0.3s',
+            }}
+            onClick={() => {
+              window.scrollTo(0, 0);
+              navigate(`/blog/${post.id}`);
+            }}
           >
-            {post.title}
-          </span>
-          <p
-            className={`text-sm m-0 ${
-              isLight ? "text-gray-600" : "text-blue-400"
-            }`}
-            style={{ fontFamily: '"Space Grotesk", sans-serif' }}
-          >
-            {post.excerpt}
-          </p>
-          <span
-            className={`text-xs ${
-              isLight ? "text-gray-500" : "text-gray-400"
-            }`}
-          >
-            {post.date} &middot; {post.readTime}
-          </span>
-        </div>
-      ))}
+            <div className="flex flex-col gap-2">
+              <Text strong style={{ display: 'block', width: '100%', color: settings.themeColor, fontSize: '1.0625rem' }}>
+                {post.title}
+              </Text>
+              <Text type="secondary" style={{ display: 'block', width: '100%', fontFamily: "'Space Grotesk', sans-serif" }}>
+                {post.excerpt}
+              </Text>
+              <Text type="secondary" style={{ display: 'block', width: '100%', fontSize: '0.75rem' }}>
+                {post.date} · {post.readTime}
+              </Text>
+            </div>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 }

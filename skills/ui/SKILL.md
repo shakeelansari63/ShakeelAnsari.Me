@@ -1,13 +1,13 @@
 # UI Development Skill
 
 ## Context
-This is a **React 18 SPA** with **TypeScript**, **Vite**, **PrimeReact** (lara-dark-pink theme), and **PrimeFlex** utilities. No Tailwind CSS. No Redux. No class components.
+This is a **React 18 SPA** with **TypeScript**, **Vite**, **Ant Design (AntD) v5**, and **Tailwind CSS v3** utilities. No PrimeFlex/PrimeReact. No Redux. No class components.
 
 ## Architecture Rules
 
 ### Routing & Code Splitting
 - Routes are defined in `ui/src/App.tsx` using `react-router-dom` v7 (`BrowserRouter`).
-- **All pages except `MainPage` must use `React.lazy()` + `Suspense`** with `LoadingSpinner` fallback:
+- **All pages except `MainPage` must use `React.lazy()` + `Suspense`** with `Spin` or `Skeleton` fallback:
   ```tsx
   const BlogPage = React.lazy(() => import('./pages/BlogPage'));
   ```
@@ -36,31 +36,39 @@ This is a **React 18 SPA** with **TypeScript**, **Vite**, **PrimeReact** (lara-d
 - Every API call must be wrapped in try/catch and return safe fallback values on failure.
 
 ### Styling Rules
-- **Use PrimeFlex utility classes FIRST** for layouts and styling:
-  - Grid: `grid`, `col-12`, `md:col-6`, `lg:col-4`
-  - Flex: `flex`, `flex-column`, `align-items-center`, `justify-content-between`
-  - Spacing: `p-3`, `m-2`, `gap-3`, `pt-4`, `mx-auto`
-  - Typography: `text-lg`, `font-bold`, `text-pink-400`, `text-gray-300`, `text-center`
-  - Display: `hidden`, `flex`, `block`, `md:flex`, `lg:block`
-- **Use custom SCSS (`App.scss`) ONLY when PrimeFlex cannot achieve the desired effect** (animations, keyframes, complex selectors, PrimeReact component deep overrides).
+- **Use Tailwind CSS utilities FIRST** for layouts and styling (`tailwind.config.js` content covers `index.html` + `src/**/*.{ts,tsx}`):
+  - Flex/Grid: `flex`, `flex-col`, `items-center`, `justify-between`, `flex-wrap`, `grid`, `col-span-*`
+  - Spacing: `m-*`, `mt/mb/ml/mr/mx/my-*`, `p-*`, `px/py-*`, `gap-*`, `space-y-*`
+  - Typography: `text-sm/base/lg/xl/2xl/3xl`, `font-bold`, `text-center`, `line-clamp-2`, `truncate`
+  - Display/responsive: `block`, `hidden`, `md:`/`lg:` variants
+- **Tailwind Preflight is DISABLED** (`corePlugins.preflight: false`) — AntD ships its own reset. Do not re-enable it.
+- **Use Ant Design ConfigProvider theme tokens** for consistent design (colors, spacing, border-radius, etc.)
+- **Use custom SCSS (`App.scss`) ONLY when Tailwind utilities cannot achieve the desired effect** (animations, keyframes, complex selectors, deep overrides).
 - **Inline styles ONLY for:**
   - Dynamic values (e.g., `style={{ width: `${percent}%` }}`)
-  - PrimeReact component prop overrides (e.g., `pt={{ body: { className: 'p-0' } }}`)
-  - Removing PrimeReact focus outlines: `style={{ outline: 'none', boxShadow: 'none' }}`
-- **No Tailwind CSS** — never import or generate Tailwind classes.
+  - Component prop style overrides (e.g., `style={{ borderRadius: '8px' }}`)
+  - Theme-driven colors (e.g., `settings.themeColor`, `isLight ? ... : ...`), since AntD CSS vars are not enabled
+- **No PrimeFlex / PrimeReact** — never use or reintroduce them.
+- **Use Ant Design Icons** from `@ant-design/icons` — never use other icon libraries.
 
-### PrimeReact Component Patterns
+### Ant Design Component Patterns
 | Component | Usage Pattern |
 |-----------|--------------|
-| Button | `<Button text severity="secondary" className="text-pink-500" style={{ outline: 'none', boxShadow: 'none' }} />` |
-| Card | `<Card className="cursor-pointer h-full" pt={{ body: { className: 'p-0' } }}>` |
-| Toolbar | `<Toolbar className="border-none bg-transparent" />` |
-| Skeleton | `<Skeleton className="mb-2" width="100%" height="2rem" />` |
-| Chip | `<Chip label="React" className="text-pink-400" />` |
-| Sidebar | `<Sidebar visible={visible} onHide={handler} className="w-full md:w-20rem">` |
-| InputText | `<InputText value={val} onChange={e => setVal(e.target.value)} className="w-full" />` |
-| Password | `<Password value={val} onChange={e => setVal(e.target.value)} feedback={false} />` |
-| Toast | `<Toast ref={toast} position="bottom-right" />` |
+| Button | `<Button type="primary" danger={false} htmlType="button" />` |
+| Card | `<Card hoverable className="h-100" style={{ borderRadius: 12 }} />` |
+| Layout | `<Layout><Sider /><Layout><Header /><Content /><Footer /></Layout></Layout>` |
+| Skeleton | `<Skeleton active avatar paragraph={{ rows: 3 }} />` |
+| Tag | `<Tag color="blue">React</Tag>` |
+| Drawer | `<Drawer open={open} onClose={handler} placement="right" width={500} />` |
+| Input | `<Input value={val} onChange={e => setVal(e.target.value)} allowClear />` |
+| Input.Password | `<Input.Password value={val} onChange={e => setVal(e.target.value)} />` |
+| message / notification | `message.success('Done')` / `notification.open({ message: 'Title', description: '...' })` |
+| Table | `<Table columns={columns} dataSource={data} rowKey="id" pagination={{ pageSize: 10 }} />` |
+| Modal | `<Modal open={open} onOk={handleOk} onCancel={handleCancel} title="Title" />` |
+| Select | `<Select options={options} placeholder="Select" allowClear />` |
+| Avatar | `<Avatar src={url} alt="Name" shape="circle" size="large" />` |
+| Breadcrumb | `<Breadcrumb items={items} />` |
+| Pagination | `<Pagination total={total} pageSize={10} showSizeChanger />` |
 
 ### TypeScript Models (`ui/src/models/types.ts`)
 All API response types are defined here. Key interfaces:
@@ -126,13 +134,18 @@ These files are intentionally static (no API calls):
 - Keep third-party additions separate or lazy-loaded — do not bloat the main vendor bundle.
 - Route elements must be `React.lazy()` wrapped (except MainPage).
 - Images should use lazy loading (`LazyImage` component).
+- Use Ant Design's tree-shaking imports (import from `antd/es/...` or `antd/lib/...`) for smaller bundles.
 
 ### Critical Guardrails
 - ❌ **Never modify `[{#SEO-*#}]` placeholders** in `ui/index.html` or anywhere in source. These are replaced by CI/CD pipeline.
 - ❌ **No `document.title = ...`** — use `<Helmet>` from `react-helmet-async` instead.
 - ❌ **No manual `document.createElement('meta')`** — use `<Helmet>` with `<meta>` children.
-- ❌ **No Tailwind CSS** — use PrimeFlex utilities.
+- ❌ **No PrimeFlex / PrimeReact** — use Tailwind utilities + Ant Design components.
+- ❌ **No Tailwind Preflight** — keep `corePlugins.preflight: false` (AntD owns the reset).
 - ❌ **No Redux/Zustand** — use local state with hooks.
 - ❌ **No class components** — use functional components with hooks.
 - ❌ **No hardcoded backend URLs** — always use relative paths `/api/*`.
 - ❌ **No Axios** — use native `fetch`.
+- ❌ **No other icon libraries** — use `@ant-design/icons` only.
+
+(End of file)

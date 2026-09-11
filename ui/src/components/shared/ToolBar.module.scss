@@ -1,0 +1,235 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1100;
+  background: var(--ant-color-bg-container, #ffffff);
+  background-color: var(--ant-color-bg-container, #ffffff);
+  border-bottom: 1px solid var(--ant-color-border);
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.08);
+  padding: 0 24px;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, border-radius 0.3s ease;
+}
+
+html.scrolled .header {
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.15);
+  border-radius: 0;
+}
+
+:global(.dark) .header,
+[data-theme="dark"] .header {
+  background: var(--ant-color-bg-container, #141414);
+  background-color: var(--ant-color-bg-container, #141414);
+}
+
+.headerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  gap: 16px;
+}
+
+.start {
+  display: flex;
+  align-items: center;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #d53a9b;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.start :global(.ant-btn) {
+  color: #d53a9b;
+  font-size: 1rem;
+  padding: 6px 12px;
+  height: auto;
+}
+
+.start :global(.ant-btn .anticon) {
+  font-size: 1.1rem;
+}
+
+.start :global(.ant-btn:hover) {
+  color: #d53a9b;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.end {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.navGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navGroup :global(.ant-btn) {
+  color: #d53a9b;
+  font-size: 1rem;
+  padding: 6px 12px;
+  height: auto;
+}
+
+.navGroup :global(.ant-btn .anticon) {
+  font-size: 1.1rem;
+}
+
+.navGroup :global(.ant-btn:hover) {
+  color: #d53a9b;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.themeToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+}
+
+.themeToggle:global(.ant-btn) {
+  color: #d53a9b;
+  font-size: 1.15rem;
+  width: 40px;
+  height: 40px;
+}
+
+.themeToggle:global(.ant-btn:hover) {
+  color: #d53a9b;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Doubled class for higher specificity than AntD's .ant-btn (whose
+   runtime-injected display:inline-flex would otherwise beat display:none) */
+.mobileMenuBtn.mobileMenuBtn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  font-size: 1.15rem;
+}
+
+.mobileMenuBtn:global(.ant-btn) {
+  color: #d53a9b;
+}
+
+.mobileMenuBtn:global(.ant-btn:hover) {
+  color: #d53a9b;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 768px) {
+  .navGroup {
+    display: none;
+  }
+
+  .mobileMenuBtn.mobileMenuBtn {
+    display: flex;
+  }
+
+  .header {
+    padding: 0 16px;
+  }
+}
+
+.drawer :global(.ant-drawer-content),
+.drawer :global(.ant-drawer-header),
+.drawer :global(.ant-drawer-body) {
+  background: var(--ant-color-bg-container, #ffffff);
+  background-color: var(--ant-color-bg-container, #ffffff);
+}
+
+:global(.dark) .drawer :global(.ant-drawer-content),
+:global(.dark) .drawer :global(.ant-drawer-header),
+:global(.dark) .drawer :global(.ant-drawer-body),
+[data-theme="dark"] .drawer :global(.ant-drawer-content),
+[data-theme="dark"] .drawer :global(.ant-drawer-header),
+[data-theme="dark"] .drawer :global(.ant-drawer-body) {
+  background: #141414;
+  background-color: #141414;
+}
+
+.drawer :global(.ant-menu) {
+  border-right: none;
+  background: transparent;
+}
+
+.drawer :global(.ant-menu-item:not(.ant-menu-item-selected)) {
+  background: transparent;
+}
+
+.drawer :global(.ant-menu-item) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin: 4px 0;
+  transition: all 0.2s;
+}
+
+.drawer :global(.ant-menu-item) {
+  color: #d53a9b;
+  font-size: 1rem;
+}
+
+.drawer :global(.ant-menu-item .anticon) {
+  font-size: 1.1rem;
+}
+
+.drawer :global(.ant-menu-item:hover) {
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #d53a9b;
+}
+
+.drawer :global(.ant-menu-item-selected) {
+  background: rgba(213, 58, 155, 0.08);
+  color: #d53a9b;
+}
+
+.drawer :global(.ant-menu-item-selected:hover) {
+  background: rgba(213, 58, 155, 0.12);
+}
+
+@media (max-width: 600px) {
+  .header {
+    padding: 0 12px;
+  }
+
+  .brand {
+    font-size: 1.1rem;
+  }
+}
+
+/* Higher-specificity padding guards: AntD's runtime-injected
+   .ant-layout-header (padding: 0 50px) must never win ties */
+.header.header {
+  padding: 0 24px;
+}
+
+@media (max-width: 768px) {
+  .header.header {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .header.header {
+    padding: 0 12px;
+  }
+}
