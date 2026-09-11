@@ -23,14 +23,14 @@ export default function ArticleHeader({ post, stats, liking, onLike }: Props) {
       <h1 className="text-2xl md:text-3xl font-bold mb-2" style={{ color: 'var(--ant-color-text)' }}>
         {post.title}
       </h1>
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 text-sm md:text-base gap-2 sm:gap-0" style={{ color: 'var(--ant-color-text-secondary)' }}>
-        <div className="flex items-center gap-3">
+      <div className="article-meta" style={{ color: 'var(--ant-color-text-secondary)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <span>{post.date}</span>
           <span>·</span>
           <span>{post.readTime}</span>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="flex items-center gap-1">
+        <div className="article-meta-stats">
+          <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
             <EyeOutlined />
             {stats.views}
           </span>
@@ -40,7 +40,7 @@ export default function ArticleHeader({ post, stats, liking, onLike }: Props) {
             loading={liking}
             onClick={onLike}
             danger={stats.liked}
-            style={{ padding: '0 8px', fontSize: '0.875rem' }}
+            style={{ padding: '0 8px', fontSize: '0.875rem', color: settings.themeColor }}
           >
             {stats.likes}
           </Button>
@@ -57,13 +57,13 @@ export default function ArticleHeader({ post, stats, liking, onLike }: Props) {
                 navigator.clipboard.writeText(url);
               }
             }}
-            style={{ padding: '0 8px' }}
+            style={{ padding: '0 8px', color: settings.themeColor }}
           >
             Share
           </Button>
         </div>
       </div>
-      <Space wrap size={[8, 4]} className="mb-6">
+      <Space wrap size={[8, 4]} className="mb-6" style={{ marginBottom: 32, display: 'flex' }}>
         {post.tags.map(tag => (
           <Tag key={tag} style={tagStyle}>
             {tag}

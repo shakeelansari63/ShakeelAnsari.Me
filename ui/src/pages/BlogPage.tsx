@@ -45,13 +45,13 @@ export default function BlogPage() {
           </div>
         ) : (
           <>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '24px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '24px', marginBottom: 32 }}>
               {posts.map(post => (
                 <BlogCard key={post.id} post={post} />
               ))}
             </div>
             {totalPages > 1 && (
-              <div className="mt-8 flex justify-center">
+              <div className="mt-8 flex justify-center" style={{ display: 'flex', justifyContent: 'center', marginTop: 8 }}>
                 <Pagination
                   current={page}
                   total={totalPages * limit}

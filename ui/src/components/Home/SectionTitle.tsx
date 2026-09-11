@@ -15,8 +15,8 @@ export default function SectionTitle({
     <>
       <div className="mb-6 w-full h-5" id={anchor} />
       {!hideTitle && (
-        <Divider orientation="left" style={{ marginBottom: 16 }}>
-          <Typography.Text strong style={{ color: 'var(--ant-color-primary)' }}>
+        <Divider orientation="left" style={{ marginBottom: 16, marginTop: 32 }}>
+          <Typography.Text strong style={{ color: 'var(--ant-color-primary)', fontSize: '1.25rem' }}>
             {children}
           </Typography.Text>
         </Divider>

@@ -8,6 +8,7 @@ import PageFooter from '../components/shared/PageFooter';
 import { fetchSubjectChapters } from '../services/api';
 import type { LearnChapter } from '../models/types';
 import { seo } from '../data/seo';
+import { settings } from '../data/settings';
 import { buildSubjectTitle } from '../services/helper';
 
 export default function SubjectPage() {
@@ -50,10 +51,12 @@ export default function SubjectPage() {
         <h1 className="text-2xl font-bold mb-6" style={{ color: 'var(--ant-color-text)' }}>{subjectTitle}</h1>
 
         {loading ? (
-          <div className="space-y-3">
-            <Skeleton active avatar={{ size: 'default' }} paragraph={{ rows: 1 }} />
-            <Skeleton active avatar={{ size: 'default' }} paragraph={{ rows: 1 }} />
-            <Skeleton active avatar={{ size: 'default' }} paragraph={{ rows: 1 }} />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            {[0, 1, 2, 3, 4].map(i => (
+              <Card key={i} style={{ borderRadius: 12 }}>
+                <Skeleton active title={{ width: '45%' }} paragraph={false} />
+              </Card>
+            ))}
           </div>
         ) : chapters.length === 0 ? (
           <div className="text-center py-12">
@@ -65,16 +68,15 @@ export default function SubjectPage() {
             </Typography.Title>
           </div>
         ) : (
-          <div className="space-y-3">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {chapters.map(chapter => (
               <Card
                 key={chapter.id}
-                hoverable
+                className="glow-card"
                 style={{
                   cursor: 'pointer',
-                  borderRadius: 10,
-                  border: '1px solid var(--ant-color-border)',
-                  transition: 'all 0.2s',
+                  borderRadius: 12,
+                  transition: 'box-shadow 0.3s',
                 }}
                 onClick={() => navigate(`/learn/${subjectId}/${chapter.chapter_id}`)}
               >
@@ -82,7 +84,7 @@ export default function SubjectPage() {
                   <Typography.Text type="secondary" style={{ fontSize: '0.875rem' }}>
                     {`Topic: ${parseInt(chapter.chapter_id.replace(/^ch(\d+).*$/, '$1'), 10)}`}
                   </Typography.Text>
-                  <Typography.Text strong style={{ color: 'var(--ant-color-primary)' }}>
+                  <Typography.Text strong style={{ color: settings.themeColor }}>
                     {chapter.title}
                   </Typography.Text>
                 </Space>

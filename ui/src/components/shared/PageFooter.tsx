@@ -2,7 +2,6 @@ import { Divider, Space, Typography } from 'antd';
 import { GithubOutlined, LinkedinOutlined, TwitterOutlined, StarOutlined } from '@ant-design/icons';
 import { seo } from '../../data/seo';
 import { userData } from '../../data/profile';
-import { settings } from '../../data/settings';
 
 interface Props {
   className?: string;
@@ -18,21 +17,21 @@ export default function PageFooter({ className }: Props) {
   };
 
   return (
-    <footer className={`mt-8 pt-6 ${className || ''}`}>
+    <footer className={`mt-8 pt-6 mb-8 ${className || ''}`} style={{ paddingBottom: 32, marginBottom: 32 }}>
       <Divider orientation="left" style={{ marginBottom: 16 }}>
         <Text type="secondary" strong>
           {'\u00A9'} {seo.domain}
         </Text>
       </Divider>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', paddingBottom: 16 }}>
       <Space className="flex-wrap" wrap>
         <a
           href={repoUrl}
           target="_blank"
           rel="noopener noreferrer"
           title="Star on GitHub"
+          className="footer-link"
           style={linkStyle}
-          onMouseEnter={e => (e.currentTarget.style.color = settings.themeColor)}
-          onMouseLeave={e => (e.currentTarget.style.color = 'var(--ant-color-text-secondary)')}
         >
           <StarOutlined style={{ marginRight: 4 }} />
           Star
@@ -43,9 +42,8 @@ export default function PageFooter({ className }: Props) {
           target="_blank"
           rel="noopener noreferrer"
           title="GitHub"
+          className="footer-link"
           style={linkStyle}
-          onMouseEnter={e => (e.currentTarget.style.color = settings.themeColor)}
-          onMouseLeave={e => (e.currentTarget.style.color = 'var(--ant-color-text-secondary)')}
         >
           <GithubOutlined />
         </a>
@@ -54,9 +52,8 @@ export default function PageFooter({ className }: Props) {
           target="_blank"
           rel="noopener noreferrer"
           title="LinkedIn"
+          className="footer-link"
           style={linkStyle}
-          onMouseEnter={e => (e.currentTarget.style.color = settings.themeColor)}
-          onMouseLeave={e => (e.currentTarget.style.color = 'var(--ant-color-text-secondary)')}
         >
           <LinkedinOutlined />
         </a>
@@ -65,13 +62,13 @@ export default function PageFooter({ className }: Props) {
           target="_blank"
           rel="noopener noreferrer"
           title="X (Twitter)"
+          className="footer-link"
           style={linkStyle}
-          onMouseEnter={e => (e.currentTarget.style.color = settings.themeColor)}
-          onMouseLeave={e => (e.currentTarget.style.color = 'var(--ant-color-text-secondary)')}
         >
           <TwitterOutlined />
         </a>
       </Space>
+      </div>
     </footer>
   );
 }

@@ -62,7 +62,7 @@ export default function LearnPage() {
             {subjects.map(subject => (
               <Col key={subject.id} xs={24} md={12} lg={8}>
                 <Card
-                  hoverable
+                  className="glow-card"
                   cover={
                     <img
                       src={`/api/learn/images/${subject.folder}/${subject.thumbnail}`}
@@ -80,7 +80,7 @@ export default function LearnPage() {
                     borderRadius: 12,
                     height: '100%',
                     cursor: 'pointer',
-                    transition: 'all 0.3s',
+                    transition: 'box-shadow 0.3s',
                   }}
                   onClick={() => navigate(`/learn/${subject.id}`)}
                 >

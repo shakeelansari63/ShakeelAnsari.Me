@@ -19,9 +19,9 @@ export default function BlogCard({ post }: Props) {
   const navigate = useNavigate();
 
   return (
-    <div className="col-span-12 md:col-span-6 lg:col-span-4">
+    <div style={{ height: '100%', minWidth: 0 }}>
       <Card
-        hoverable
+        className="glow-card"
         cover={
           post.bannerImage ? (
             <img
@@ -53,14 +53,19 @@ export default function BlogCard({ post }: Props) {
         style={{
           cursor: 'pointer',
           borderRadius: 12,
-          transition: 'all 0.3s',
+          transition: 'box-shadow 0.3s',
           height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+        styles={{
+          body: { flex: 1, display: 'flex', flexDirection: 'column', width: '100%' },
         }}
       >
         <Card.Meta
-          title={<h3 style={{ margin: 0, fontSize: '1.125rem', fontWeight: 600 }}>{post.title}</h3>}
+          title={<h3 style={{ margin: 0, fontSize: '1.125rem', fontWeight: 600, whiteSpace: 'normal', overflow: 'visible', textOverflow: 'clip', lineHeight: 1.4, wordBreak: 'break-word' }}>{post.title}</h3>}
           description={
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2" style={{ flex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
               <span className="text-sm" style={{ color: 'var(--ant-color-text-tertiary)' }}>
                 {post.date} · {post.readTime}
               </span>
@@ -70,10 +75,12 @@ export default function BlogCard({ post }: Props) {
                   color: 'var(--ant-color-text-secondary)',
                   fontFamily: "'Space Grotesk', sans-serif",
                   fontSize: '0.9375rem',
+                  minHeight: '2.8em',
                 }}
               >
                 {post.excerpt}
               </p>
+              <div style={{ flex: 1 }} />
               <Space wrap size={[8, 4]}>
                 {post.tags.map(tag => (
                   <Tag key={tag} style={tagStyle}>

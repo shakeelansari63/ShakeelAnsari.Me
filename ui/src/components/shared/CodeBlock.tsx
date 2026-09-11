@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { oneDark, oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx';
 import typescript from 'react-syntax-highlighter/dist/esm/languages/prism/typescript';
 import python from 'react-syntax-highlighter/dist/esm/languages/prism/python';
@@ -32,11 +32,11 @@ SyntaxHighlighter.registerLanguage('cypher', cypher);
 interface Props {
   code: string;
   language: string;
+  isLight?: boolean;
 }
 
-export default function CodeBlock({ code, language }: Props) {
+export default function CodeBlock({ code, language, isLight }: Props) {
   const [copied, setCopied] = useState(false);
-  const [hover, setHover] = useState(false);
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(code);
@@ -45,13 +45,10 @@ export default function CodeBlock({ code, language }: Props) {
   };
 
   return (
-    <div
-      style={{ position: 'relative', margin: '1rem 0' }}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-    >
+    <div className="code-block" style={{ position: 'relative', margin: '1rem 0' }}>
       <button
         onClick={handleCopy}
+        className="code-block-copy"
         style={{
           position: 'absolute',
           top: '0.5rem',
@@ -64,15 +61,13 @@ export default function CodeBlock({ code, language }: Props) {
           color: 'var(--ant-color-text)',
           zIndex: 1,
           lineHeight: 0,
-          opacity: hover ? 1 : 0,
-          transition: 'opacity 0.2s',
         }}
         aria-label="Copy code"
       >
         {copied ? <CheckOutlined style={{ fontSize: '0.9rem', color: '#22c55e' }} /> : <CopyOutlined style={{ fontSize: '0.9rem' }} />}
       </button>
       <SyntaxHighlighter
-        style={oneDark}
+        style={isLight ? oneLight : oneDark}
         language={language}
         PreTag="div"
         customStyle={{

@@ -12,6 +12,7 @@ import {
   SunOutlined,
   MoonOutlined,
   MenuOutlined,
+  CloseOutlined,
 } from '@ant-design/icons';
 import { userData } from '../../data/profile';
 import { settings } from '../../data/settings';
@@ -182,9 +183,9 @@ export default function ToolBar() {
   const mobileMenuButton = (
     <Button
       type="text"
-      icon={<MenuOutlined />}
-      onClick={() => setMenuOpen(true)}
-      aria-label="Open menu"
+      icon={menuOpen ? <CloseOutlined /> : <MenuOutlined />}
+      onClick={() => setMenuOpen(open => !open)}
+      aria-label={menuOpen ? 'Close menu' : 'Open menu'}
       className={styles.mobileMenuBtn}
     />
   );

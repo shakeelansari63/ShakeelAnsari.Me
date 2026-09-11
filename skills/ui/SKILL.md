@@ -1,7 +1,7 @@
 # UI Development Skill
 
 ## Context
-This is a **React 18 SPA** with **TypeScript**, **Vite**, **Ant Design (AntD) v5**, and **Ant Design CSS utilities**. No Tailwind CSS. No Redux. No class components.
+This is a **React 18 SPA** with **TypeScript**, **Vite**, **Ant Design (AntD) v5**, and **Tailwind CSS v3** utilities. No PrimeFlex/PrimeReact. No Redux. No class components.
 
 ## Architecture Rules
 
@@ -36,18 +36,19 @@ This is a **React 18 SPA** with **TypeScript**, **Vite**, **Ant Design (AntD) v5
 - Every API call must be wrapped in try/catch and return safe fallback values on failure.
 
 ### Styling Rules
-- **Use Ant Design CSS utilities and design tokens FIRST** for layouts and styling:
-  - Grid: `Row`/`Col` components with `span`, `xs`, `sm`, `md`, `lg`, `xl`, `xxl` props
-  - Flex: `d-flex`, `flex-column`, `align-items-center`, `justify-content-between`, `flex-wrap`
-  - Spacing: `margin-*`, `padding-*`, `gap-*` utility classes or `space`/`gap` props on components
-  - Typography: `text-*` color utilities, `font-weight-*`, `text-center`, `text-truncate`
-  - Display: `d-none`, `d-flex`, `d-block`, `d-md-flex`, `d-lg-block`
+- **Use Tailwind CSS utilities FIRST** for layouts and styling (`tailwind.config.js` content covers `index.html` + `src/**/*.{ts,tsx}`):
+  - Flex/Grid: `flex`, `flex-col`, `items-center`, `justify-between`, `flex-wrap`, `grid`, `col-span-*`
+  - Spacing: `m-*`, `mt/mb/ml/mr/mx/my-*`, `p-*`, `px/py-*`, `gap-*`, `space-y-*`
+  - Typography: `text-sm/base/lg/xl/2xl/3xl`, `font-bold`, `text-center`, `line-clamp-2`, `truncate`
+  - Display/responsive: `block`, `hidden`, `md:`/`lg:` variants
+- **Tailwind Preflight is DISABLED** (`corePlugins.preflight: false`) — AntD ships its own reset. Do not re-enable it.
 - **Use Ant Design ConfigProvider theme tokens** for consistent design (colors, spacing, border-radius, etc.)
-- **Use custom SCSS (`App.scss`) ONLY when Ant Design utilities cannot achieve the desired effect** (animations, keyframes, complex selectors, deep overrides).
+- **Use custom SCSS (`App.scss`) ONLY when Tailwind utilities cannot achieve the desired effect** (animations, keyframes, complex selectors, deep overrides).
 - **Inline styles ONLY for:**
   - Dynamic values (e.g., `style={{ width: `${percent}%` }}`)
   - Component prop style overrides (e.g., `style={{ borderRadius: '8px' }}`)
-- **No Tailwind CSS** — never import or generate Tailwind classes.
+  - Theme-driven colors (e.g., `settings.themeColor`, `isLight ? ... : ...`), since AntD CSS vars are not enabled
+- **No PrimeFlex / PrimeReact** — never use or reintroduce them.
 - **Use Ant Design Icons** from `@ant-design/icons` — never use other icon libraries.
 
 ### Ant Design Component Patterns
@@ -139,12 +140,12 @@ These files are intentionally static (no API calls):
 - ❌ **Never modify `[{#SEO-*#}]` placeholders** in `ui/index.html` or anywhere in source. These are replaced by CI/CD pipeline.
 - ❌ **No `document.title = ...`** — use `<Helmet>` from `react-helmet-async` instead.
 - ❌ **No manual `document.createElement('meta')`** — use `<Helmet>` with `<meta>` children.
-- ❌ **No Tailwind CSS** — use Ant Design utilities and design tokens.
+- ❌ **No PrimeFlex / PrimeReact** — use Tailwind utilities + Ant Design components.
+- ❌ **No Tailwind Preflight** — keep `corePlugins.preflight: false` (AntD owns the reset).
 - ❌ **No Redux/Zustand** — use local state with hooks.
 - ❌ **No class components** — use functional components with hooks.
 - ❌ **No hardcoded backend URLs** — always use relative paths `/api/*`.
 - ❌ **No Axios** — use native `fetch`.
-- ❌ **No PrimeReact or PrimeFlex** — use Ant Design components and utilities.
 - ❌ **No other icon libraries** — use `@ant-design/icons` only.
 
 (End of file)

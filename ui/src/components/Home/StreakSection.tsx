@@ -7,15 +7,15 @@ export default function StreakSection() {
     <Row gutter={[16, 16]}>
       <Col xs={24} md={12}>
         <Space direction="vertical" style={{ width: '100%' }}>
-          <Card style={{ textAlign: 'center', borderRadius: 12, height: '100%' }}>
-            <LazyImage src={getStreaks()} alt="Streaks" />
+            <Card className="glow-card" style={{ textAlign: 'center', borderRadius: 12, height: '100%', transition: 'box-shadow 0.3s' }}>
+              <LazyImage src={getStreaks()} alt="Streaks" />
           </Card>
         </Space>
       </Col>
       <Col xs={24} md={12}>
         <Space direction="vertical" style={{ width: '100%' }}>
-          <Card style={{ textAlign: 'center', borderRadius: 12, height: '100%' }}>
-            <LazyImage src={getProductiveTime()} alt="Productive time" />
+            <Card className="glow-card" style={{ textAlign: 'center', borderRadius: 12, height: '100%', transition: 'box-shadow 0.3s' }}>
+              <LazyImage src={getProductiveTime()} alt="Productive time" />
           </Card>
         </Space>
       </Col>

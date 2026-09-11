@@ -11,7 +11,6 @@ export default function SkillsSection() {
     padding: '6px 16px',
     borderRadius: '999px',
     fontWeight: 500,
-    transition: 'all 0.2s',
     cursor: 'default',
   };
 
@@ -20,15 +19,8 @@ export default function SkillsSection() {
       {userData.skills.map(skill => (
         <Tag
           key={skill}
+          className="skill-tag"
           style={tagStyle}
-          onMouseEnter={e => {
-            e.currentTarget.style.transform = 'scale(1.05)';
-            e.currentTarget.style.boxShadow = `0 0 12px ${settings.themeColor}66`;
-          }}
-          onMouseLeave={e => {
-            e.currentTarget.style.transform = 'scale(1)';
-            e.currentTarget.style.boxShadow = 'none';
-          }}
         >
           {skill}
         </Tag>

@@ -39,11 +39,28 @@ html.scrolled .header {
 
 .brand {
   font-weight: 700;
-  font-size: 1.25rem;
-  color: var(--ant-color-primary);
+  font-size: 1.4rem;
+  color: #d53a9b;
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
+}
+
+.start :global(.ant-btn) {
+  color: #d53a9b;
+  font-size: 1rem;
+  padding: 6px 12px;
+  height: auto;
+}
+
+.start :global(.ant-btn .anticon) {
+  font-size: 1.1rem;
+}
+
+.start :global(.ant-btn:hover) {
+  color: #d53a9b;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 .end {
@@ -59,12 +76,20 @@ html.scrolled .header {
 }
 
 .navGroup :global(.ant-btn) {
-  color: var(--ant-color-text);
+  color: #d53a9b;
+  font-size: 1rem;
+  padding: 6px 12px;
+  height: auto;
+}
+
+.navGroup :global(.ant-btn .anticon) {
+  font-size: 1.1rem;
 }
 
 .navGroup :global(.ant-btn:hover) {
-  color: var(--ant-color-primary);
-  background: var(--ant-color-primary-bg);
+  color: #d53a9b;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 .themeToggle {
@@ -74,29 +99,37 @@ html.scrolled .header {
   min-width: 36px;
 }
 
-.themeToggle :global(.ant-btn) {
-  color: var(--ant-color-text);
+.themeToggle:global(.ant-btn) {
+  color: #d53a9b;
+  font-size: 1.15rem;
+  width: 40px;
+  height: 40px;
 }
 
-.themeToggle :global(.ant-btn:hover) {
-  color: var(--ant-color-primary);
-  background: var(--ant-color-primary-bg);
+.themeToggle:global(.ant-btn:hover) {
+  color: #d53a9b;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
-.mobileMenuBtn {
+/* Doubled class for higher specificity than AntD's .ant-btn (whose
+   runtime-injected display:inline-flex would otherwise beat display:none) */
+.mobileMenuBtn.mobileMenuBtn {
   display: none;
   align-items: center;
   justify-content: center;
   min-width: 36px;
+  font-size: 1.15rem;
 }
 
-.mobileMenuBtn :global(.ant-btn) {
-  color: var(--ant-color-text);
+.mobileMenuBtn:global(.ant-btn) {
+  color: #d53a9b;
 }
 
-.mobileMenuBtn :global(.ant-btn:hover) {
-  color: var(--ant-color-primary);
-  background: var(--ant-color-primary-bg);
+.mobileMenuBtn:global(.ant-btn:hover) {
+  color: #d53a9b;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 @media (max-width: 768px) {
@@ -104,7 +137,7 @@ html.scrolled .header {
     display: none;
   }
 
-  .mobileMenuBtn {
+  .mobileMenuBtn.mobileMenuBtn {
     display: flex;
   }
 
@@ -113,8 +146,30 @@ html.scrolled .header {
   }
 }
 
+.drawer :global(.ant-drawer-content),
+.drawer :global(.ant-drawer-header),
+.drawer :global(.ant-drawer-body) {
+  background: var(--ant-color-bg-container, #ffffff);
+  background-color: var(--ant-color-bg-container, #ffffff);
+}
+
+:global(.dark) .drawer :global(.ant-drawer-content),
+:global(.dark) .drawer :global(.ant-drawer-header),
+:global(.dark) .drawer :global(.ant-drawer-body),
+[data-theme="dark"] .drawer :global(.ant-drawer-content),
+[data-theme="dark"] .drawer :global(.ant-drawer-header),
+[data-theme="dark"] .drawer :global(.ant-drawer-body) {
+  background: #141414;
+  background-color: #141414;
+}
+
 .drawer :global(.ant-menu) {
   border-right: none;
+  background: transparent;
+}
+
+.drawer :global(.ant-menu-item:not(.ant-menu-item-selected)) {
+  background: transparent;
 }
 
 .drawer :global(.ant-menu-item) {
@@ -127,17 +182,28 @@ html.scrolled .header {
   transition: all 0.2s;
 }
 
+.drawer :global(.ant-menu-item) {
+  color: #d53a9b;
+  font-size: 1rem;
+}
+
+.drawer :global(.ant-menu-item .anticon) {
+  font-size: 1.1rem;
+}
+
 .drawer :global(.ant-menu-item:hover) {
-  background: var(--ant-color-fill-secondary);
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #d53a9b;
 }
 
 .drawer :global(.ant-menu-item-selected) {
-  background: var(--ant-color-primary-bg);
-  color: var(--ant-color-primary);
+  background: rgba(213, 58, 155, 0.08);
+  color: #d53a9b;
 }
 
 .drawer :global(.ant-menu-item-selected:hover) {
-  background: var(--ant-color-primary-bg-hover);
+  background: rgba(213, 58, 155, 0.12);
 }
 
 @media (max-width: 600px) {
@@ -147,5 +213,23 @@ html.scrolled .header {
 
   .brand {
     font-size: 1.1rem;
+  }
+}
+
+/* Higher-specificity padding guards: AntD's runtime-injected
+   .ant-layout-header (padding: 0 50px) must never win ties */
+.header.header {
+  padding: 0 24px;
+}
+
+@media (max-width: 768px) {
+  .header.header {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .header.header {
+    padding: 0 12px;
   }
 }

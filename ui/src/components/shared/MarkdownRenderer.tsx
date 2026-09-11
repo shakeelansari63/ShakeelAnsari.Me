@@ -1,14 +1,20 @@
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import CodeBlock from '../shared/CodeBlock';
-import MermaidRenderer from '../shared/MermaidRenderer';
 import LazyImage from '../shared/LazyImage';
+import { Suspense, lazy } from 'react';
+import { settings } from '../../data/settings';
+import { useTheme } from '../../context/ThemeContext';
+
+const MermaidRenderer = lazy(() => import('../shared/MermaidRenderer'));
 
 interface Props {
   content: string;
 }
 
 export default function MarkdownRenderer({ content }: Props) {
+  const { theme } = useTheme();
+  const isLight = theme === 'light';
   return (
     <div
       className="blog-content"
@@ -17,35 +23,43 @@ export default function MarkdownRenderer({ content }: Props) {
         lineHeight: '1.8',
         fontSize: '1.125rem',
         color: 'var(--ant-color-text)',
+        ['--md-h3' as string]: `color-mix(in srgb, ${settings.themeColor} 75%, white)`,
       }}
     >
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
           h1: ({ children }) => (
-            <h1 className="text-2xl md:text-3xl font-bold mt-8 mb-4" style={{ color: 'var(--ant-color-primary)' }}>
+            <h1 className="text-2xl md:text-3xl font-bold mt-8 mb-4" style={{ color: settings.themeColor }}>
               {children}
             </h1>
           ),
           h2: ({ children }) => (
-            <h2 className="text-xl md:text-2xl mt-6 mb-2" style={{ color: 'var(--ant-color-primary)' }}>
+            <h2 className="text-xl md:text-2xl mt-6 mb-2" style={{ color: `color-mix(in srgb, ${settings.themeColor} 85%, white)` }}>
               {children}
             </h2>
           ),
           h3: ({ children }) => (
-            <h3 className="text-lg md:text-xl mt-5 mb-1" style={{ color: 'var(--ant-color-primary)' }}>
+            <h3 className="text-lg md:text-xl mt-5 mb-1" style={{ color: `color-mix(in srgb, ${settings.themeColor} 75%, white)` }}>
               {children}
             </h3>
+          ),
+          h4: ({ children }) => (
+            <h4 className="text-base md:text-lg mt-4 mb-1" style={{ color: `color-mix(in srgb, ${settings.themeColor} 60%, white)` }}>
+              {children}
+            </h4>
           ),
           p: ({ children }) => (
             <p className="mx-0 mt-2 mb-3">{children}</p>
           ),
           blockquote: ({ children }) => (
             <blockquote
-              className="mx-0 my-3 p-4 rounded-r-lg"
+              className="mx-0 my-3 p-2"
               style={{
-                borderLeft: '3px solid var(--ant-color-primary)',
-                background: 'rgba(213, 58, 157, 0.08)',
+                borderLeft: '3px solid #d53a9d',
+                background: isLight
+                  ? 'rgba(213, 58, 157, 0.05)'
+                  : 'rgba(213, 58, 157, 0.1)',
               }}
             >
               {children}
@@ -53,7 +67,7 @@ export default function MarkdownRenderer({ content }: Props) {
           ),
           pre: ({ children }) => <>{children}</>,
           strong: ({ children }) => (
-            <strong style={{ color: '#f59e0b' }}>
+            <strong style={{ color: isLight ? '#ea580c' : '#fdba74' }}>
               {children}
             </strong>
           ),
@@ -65,7 +79,6 @@ export default function MarkdownRenderer({ content }: Props) {
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: 'var(--ant-color-primary)', textDecoration: 'underline' }}
             >
               {children}
             </a>
@@ -92,13 +105,21 @@ export default function MarkdownRenderer({ content }: Props) {
             </div>
           ),
           thead: ({ children }) => (
-            <thead style={{ borderBottom: '2px solid var(--ant-color-primary)' }}>
+            <thead
+              style={{
+                borderBottom: '2px solid var(--md-h3)',
+              }}
+            >
               {children}
             </thead>
           ),
           tbody: ({ children }) => <tbody>{children}</tbody>,
           tr: ({ children }) => (
-            <tr style={{ borderBottom: '1px solid var(--ant-color-border)' }}>
+            <tr
+              style={{
+                borderBottom: `1px solid ${isLight ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)'}`,
+              }}
+            >
               {children}
             </tr>
           ),
@@ -108,7 +129,7 @@ export default function MarkdownRenderer({ content }: Props) {
                 padding: '0.75rem 1rem',
                 textAlign: 'left',
                 fontWeight: 'bold',
-                color: 'var(--ant-color-primary)',
+                color: 'var(--md-h3)',
                 whiteSpace: 'nowrap',
               }}
             >
@@ -120,7 +141,7 @@ export default function MarkdownRenderer({ content }: Props) {
               style={{
                 padding: '0.75rem 1rem',
                 textAlign: 'left',
-                color: 'var(--ant-color-text)',
+                color: isLight ? '#1a1a2e' : '#e0e0e0',
               }}
             >
               {children}
@@ -133,16 +154,16 @@ export default function MarkdownRenderer({ content }: Props) {
                 margin: '2rem auto',
                 border: 'none',
                 height: '1px',
-                background: 'linear-gradient(to right, transparent, var(--ant-color-primary) 45%, var(--ant-color-primary) 55%, transparent)',
+                background: `linear-gradient(to right, transparent, ${isLight ? '#ea580c' : '#fdba74'} 45%, ${isLight ? '#ea580c' : '#fdba74'} 55%, transparent)`,
                 borderRadius: '2px',
               }}
             />
           ),
           ul: ({ children }) => (
-            <ul className="m-0 mb-2 pl-0">{children}</ul>
+            <ul className="m-0 mb-2 ml-0 pl-0 list-disc list-inside">{children}</ul>
           ),
           ol: ({ children }) => (
-            <ol className="m-0 mb-2 pl-3 list-decimal">
+            <ol className="m-0 mb-2 ml-0 pl-0 list-decimal list-inside">
               {children}
             </ol>
           ),
@@ -151,16 +172,26 @@ export default function MarkdownRenderer({ content }: Props) {
             if (match) {
               const code = String(children).replace(/\n$/, '');
               if (match[1] === 'mermaid') {
-                return <MermaidRenderer chart={code} />;
+                return (
+                  <Suspense fallback={<div style={{ textAlign: 'center', padding: '1rem' }}>Loading diagram…</div>}>
+                    <MermaidRenderer chart={code} />
+                  </Suspense>
+                );
               }
               return (
-                <CodeBlock code={code} language={match[1]} />
+                <CodeBlock
+                  code={code}
+                  language={match[1]}
+                  isLight={isLight}
+                />
               );
             }
             return (
               <code
                 style={{
-                  background: 'var(--ant-color-fill-secondary)',
+                  background: isLight
+                    ? 'rgba(0,0,0,0.06)'
+                    : 'rgba(255,255,255,0.1)',
                   padding: '2px 6px',
                   borderRadius: '4px',
                   fontSize: '0.9rem',

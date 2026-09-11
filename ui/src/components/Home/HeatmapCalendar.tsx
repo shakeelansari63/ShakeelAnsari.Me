@@ -92,7 +92,7 @@ export default function HeatmapCalendar({ dates, startDate, endDate, classForVal
   };
 
   return (
-    <svg viewBox={`0 0 ${width} ${height}`} width="100%" style={{ maxWidth: `${width}px`, height: 'auto', overflow: 'visible' }}>
+    <svg viewBox={`0 0 ${width} ${height}`} width="100%" style={{ maxWidth: '100%', height: 'auto', overflow: 'visible', display: 'block', margin: '0 auto' }}>
       <defs>
         <style dangerouslySetInnerHTML={{
           __html: `

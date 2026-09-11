@@ -5,6 +5,7 @@ import { LockOutlined, UserOutlined, LogoutOutlined, SyncOutlined } from '@ant-d
 import ToolBar from '../components/shared/ToolBar';
 import AnalyticsDashboard from '../components/Admin/AnalyticsDashboard';
 import { seo } from '../data/seo';
+import { settings } from '../data/settings';
 
 export default function AdminPage() {
   const [username, setUsername] = useState('');
@@ -186,7 +187,15 @@ export default function AdminPage() {
                 loading={loading}
                 onClick={handleLogin}
                 block
-                style={{ marginTop: 8 }}
+                shape="round"
+                className="gradient-btn"
+                style={{
+                  marginTop: 8,
+                  background: `linear-gradient(135deg, ${settings.themeColor} 0%, #743ad5 100%)`,
+                  border: 'none',
+                  color: '#fff',
+                  fontWeight: 500,
+                }}
               >
                 Login
               </Button>

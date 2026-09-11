@@ -34,7 +34,8 @@ export default function StatsPage() {
         <meta name="twitter:description" content={`GitHub Stats of ${seo.name}`} />
       </Helmet>
       <ToolBar />
-      <div className="app-container">
+      <div className="app-container pb-4">
+        <h1 className="text-3xl font-bold mb-6" style={{ color: 'var(--ant-color-text)' }}>GitHub Stats</h1>
         <div id="stats" className="mb-6 h-5" />
         <StatsSection />
 

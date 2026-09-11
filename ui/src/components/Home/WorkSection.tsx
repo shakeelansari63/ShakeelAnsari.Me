@@ -24,11 +24,10 @@ function companyDateRange(roles: WorkRole[]) {
 
 export default function WorkSection() {
   const { Text } = Typography;
-
   const items = userData.work.map((job) => {
     const range = companyDateRange(job.roles);
+    const rangeLabel = range.start ? formatDate(range.start) + (range.end ? ` — ${formatDate(range.end)}` : ' — Present') : '';
     return {
-      label: range.start ? formatDate(range.start) + (range.end ? ` — ${formatDate(range.end)}` : ' — Present') : '',
       dot: (
         <div
           style={{
@@ -41,47 +40,52 @@ export default function WorkSection() {
         />
       ),
       children: (
-        <Card style={{ borderRadius: 10, width: '100%' }}>
-          <Typography.Title level={5} style={{ color: settings.themeColor, marginBottom: 8 }}>
+        <Card className="glow-card" style={{ borderRadius: 10, width: '100%' }}>
+          <Typography.Title level={5} style={{ color: settings.themeColor, marginBottom: 4 }}>
             {job.company}
           </Typography.Title>
+          {rangeLabel && (
+            <Text type="secondary" style={{ display: 'block', fontSize: '0.75rem', marginBottom: 8 }}>
+              {rangeLabel}
+            </Text>
+          )}
           <div style={{ marginLeft: 8 }}>
             {job.roles.map((role, j) => (
               <div key={j} style={{ marginBottom: j < job.roles.length - 1 ? 16 : 0 }}>
-                <div className="flex items-start gap-2">
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
                   <div
                     style={{
                       width: 8,
                       height: 8,
                       borderRadius: '50%',
                       background: settings.themeColor,
-                      marginTop: 6,
                       flexShrink: 0,
+                      marginTop: 5,
                     }}
                   />
-                  <div className="flex-1">
-                    <div className="flex flex-wrap items-center gap-2">
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
                       <Text type="secondary" style={{ fontSize: '0.875rem', fontWeight: 500, color: settings.themeColor }}>
                         {role.title}
                       </Text>
                       {role.startDate && (
-                        <Text type="secondary" style={{ fontSize: '0.75rem', color: 'var(--ant-color-text-tertiary)' }}>
+                        <Text style={{ fontSize: '0.75rem', color: '#9ca3af', whiteSpace: 'nowrap', marginLeft: 'auto' }}>
                           {formatDate(role.startDate)}
                           {role.endDate ? ` — ${formatDate(role.endDate)}` : ' — Present'}
                         </Text>
                       )}
                     </div>
                     {role.description && (
-                      <Text
-                        type="secondary"
+                      <div
                         style={{
                           marginTop: 8,
                           fontFamily: "'Space Grotesk', sans-serif",
                           fontSize: '0.875rem',
+                          color: 'var(--ant-color-text-secondary)',
                         }}
                       >
                         {role.description}
-                      </Text>
+                      </div>
                     )}
                   </div>
                 </div>
@@ -94,6 +98,8 @@ export default function WorkSection() {
   });
 
   return (
-    <Timeline mode="left" pending={false} items={items} style={{ maxWidth: '100%' }} />
+    <div style={{ display: 'flex', justifyContent: 'center', width: '100%', maxWidth: 900, margin: '0 auto' }}>
+      <Timeline pending={false} items={items} style={{ width: '100%' }} />
+    </div>
   );
 }

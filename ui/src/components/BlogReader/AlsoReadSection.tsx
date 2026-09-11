@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Card, Typography } from 'antd';
 import type { BlogPost } from '../../models/types';
+import { settings } from '../../data/settings';
 
 interface Props {
   posts: BlogPost[];
@@ -18,15 +19,15 @@ export default function AlsoReadSection({ posts }: Props) {
       <h2 className="text-xl font-bold mb-6" style={{ color: 'var(--ant-color-primary)' }}>
         Also Read
       </h2>
-      <div className="space-y-4">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         {posts.map(post => (
           <Card
             key={post.id}
-            hoverable
+            className="glow-card"
             style={{
-              borderRadius: 10,
-              border: '1px solid var(--ant-color-border)',
-              transition: 'all 0.2s',
+              borderRadius: 12,
+              cursor: 'pointer',
+              transition: 'box-shadow 0.3s',
             }}
             onClick={() => {
               window.scrollTo(0, 0);
@@ -34,13 +35,13 @@ export default function AlsoReadSection({ posts }: Props) {
             }}
           >
             <div className="flex flex-col gap-2">
-              <Text strong style={{ color: 'var(--ant-color-primary)', fontSize: '1.0625rem' }}>
+              <Text strong style={{ display: 'block', width: '100%', color: settings.themeColor, fontSize: '1.0625rem' }}>
                 {post.title}
               </Text>
-              <Text type="secondary" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+              <Text type="secondary" style={{ display: 'block', width: '100%', fontFamily: "'Space Grotesk', sans-serif" }}>
                 {post.excerpt}
               </Text>
-              <Text type="secondary" style={{ fontSize: '0.75rem' }}>
+              <Text type="secondary" style={{ display: 'block', width: '100%', fontSize: '0.75rem' }}>
                 {post.date} · {post.readTime}
               </Text>
             </div>

@@ -7,6 +7,7 @@ import 'antd/dist/reset.css';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import ThemeWrapper from './components/ThemeWrapper';
 import { settings } from './data/settings';
+import './index.css';
 import './App.scss';
 import App from './App';
 
@@ -73,8 +74,8 @@ function AppWithTheme() {
             itemActiveBg: settings.themeColor,
           },
           Skeleton: {
-            colorFill: 'rgba(0, 0, 0, 0.06)',
-            colorFillContent: 'rgba(0, 0, 0, 0.1)',
+            colorFill: themeMode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)',
+            colorFillContent: themeMode === 'dark' ? 'rgba(255, 255, 255, 0.14)' : 'rgba(0, 0, 0, 0.1)',
           },
         },
       }}
