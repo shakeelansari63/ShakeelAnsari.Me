@@ -104,22 +104,6 @@ export default function HeroUserSkills({ profile }: Props) {
         </div>
         <div style={rowStyle}>
           <span style={indentStyle} />
-          <span style={{ ...padStyle, whiteSpace: 'nowrap' }}>location :</span>
-          <span style={{ ...padStyle, color: '#22c55e' }}>
-            &quot;{profile?.location ?? ''}&quot;
-          </span>
-          <span style={{ ...padStyle, whiteSpace: 'nowrap' }}>,</span>
-        </div>
-        <div style={rowStyle}>
-          <span style={indentStyle} />
-          <span style={{ ...padStyle, whiteSpace: 'nowrap' }}>website :</span>
-          <span style={{ ...padStyle, color: '#22c55e' }}>
-            &quot;{seo.domain}&quot;
-          </span>
-          <span style={{ ...padStyle, whiteSpace: 'nowrap' }}>,</span>
-        </div>
-        <div style={rowStyle}>
-          <span style={indentStyle} />
           <span style={{ ...padStyle, whiteSpace: 'nowrap' }}>role :</span>
           <span style={{ ...padStyle, color: '#22c55e' }}>
             &quot;{getCurrentRole()}&quot;
@@ -128,9 +112,25 @@ export default function HeroUserSkills({ profile }: Props) {
         </div>
         <div style={rowStyle}>
           <span style={indentStyle} />
+          <span style={{ ...padStyle, whiteSpace: 'nowrap' }}>location :</span>
+          <span style={{ ...padStyle, color: '#22c55e' }}>
+            &quot;{profile?.location ?? ''}&quot;
+          </span>
+          <span style={{ ...padStyle, whiteSpace: 'nowrap' }}>,</span>
+        </div>
+        <div style={rowStyle}>
+          <span style={indentStyle} />
           <span style={{ ...padStyle, whiteSpace: 'nowrap' }}>experience :</span>
           <span style={{ ...padStyle, color: '#22c55e' }}>
             &quot;{Math.max(0, getYearsOfExperience() - 1)}+ years&quot;
+          </span>
+          <span style={{ ...padStyle, whiteSpace: 'nowrap' }}>,</span>
+        </div>
+        <div style={rowStyle}>
+          <span style={indentStyle} />
+          <span style={{ ...padStyle, whiteSpace: 'nowrap' }}>website :</span>
+          <span style={{ ...padStyle, color: '#22c55e' }}>
+            &quot;{seo.domain}&quot;
           </span>
           <span style={{ ...padStyle, whiteSpace: 'nowrap' }}>,</span>
         </div>
