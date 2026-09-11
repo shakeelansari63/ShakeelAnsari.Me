@@ -15,8 +15,11 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (!id.includes('node_modules')) return undefined;
+          // NOTE: antd and @ant-design/icons must stay in ONE chunk — antd
+          // components import icons internally, so splitting them creates a
+          // vendor-antd <-> vendor-antd-icons cycle that crashes at load
+          // ("Cannot read properties of undefined (reading 'primary')").
           if (id.includes('node_modules/antd') || id.includes('node_modules/rc-') || id.includes('node_modules/@ant-design')) {
-            if (id.includes('@ant-design/icons')) return 'vendor-antd-icons';
             return 'vendor-antd';
           }
           if (id.includes('node_modules/react-syntax-highlighter')) return 'vendor-highlight';
