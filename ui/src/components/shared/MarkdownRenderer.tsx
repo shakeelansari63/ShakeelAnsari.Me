@@ -29,22 +29,22 @@ export default function MarkdownRenderer({ content }: Props) {
         remarkPlugins={[remarkGfm]}
         components={{
           h1: ({ children }) => (
-            <h1 className="text-2xl md:text-3xl font-bold mt-20 mb-4" style={{ color: settings.themeColor }}>
+            <h1 className="text-2xl md:text-3xl font-bold mt-20 mb-12" style={{ color: settings.themeColor }}>
               {children}
             </h1>
           ),
           h2: ({ children }) => (
-            <h2 className="text-xl md:text-2xl mt-16 mb-2" style={{ color: `color-mix(in srgb, ${settings.themeColor} 85%, white)` }}>
+            <h2 className="text-xl md:text-2xl mt-16 mb-8" style={{ color: `color-mix(in srgb, ${settings.themeColor} 85%, white)` }}>
               {children}
             </h2>
           ),
           h3: ({ children }) => (
-            <h3 className="text-lg md:text-xl mt-12 mb-1" style={{ color: `color-mix(in srgb, ${settings.themeColor} 75%, white)` }}>
+            <h3 className="text-lg md:text-xl mt-12 mb-4" style={{ color: `color-mix(in srgb, ${settings.themeColor} 75%, white)` }}>
               {children}
             </h3>
           ),
           h4: ({ children }) => (
-            <h4 className="text-base md:text-lg mt-8 mb-1" style={{ color: `color-mix(in srgb, ${settings.themeColor} 60%, white)` }}>
+            <h4 className="text-base md:text-lg mt-8 mb-4" style={{ color: `color-mix(in srgb, ${settings.themeColor} 60%, white)` }}>
               {children}
             </h4>
           ),
