@@ -114,7 +114,7 @@ body {
   align-items: center;
   gap: 6px;
   padding: 10px 12px;
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0.60);
   border-radius: 6px 6px 0 0;
 }
 
@@ -186,6 +186,18 @@ body {
 
 .blog-content li::marker {
   color: var(--md-h3);
+}
+
+.blog-content a {
+    color: var(--md-h3);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.blog-content a:hover {
+    color: var(--md-h3);
+  font-weight: 500;
+  text-decoration: underline;
 }
 
 @media only screen and (max-width: 600px) {

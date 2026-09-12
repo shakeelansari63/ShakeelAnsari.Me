@@ -36,11 +36,11 @@ export default function HeroUserDetail({ profile }: Props) {
           rounded
         />
         {profile?.bio && (
-          <div className="mt-2" style={{ color: 'var(--ant-color-text-secondary)', fontSize: '1.2rem', lineHeight: 1.5, textAlign: 'center' }}>
+          <div className="mt-4" style={{ color: 'var(--ant-color-text-secondary)', fontSize: '1.2rem', lineHeight: 1.5, textAlign: 'center' }}>
             ⚡{profile.bio}⚡
           </div>
         )}
-        <div className="mt-2 flex flex-wrap w-full px-12" style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
+        <div className="mt-4 flex flex-wrap w-full px-12" style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
           {socialLinks.map((link, index) => (
             <a
               key={index}
@@ -55,7 +55,7 @@ export default function HeroUserDetail({ profile }: Props) {
             </a>
           ))}
         </div>
-        <div className="mt-2" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+        <div className="mt-6" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
           <Button
             type="primary"
             icon={<CheckCircleOutlined />}
@@ -66,7 +66,7 @@ export default function HeroUserDetail({ profile }: Props) {
               background: `linear-gradient(135deg, ${settings.themeColor} 0%, #743ad5 100%)`,
               border: 'none',
               color: '#fff',
-              fontWeight: 500,
+              fontWeight: 700,
             }}
           >
             Check my badges

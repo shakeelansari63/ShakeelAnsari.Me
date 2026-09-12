@@ -70,12 +70,11 @@ export default function BlogCard({ post }: Props) {
                 {post.date} · {post.readTime}
               </span>
               <p
-                className="m-0 line-clamp-2"
+                className="m-0"
                 style={{
                   color: 'var(--ant-color-text-secondary)',
                   fontFamily: "'Space Grotesk', sans-serif",
                   fontSize: '0.9375rem',
-                  minHeight: '2.8em',
                 }}
               >
                 {post.excerpt}

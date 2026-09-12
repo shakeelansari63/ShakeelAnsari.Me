@@ -139,7 +139,7 @@ export default function AdminPage() {
             <AnalyticsDashboard token={token} />
           </Card>
         </div>
-        <span className='mt-2 mb-2'>&nbsp;</span>
+        <div className='mt-2 mb-2'>&nbsp;</div>
       </>
     );
   }
@@ -191,7 +191,7 @@ export default function AdminPage() {
                 shape="round"
                 className="gradient-btn"
                 style={{
-                  marginTop: 8,
+                  marginTop: "2rem",
                   background: `linear-gradient(135deg, ${settings.themeColor} 0%, #743ad5 100%)`,
                   border: 'none',
                   color: '#fff',

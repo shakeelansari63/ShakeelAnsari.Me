@@ -75,10 +75,10 @@ export default function HeroUserSkills({ profile }: Props) {
           <span style={{ ...padStyle, color: settings.themeColor }}>cat</span>
           <span style={{ ...padStyle }}>whoami.js</span>
         </div>
-        <div style={rowStyle} className='mt-2'>
+        <div style={rowStyle} className='mt-4'>
           <span style={{ ...padStyle, color: '#6b7280' }}>{`// ${userData.comment}`}</span>
         </div>
-        <div style={rowStyle}  className='mt-3'>
+        <div style={rowStyle}  className='mt-6'>
           <span style={{ ...padStyle, color: settings.themeColor }}>const</span>
           <span style={{ ...padStyle, color: '#a855f7', fontWeight: 'bold' }}>
             {userData?.alias ?? 'coder'}

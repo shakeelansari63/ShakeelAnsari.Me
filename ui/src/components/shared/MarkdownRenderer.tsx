@@ -29,22 +29,22 @@ export default function MarkdownRenderer({ content }: Props) {
         remarkPlugins={[remarkGfm]}
         components={{
           h1: ({ children }) => (
-            <h1 className="text-2xl md:text-3xl font-bold mt-8 mb-4" style={{ color: settings.themeColor }}>
+            <h1 className="text-2xl md:text-3xl font-bold mt-20 mb-4" style={{ color: settings.themeColor }}>
               {children}
             </h1>
           ),
           h2: ({ children }) => (
-            <h2 className="text-xl md:text-2xl mt-6 mb-2" style={{ color: `color-mix(in srgb, ${settings.themeColor} 85%, white)` }}>
+            <h2 className="text-xl md:text-2xl mt-16 mb-2" style={{ color: `color-mix(in srgb, ${settings.themeColor} 85%, white)` }}>
               {children}
             </h2>
           ),
           h3: ({ children }) => (
-            <h3 className="text-lg md:text-xl mt-5 mb-1" style={{ color: `color-mix(in srgb, ${settings.themeColor} 75%, white)` }}>
+            <h3 className="text-lg md:text-xl mt-12 mb-1" style={{ color: `color-mix(in srgb, ${settings.themeColor} 75%, white)` }}>
               {children}
             </h3>
           ),
           h4: ({ children }) => (
-            <h4 className="text-base md:text-lg mt-4 mb-1" style={{ color: `color-mix(in srgb, ${settings.themeColor} 60%, white)` }}>
+            <h4 className="text-base md:text-lg mt-8 mb-1" style={{ color: `color-mix(in srgb, ${settings.themeColor} 60%, white)` }}>
               {children}
             </h4>
           ),
@@ -53,7 +53,7 @@ export default function MarkdownRenderer({ content }: Props) {
           ),
           blockquote: ({ children }) => (
             <blockquote
-              className="mx-0 my-3 p-2"
+              className="mx-0 my-3 px-4 py-2"
               style={{
                 borderLeft: '3px solid #d53a9d',
                 background: isLight
@@ -150,7 +150,7 @@ export default function MarkdownRenderer({ content }: Props) {
             <hr
               style={{
                 width: '300px',
-                margin: '2rem auto',
+                margin: '3rem auto',
                 border: 'none',
                 height: '1px',
                 background: `linear-gradient(to right, transparent, ${isLight ? '#ea580c' : '#fdba74'} 45%, ${isLight ? '#ea580c' : '#fdba74'} 55%, transparent)`,

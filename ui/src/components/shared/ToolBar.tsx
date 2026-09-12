@@ -169,15 +169,13 @@ export default function ToolBar() {
   );
 
   const themeToggle = (
-    <Tooltip title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}>
-      <Button
-        type="text"
-        icon={theme === 'light' ? <MoonOutlined /> : <SunOutlined />}
-        onClick={toggleTheme}
-        aria-label={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
-        className={styles.themeToggle}
-      />
-    </Tooltip>
+    <Button
+      type="text"
+      icon={theme === 'light' ? <MoonOutlined /> : <SunOutlined />}
+      onClick={toggleTheme}
+      aria-label={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+      className={styles.themeToggle}
+    />
   );
 
   const mobileMenuButton = (
