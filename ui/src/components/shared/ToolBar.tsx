@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Layout, Menu, Button, Drawer, Tooltip, Space } from 'antd';
+import { Layout, Menu, Button, Drawer, Space } from 'antd';
 import {
   HomeOutlined,
   StarOutlined,
