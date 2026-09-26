@@ -4,10 +4,10 @@ excerpt: Ever wondered how to build and host your own portfolio website? Here is
 date: 2026-06-13
 readTime: 14 min read
 tags: Personal Portfolio, Online Presence, Web Development, React, PHP, DevOps
-bannerImage: 3-0-portfolio-hero-thumb.png
+bannerImage: 0-portfolio-hero-thumb.png
 ---
 
-![Portfolio](images/3-1-portfolio-hero.png)
+![Portfolio](1-portfolio-hero.png)
 
 ## Hey there, digital creators!
 
@@ -255,7 +255,7 @@ You do not need to manually transfer files over FTP every time you fix a typo. T
 
 To make this workflow function correctly, navigate to your forked GitHub repository settings, look for Secrets and Variables, and create a **production** environment containing the specific credentials needed for compilation and transmission.
 
-![Add Project Secrets](images/3-2-add-github-project-secrets.png)  
+![Add Project Secrets](2-add-github-project-secrets.png)  
 ### How to Gather Your Secret Credentials
 
 Depending on the hosting provider you choose, here is how you can find or generate the values required for your environment secrets.
@@ -265,14 +265,14 @@ Depending on the hosting provider you choose, here is how you can find or genera
 * **FTP Details:** Log into your hPanel, navigate to **Websites**, select **Manage** for your domain, and look for **Files -> FTP Accounts**. Here, you will find your FTP Hostname (`DEPLOY_HOST`) and FTP Username (`DEPLOY_USER`). You can also reset your FTP Password (`DEPLOY_PASSWORD`) here. Set your `DEPLOY_PATH` to `/public_html`.
 * **Database Credentials:** In hPanel, go to **Databases -> Management**. Create a new MySQL database and user. Note down the MySQL Server host IP or string (`DB_HOST`), the exact Database Name (`DB_NAME`), Database Username (`DB_USER`), and the user password you assigned (`DB_PASS`).
 
-![Hostinger FTP Account](images/3-3-hostinger-ftp-user-details.png)  
+![Hostinger FTP Account](3-hostinger-ftp-user-details.png)  
 
 #### Finding Credentials on AlwaysData
 
 * **FTP Details:** Open your AlwaysData administration panel, go to **Remote Access -> FTP**. The host name is generally `ftp.alwaysdata.net` (`DEPLOY_HOST`). Your FTP user (`DEPLOY_USER`) and its password (`DEPLOY_PASSWORD`) are configured on this page. Your `DEPLOY_PATH` will typically point to your application's public root subfolder.
 * **Database Credentials:** Navigate to **Databases -> MySQL** in your panel. Create a new database and a user database profile. AlwaysData hosts its databases on a unified cluster string which will be shown on screen (e.g., `mysql-yourname.alwaysdata.net` as `DB_HOST`). Note down your target database string (`DB_NAME`), username (`DB_USER`), and password (`DB_PASS`).
 
-![AlwaysData FTP Account](images/3-4-alwaysdata-ftp-user-details.png)  
+![AlwaysData FTP Account](4-alwaysdata-ftp-user-details.png)  
 
 #### Generating Security and Admin Credentials
 
@@ -295,7 +295,7 @@ Before launching the pipeline, your online database needs its structural tables 
 5. Paste the entire script block you copied from `schema.sql` into the large main query text box editor area.
 6. Click the **Go** button on the bottom right side to run the script. The platform will build the tables required to process telemetry items, system syncs, and client metrics.
 
-![Create tables in PHPMyAdmin](images/3-5-create-table-phpmyadmin.png)
+![Create tables in PHPMyAdmin](5-create-table-phpmyadmin.png)
 
 ### Organizing Your Repository Secrets
 

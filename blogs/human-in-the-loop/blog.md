@@ -2,12 +2,12 @@
 title: Don't Let Your AI Go Rogue
 excerpt: Learn how to keep autonomous AI agents safe and predictable by adding simple human approval checkpoints.
 date: 2026-09-04
-bannerImage: 8-0-hitl-architecture.png
+bannerImage: 0-hitl-architecture.png
 readTime: 9 min read
 tags: AI, LangChain, LangGraph, Python, Architecture, PostgreSQL, HITL, Human-in-the-Loop
 ---
 
-![HITL Architecture Hero](images/8-1-hitl-architecture-hero.png)  
+![HITL Architecture Hero](1-hitl-architecture-hero.png)  
 
 ## Hey there, fellow AI system builder! 🚀
 
@@ -29,7 +29,7 @@ In plain words, **Human-in-the-Loop** is a design setup where an automated AI pi
 
 For engineers, think of HITL as a **durable, non-blocking breakpoint combined with state saving**.
 
-![HITL Architecture Flow](images/8-2-hitl-workflow.png)  
+![HITL Architecture Flow](2-hitl-workflow.png)  
 
 When an AI agent reaches a predefined stop sign (an interrupt checkpoint):
 
@@ -56,7 +56,7 @@ Now let me show you the three simple patterns used to build these checkpoints.
 
 When building human interaction into your workflows, three main execution patterns cover almost every use case:
 
-![HITL Patterns](images/8-3-hitl-patterns.png)  
+![HITL Patterns](3-hitl-patterns.png)  
 
 * **Pattern 1: Approval Gatekeepers:** The agent plans an action (like `cancel_subscription(user_id=8923)`). The pipeline pauses and shows the plan on a dashboard. If approved, it runs; if rejected, it stops or triggers a backup plan.
 * **Pattern 2: Edit and Override:** The agent drafts an output (like a SQL query or email draft). Before running, the payload opens in an editable screen where a human can tune the parameters directly before sending it off.

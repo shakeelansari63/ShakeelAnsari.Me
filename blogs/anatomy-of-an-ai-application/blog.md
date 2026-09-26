@@ -4,10 +4,10 @@ excerpt: Ever wondered what goes into a production-grade AI app? Let's dissect a
 date: 2026-06-05
 readTime: 13 min read
 tags: AI, LangGraph, MCP, LangSmith, Python, Gradio
-bannerImage: 2-0-anatomy-ai-app-thumb.png
+bannerImage: 0-anatomy-ai-app-thumb.png
 ---
 
-![Anatomy of AI Application](images/2-1-anatomy-ai-app.png)  
+![Anatomy of AI Application](1-anatomy-ai-app.png)  
 
 ## Hey there, fellow AI enthusiast!
 
@@ -26,7 +26,7 @@ When you use the app, it smoothly handles financial queries that require multi-s
 ---
    
 ## Major parts of AI Application
-![AI Application Components](images/2-2-ai-agent-components.png)  
+![AI Application Components](2-ai-agent-components.png)  
 
 Now let's break down exactly how these components work internally.
 
@@ -52,7 +52,7 @@ I chose MCP specifically because it is agent-framework agnostic. This means the 
    
 ## 3. Orchestrating the Agent with LangGraph
 
-![Agent Flow](images/2-3-agent-request-flow.png)  
+![Agent Flow](3-agent-request-flow.png)  
 
 The "brain" of the application is built using LangGraph. Instead of a single complex prompt trying to do everything, the architecture is split into specific nodes that handle different parts of the logic. In this application we have 3 Nodes: `OutOfScopeDetector`, `ToolShortlister`, and `Worker`. 
 

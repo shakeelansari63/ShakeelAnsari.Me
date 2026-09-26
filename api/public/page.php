@@ -83,8 +83,9 @@ function blogSeoData(?PDO $pdo, string $id): ?array
             $row = $stmt->fetch();
             if ($row) {
                 $image = $row["banner_image"] ?? "";
+                $image = resolveBlogBanner($id, $image);
                 if ($image !== "" && strpos($image, "://") === false) {
-                    $image = seoDomain() . "/api/blogs/images/" . rawurlencode($image);
+                    $image = seoDomain() . $image;
                 }
                 return [
                     "title" => $row["title"] ?? "",
@@ -97,14 +98,14 @@ function blogSeoData(?PDO $pdo, string $id): ?array
         }
     }
 
-    $file = BLOGS_DIR . "/" . $id . ".md";
-    if (!file_exists($file)) {
+    $file = resolveBlogFile($id);
+    if ($file === null) {
         return null;
     }
     $meta = parseFrontmatter(file_get_contents($file));
-    $image = $meta["bannerImage"] ?? "";
-    if ($image !== "") {
-        $image = seoDomain() . "/api/blogs/images/" . rawurlencode($image);
+    $image = resolveBlogBanner($id, $meta["bannerImage"] ?? "");
+    if ($image !== "" && strpos($image, "://") === false) {
+        $image = seoDomain() . $image;
     }
     return [
         "title" => $meta["title"] ?? "",

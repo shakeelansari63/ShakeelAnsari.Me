@@ -2,12 +2,12 @@
 title: Why Do AI Coding Assistants Feel So Expensive Now?
 excerpt: Ever wondered why your AI coding assistant suddenly feels so costly? As companies move to usage-based billing, the exponential math behind autonomous agents is finally being revealed.
 date: 2026-07-03
-bannerImage: 5-0-hidden-cost-of-ai-agents-autonomy-thumb.png
+bannerImage: 0-hidden-cost-of-ai-agents-autonomy-thumb.png
 readTime: 6 min read
 tags: AI, Large Language Models, LLMs, Developer Tools, Software Engineering, Subscriptions, AI Costs
 ---
 
-![The Hidden Cost of Coding Agents](images/5-1-hidden-cost-of-ai-agents-autonomy.png)  
+![The Hidden Cost of Coding Agents](1-hidden-cost-of-ai-agents-autonomy.png)  
   
 ## Hey there, fellow developer!
 
@@ -27,7 +27,7 @@ Before looking at how AI agents work, we need to understand what they are actual
 * **The Anatomy of a Token:** Tokens are pieces of words, which include punctuation and spaces. On average, 100 words equal about 130 to 140 tokens.
 * **The Selection Mechanism:** LLMs break text into these units based on how often they appear in their training data. This helps them predict the next likely token in a sentence.
 
-![Token Explain](images/5-2-llm-sentence-tokenization.png)  
+![Token Explain](2-llm-sentence-tokenization.png)  
   
 Tokens are the basic currency of an LLM. To understand why our bills are climbing, we need to look at how agents interact with these tokens continuously during a session.
 
@@ -57,7 +57,7 @@ Let's say you ask an agent to fix a bug with a simple request: *"Fix this bug in
 
 Here is how that short request turns into a compounding mountain of tokens behind the scenes.
 
-![Token Compounding](images/5-3-token-compounding.png)  
+![Token Compounding](3-token-compounding.png)  
 
 ### 1. The Initial Prompt
 The process starts with a heavy system prompt containing rules on how the agent must behave, combined with your query.

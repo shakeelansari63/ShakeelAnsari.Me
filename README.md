@@ -28,7 +28,7 @@ Personal portfolio website for [shakeelansari.me](https://shakeelansari.me) — 
 │   ├── public/           – Entry points (index.php API, page.php per-URL SEO shell, sitemap.php)
 │   ├── src/              – Routes (blogs, admin), helpers, DB, seo-helpers
 │   └── db/               – Database schema (schema.sql)
-├── blogs/       – Markdown blog posts and images
+├── blogs/       – Blog posts, one folder per post (`{id}/blog.md` + co-located images)
 ├── products/    – Markdown product pages (detailed write-ups)
 ├── prompts/     – Reusable AI system prompts (e.g. blog writer)
 ├── tutorial/    – Multi-subject tutorial content (Python, Golang, Scala, etc.)
@@ -104,12 +104,13 @@ If using MySQL, create the database and run the schema:
 mysql -u root -p your_database_name < api/db/schema.sql
 ```
 
-This creates five tables:
+This creates six tables:
 - **`blog`** — Blog posts synced from markdown files
 - **`blog_views`** — View tracking (dedup by IP + 8-hour window)
 - **`blog_likes`** — Like tracking (dedup by IP)
 - **`learn_subjects`** — Tutorial subjects (e.g. Python, Golang, Scala)
 - **`learn_chapters`** — Individual tutorial chapters per subject
+- **`ip_location`** — Cached IP geolocation (country/city) for analytics
 
 Without a database, the API runs in degraded mode (blogs list/content still work via markdown files, but views/likes and learn/tutorial features are unavailable).
 
@@ -140,6 +141,19 @@ After setting up the database, sync markdown files:
 2. Log in with the credentials from `api/.env`
 3. Click **Sync Blogs** to ingest/update blog posts from `blogs/`
 4. Click **Sync Learn** to ingest/update tutorial subjects and chapters from `tutorial/`
+
+### Adding a blog post
+
+Create one folder per post — the folder name is the post ID:
+
+```
+blogs/my-new-post/
+├── blog.md          # frontmatter (title, excerpt, date, bannerImage, readTime, tags) + content
+├── banner.png       # banner image (reference by filename in `bannerImage:`)
+└── diagram.png      # content images, referenced by bare filename: ![alt](diagram.png)
+```
+
+The content API rewrites bare image names to `/api/blogs/{id}/images/{name}`, so the UI needs no path handling. Re-run **Sync Blogs** after adding/editing.
 
 ### 6. Local Production Test (`make test-prod`)
 
@@ -189,8 +203,9 @@ public_html/
 │   ├── .htaccess          # from api/.htaccess
 │   └── .env               # production environment file
 ├── blogs/                 # from blogs/
-│   ├── images/
-│   └── *.md
+│   └── {post-id}/
+│       ├── blog.md
+│       └── *.png|*.webp    # co-located images incl. banner
 ├── tutorial/              # from tutorial/ (optional — for Learn platform)
 ├── products/              # from products/ (optional — for product detail pages)
 └── .htaccess              # from root .htaccess
@@ -255,7 +270,7 @@ Create a **production** environment in your repo settings with:
 | POST   | `/api/blogs/{id}/view`            | Record a view                            |
 | POST   | `/api/blogs/{id}/like`            | Toggle like                              |
 | GET    | `/api/blogs/{id}/related`         | Tag-overlap related posts ("Also read"), random fallback |
-| GET    | `/api/blogs/images/{name}`        | Blog image asset                         |
+| GET    | `/api/blogs/{id}/images/{name}`    | Blog image asset (per-post folder)       |
 | GET    | `/api/learn/subjects`             | List tutorial subjects                   |
 | GET    | `/api/learn/subjects/{id}/chapters` | List chapters for a subject            |
 | GET    | `/api/learn/subjects/{subjectId}/chapters/{chapterId}/content` | Chapter markdown content |

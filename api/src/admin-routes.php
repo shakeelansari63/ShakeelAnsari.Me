@@ -109,14 +109,10 @@ return function (App $app, ?PDO $pdo) {
         }
 
         $dir = BLOGS_DIR;
-        $files = glob($dir . "/*.md");
-
-        if (empty($files)) {
-            return jsonResponse(
-                $response,
-                ["error" => "No markdown files found"],
-                500,
-            );
+        $mdFiles = glob($dir . "/*/blog.md");
+        // Legacy flat layout fallback
+        if (empty($mdFiles)) {
+            $mdFiles = glob($dir . "/*.md") ?: [];
         }
 
         $upsert = $pdo->prepare(
@@ -135,11 +131,22 @@ return function (App $app, ?PDO $pdo) {
 
         $ids = [];
         $parsed = 0;
-        foreach ($files as $file) {
-            $id = pathinfo($file, PATHINFO_FILENAME);
+        foreach ($mdFiles as $file) {
+            $folder = basename(dirname($file));
+            $isNested = basename($file) === "blog.md" && dirname($file) !== $dir;
+            $id = $isNested ? $folder : pathinfo($file, PATHINFO_FILENAME);
+            if (!validateId($id)) {
+                continue;
+            }
+            $id = basename($id);
             $ids[] = $id;
             $raw = file_get_contents($file);
             $meta = parseFrontmatter($raw);
+            $banner = $meta["bannerImage"] ?? "";
+            // Store just the filename; serving path is resolved per blog folder
+            if ($banner !== "" && strpos($banner, "://") === false && !str_starts_with($banner, "/")) {
+                $banner = basename($banner);
+            }
 
             $upsert->execute([
                 $id,
@@ -148,10 +155,18 @@ return function (App $app, ?PDO $pdo) {
                 $meta["date"],
                 $meta["readTime"],
                 json_encode($meta["tags"]),
-                $meta["bannerImage"] ?? "",
-                basename($file),
+                $banner,
+                $isNested ? $id . "/blog.md" : basename($file),
             ]);
             $parsed++;
+        }
+
+        if ($parsed === 0) {
+            return jsonResponse(
+                $response,
+                ["error" => "No markdown files found"],
+                500,
+            );
         }
 
         $placeholders = implode(",", array_fill(0, count($ids), "?"));

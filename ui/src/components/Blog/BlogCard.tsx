@@ -25,7 +25,11 @@ export default function BlogCard({ post }: Props) {
         cover={
           post.bannerImage ? (
             <img
-              src={`/api/blogs/images/${post.bannerImage}`}
+              src={
+                post.bannerImage.startsWith('/') || post.bannerImage.startsWith('http')
+                  ? post.bannerImage
+                  : `/api/blogs/images/${post.bannerImage}`
+              }
               alt={post.title}
               style={{
                 width: '100%',

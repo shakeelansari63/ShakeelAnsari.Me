@@ -38,9 +38,67 @@ function parseFrontmatter(string $content): array
     return $meta;
 }
 
-function rewriteImageUrls(string $content): string
+function rewriteImageUrls(string $content, string $blogId = ""): string
 {
+    if ($blogId !== "" && validateId($blogId)) {
+        $id = basename($blogId);
+        // Bare filenames: ](hero.png) -> /api/blogs/{id}/images/hero.png
+        $content = preg_replace(
+            "/\]\((?!https?:\/\/|\/|#|data:)([^)\s]+)\)/",
+            "](/api/blogs/{$id}/images/$1)",
+            $content,
+        );
+        // Legacy shared-folder refs: ](images/foo.png) -> /api/blogs/{id}/images/foo.png
+        $content = str_replace(
+            "](/api/blogs/{$id}/images/images/",
+            "](/api/blogs/{$id}/images/",
+            $content ?? "",
+        );
+        return $content ?? "";
+    }
     return preg_replace("/\]\((images\/)/", '](/api/blogs/$1', $content);
+}
+
+function resolveBlogFile(string $id, ?string $mdFile = null): ?string
+{
+    if (!validateId($id)) {
+        return null;
+    }
+    $id = basename($id);
+    $candidates = [];
+    if ($mdFile !== null && $mdFile !== "") {
+        // md_file from DB must be a safe relative path (e.g. "{id}/blog.md")
+        $mdFile = str_replace("\\", "/", $mdFile);
+        if (
+            strpos($mdFile, "..") === false &&
+            strpos($mdFile, "/") !== 0 &&
+            validateId($mdFile, '/^[a-zA-Z0-9_@\.\-\/]+$/')
+        ) {
+            $candidates[] = BLOGS_DIR . "/" . basename(dirname($mdFile)) . "/" . basename($mdFile);
+            $candidates[] = BLOGS_DIR . "/" . $mdFile;
+        }
+    }
+    $candidates[] = BLOGS_DIR . "/" . $id . "/blog.md";
+    // Legacy flat layout fallback
+    $candidates[] = BLOGS_DIR . "/" . $id . ".md";
+    foreach ($candidates as $file) {
+        if (is_file($file)) {
+            return $file;
+        }
+    }
+    return null;
+}
+
+function resolveBlogBanner(string $id, string $banner): string
+{
+    if ($banner === "" || strpos($banner, "://") !== false || str_starts_with($banner, "/")) {
+        return $banner;
+    }
+    if (!validateId($id)) {
+        return $banner;
+    }
+    // Frontmatter holds just the filename; images live in the blog folder
+    return "/api/blogs/" . basename($id) . "/images/" . basename($banner);
 }
 
 function attemptsFile(string $ip): string
@@ -264,7 +322,7 @@ function validateId(string $id, string $pattern = '/^[a-zA-Z0-9_@\.\-\/]+$/'): b
 
 function blogExists(PDO $pdo, string $id): bool
 {
-    if (file_exists(BLOGS_DIR . "/" . $id . ".md")) {
+    if (resolveBlogFile($id) !== null) {
         return true;
     }
     $stmt = $pdo->prepare("SELECT 1 FROM blog WHERE id = ? AND deleted = 0");

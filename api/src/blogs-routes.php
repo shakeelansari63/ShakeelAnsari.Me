@@ -49,7 +49,7 @@ return function (App $app, ?PDO $pdo) {
                     "date" => $row["date"],
                     "readTime" => $row["read_time"],
                     "tags" => json_decode($row["tags"] ?? "[]", true),
-                    "bannerImage" => $row["banner_image"] ?? "",
+                    "bannerImage" => resolveBlogBanner($row["id"], $row["banner_image"] ?? ""),
                     "views" => (int) $row["views"],
                     "likes" => (int) $row["likes"],
                 ];
@@ -73,18 +73,23 @@ return function (App $app, ?PDO $pdo) {
         array $args,
     ) use ($pdo) {
         $id = basename($args["id"]);
-        $file = BLOGS_DIR . "/" . $id . ".md";
+        if (!validateId($id)) {
+            return jsonResponse($response, ["error" => "Blog not found"], 404);
+        }
 
+        $mdFile = null;
         if ($pdo) {
             $stmt = $pdo->prepare("SELECT md_file FROM blog WHERE id = ?");
             $stmt->execute([$id]);
             $row = $stmt->fetch();
             if ($row && !empty($row["md_file"])) {
-                $file = BLOGS_DIR . "/" . $row["md_file"];
+                $mdFile = $row["md_file"];
             }
         }
 
-        if (!file_exists($file)) {
+        $file = resolveBlogFile($id, $mdFile);
+
+        if ($file === null) {
             return jsonResponse($response, ["error" => "Blog not found"], 404);
         }
 
@@ -92,7 +97,7 @@ return function (App $app, ?PDO $pdo) {
         $meta = parseFrontmatter($raw);
 
         return jsonResponse($response, [
-            "content" => rewriteImageUrls($meta["content"]),
+            "content" => rewriteImageUrls($meta["content"], $id),
         ]);
     });
 
@@ -128,7 +133,7 @@ return function (App $app, ?PDO $pdo) {
             "date" => $row["date"],
             "readTime" => $row["read_time"],
             "tags" => json_decode($row["tags"] ?? "[]", true),
-            "bannerImage" => $row["banner_image"] ?? "",
+            "bannerImage" => resolveBlogBanner($row["id"], $row["banner_image"] ?? ""),
             "views" => (int) $row["views"],
             "likes" => (int) $row["likes"],
         ]);
@@ -206,15 +211,19 @@ return function (App $app, ?PDO $pdo) {
         return jsonResponse($response, ["data" => $related]);
     });
 
-    $app->get("/blogs/images/{name}", function (
+    $app->get("/blogs/{id}/images/{name}", function (
         Request $request,
         Response $response,
         array $args,
     ) {
+        $id = basename($args["id"]);
         $name = basename($args["name"]);
-        $file = BLOGS_DIR . "/images/" . $name;
+        if (!validateId($id) || !validateId($name, '/^[a-zA-Z0-9_@\.\-]+$/')) {
+            return jsonResponse($response, ["error" => "Image not found"], 404);
+        }
+        $file = BLOGS_DIR . "/" . $id . "/" . $name;
 
-        if (!file_exists($file)) {
+        if (!is_file($file)) {
             return jsonResponse($response, ["error" => "Image not found"], 404);
         }
 
@@ -227,10 +236,22 @@ return function (App $app, ?PDO $pdo) {
             "svg" => "image/svg+xml",
             "webp" => "image/webp",
         ];
-        $mime = $mimeTypes[$ext] ?? "application/octet-stream";
+        $mime = $mimeTypes[$ext] ?? null;
+        if ($mime === null) {
+            return jsonResponse($response, ["error" => "Image not found"], 404);
+        }
 
         $response->getBody()->write(file_get_contents($file));
         return $response->withHeader("Content-Type", $mime);
+    });
+
+    // Legacy shared-folder image URLs (cached content / old banners)
+    $app->get("/blogs/images/{name}", function (
+        Request $request,
+        Response $response,
+        array $args,
+    ) {
+        return jsonResponse($response, ["error" => "Image not found"], 410);
     });
 
     $app->get("/blogs/{id}/stats", function (

@@ -2,11 +2,11 @@
 title: Unlocking Lightning-Fast Data Transformations with Polars
 excerpt: Looking beyond Pandas for data processing? See how Polars uses multi-core processing, streaming, and Rust under the hood to supercharge your data pipelines.
 date: 2026-08-07
-bannerImage: 7-0-polars-data-engineering.png
+bannerImage: 0-polars-data-engineering.png
 readTime: 11 min read
 tags: Python, Polars, Data Engineering, Rust, DataFrames, SQL
 ---
-![Polars Data Engineering](images/7-1-polars-data-engineering.png)
+![Polars Data Engineering](1-polars-data-engineering.png)
 
 ## Hey there, fellow data enthusiasts!👋
 

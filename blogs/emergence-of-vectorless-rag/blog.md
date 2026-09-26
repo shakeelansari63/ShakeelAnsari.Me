@@ -4,10 +4,10 @@ excerpt: Moving past traditional vector stores toward structured page indexing f
 date: 2026-06-23
 readTime: 12 min read
 tags: RAG, Vectorless, PageIndex, LLM, Python
-bannerImage: 4-0-era-or-vectorless-rags-thumb.png
+bannerImage: 0-era-or-vectorless-rags-thumb.png
 ---
 
-![Era of Vectorless RAGs](images/4-1-era-or-vectorless-rags.png)
+![Era of Vectorless RAGs](1-era-or-vectorless-rags.png)
 
 ## Hey there, tech enthusiasts and AI builders!
 
@@ -33,7 +33,7 @@ RAG was absolutely path breaking when it came out and it did not take long for t
 
 Before we dive into vectorless world, let's see how the vector-based RAG works. Traditionally, building a RAG includes chunking the knowledge document, running those text pieces through an embedding model, and storing the resulting math vectors into a specialized database which is then used as a knowledge repository.
 
-![How Vector Based RAG Works](images/4-2-vector-based-rag-works.png)
+![How Vector Based RAG Works](2-vector-based-rag-works.png)
 
 Here is a high-level Python script using LangChain and Chroma to show how this traditional workflow is typically put together.  
 **Note:** In this example I used [Ollama](https://ollama.com/) for the LLM, you can use any other LLM provider.
@@ -136,7 +136,7 @@ When a user queries the application, the system converts the query into an embed
 Let's run the script and see the output.. 
 
 ### Here is the output of above code
-![Vector based RAG Output](images/4-3-rag-vector-output.png)
+![Vector based RAG Output](3-rag-vector-output.png)
 
 🎉 Amazing!! With just few lines of code, we have created a QnA chatbot.  
 
@@ -403,13 +403,13 @@ Inside the `if __name__ == "__main__":` block, `create_agent` orchestrates a rea
 
 ### Here is how a PageIndex tree would look after ingesting the PDF document
 
-![Sample Page Index Graph](images/4-4-page-index-graph.png)
+![Sample Page Index Graph](4-page-index-graph.png)
 
 🤞🏻 Moment of truth! Let's run the scripts and see how this RAG behaves.
 
 ### And here is output of Page Index based vectorless RAG
 
-![Sample Page Index Graph](images/4-5-rag-pageindex-output.png)
+![Sample Page Index Graph](5-rag-pageindex-output.png)
   
 🤯 Wow!! Isn't it cool that we were able to implement this RAG without using a vector store? It certainly is. 🎉
    

@@ -2,12 +2,12 @@
 title: Unboxing the Mystery Black Box - Explainability in GenAI Models
 excerpt: From SHAP and LIME to Chain-of-Thought and RAG, let's explore how to demystify LLM decision-making and build enterprise trust in Generative AI.
 date: 2026-07-24
-bannerImage: 6-0-llm-explainability-banner.png
+bannerImage: 0-llm-explainability-banner.png
 readTime: 6 min read
 tags: AI, GenAI, MachineLearning, LLM, EnterpriseAI, ExplainableAI, AIGovernance
 ---
 
-![Hero](images/6-1-hero-llm-explainability.png)
+![Hero](1-hero-llm-explainability.png)
 
 ## Hey there, fellow AI enthusiast! 👋
 
@@ -32,7 +32,7 @@ Explainability is generally split into two distinct levels:
 * **Global Explainability:** Understanding the overall logic of the model and which features matter most across all predictions.
 * **Local Explainability:** Unpacking a single, specific prediction to see exactly what triggered that exact outcome.
 
-![Explainability](images/6-2-explainability-levels.png)
+![Explainability](2-explainability-levels.png)
 
 ### Why Does It Matter?
 
@@ -53,7 +53,7 @@ Back in the traditional machine learning days, models like random forests or XGB
 
 Instead of opening up the model directly, both tools figure out what’s going on by "poking" the model with modified inputs and watching how the output changes. Here is how they get the job done:
 
-![LIME and SHAP](images/6-3-ml-lime-shap-explain.png)
+![LIME and SHAP](3-ml-lime-shap-explain.png)
 
 ### The Local Approach: LIME
 Imagine you want to know why a model denied a specific loan application. **LIME** (Local Interpretable Model-agnostic Explanations) zeroes in on that single data point and creates hundreds of tiny variations of it—slightly changing the income, credit score, or age. 
@@ -142,7 +142,7 @@ To secure organizational and user trust, an enterprise cannot treat an LLM as an
 4. **Deploy Independent LLM Guardrails ("LLM-as-a-Judge"):** Never let the primary text generator evaluate its own performance. Introduce an independent verification layer to catch hallucinations and non-compliance.
 
 
-![LLM Explainability](images/6-4-llm-explain-options.png)
+![LLM Explainability](4-llm-explain-options.png)
 
 ## Enterprise Explainability Framework Summary
 
