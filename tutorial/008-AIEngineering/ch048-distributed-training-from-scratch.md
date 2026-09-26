@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch490): Collective Ops From Scratch
+## Part 1: Collective Ops From Scratch
 
 > The four collective operations that hold distributed training together: allreduce, broadcast, allgather, reduce_scatter.
 
@@ -65,7 +65,7 @@ flowchart LR
 
 ---
 
-## Part 2 (ch491): Data Parallel DDP From Scratch
+## Part 2: Data Parallel DDP From Scratch
 
 > DistributedDataParallel is a hook on top of allreduce. Broadcast parameters, install a backward hook, allreduce gradients, step.
 
@@ -125,7 +125,7 @@ sequenceDiagram
 
 ---
 
-## Part 3 (ch492): ZeRO Optimizer State Sharding
+## Part 3: ZeRO Optimizer State Sharding
 
 > Adam stores two moment estimates per parameter. ZeRO stage 1 shards that across N ranks for a linear memory drop.
 
@@ -184,7 +184,7 @@ At N=8: 65% drop. At N=64: 74% drop.
 
 ---
 
-## Part 4 (ch493): Pipeline Parallel and Bubble Analysis
+## Part 4: Pipeline Parallel and Bubble Analysis
 
 > Pipeline splits the model across ranks. Microbatches flow through. The empty time at start and end is the bubble.
 
@@ -245,7 +245,7 @@ At M=8, N=4: 27%. At M=64, N=4: 4.5%.
 
 ---
 
-## Part 5 (ch494): Sharded Checkpoint and Atomic Resume
+## Part 5: Sharded Checkpoint and Atomic Resume
 
 > A 70B training job fails every few hours. The checkpoint format decides whether you lose 30 minutes or 30 hours.
 
@@ -314,7 +314,7 @@ flowchart TD
 
 ---
 
-## Part 6 (ch495): End-to-End Distributed Training
+## Part 6: End-to-End Distributed Training
 
 > Six lessons of pieces. One assembly: DDP + ZeRO-1 + sharded checkpoint training a tiny GPT across 4 ranks.
 

@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch101): CNNs and RNNs for Text
+## Part 1: CNNs and RNNs for Text
 
 Convolutions learn n-grams. Recurrences remember. Both are superseded by attention. Both still matter on constrained hardware.
 
@@ -128,7 +128,7 @@ Everything else goes to a transformer.
 
 ---
 
-## Part 2 (ch102): Sequence-to-Sequence Models
+## Part 2: Sequence-to-Sequence Models
 
 Two RNNs pretending to be a translator. The bottleneck they hit is the reason attention exists.
 
@@ -279,7 +279,7 @@ Scheduled sampling (anneal teacher forcing), minimum risk training (train on BLE
 
 ---
 
-## Part 3 (ch103): Attention Mechanism — The Breakthrough
+## Part 3: Attention Mechanism — The Breakthrough
 
 The decoder stops squinting at a compressed summary and starts looking at the whole source. Everything after this is attention plus engineering.
 
@@ -418,7 +418,7 @@ Attention weights look interpretable but are not as reliable as they look. Jain 
 
 ---
 
-## Part 4 (ch109): Text Generation Before Transformers — N-gram Language Models
+## Part 4: Text Generation Before Transformers — N-gram Language Models
 
 If a word is surprising, the model is bad. Perplexity makes surprise a number. Smoothing keeps it finite.
 

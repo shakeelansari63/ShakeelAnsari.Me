@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch275): Tool Use and Function Calling
+## Part 1: Tool Use and Function Calling
 
 > Toolformer (Schick et al., 2023) started self-supervised tool annotation. Berkeley Function Calling Leaderboard V4 (Patil et al., 2025) sets the 2026 bar: 40% agentic, 30% multi-turn, 10% live, 10% non-live, 10% hallucination. Single-turn is solved. Memory, dynamic decision-making, and long-horizon tool chains are not.
 
@@ -143,7 +143,7 @@ Every provider has its own tool schema — Anthropic, OpenAI, Gemini, Bedrock. U
 
 ---
 
-## Part 2 (ch276): Memory: Virtual Context and MemGPT
+## Part 2: Memory: Virtual Context and MemGPT
 
 > Context windows are finite. Conversations, documents, and tool traces are not. MemGPT (Packer et al., 2023) frames this as OS virtual memory — main context is RAM, external store is disk, the agent pages between them. This is the pattern every 2026 memory system inherits.
 
@@ -279,7 +279,7 @@ Pick one by operational shape (self-hosted, managed, framework-integrated), not 
 
 ---
 
-## Part 3 (ch277): Memory Blocks and Sleep-Time Compute (Letta)
+## Part 3: Memory Blocks and Sleep-Time Compute (Letta)
 
 > MemGPT became Letta in 2024. The 2026 evolution adds two ideas: discrete functional memory blocks the model can edit directly, and a sleep-time agent that consolidates memory asynchronously while the primary agent is idle. This is how you scale memory beyond one conversation.
 
@@ -410,7 +410,7 @@ The transcript shows the split: primary turns are fast and produce raw writes; t
 
 ---
 
-## Part 4 (ch278): Hybrid Memory: Vector + Graph + KV (Mem0)
+## Part 4: Hybrid Memory: Vector + Graph + KV (Mem0)
 
 > Mem0 (Chhikara et al., 2025) treats memory as three stores in parallel — vector for semantic similarity, KV for fast fact lookup, graph for entity-relationship reasoning. A scoring layer fuses the three on retrieval. This is the 2026 production standard for external memory.
 
@@ -556,7 +556,7 @@ The output shows three separate recall paths plus the fused top-k. Flip the scor
 
 ---
 
-## Part 5 (ch279): Skill Libraries and Lifelong Learning (Voyager)
+## Part 5: Skill Libraries and Lifelong Learning (Voyager)
 
 > Voyager (Wang et al., TMLR 2024) treats executable code as a skill. Skills are named, retrievable, composable, and refined by environment feedback. This is the reference architecture for Claude Agent SDK skills, skillkit, and the 2026 skill-library pattern.
 

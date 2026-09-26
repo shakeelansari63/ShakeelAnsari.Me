@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch472): Vision Encoder Patches
+## Part 1: Vision Encoder Patches
 
 > A vision model that reads pixels needs a tokenizer for pixels. Patch embedding is that tokenizer.
 
@@ -69,7 +69,7 @@ Half the embedding dimension encodes row position with sin/cos; the other half e
 
 ---
 
-## Part 2 (ch473): Vision Transformer Encoder
+## Part 2: Vision Transformer Encoder
 
 > Patches alone do not see. A 12-layer pre-LN transformer with 12 attention heads turns patch tokens into contextual tokens.
 
@@ -135,7 +135,7 @@ flowchart LR
 
 ---
 
-## Part 3 (ch474): Projection Layer for Modality Alignment
+## Part 3: Projection Layer for Modality Alignment
 
 > A vision encoder produces image tokens. A text decoder consumes text tokens. A small two-layer MLP projects image tokens into the text embedding space.
 
@@ -193,7 +193,7 @@ A single linear layer can rotate and rescale but cannot fix basis curvature mism
 
 ---
 
-## Part 4 (ch475): Cross-Attention Fusion
+## Part 4: Cross-Attention Fusion
 
 > The projection layer aligns one image vector with one caption vector. Cross-attention lets every text token attend to every patch token.
 
@@ -248,7 +248,7 @@ flowchart TB
 
 ---
 
-## Part 5 (ch476): Vision-Language Pretraining
+## Part 5: Vision-Language Pretraining
 
 > The encoder, projection, and decoder are wired. Now train them together: contrastive image-text loss plus language modeling loss.
 
@@ -314,7 +314,7 @@ L2-normalize image and text embeddings. Compute N x N similarity matrix `S = I T
 
 ---
 
-## Part 6 (ch477): Multimodal Evaluation
+## Part 6: Multimodal Evaluation
 
 > Training is half the loop. The other half is measurement. Build three eval surfaces: retrieval R@K, VQA exact match, and BLEU-4 captioning.
 

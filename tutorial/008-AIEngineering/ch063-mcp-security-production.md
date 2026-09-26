@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch261): MCP Security I — Tool Poisoning, Rug Pulls, Cross-Server Shadowing
+## Part 1: MCP Security I — Tool Poisoning, Rug Pulls, Cross-Server Shadowing
 
 > Tool descriptions land in the model's context verbatim. Malicious servers embed hidden instructions that users never see. Research in 2025-2026 measured attack-success rates above 70% on frontier models and ~85% against state-of-the-art defenses under adaptive attacks.
 
@@ -110,7 +110,7 @@ def lint_description(desc, tool_name):
 
 ---
 
-## Part 2 (ch262): MCP Security II — OAuth 2.1, Resource Indicators, Incremental Scopes
+## Part 2: MCP Security II — OAuth 2.1, Resource Indicators, Incremental Scopes
 
 > Remote MCP servers need authorization, not just authentication. The 2025-11-25 spec aligns with OAuth 2.1 + PKCE + resource indicators (RFC 8707) + protected-resource metadata (RFC 9728). SEP-835 adds incremental scope consent.
 
@@ -203,7 +203,7 @@ Access tokens: 1 hour default. Refresh tokens rotate on every refresh. Client ha
 
 ---
 
-## Part 3 (ch263): MCP Gateways and Registries — Enterprise Control Planes
+## Part 3: MCP Gateways and Registries — Enterprise Control Planes
 
 > Enterprises cannot let every dev install random MCP servers. A gateway centralizes auth, RBAC, audit, rate limiting, caching, and tool-poisoning detection, then exposes the merged tool surface as a single MCP endpoint.
 
@@ -293,7 +293,7 @@ Gateways merge tool namespaces with prefix-on-collision: `github.open_pr`, `note
 
 ---
 
-## Part 4 (ch264): MCP Auth in Production — Enrollment, JWKS Refresh, Audience-Pinned Tokens
+## Part 4: MCP Auth in Production — Enrollment, JWKS Refresh, Audience-Pinned Tokens
 
 > Lesson 16 stood up the OAuth 2.1 state machine in memory. By 2026, every MCP server you ship to a real org sits behind production auth: client enrollment that scales, authorization-server metadata discovery, JWKS cache refresh that does not break 3 a.m. token validation, and audience-pinned tokens that refuse cross-resource replay.
 
@@ -431,7 +431,7 @@ Client must validate RFC 9207 `iss` parameter against the issuer it recorded bef
 
 ---
 
-## Part 5 (ch429): MCP Server with Registry and Governance
+## Part 5: MCP Server with Registry and Governance
 
 > The Model Context Protocol stopped being the future and became the default tool-use spec in 2026. Anthropic, OpenAI, Google, and every major IDE ship MCP clients. Pinterest published its internal ecosystem of MCP servers. The AAIF Registry formalized capability metadata at `.well-known`. AWS ECS published the reference stateless deployment. Block's goose-agent put the same protocol inside a hosted assistant. The 2026 production shape is: StreamableHTTP transport, OAuth 2.1 scopes, OPA policy gating, and a registry that lets platform teams discover, validate, and enable servers. Build that end to end.
 

@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch079): Vision Transformers (ViT)
+## Part 1: Vision Transformers (ViT)
 
 > Cut the image into patches, treat each patch as a word, run a standard transformer. Don't look back.
 
@@ -177,7 +177,7 @@ model = timm.create_model("vit_base_patch16_224", pretrained=True, num_classes=1
 
 ---
 
-## Part 2 (ch148): Vision Transformers (ViT)
+## Part 2: Vision Transformers (ViT)
 
 > An image is a grid of patches. A sentence is a grid of tokens. The same transformer eats both.
 
@@ -363,7 +363,7 @@ See `outputs/skill-vit-configurator.md`. The skill picks a ViT variant and patch
 
 ---
 
-## Part 3 (ch222): Vision Transformers and the Patch-Token Primitive
+## Part 3: Vision Transformers and the Patch-Token Primitive
 
 > Before anything multimodal, an image has to become a sequence of tokens a transformer can eat. The 2020 ViT paper answered this with 16×16 pixel patches, a linear projection, and a position embedding. Five years later every 2026 frontier model (Claude Opus 4.7 at 2576px native, Gemini 3.1 Pro, Qwen3.5-Omni) still begins this way — the encoder changed from ViT to DINOv2 to SigLIP 2, register tokens were added, the positional scheme became 2D-RoPE, but the primitive held. This lesson reads the patch-token pipeline end to end and builds it in stdlib Python so the rest of Phase 12 has a concrete mental model for "visual tokens."
 

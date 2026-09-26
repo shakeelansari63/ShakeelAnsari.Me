@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch179): Reward Modeling & RLHF
+## Part 1: Reward Modeling & RLHF
 
 > Humans cannot write a reward function for "good assistant response," but they can compare two responses and pick the better one. Fit a reward model to those comparisons, then RL the language model against it. Christiano 2017. InstructGPT 2022. The recipe that turned GPT-3 into ChatGPT. In 2026 it is mostly being replaced by DPO — but the mental model stays.
 
@@ -244,7 +244,7 @@ Refuse to ship RLHF-PPO without a KL monitor. Refuse to use an RM smaller than t
 
 ---
 
-## Part 2 (ch180): Multi-Agent RL
+## Part 2: Multi-Agent RL
 
 > Single-agent RL assumes the environment is stationary. Put two learning agents in the same world and that assumption breaks: each agent is part of the other's environment, and both are changing. Multi-agent RL is the set of tricks to make learning converge when the Markov assumption no longer holds.
 
@@ -427,7 +427,7 @@ Refuse independent Q-learning on tightly-coupled cooperative tasks. Refuse to re
 
 ---
 
-## Part 3 (ch181): Sim-to-Real Transfer
+## Part 3: Sim-to-Real Transfer
 
 > A policy trained in a simulator that fails on hardware is a policy that memorized the simulator. Domain randomization, domain adaptation, and system identification are the three tools to make learned controllers cross the reality gap.
 
@@ -579,7 +579,7 @@ Refuse to deploy without (a) a zero-shot sim-variant test, (b) a safety shield, 
 
 ---
 
-## Part 4 (ch182): RL for Games — AlphaZero, MuZero, and the LLM-Reasoning Era
+## Part 4: RL for Games — AlphaZero, MuZero, and the LLM-Reasoning Era
 
 > 1992: TD-Gammon beat human champions at backgammon with pure TD. 2016: AlphaGo beat Lee Sedol. 2017: AlphaZero dominated chess, shogi, and Go from scratch. 2024: DeepSeek-R1 proved the same recipe, with GRPO replacing PPO, works on reasoning. Games are the benchmark that drives every breakthrough in this phase.
 

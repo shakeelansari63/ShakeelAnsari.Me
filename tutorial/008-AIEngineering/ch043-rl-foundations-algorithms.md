@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch171): MDPs, States, Actions & Rewards
+## Part 1: MDPs, States, Actions & Rewards
 
 > A Markov Decision Process is five things: states, actions, transitions, rewards, a discount. Everything in RL — Q-learning, PPO, DPO, GRPO — optimizes over this shape. Learn it once, read the rest of reinforcement learning for free.
 
@@ -193,7 +193,7 @@ Refuse to ship any MDP where the state is non-Markovian without explicit mention
 
 ---
 
-## Part 2 (ch172): Dynamic Programming — Policy Iteration & Value Iteration
+## Part 2: Dynamic Programming — Policy Iteration & Value Iteration
 
 > Dynamic programming is RL with cheating. You already know the transition and reward functions; you just iterate the Bellman equation until `V` or `π` stops moving. It is the benchmark every sampling-based method tries to approach.
 
@@ -396,7 +396,7 @@ Refuse to run DP on state spaces > 10⁷. Refuse to claim convergence without a 
 
 ---
 
-## Part 3 (ch173): Monte Carlo Methods — Learning from Complete Episodes
+## Part 3: Monte Carlo Methods — Learning from Complete Episodes
 
 > Dynamic programming needs a model. Monte Carlo needs nothing but episodes. Run the policy, watch the returns, average them. The simplest idea in RL — and the one that unlocks everything downstream.
 
@@ -599,7 +599,7 @@ Refuse to run MC on non-episodic tasks without a finite horizon cap. Refuse to r
 
 ---
 
-## Part 4 (ch174): Temporal Difference — Q-Learning & SARSA
+## Part 4: Temporal Difference — Q-Learning & SARSA
 
 > Monte Carlo waits until the episode ends. TD updates after every step by bootstrapping the next value estimate. Q-learning is off-policy and optimistic; SARSA is on-policy and cautious. Both are one line of code. Both underpin every deep-RL method in this phase.
 
@@ -782,7 +782,7 @@ Refuse to apply tabular TD to state spaces > 10⁶. Refuse to ship a Q-learning 
 
 ---
 
-## Part 5 (ch175): Deep Q-Networks (DQN)
+## Part 5: Deep Q-Networks (DQN)
 
 > 2013: Mnih trained one Q-learning network on raw pixels, beat every classical RL agent on seven Atari games. 2015: extended to 49 games, published in Nature, sparked the deep-RL era. DQN is Q-learning plus three tricks that make function approximation stable.
 
@@ -985,7 +985,7 @@ Refuse to ship a DQN with no target network, no replay buffer, or ε held at 1. 
 
 ---
 
-## Part 6 (ch176): Policy Gradient — REINFORCE from Scratch
+## Part 6: Policy Gradient — REINFORCE from Scratch
 
 > Stop estimating value. Parameterize the policy directly, compute the gradient of expected return, step uphill. Williams (1992) wrote it in one theorem. It is why PPO, GRPO, and every LLM RL loop exist.
 
@@ -1182,7 +1182,7 @@ Refuse REINFORCE-no-baseline on horizons > 500 steps. Refuse continuous-action c
 
 ---
 
-## Part 7 (ch177): Actor-Critic — A2C and A3C
+## Part 7: Actor-Critic — A2C and A3C
 
 > REINFORCE is noisy. Add a critic that learns `V̂(s)`, subtract it from the return, and you get an advantage that has the same expectation but far lower variance. That is actor-critic. A2C runs it synchronously; A3C runs it across threads. Both are the mental model for every modern deep-RL method.
 
@@ -1374,7 +1374,7 @@ Refuse single-worker A2C on environments with horizon > 1000 (too on-policy, too
 
 ---
 
-## Part 8 (ch178): Proximal Policy Optimization (PPO)
+## Part 8: Proximal Policy Optimization (PPO)
 
 > A2C throws away each rollout after one update. PPO wraps the policy gradient in a clipped importance ratio so you can do 10+ epochs on the same data without the policy exploding. Schulman et al. (2017). Still the default policy-gradient algorithm in 2026.
 

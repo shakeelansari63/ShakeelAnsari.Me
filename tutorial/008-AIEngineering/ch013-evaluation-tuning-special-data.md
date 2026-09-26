@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch043): Model Evaluation
+## Part 1: Model Evaluation
 
 > A model is only as good as the way you measure it.
 
@@ -386,7 +386,7 @@ This lesson produces `outputs/skill-evaluation.md` -- a skill covering evaluatio
 
 ---
 
-## Part 2 (ch044): Bias-Variance Tradeoff
+## Part 2: Bias-Variance Tradeoff
 
 > Every model error comes from one of three sources: bias, variance, or noise. You can only control the first two.
 
@@ -628,7 +628,7 @@ This lesson produces `outputs/prompt-model-diagnostics.md`.
 
 ---
 
-## Part 3 (ch045): Ensemble Methods
+## Part 3: Ensemble Methods
 
 > A group of weak learners, combined correctly, becomes a strong learner. This is not a metaphor. It is a theorem.
 
@@ -886,7 +886,7 @@ This lesson produces `outputs/prompt-ensemble-selector.md` and `outputs/skill-en
 
 ---
 
-## Part 4 (ch046): Hyperparameter Tuning
+## Part 4: Hyperparameter Tuning
 
 > Hyperparameters are the knobs you turn before training starts. Turning them well is the difference between a mediocre model and a great one.
 
@@ -1141,7 +1141,7 @@ This lesson produces `outputs/skill-hyperparameter-tuner.md`.
 
 ---
 
-## Part 5 (ch047): ML Pipelines
+## Part 5: ML Pipelines
 
 > A model is not a product. A pipeline is. The pipeline is everything from raw data to deployed prediction, and every step must be reproducible.
 
@@ -1393,7 +1393,7 @@ This lesson produces `outputs/prompt-ml-pipeline.md`.
 
 ---
 
-## Part 6 (ch049): Time Series Fundamentals
+## Part 6: Time Series Fundamentals
 
 > Past performance does predict future results -- if you check for stationarity first.
 
@@ -1651,7 +1651,7 @@ This lesson produces `outputs/prompt-time-series-advisor.md`.
 
 ---
 
-## Part 7 (ch050): Anomaly Detection
+## Part 7: Anomaly Detection
 
 > Normal is easy to define. Abnormal is whatever doesn't fit.
 
@@ -1888,7 +1888,7 @@ This lesson produces `outputs/skill-anomaly-detector.md`.
 
 ---
 
-## Part 8 (ch051): Handling Imbalanced Data
+## Part 8: Handling Imbalanced Data
 
 > When 99% of your data is "normal," accuracy is a lie.
 

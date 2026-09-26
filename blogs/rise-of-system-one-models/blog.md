@@ -11,7 +11,7 @@ tags: AI, LLM, System1, Jev, Laya, Architecture, GenerativeAI
 
 ## Hey there, fellow AI enthusiast! 👋
 
-If you've been keeping an eye on the tech landscape lately, you've probably noticed a massive wave of excitement surrounding a brand new class of AI models. Systems like **Jev** (by TypeSafe AI) and **Laya** (by Convai Innovations) are taking over developer feeds, and for good reason! They are insanely fast, remarkably cheap, and offer a completely fresh perspective on how we build automated software.
+If you've been keeping an eye on the tech landscape lately, you've probably noticed a massive wave of excitement surrounding a brand new class of AI models. Systems like [**Jev**](https://typesafe.ai/blog/introducing-system-one-models-and-jev) (by TypeSafe AI) and [**Laya**](https://laya.convaiinnovations.com/) (by Convai Innovations) are taking over developer feeds, and for good reason! They are insanely fast, remarkably cheap, and offer a completely fresh perspective on how we build automated software.
 
 I recently dived deep into these architectures, and I realized just how fundamentally different they are from the everyday text-generating LLMs we're all used to.
 
@@ -99,8 +99,8 @@ When I am deciding which path to take for a feature, it always comes down to a s
 
 While both of these projects share the exact same System 1 philosophy, they fit into slightly different toolkits depending on how you build:
 
-* **Jev (by TypeSafe AI):** A managed, ultra-fast cloud API optimized for seamless production workflows, complex state management, and massive context windows.
-* **Laya (by Convai Innovations):** An open-weights, 421M-parameter model that you can fine-tune yourself and run locally on edge devices or private GPUs.
+* [**Jev (by TypeSafe AI):**](https://typesafe.ai/blog/introducing-system-one-models-and-jev) A managed, ultra-fast cloud API optimized for seamless production workflows, complex state management, and massive context windows.
+* [**Laya (by Convai Innovations):**](https://laya.convaiinnovations.com/) An open-weights, 421M-parameter model that you can fine-tune yourself and run locally on edge devices or private GPUs.
 
 ---
 

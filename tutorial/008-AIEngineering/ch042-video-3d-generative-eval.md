@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch165): Video Generation
+## Part 1: Video Generation
 
 > An image is a 2-D tensor. A video is a 3-D one. The theory is the same; the compute is 10-100x harder. OpenAI's Sora (Feb 2024) proved it was possible. By 2026 Veo 2, Kling 1.5, Runway Gen-3, Pika 2.0, and WAN 2.2 ship production video from text at 1080p — and the open-weights stack (CogVideoX, HunyuanVideo, Mochi-1, WAN 2.2) is 12 months behind.
 
@@ -166,7 +166,7 @@ A 10-second 1080p clip at 24 fps is 240 frames × 1920 × 1080 × 3 ≈ 1.5 GB o
 
 ---
 
-## Part 2 (ch166): Audio Generation
+## Part 2: Audio Generation
 
 > Audio is a 1-D signal at 16-48 kHz. A five-second clip is 80-240k samples. No transformer attends to that sequence directly. The solution for every production audio model in 2026 is the same: a neural codec (Encodec, SoundStream, DAC) compresses audio to discrete tokens at 50-75 Hz, and a transformer or diffusion model generates tokens.
 
@@ -338,7 +338,7 @@ Audio is the one output modality users expect to arrive *as it is generated*, no
 
 ---
 
-## Part 3 (ch167): 3D Generation
+## Part 3: 3D Generation
 
 > 3D is the modality where 2D-to-3D leverage is strongest. The 2023 breakthrough was 3D Gaussian Splatting. The 2024-2026 generative push layers multi-view diffusion + 3D reconstruction on top to produce objects and scenes from a single prompt or photo.
 
@@ -495,7 +495,7 @@ For most 2026 products, the right answer is "run a multi-view diffusion model on
 
 ---
 
-## Part 4 (ch168): Flow Matching & Rectified Flows
+## Part 4: Flow Matching & Rectified Flows
 
 > Diffusion models take 20-50 sampling steps because they walk a curved path from noise to data. Flow matching (Lipman et al., 2023) and rectified flow (Liu et al., 2022) trained straight paths. Straighter paths mean fewer steps mean faster inference. Stable Diffusion 3, Flux.1, and AudioCraft 2 all switched to flow matching in 2024.
 
@@ -673,7 +673,7 @@ The production rule: **flow-matched base + distillation = the 2026 default for f
 
 ---
 
-## Part 5 (ch169): Evaluation — FID, CLIP Score, Human Preference
+## Part 5: Evaluation — FID, CLIP Score, Human Preference
 
 > Every generative model leaderboard cites FID, CLIP score, and a win rate from a human-preference arena. Each number has a failure mode a determined researcher can game. If you do not know the failure modes, you cannot tell a real improvement from a gaming run.
 
@@ -838,7 +838,7 @@ For CI / regression gates: run FID + CLIP score on a 500-sample subset per PR (~
 
 ---
 
-## Part 6 (ch170): Visual Autoregressive Modeling (VAR): Next-Scale Prediction
+## Part 6: Visual Autoregressive Modeling (VAR): Next-Scale Prediction
 
 > Diffusion models sample iteratively in time (denoising steps). VAR samples iteratively in scale — it predicts a 1x1 token, then 2x2, then 4x4, up to the final resolution, each scale conditioning on the previous. The 2024 paper showed VAR matches GPT-style scaling laws for image generation and beats DiT at the same compute budget. This lesson builds the core mechanism.
 

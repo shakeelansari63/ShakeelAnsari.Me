@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch283): AutoGen v0.4: Actor Model and Agent Framework
+## Part 1: AutoGen v0.4: Actor Model and Agent Framework
 
 > AutoGen v0.4 (Microsoft Research, Jan 2025) redesigned agent orchestration around the actor model. Async message exchange, event-driven agents, fault isolation, natural concurrency. The framework is now in maintenance mode while Microsoft Agent Framework (public preview Oct 2025) becomes the successor.
 
@@ -124,7 +124,7 @@ The trace shows message delivery, a simulated failure in one actor that does not
 
 ---
 
-## Part 2 (ch284): CrewAI: Role-Based Crews and Flows
+## Part 2: CrewAI: Role-Based Crews and Flows
 
 > CrewAI is the 2026 role-based multi-agent framework. Four primitives: Agent, Task, Crew, Process. Two top-level shapes: Crews (autonomous, role-based collaboration) and Flows (event-driven, deterministic). The docs are blunt: "for any production-ready application, start with a Flow."
 
@@ -304,7 +304,7 @@ Trace covers sequential crew threading outputs through `context`, hierarchical c
 
 ---
 
-## Part 3 (ch285): OpenAI Agents SDK: Handoffs, Guardrails, Tracing
+## Part 3: OpenAI Agents SDK: Handoffs, Guardrails, Tracing
 
 > OpenAI Agents SDK is the lightweight multi-agent framework built on the Responses API. Five primitives: Agent, Handoff, Guardrail, Session, Tracing. Handoffs are tools named `transfer_to_<agent>`. Guardrails trip on input or output. Tracing is on by default.
 
@@ -429,7 +429,7 @@ The trace shows two successful handoffs, one input guardrail trip, and a span tr
 
 ---
 
-## Part 4 (ch286): Claude Agent SDK: Subagents and Session Store
+## Part 4: Claude Agent SDK: Subagents and Session Store
 
 > The Claude Agent SDK is the library form of the Claude Code harness. Built-in tools, subagents for context isolation, hooks, W3C trace propagation, session store parity. Claude Managed Agents is the hosted alternative for long-running async work.
 
@@ -565,7 +565,7 @@ The trace shows subagent context isolation (orchestrator context size stays boun
 
 ---
 
-## Part 5 (ch287): Agno and Mastra: Production Runtimes
+## Part 5: Agno and Mastra: Production Runtimes
 
 > Agno (Python) and Mastra (TypeScript) are the 2026 production-runtime pairing. Agno aims at microsecond agent instantiation and stateless FastAPI backends. Mastra ships agents, tools, workflows, unified model routing, and composite storage on the Vercel AI SDK substrate.
 
@@ -677,7 +677,7 @@ Two structurally different but functionally equivalent traces.
 
 ---
 
-## Part 6 (ch426): Multi-Agent Software Engineering Team
+## Part 6: Multi-Agent Software Engineering Team
 
 > SWE-AF's factory architecture, MetaGPT's role-based prompting, AutoGen 0.4's typed actor graph, Cognition's Devin, and Factory's Droids all converged on the same 2026 shape: an architect plans, N coders work in parallel worktrees, a reviewer gates, a tester verifies. Parallel worktrees convert wall-clock into throughput. Shared state and handoff protocols become the failure surface. The capstone is to build the team, evaluate on SWE-bench Pro, and report which handoffs break and how often.
 

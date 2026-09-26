@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch363): EAGLE-3 Speculative Decoding in Production
+## Part 1: EAGLE-3 Speculative Decoding in Production
 
 > Speculative decoding pairs a fast draft model with the target model. The draft proposes K tokens; the target verifies in a single forward; accepted tokens are free. In 2026, EAGLE-3 is the production-grade variant — it trains a draft head on the target model's hidden states rather than on raw tokens, pushing acceptance rate alpha into the 0.6-0.8 band on general chat. If alpha drops below ~0.55, speculative decoding is net negative at high concurrency.
 
@@ -185,7 +185,7 @@ This lesson produces `outputs/skill-eagle3-rollout.md`. Given target model and t
 
 ---
 
-## Part 2 (ch364): SGLang and RadixAttention for Prefix-Heavy Workloads
+## Part 2: SGLang and RadixAttention for Prefix-Heavy Workloads
 
 > SGLang treats the KV cache as a first-class, reusable resource stored in a radix tree. Where vLLM schedules requests FCFS, SGLang's cache-aware scheduler prioritizes requests with longer shared prefixes — effectively a depth-first radix traversal so hot branches stay resident in HBM. On Llama 3.1 8B with ShareGPT-like 1K prompts, SGLang hits ~16,200 tok/s to vLLM's ~12,500, a ~29% edge. On prefix-heavy RAG workloads the advantage reaches 6.4x.
 
@@ -399,7 +399,7 @@ This lesson produces `outputs/skill-radix-scheduler-advisor.md`. Given workload 
 
 ---
 
-## Part 3 (ch365): TensorRT-LLM on Blackwell with FP8 and NVFP4
+## Part 3: TensorRT-LLM on Blackwell with FP8 and NVFP4
 
 > TensorRT-LLM is NVIDIA-only but it wins on Blackwell. On GB200 NVL72 with Dynamo orchestration, SemiAnalysis InferenceX measured $0.012 per million tokens on a 120B model in Q1-Q2 2026, against $0.09/M on H100 + vLLM — a 7x economic gap. The stack is three floating-point regimes compounded: FP8 stays critical for KV cache and attention kernels because it has the dynamic range they need; NVFP4 handles weights and activations; multi-token prediction and disaggregated prefill/decode add another 2-3x on top.
 
@@ -556,7 +556,7 @@ This lesson produces `outputs/skill-trtllm-blackwell-advisor.md`. Given workload
 
 ---
 
-## Part 4 (ch366): Inference Metrics — TTFT, TPOT, ITL, Goodput, P99
+## Part 4: Inference Metrics — TTFT, TPOT, ITL, Goodput, P99
 
 > Four metrics decide whether an inference deployment is working. TTFT is prefill plus queue plus network. TPOT (equivalently ITL) is the memory-bound decode cost per token. End-to-end latency is TTFT plus TPOT times output length. Throughput is tokens per second aggregated across the fleet. But the one that matters for product is goodput — the fraction of requests that met every SLO simultaneously. Reference numbers for Llama-3.1-8B-Instruct on TRT-LLM in 2026: mean TTFT 162 ms, mean TPOT 7.33 ms, mean E2E 1,093 ms.
 

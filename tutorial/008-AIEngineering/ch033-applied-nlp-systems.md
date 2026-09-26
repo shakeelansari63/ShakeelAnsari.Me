@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch104): Machine Translation
+## Part 1: Machine Translation
 
 Translation is the task that paid for NLP research for thirty years and keeps paying now.
 
@@ -138,7 +138,7 @@ A few thousand high-quality parallel examples beats hundreds of thousands of noi
 
 ---
 
-## Part 2 (ch105): Text Summarization
+## Part 2: Text Summarization
 
 Extractive systems tell you what the document said. Abstractive systems tell you what the author meant. Different tasks, different pitfalls.
 
@@ -265,7 +265,7 @@ For anything user-facing where factuality matters (news, medical, legal, financi
 
 ---
 
-## Part 3 (ch106): Question Answering Systems
+## Part 3: Question Answering Systems
 
 Three systems shaped modern QA. Extractive found spans. Retrieval-augmented grounded them in documents. Generative produced answers. Every modern AI assistant is a mix of the three.
 
@@ -391,7 +391,7 @@ For production QA: answer accuracy (LLM-judged), citation accuracy, refusal cali
 
 ---
 
-## Part 4 (ch107): Information Retrieval and Search
+## Part 4: Information Retrieval and Search
 
 BM25 is precise but brittle. Dense casts a wide net but misses keywords. Hybrid is the 2026 default. Everything else is tuning.
 

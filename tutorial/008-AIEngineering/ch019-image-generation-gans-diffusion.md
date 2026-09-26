@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch074): Image Generation — GANs
+## Part 1: Image Generation — GANs
 
 > A GAN is two neural networks in a fixed game. One draws, one critiques. They get better together until the drawings fool the critic.
 
@@ -232,7 +232,7 @@ def build_sn_discriminator(img_channels=3, feat=64):
 
 ---
 
-## Part 2 (ch075): Image Generation — Diffusion Models
+## Part 2: Image Generation — Diffusion Models
 
 > A diffusion model learns to denoise. Train it to remove a tiny bit of noise from a noisy image, repeat that backwards a thousand times, and you have an image generator.
 
@@ -478,7 +478,7 @@ scheduler = DDPMScheduler(num_train_timesteps=1000)
 
 ---
 
-## Part 3 (ch076): Stable Diffusion — Architecture & Fine-Tuning
+## Part 3: Stable Diffusion — Architecture & Fine-Tuning
 
 > Stable Diffusion is a DDPM that runs in the latent space of a pretrained VAE, conditioned on text via cross-attention, sampled with a fast deterministic ODE solver, and steered by classifier-free guidance.
 
@@ -662,7 +662,7 @@ Production decisions: SD 1.5 (community fine-tunes), SDXL (higher fidelity), SD3
 
 ---
 
-## Part 4 (ch088): Diffusion Transformers & Rectified Flow
+## Part 4: Diffusion Transformers & Rectified Flow
 
 > The U-Net is not the secret of diffusion. Replace it with a transformer, swap the noise schedule for a straight-line flow, and suddenly you have SD3, FLUX, and every 2026 text-to-image model.
 

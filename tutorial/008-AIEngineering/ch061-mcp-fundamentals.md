@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch218): Model Context Protocol (MCP)
+## Part 1: Model Context Protocol (MCP)
 
 > Every LLM app built before 2025 invented its own tool schema. Then Anthropic shipped MCP, Claude adopted it, OpenAI adopted it, and by 2026 it is the default wire format for connecting any LLM to any tool, data source, or agent. Write one MCP server and every host talks to it.
 
@@ -215,7 +215,7 @@ Refuse to ship a server that writes to disk or calls external APIs without an ap
 
 ---
 
-## Part 2 (ch252): MCP Fundamentals — Primitives, Lifecycle, JSON-RPC Base
+## Part 2: MCP Fundamentals — Primitives, Lifecycle, JSON-RPC Base
 
 > Every integration before MCP was a one-off. The Model Context Protocol standardizes discovery and invocation so any client can speak to any server. The 2025-11-25 spec names six primitives, a three-phase lifecycle, and a JSON-RPC 2.0 wire format.
 
@@ -303,7 +303,7 @@ If the client doesn't declare `sampling`, the server must not call `sampling/cre
 
 ---
 
-## Part 3 (ch253): Building an MCP Server — Python + TypeScript SDKs
+## Part 3: Building an MCP Server — Python + TypeScript SDKs
 
 > Most MCP tutorials show only stdio hello-worlds. A real server exposes tools plus resources plus prompts, handles capability negotiation, emits structured errors, and works the same across SDKs. This lesson builds a notes server end-to-end.
 
@@ -410,7 +410,7 @@ def notes_search(query: str, limit: int = 10) -> list[dict]:
 
 ---
 
-## Part 4 (ch254): Building an MCP Client — Discovery, Invocation, Session Management
+## Part 4: Building an MCP Client — Discovery, Invocation, Session Management
 
 > Most MCP content ships server tutorials and waves a hand at the client. Client code is where the hard orchestration lives: process spawning, capability negotiation, tool list merging across multiple servers, sampling callbacks, reconnection, and namespace collision resolution.
 
@@ -514,7 +514,7 @@ Transport can fail. EOF on stdout = dead session. Options: silently restart (for
 
 ---
 
-## Part 5 (ch255): MCP Transports — stdio vs Streamable HTTP vs SSE Migration
+## Part 5: MCP Transports — stdio vs Streamable HTTP vs SSE Migration
 
 > stdio works locally and nowhere else. Streamable HTTP (2025-03-26) is the remote standard. The old HTTP+SSE transport is deprecated and being removed in mid-2026. Picking the wrong transport costs a migration.
 

@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch185): Data Pipelines for Pre-Training
+## Part 1: Data Pipelines for Pre-Training
 
 > The model is a mirror. It reflects whatever data you feed it. Feed it garbage, it reflects garbage with perfect fluency.
 
@@ -392,7 +392,7 @@ This lesson produces a prompt for validating and debugging data quality in LLM t
 
 ---
 
-## Part 2 (ch186): Pre-Training a Mini GPT (124M Parameters)
+## Part 2: Pre-Training a Mini GPT (124M Parameters)
 
 > GPT-2 Small has 124 million parameters. That's 12 transformer layers, 12 attention heads, and 768-dimensional embeddings. You can train it from scratch on a single GPU in a few hours. Most people never do this. They use pre-trained checkpoints. But if you don't train one yourself, you don't actually understand what's happening inside the model you're building products on.
 
@@ -1204,7 +1204,7 @@ This lesson produces `outputs/prompt-gpt-architecture-analyzer.md` — a prompt 
 
 ---
 
-## Part 3 (ch456): Large Corpus Downloader
+## Part 3: Large Corpus Downloader
 
 > Training a language model begins long before the first forward pass. The corpus has to land on disk, decompressed, deduplicated, and addressable, with the resume story already worked out before the network drops at 4 percent.
 
@@ -1265,7 +1265,7 @@ MinHash estimates Jaccard similarity with `k` minimum hash values. LSH groups in
 
 ---
 
-## Part 4 (ch457): HDF5 Tokenized Corpus
+## Part 4: HDF5 Tokenized Corpus
 
 > The downloaded corpus has to land in a layout the trainer can stream from at line speed. JSONL on disk does not survive 16 dataloader workers. HDF5 with a resizable, chunked integer dataset does.
 

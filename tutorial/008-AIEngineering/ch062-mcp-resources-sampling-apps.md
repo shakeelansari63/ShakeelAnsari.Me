@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch256): MCP Resources and Prompts — Context Exposure Beyond Tools
+## Part 1: MCP Resources and Prompts — Context Exposure Beyond Tools
 
 > Tools get 90 percent of MCP attention. The other two server primitives solve different problems. Resources expose data for reading; prompts expose reusable templates as slash-commands.
 
@@ -88,7 +88,7 @@ A resource URI can compute content dynamically: `notes://recent` returns the lat
 
 ---
 
-## Part 2 (ch257): MCP Sampling — Server-Requested LLM Completions and Agent Loops
+## Part 2: MCP Sampling — Server-Requested LLM Completions and Agent Loops
 
 > Most MCP servers are dumb executors. Sampling lets a server flip direction: it asks the client's LLM to make a decision. This enables server-hosted agent loops without the server owning any model credentials.
 
@@ -182,7 +182,7 @@ The server never touches an LLM API. The client's user pays for completions.
 
 ---
 
-## Part 3 (ch258): Roots and Elicitation — Scoping and Mid-Flight User Input
+## Part 3: Roots and Elicitation — Scoping and Mid-Flight User Input
 
 > Hard-coded paths break the moment a user opens a different project. Pre-filled tool arguments break when the user under-specifies. Roots scope the server to a user-controlled set of URIs; elicitation pauses mid-tool-call to ask the user for structured input.
 
@@ -282,7 +282,7 @@ Instead of a schema, the server sends a URL for OAuth flows, payment authorizati
 
 ---
 
-## Part 4 (ch259): Async Tasks (SEP-1686) — Call-Now, Fetch-Later for Long-Running Work
+## Part 4: Async Tasks (SEP-1686) — Call-Now, Fetch-Later for Long-Running Work
 
 > Real agent work takes minutes to hours: CI runs, deep-research synthesis, batch exports. Synchronous tool calls drop connections, time out, or block the UI. SEP-1686 adds a Tasks primitive: any request can become a task, and the result can be fetched later.
 
@@ -386,7 +386,7 @@ A task can itself call `sampling/createMessage`. Long-running research tasks wor
 
 ---
 
-## Part 5 (ch260): MCP Apps — Interactive UI Resources via `ui://`
+## Part 5: MCP Apps — Interactive UI Resources via `ui://`
 
 > Text-only tool output caps what agents can show. MCP Apps (SEP-1724, January 2026) let a tool return sandboxed interactive HTML rendered inline in Claude Desktop, ChatGPT, Cursor, Goose, and VS Code.
 

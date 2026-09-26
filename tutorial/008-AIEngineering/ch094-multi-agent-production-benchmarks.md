@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch355): Production Scaling — Queues, Checkpoints, Durability
+## Part 1: Production Scaling — Queues, Checkpoints, Durability
 
 > Scaling multi-agent systems to thousands of concurrent runs requires **durable execution**. LangGraph's runtime writes a checkpoint after each super-step keyed by `thread_id`. **MegaAgent** ran a per-agent producer-consumer queue with three states. **Fiber/async** beats thread-per-job for LLM streaming. Counterpoint: Ashpreet Bedi's "Scaling Agentic Software" argues for **FastAPI + Postgres + nothing else** until load proves otherwise.
 
@@ -120,7 +120,7 @@ Expected output: checkpoint resume succeeds after simulated crash; async handles
 
 ---
 
-## Part 2 (ch356): Failure Modes — MAST, Groupthink, Monoculture, Cascading Errors
+## Part 2: Failure Modes — MAST, Groupthink, Monoculture, Cascading Errors
 
 > The reference taxonomy for 2026 is **MAST** (Cemri et al., NeurIPS 2025), derived from 1642 execution traces showing **41–86.7% failure rate**. Three root categories: **Specification Problems** (41.77%), **Coordination Failures** (36.94%), **Verification Gaps** (21.30%). The **Groupthink** family adds: monoculture collapse, conformity bias, deficient theory of mind, mixed-motive dynamics, cascading reliability failures.
 
@@ -259,7 +259,7 @@ Expected output: retry storm with no circuit breaker blows up; with circuit brea
 
 ---
 
-## Part 3 (ch357): Evaluation and Coordination Benchmarks
+## Part 3: Evaluation and Coordination Benchmarks
 
 > Five 2025-2026 benchmarks cover the multi-agent evaluation space. **MultiAgentBench / MARBLE** evaluates star/chain/tree/graph topologies. **COMMA** evaluates multimodal asymmetric-information coordination. **MedAgentBoard** covers medical tasks. **AgentArch** benchmarks enterprise architectures. **SWE-bench Pro** is the contamination-resistant reality check (frontier models ~23% on Pro vs 70%+ on Verified).
 
@@ -382,7 +382,7 @@ python3 code/main.py
 
 ---
 
-## Part 4 (ch358): Case Studies and the 2026 State of the Art
+## Part 4: Case Studies and the 2026 State of the Art
 
 > Three production-grade references to study end-to-end: **Anthropic's Research system** (orchestrator-worker, 15x tokens, +90.2% over single-agent), **MetaGPT / ChatDev** (SOP-encoded role specialization), and **OpenClaw / Moltbook** (population-scale agents, 247k GitHub stars, 2.3M agent accounts).
 

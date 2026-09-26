@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch120): LLM Evaluation — RAGAS, DeepEval, G-Eval
+## Part 1: LLM Evaluation — RAGAS, DeepEval, G-Eval
 
 Exact-match and F1 miss semantic equivalence. Human review does not scale. LLM-as-judge is the production answer — with enough calibration to trust the number.
 
@@ -162,7 +162,7 @@ def test_rag_system():
 
 ---
 
-## Part 2 (ch121): Long-Context Evaluation — NIAH, RULER, LongBench, MRCR
+## Part 2: Long-Context Evaluation — NIAH, RULER, LongBench, MRCR
 
 Gemini 3 Pro advertises 10M tokens of context. At 1M tokens, 8-needle MRCR drops to 26.3%. Advertised ≠ usable. Long-context evaluation tells you the actual capacity of the model you are shipping on.
 
@@ -306,7 +306,7 @@ def eval_model_on_longbench(model, subset="single-doc-qa"):
 
 ---
 
-## Part 3 (ch214): Evaluation & Testing LLM Applications
+## Part 3: Evaluation & Testing LLM Applications
 
 > You would never deploy a web app without tests. You would never ship a database migration without a rollback plan. But right now, most teams ship LLM applications by reading 10 outputs and saying "yeah, looks good." That is not evaluation. That is hope. Hope is not an engineering practice. Every prompt change, every model swap, every temperature tweak changes your output distribution in ways you cannot predict by reading a handful of examples. Evaluation is the only thing standing between your application and silent degradation.
 
@@ -1168,7 +1168,7 @@ It also produces `outputs/skill-eval-patterns.md` -- a decision framework for ch
 
 ---
 
-## Part 4 (ch398): Red-Teaming: PAIR and Automated Attacks
+## Part 4: Red-Teaming: PAIR and Automated Attacks
 
 > Chao, Robey, Dobriban, Hassani, Pappas, Wong (NeurIPS 2023, arXiv:2310.08419). PAIR — Prompt Automatic Iterative Refinement — is the canonical automated black-box jailbreak. An attacker LLM with a red-team system prompt iteratively proposes jailbreaks for a target LLM, accumulating attempts and responses in its own chat history as in-context feedback. PAIR typically succeeds within 20 queries, orders of magnitude more efficient than GCG (Zou et al.'s token-level gradient search) and without requiring white-box access. PAIR is now a standard baseline in JailbreakBench (arXiv:2404.01318) and HarmBench, alongside GCG, AutoDAN, TAP, and Persuasive Adversarial Prompt.
 
@@ -1280,7 +1280,7 @@ This lesson produces `outputs/skill-attack-audit.md`. Given a red-team evaluatio
 
 ---
 
-## Part 5 (ch399): Many-Shot Jailbreaking
+## Part 5: Many-Shot Jailbreaking
 
 > Anil, Durmus, Panickssery, Sharma, et al. (Anthropic, NeurIPS 2024). Many-shot jailbreaking (MSJ) exploits long context windows: stuff hundreds of faux user-assistant turns where the assistant complies with harmful requests, then append the target query. Attack success follows a power law in the number of shots; fails at 5 shots, reliable at 256 shots on violent and deceitful content. The phenomenon follows the same power law as benign in-context learning — the attack and ICL share an underlying mechanism, which is why defenses that preserve ICL are hard to design. Classifier-based prompt modification reduces attack success from 61% to 2% on tested settings.
 
@@ -1391,7 +1391,7 @@ This lesson produces `outputs/skill-msj-audit.md`. Given a long-context-safety e
 
 ---
 
-## Part 6 (ch400): ASCII Art and Visual Jailbreaks
+## Part 6: ASCII Art and Visual Jailbreaks
 
 > Jiang, Xu, Niu, Xiang, Ramasubramanian, Li, Poovendran, "ArtPrompt: ASCII Art-based Jailbreak Attacks against Aligned LLMs" (ACL 2024, arXiv:2402.11753). Mask the safety-relevant tokens in a harmful request, replace them with ASCII-art renderings of the same letters, and send the cloaked prompt. GPT-3.5, GPT-4, Gemini, Claude, Llama-2 all fail to robustly recognize ASCII-art tokens. The attack bypasses PPL (perplexity filters), Paraphrase defenses, and Retokenization. Related: the ViTC benchmark measures recognition of non-semantic visual prompts; StructuralSleight generalizes to Uncommon Text-Encoded Structures (trees, graphs, nested JSON) as a family of encoding attacks.
 
@@ -1490,7 +1490,7 @@ This lesson produces `outputs/skill-encoding-audit.md`. Given a jailbreak-defens
 
 ---
 
-## Part 7 (ch401): Indirect Prompt Injection — Production Attack Surface
+## Part 7: Indirect Prompt Injection — Production Attack Surface
 
 > Indirect prompt injection (IPI) embeds instructions inside external content — a web page, an email, a shared document, a support ticket — consumed by an agentic system without explicit user action. IPI is the dominant 2026 production threat: it bypasses user-input filters because the attacker never touches the user, it scales silently as agents process more external content, and it targets automated workflows where nobody is reading the prompt. MDPI Information 17(1):54 (January 2026) synthesizes 2023-2025 research. NDSS 2026's IPI-defense paper frames the core challenge: injected instructions can be semantically benign ("please print Yes"), so detection requires more than keyword filtering. "The Attacker Moves Second" (Nasr et al., joint OpenAI/Anthropic/DeepMind, October 2025): adaptive attacks (gradient, RL, random search, human red-team) broke >90% of 12 published defenses that had originally reported near-zero attack success rates.
 
@@ -1591,7 +1591,7 @@ This lesson produces `outputs/skill-ipi-audit.md`. Given an agentic deployment d
 
 ---
 
-## Part 8 (ch402): Red-Team Tooling — Garak, Llama Guard, PyRIT
+## Part 8: Red-Team Tooling — Garak, Llama Guard, PyRIT
 
 > Three production tools frame the 2026 red-team stack. Llama Guard (Meta) — a Llama-3.1-8B classifier fine-tuned on 14 MLCommons hazard categories; the 2025 Llama Guard 4 is a 12B natively multimodal classifier pruned from Llama 4 Scout. Garak (NVIDIA) — open-source LLM vulnerability scanner with static, dynamic, and adaptive probes for hallucination, data leakage, prompt injection, toxicity, and jailbreaks. PyRIT (Microsoft) — multi-turn red-team campaigns with Crescendo, TAP, and custom converter chains for deep exploitation. Llama Guard 3 is documented in Meta's "Llama 3 Herd of Models" (arXiv:2407.21783); Llama Guard 3-1B-INT4 in arXiv:2411.17713; Garak's probe architecture in github.com/NVIDIA/garak. These tools are the 2026 production interface between red-team research (Lessons 12-15) and deployment (Lesson 17+).
 

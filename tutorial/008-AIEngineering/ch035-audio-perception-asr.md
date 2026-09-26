@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch123): Audio Fundamentals — Waveforms, Sampling, Fourier Transform
+## Part 1: Audio Fundamentals — Waveforms, Sampling, Fourier Transform
 
 > Waveforms are the raw signal. Spectrograms are the representation. Mel features are the ML-friendly form. Every modern ASR and TTS pipeline walks this ladder, and the first rung is understanding sampling and Fourier.
 
@@ -192,7 +192,7 @@ Save as `outputs/skill-audio-loader.md`. The skill helps you check that audio in
 
 ---
 
-## Part 2 (ch124): Spectrograms, Mel Scale & Audio Features
+## Part 2: Spectrograms, Mel Scale & Audio Features
 
 > Neural nets do not consume raw waveforms well. They consume spectrograms. They consume mel spectrograms even better. Every ASR, TTS, and audio classifier in 2026 lives or dies by this single preprocessing choice.
 
@@ -360,7 +360,7 @@ Save as `outputs/skill-feature-extractor.md`. The skill picks feature type, mel 
 
 ---
 
-## Part 3 (ch125): Audio Classification — From k-NN on MFCCs to AST and BEATs
+## Part 3: Audio Classification — From k-NN on MFCCs to AST and BEATs
 
 > Everything from "dog barking vs siren" to "which language is this" is audio classification. The features are mels. The architecture moves each decade. The evaluation stays AUC, F1, and per-class recall.
 
@@ -536,7 +536,7 @@ Save as `outputs/skill-classifier-designer.md`. Pick architecture, augmentations
 
 ---
 
-## Part 4 (ch126): Speech Recognition (ASR) — CTC, RNN-T, Attention
+## Part 4: Speech Recognition (ASR) — CTC, RNN-T, Attention
 
 > Speech recognition is audio classification at every timestep, glued together by a sequence model that knows English and silence. CTC, RNN-T, and attention are the three ways to do it. Pick one and understand why.
 
@@ -712,7 +712,7 @@ Save as `outputs/skill-asr-picker.md`. Pick model, decoding strategy, chunking, 
 
 ---
 
-## Part 5 (ch127): Whisper — Architecture & Fine-Tuning
+## Part 5: Whisper — Architecture & Fine-Tuning
 
 > Whisper is a 30-second-window transformer encoder-decoder, trained on 680k hours of multilingual weakly-supervised audio-text pairs. One architecture, multiple tasks, robust across 99 languages. The 2026 reference ASR.
 
@@ -887,7 +887,7 @@ Save as `outputs/skill-whisper-tuner.md`. Design a Whisper fine-tune or inferenc
 
 ---
 
-## Part 6 (ch128): Speaker Recognition & Verification
+## Part 6: Speaker Recognition & Verification
 
 > ASR asks "what did they say?" Speaker recognition asks "who said it?" The math looks the same — embeddings plus cosine — but every production decision hinges on a single EER number.
 
@@ -1053,7 +1053,7 @@ Save as `outputs/skill-speaker-verifier.md`. Pick model, enrollment protocol, th
 
 ---
 
-## Part 7 (ch136): Voice Activity Detection & Turn-Taking — Silero, Cobra, and the Flush Trick
+## Part 7: Voice Activity Detection & Turn-Taking — Silero, Cobra, and the Flush Trick
 
 > Every voice agent lives or dies on two decisions: is the user speaking now, and are they done? VAD answers the first. Turn-detection (VAD + silence-hangover + semantic endpoint model) answers the second.
 
@@ -1222,7 +1222,7 @@ Save as `outputs/skill-vad-tuner.md`. Pick VAD model, threshold, hangover, pre-r
 
 ---
 
-## Part 8 (ch139): Audio Evaluation — WER, MOS, UTMOS, MMAU, FAD, and the Open Leaderboards
+## Part 8: Audio Evaluation — WER, MOS, UTMOS, MMAU, FAD, and the Open Leaderboards
 
 > You cannot ship what you cannot measure. This lesson names the 2026 metrics for every audio task: ASR (WER, CER, RTFx), TTS (MOS, UTMOS, SECS, WER-on-ASR-round-trip), audio-language (MMAU, LongAudioBench), music (FAD, CLAP), and speaker (EER).
 

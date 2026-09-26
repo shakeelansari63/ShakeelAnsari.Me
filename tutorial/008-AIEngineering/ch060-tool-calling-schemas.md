@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch247): The Tool Interface — Why Agents Need Structured I/O
+## Part 1: The Tool Interface — Why Agents Need Structured I/O
 
 > A language model produces tokens. A program takes actions. The gap between those two is the tool interface: a contract that lets the model request an action and the host execute it. Every 2026 stack — function calling on OpenAI, Anthropic, and Gemini; MCP's `tools/call`; A2A's task parts — is a different encoding of the same four-step loop.
 
@@ -127,7 +127,7 @@ A TypeScript equivalent (`code/main.ts`) mirrors the same shape.
 
 ---
 
-## Part 2 (ch248): Function Calling Deep Dive — OpenAI, Anthropic, Gemini
+## Part 2: Function Calling Deep Dive — OpenAI, Anthropic, Gemini
 
 > The three frontier providers converged on the same tool-call loop in 2024 and then diverged on everything else. OpenAI uses `tools` and `tool_calls`. Anthropic uses `tool_use` and `tool_result` blocks. Gemini uses `functionDeclarations` and unique-id correlation. This lesson diffs the three side by side so code that ships on one provider does not break when you port it.
 
@@ -227,7 +227,7 @@ def parse_gemini(resp):
 
 ---
 
-## Part 3 (ch249): Parallel Tool Calls and Streaming with Tools
+## Part 3: Parallel Tool Calls and Streaming with Tools
 
 > Three independent weather lookups serialized is three round trips. Run them in parallel and total time collapses to the slowest single call. Every frontier provider now emits multiple tool calls in a single turn. The payoff is real; the plumbing is subtle.
 
@@ -336,7 +336,7 @@ print(f"speedup: {seq_ms/par_ms:.2f}x")
 
 ---
 
-## Part 4 (ch250): Structured Output — JSON Schema, Pydantic, Zod, Constrained Decoding
+## Part 4: Structured Output — JSON Schema, Pydantic, Zod, Constrained Decoding
 
 > "Ask the model nicely to return JSON" fails 5 to 15 percent of the time, even on frontier models. Structured outputs close that gap with constrained decoding: the model is literally prevented from emitting a token that would violate the schema.
 
@@ -437,7 +437,7 @@ Outside strict mode: generate → parse → validate → if fail, inject error a
 
 ---
 
-## Part 5 (ch251): Tool Schema Design — Naming, Descriptions, Parameter Constraints
+## Part 5: Tool Schema Design — Naming, Descriptions, Parameter Constraints
 
 > A correct tool fails silently when the model cannot tell when to use it. Naming, descriptions, and parameter shapes drive 10 to 20 percentage-point swings in tool-selection accuracy.
 

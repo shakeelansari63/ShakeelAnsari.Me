@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch035): What Is Machine Learning
+## Part 1: What Is Machine Learning
 
 > Machine learning is teaching computers to find patterns in data instead of writing rules by hand.
 
@@ -422,7 +422,7 @@ This lesson produces `outputs/prompt-ml-problem-framer.md` -- a prompt that turn
 
 ---
 
-## Part 2 (ch036): Linear Regression
+## Part 2: Linear Regression
 
 > Linear regression draws the best straight line through your data. It is the "hello world" of machine learning.
 
@@ -975,7 +975,7 @@ This lesson produces:
 
 ---
 
-## Part 3 (ch037): Logistic Regression
+## Part 3: Logistic Regression
 
 > Logistic regression bends a straight line into an S-curve to answer yes-or-no questions with probabilities.
 

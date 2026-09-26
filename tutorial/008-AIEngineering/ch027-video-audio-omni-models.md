@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch238): Video-Language Models: Temporal Tokens and Grounding
+## Part 1: Video-Language Models: Temporal Tokens and Grounding
 
 > Video is not a stack of photos. A 5-second clip has causal ordering, action verbs, and event timing that an image model cannot represent. Video-LLaMA (Zhang et al., June 2023) shipped the first open video-LLM with audio-visual grounding. VideoChat and Video-LLaVA scaled the pattern. By 2025 Qwen2.5-VL's TMRoPE closed the gap with frontier proprietary models. Each system solved temporal tokens differently — Q-former per clip, concat-pool per frame, TMRoPE per token. This lesson reads the patterns, builds a uniform-vs-dynamic frame sampler, and evaluates on temporal grounding tasks.
 
@@ -160,7 +160,7 @@ This lesson produces `outputs/skill-video-vlm-frame-planner.md`. Given a video t
 
 ---
 
-## Part 2 (ch239): Long-Video Understanding at Million-Token Context
+## Part 2: Long-Video Understanding at Million-Token Context
 
 > A 1-hour 4K video at 24 FPS, patched and embedded, produces on the order of 60 million tokens. A 2-hour podcast episode transcribed is 30,000 tokens. A full Blu-ray feature film, even compressed with aggressive pooling, is hundreds of thousands of tokens. Google's Gemini 1.5 (March 2024) opened this era with a 10-million-token context, doing reliable needle-in-a-haystack recall over hour-long videos. LWM (Liu et al., February 2024) showed ring attention's scaling path. LongVILA and Video-XL scaled ingestion further. VideoAgent swapped raw context for agentic retrieval. Each approach is a different trade-off on compute, recall, and engineering complexity. This lesson reads them side by side.
 
@@ -303,7 +303,7 @@ This lesson produces `outputs/skill-long-video-strategy-planner.md`. Given a vid
 
 ---
 
-## Part 3 (ch240): Audio-Language Models: the Whisper to Audio Flamingo 3 Arc
+## Part 3: Audio-Language Models: the Whisper to Audio Flamingo 3 Arc
 
 > Whisper (Radford et al., December 2022) settled speech recognition — 680k hours of weakly-supervised multilingual speech, a simple encoder-decoder transformer, a benchmark that made every subsequent ASR release cite it. But recognition is not reasoning. Asking "what instruments are in this recording" or "what emotion is the speaker expressing" or "what happened at minute 3" requires audio understanding, not transcription. Qwen-Audio, SALMONN, LTU, and NVIDIA's Audio Flamingo 3 (AF3, July 2025) progressively built that stack: keep Whisper-class encoders, bolt on Q-formers, train on audio-text instruction data, add chain-of-thought reasoning. This lesson walks the arc.
 
@@ -461,7 +461,7 @@ This lesson produces `outputs/skill-audio-llm-pipeline-picker.md`. Given an audi
 
 ---
 
-## Part 4 (ch241): Omni Models: Qwen2.5-Omni and the Thinker-Talker Split
+## Part 4: Omni Models: Qwen2.5-Omni and the Thinker-Talker Split
 
 > GPT-4o's product demo in May 2024 was disruptive not because of the underlying model but because of the product shape — a voice interface where you talk, the model sees what the camera sees, and it talks back in under 250ms. The open ecosystem spent the rest of 2024 and 2025 racing to reach that product surface. Qwen2.5-Omni (March 2025) is the reference open design: a Thinker (large text-generating transformer) plus a Talker (parallel speech-generating transformer), linked by streaming speech tokens. Mini-Omni simplified it, Moshi matched its latency, GLM-4-Voice extended it to Chinese. This lesson reads the Thinker-Talker architecture and the latency budget that makes streaming real-time dialogue work.
 
@@ -604,7 +604,7 @@ This lesson produces `outputs/skill-omni-streaming-budget.md`. Given a real-time
 
 ---
 
-## Part 5 (ch428): Video Understanding Pipeline (Scene, QA, Search)
+## Part 5: Video Understanding Pipeline (Scene, QA, Search)
 
 > Twelve Labs productized Marengo + Pegasus. VideoDB shipped the CRUD-for-video API. AI2's Molmo 2 published open VLM checkpoints. Gemini long-context handles hours of video natively. TimeLens-100K defined temporal grounding at scale. The 2026 pipeline is settled: scene segmentation, per-scene caption + embedding, transcript alignment, multi-vector index, and a query that answers with (start, end) timestamps plus frame previews. The capstone is ingesting 100 hours, hitting public benchmarks, and measuring hallucination on counting and action questions.
 

@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch038): Decision Trees and Random Forests
+## Part 1: Decision Trees and Random Forests
 
 > A decision tree is just a flowchart. But a forest of them is one of the most powerful tools in ML.
 
@@ -392,7 +392,7 @@ This lesson produces `outputs/prompt-tree-interpreter.md` -- a prompt that inter
 
 ---
 
-## Part 2 (ch039): Support Vector Machines
+## Part 2: Support Vector Machines
 
 > Find the widest street between two classes. That is the entire idea.
 
@@ -773,7 +773,7 @@ clf = Pipeline([
 
 ---
 
-## Part 3 (ch040): K-Nearest Neighbors and Distances
+## Part 3: K-Nearest Neighbors and Distances
 
 > Store everything. Predict by looking at your neighbors. The simplest algorithm that actually works.
 
@@ -1159,7 +1159,7 @@ distances, indices = index.search(query_vectors, k=5)
 
 ---
 
-## Part 4 (ch048): Naive Bayes
+## Part 4: Naive Bayes
 
 > The "naive" assumption is wrong, and it works anyway. That's the beauty of it.
 

@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch144): The Full Transformer — Encoder + Decoder
+## Part 1: The Full Transformer — Encoder + Decoder
 
 > Attention is the star. Everything else — residuals, normalization, feed-forward, cross-attention — is the scaffolding that lets you stack it deep.
 
@@ -193,7 +193,7 @@ See `outputs/skill-transformer-block-reviewer.md`. The skill reviews a transform
 
 ---
 
-## Part 2 (ch145): BERT — Masked Language Modeling
+## Part 2: BERT — Masked Language Modeling
 
 > GPT predicts the next word. BERT predicts a missing word. One sentence of difference — and half a decade of everything embedding-shaped.
 
@@ -355,7 +355,7 @@ See `outputs/skill-bert-finetuner.md`. The skill scopes a BERT fine-tune for a n
 
 ---
 
-## Part 3 (ch146): GPT — Causal Language Modeling
+## Part 3: GPT — Causal Language Modeling
 
 > BERT sees both sides. GPT sees only the past. The triangle mask is the most consequential single line of code in modern AI.
 
@@ -544,7 +544,7 @@ See `outputs/skill-sampling-tuner.md`. The skill picks sampling parameters for a
 
 ---
 
-## Part 4 (ch147): T5, BART — Encoder-Decoder Models
+## Part 4: T5, BART — Encoder-Decoder Models
 
 > Encoders understand. Decoders generate. Put them back together and you get a model built for input → output tasks: translate, summarize, rewrite, transcribe.
 
@@ -779,7 +779,7 @@ See `outputs/skill-seq2seq-picker.md`. The skill picks between encoder-decoder a
 
 ---
 
-## Part 5 (ch446): Token and Positional Embeddings
+## Part 5: Token and Positional Embeddings
 
 > Ids are integers. The model wants vectors. Two lookup tables sit between them, and the choice of the positional one shapes what the model can learn.
 
@@ -848,7 +848,7 @@ The learned variant adds `max_context_length * D` parameters. The sinusoidal var
 
 ---
 
-## Part 6 (ch447): Multi-Head Self-Attention
+## Part 6: Multi-Head Self-Attention
 
 > One linear projection, three views, H parallel heads, one mask. The attention block as the model actually uses it.
 
@@ -920,7 +920,7 @@ The block exposes a `return_weights=True` flag. The demo prints a heatmap of one
 
 ---
 
-## Part 7 (ch448): Transformer Block from Scratch
+## Part 7: Transformer Block from Scratch
 
 > One block is the unit of every modern decoder LLM. Layer norm, multi head attention, residual, MLP, residual. The pre-LN variant trains stably without warmup. The post-LN variant is what the original paper shipped. This lesson builds both, side by side, and shows which one survives a 12 layer stack at common learning rates.
 
@@ -993,7 +993,7 @@ Pre-LN leaves the residual path unnormalized, so gradients propagate cleanly to 
 
 ---
 
-## Part 8 (ch449): GPT Model Assembly
+## Part 8: GPT Model Assembly
 
 > Twelve blocks stacked, a token embedding, a learned position embedding, a final LayerNorm, and a tied language model head. That is the entire 124 million parameter GPT model.
 

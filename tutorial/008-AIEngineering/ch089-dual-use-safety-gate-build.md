@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch416): Dual-Use Risk — Cyber, Bio, Chem, Nuclear Uplift
+## Part 1: Dual-Use Risk — Cyber, Bio, Chem, Nuclear Uplift
 
 > The 2026 dual-use picture, domain by domain. Bio/chem: Lesson 17 covers WMDP; Anthropic's bioweapon-acquisition trial (2.53x uplift) and OpenAI's April 2025 Preparedness Framework v2 warning ("on the cusp of meaningfully helping novices create known biological threats") mark the inflection point. Cyber (November 2025 Anthropic report): Chinese-linked state actors used Claude's agentic coding tool to automate up to 90% of a cyberattack campaign, with human intervention only in 4-6 steps. Chem/bio execution gap erosion: the classic defense was "information access alone is insufficient." Vision-enabled frontier models (GPT-5.2, Gemini 3 Pro, Claude Opus 4.5, Grok 4.1) can observe wet-lab video and provide real-time correction. December 2025: OpenAI demonstrated GPT-5 iterating on wet-lab experiments, achieving 79x efficiency improvement via AI-driven protocol optimization. Novice-vs-expert pattern: AI provides greater relative uplift to novices but greater absolute capability to experts.
 
@@ -127,7 +127,7 @@ This lesson produces `outputs/skill-dual-use-triage.md`. Given a 2026 capability
 
 ---
 
-## Part 2 (ch496): Jailbreak Taxonomy
+## Part 2: Jailbreak Taxonomy
 
 > A safety harness without a taxonomy is a coin flip. Name the attack before you defend it.
 
@@ -189,7 +189,7 @@ flowchart TB
 
 ---
 
-## Part 3 (ch497): Prompt Injection Detector
+## Part 3: Prompt Injection Detector
 
 > A detector is a function from prompt to confidence and category. Anything else is a vibe.
 
@@ -244,7 +244,7 @@ Each rule has a name, category, and score function. Substring rules and regex ru
 
 ---
 
-## Part 4 (ch498): Refusal Evaluation
+## Part 4: Refusal Evaluation
 
 > Helpfulness on benign prompts and refusal on harmful prompts are two metrics, not one. Measure both.
 
@@ -300,7 +300,7 @@ flowchart LR
 
 ---
 
-## Part 5 (ch499): Content Classifier Integration
+## Part 5: Content Classifier Integration
 
 > Classifiers on the output side answer a different question than rules on the input side. Both need a policy router.
 
@@ -358,7 +358,7 @@ flowchart TB
 
 ---
 
-## Part 6 (ch500): Constitutional Rules Engine
+## Part 6: Constitutional Rules Engine
 
 > A rule is a name, a predicate, and an explanation. Anything missing one of those three is a vibe, not a rule.
 
@@ -419,7 +419,7 @@ flowchart LR
 
 ---
 
-## Part 7 (ch501): End-to-End Safety Gate
+## Part 7: End-to-End Safety Gate
 
 > Pre-gen, during-gen, post-gen. Three checkpoints, one verdict, an audit trail per request.
 

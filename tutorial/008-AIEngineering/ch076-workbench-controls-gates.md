@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch304): Initialization Scripts for Agents
+## Part 1: Initialization Scripts for Agents
 
 > Every session that starts cold pays a tax. The agent reads the same files, retries the same probes, and rediscovers the same paths. An init script pays the tax once and writes the answers into state.
 
@@ -127,7 +127,7 @@ python3 code/main.py
 
 ---
 
-## Part 2 (ch305): Scope Contracts and Task Boundaries
+## Part 2: Scope Contracts and Task Boundaries
 
 > The model does not know where the work ends. A scope contract is a per-task file that says where the work begins, where it ends, and how to roll back if it spills. The contract turns "stay in scope" from a wish into a check.
 
@@ -259,7 +259,7 @@ python3 code/main.py
 
 ---
 
-## Part 3 (ch306): Runtime Feedback Loops
+## Part 3: Runtime Feedback Loops
 
 > Agents that do not see real command output guess. A feedback runner captures stdout, stderr, exit code, and timing into a structured record the next turn can read. Then the agent reacts to facts instead of to its own prediction of facts.
 
@@ -376,7 +376,7 @@ python3 code/main.py
 
 ---
 
-## Part 4 (ch307): Verification Gates
+## Part 4: Verification Gates
 
 > The agent does not get to mark its own work as done. A verification gate reads the scope contract, the feedback log, the rule report, and the diff, and answers a single question: is this task actually complete? If the gate says no, the task is not done, no matter what the chat says.
 

@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch324): Action Budgets, Iteration Caps, and Cost Governors
+## Part 1: Action Budgets, Iteration Caps, and Cost Governors
 
 > A mid-sized e-commerce agent's monthly LLM cost jumped from $1,200 to $4,800 after its team enabled the "order-tracking" skill. That is not a pricing bug. That is an agent that found a new loop and kept spending inside it. Microsoft's Agent Governance Toolkit (April 2, 2026) codifies the defense against this class: per-request `max_tokens`, per-task token and dollar budgets, per-day/month caps, iteration caps, tiered model routing, prompt caching, context windowing, HITL checkpoints on expensive actions, kill switches on budget breach. Anthropic's Claude Code Agent SDK ships the same primitives under different names. Financial velocity limits — e.g. cut access on >$50 in 10 minutes — catch loops faster than monthly caps.
 
@@ -134,7 +134,7 @@ The real case in the Microsoft docs: an e-commerce agent whose monthly cost trip
 
 ---
 
-## Part 2 (ch326): Human-in-the-Loop: Propose-Then-Commit
+## Part 2: Human-in-the-Loop: Propose-Then-Commit
 
 > The 2026 consensus on HITL is specific. It is not "the agent asks, the user clicks Approve." It is propose-then-commit: the proposed action is persisted to a durable store with an idempotency key; surfaced to a reviewer with intent, data lineage, permissions touched, blast radius, and a rollback plan; committed only after positive acknowledgement; verified after execution to confirm the side effect actually happened. LangGraph's `interrupt()` plus PostgreSQL checkpointing, Microsoft Agent Framework's `RequestInfoEvent`, and Cloudflare's `waitForApproval()` all implement the same shape. The canonical failure mode is the rubber-stamp approval: "Approve?" is clicked without review. The documented mitigation is challenge-and-response with an explicit checklist.
 
@@ -269,7 +269,7 @@ Article 14 mandates effective human oversight for high-risk AI systems in the EU
 
 ---
 
-## Part 3 (ch327): Checkpoints and Rollback
+## Part 3: Checkpoints and Rollback
 
 > Every graph-state transition persists. When a worker crashes, its lease expires and another worker picks up at the latest checkpoint. Cloudflare Durable Objects hold state across hours or weeks. Propose-then-commit defines a rollback plan per action. Post-action verification closes the loop. EU AI Act Article 14 makes effective human oversight mandatory for high-risk systems — in practice this means checkpoints must be queryable, rollbacks must be rehearsed, and the audit trail must survive a deploy. The sharp failure mode: without idempotency keys and precondition checks, a retry after a transient failure can double-execute an already-approved action. Post-action verification is what catches it.
 
@@ -425,7 +425,7 @@ Mitigation: persist an "in-flight" intent before execution, execute with an idem
 
 ---
 
-## Part 4 (ch431): Constitutional Safety Harness + Red-Team Range
+## Part 4: Constitutional Safety Harness + Red-Team Range
 
 > Anthropic's Constitutional Classifiers, Meta's Llama Guard 4, Google's ShieldGemma-2, NVIDIA's Nemotron 3 Content Safety, and X-Guard for multilingual coverage defined the 2026 safety-classifier stack. garak, PyRIT, NVIDIA Aegis, and promptfoo became the standard adversarial evaluation tools. NeMo Guardrails v0.12 ties them into a production pipeline. This capstone wires all of it together: a layered safety harness around a target app, an autonomous red-team agent running 6+ attack families, and a constitutional self-critique run that produces a measurable harmlessness delta.
 

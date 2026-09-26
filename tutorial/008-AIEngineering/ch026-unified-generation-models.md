@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch234): Transfusion: Autoregressive Text + Diffusion Image in One Transformer
+## Part 1: Transfusion: Autoregressive Text + Diffusion Image in One Transformer
 
 > Chameleon and Emu3 bet everything on discrete tokens. They work, but the quantization bottleneck is visible — the image quality plateaus below continuous-space diffusion models. Transfusion (Meta, Zhou et al., August 2024) takes the opposite bet: keep images continuous, drop the VQ-VAE entirely, and train one transformer with two losses. Text tokens get next-token-prediction. Image patches get a flow-matching / diffusion loss. Both objectives optimize the same weights. The architecture underlying Stable Diffusion 3 (MMDiT) is a close cousin. This lesson reads the Transfusion thesis, builds a toy two-loss trainer, and traces the attention mask that lets one transformer do both jobs.
 
@@ -158,7 +158,7 @@ This lesson produces `outputs/skill-two-loss-trainer-designer.md`. Given a new m
 
 ---
 
-## Part 2 (ch235): Show-o and Discrete-Diffusion Unified Models
+## Part 2: Show-o and Discrete-Diffusion Unified Models
 
 > Transfusion mixes continuous and discrete representations. Show-o (Xie et al., August 2024) goes the other way: text tokens use causal next-token prediction, image tokens use masked discrete diffusion in the spirit of MaskGIT. Both sit inside one transformer with a hybrid attention mask. The result unifies VQA, text-to-image, inpainting, and mixed-modality generation on one backbone, one tokenizer per modality, one loss formulation (next-token extended to masked prediction). This lesson walks the Show-o design — why masked discrete diffusion is a parallel, few-step image generator — and contrasts with Transfusion and Emu3.
 
@@ -300,7 +300,7 @@ This lesson produces `outputs/skill-unified-gen-model-picker.md`. Given a produc
 
 ---
 
-## Part 3 (ch236): Janus-Pro: Decoupled Encoders for Unified Multimodal Models
+## Part 3: Janus-Pro: Decoupled Encoders for Unified Multimodal Models
 
 > Unified multimodal models have an unavoidable tension. Understanding wants semantic features — SigLIP or DINOv2 output vectors rich with concept-level information. Generation wants reconstruction-friendly codes — VQ tokens that compose back into crisp pixels. The two goals are not compatible in a single encoder. Janus (DeepSeek, October 2024) and Janus-Pro (DeepSeek, January 2025) argue the fix is to stop trying: decouple the two encoders. Share the transformer body between tasks, but route understanding through SigLIP and generation through a VQ tokenizer. At 7B, Janus-Pro beats DALL-E 3 on GenEval while matching LLaVA on MMMU. This lesson reads why two encoders work where one fails.
 
@@ -441,7 +441,7 @@ This lesson produces `outputs/skill-decoupled-encoder-picker.md`. Given a produc
 
 ---
 
-## Part 4 (ch237): MIO and Any-to-Any Streaming Multimodal Models
+## Part 4: MIO and Any-to-Any Streaming Multimodal Models
 
 > GPT-4o ships a product most open models cannot replicate: an agent that hears voice, sees video, and speaks back in real time. The open-ecosystem answer by late 2024 was MIO (Wang et al., September 2024). MIO tokenizes text, image, speech, and music, trains one causal transformer over the interleaved sequences, and generates any modality to any modality. AnyGPT (Zhan et al., February 2024) was the proof of concept; MIO is the scale-up; Unified-IO 2 (Allen AI, December 2023) is the cousin with vision + action grounding. This lesson reads the any-to-any pattern — four tokenizers, one transformer, streaming-friendly decode.
 

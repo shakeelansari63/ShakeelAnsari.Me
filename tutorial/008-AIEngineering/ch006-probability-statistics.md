@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch018): Probability and Distributions
+## Part 1: Probability and Distributions
 
 > Probability is the language AI uses to express uncertainty.
 
@@ -465,7 +465,7 @@ You built these from scratch. Now you know what the library calls are doing.
 
 ---
 
-## Part 2 (ch019): Bayes' Theorem
+## Part 2: Bayes' Theorem
 
 > Probability is about what you expect. Bayes' theorem is about what you learn.
 
@@ -940,7 +940,7 @@ Advantages over frequentist A/B testing:
 
 ---
 
-## Part 3 (ch027): Statistics for Machine Learning
+## Part 3: Statistics for Machine Learning
 
 > Probability is the logic of uncertainty. Statistics is the science of learning from data.
 
@@ -1366,7 +1366,7 @@ This lesson produces `code/statistics.py` with all summary statistics, distribut
 
 ---
 
-## Part 4 (ch028): Sampling Methods
+## Part 4: Sampling Methods
 
 > If you cannot compute the integral, sample from it.
 

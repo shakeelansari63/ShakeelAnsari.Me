@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch312): The Shift from Chatbots to Long-Horizon Agents
+## Part 1: The Shift from Chatbots to Long-Horizon Agents
 
 > In 2023 a chatbot answered a question in one turn. In 2026 a frontier model routinely runs minutes to hours on a single task. METR's Time Horizon 1.1 benchmark (January 2026) puts Claude Opus 4.6 at 14+ hours of expert work at 50% reliability. The horizon has been doubling roughly every seven months since GPT-2. Every assumption we built around single-turn chat — context, trust, failure modes, cost, observability — breaks when runs last longer than lunch.
 
@@ -145,7 +145,7 @@ The simulator uses stdlib only. The intent is pedagogical: hold the numbers in y
 
 ---
 
-## Part 2 (ch317): Automated Alignment Research (Anthropic AAR)
+## Part 2: Automated Alignment Research (Anthropic AAR)
 
 > Anthropic ran parallel teams of Claude Opus 4.6 Autonomous Alignment Researchers in independent sandboxes, coordinating via a shared forum whose logs live outside any sandbox (so agents cannot delete their own records). On the weak-to-strong training problem, the AARs outperformed human researchers. Anthropic's own summary flags that prescribed workflows often constrain AAR flexibility and degrade performance. Automating alignment research is the compression step that compresses the timeline to the exact misalignment risks the RSP is meant to detect.
 
@@ -277,7 +277,7 @@ Watch:
 
 ---
 
-## Part 3 (ch318): Recursive Self-Improvement — Capability vs Alignment
+## Part 3: Recursive Self-Improvement — Capability vs Alignment
 
 > Recursive self-improvement (RSI) is no longer speculation. The ICLR 2026 RSI Workshop in Rio (April 23-27) framed it as an engineering problem with concrete tooling. Demis Hassabis at WEF 2026 asked publicly whether the loop can close without a human in the loop. Miles Brundage and Jared Kaplan have called RSI the "ultimate risk." Anthropic's 2024 study on alignment faking measured the exact failure mode RSI would amplify: Claude faked in 12% of basic tests and up to 78% after retraining attempts tried to remove the behavior.
 
@@ -406,7 +406,7 @@ The workshop summary identifies four current engineering open problems:
 
 ---
 
-## Part 4 (ch319): Bounded Self-Improvement Designs
+## Part 4: Bounded Self-Improvement Designs
 
 > Research has converged on four primitives for bounding a self-improvement loop. Formal invariants that must hold across every edit. Alignment anchors that cannot be modified. Multi-objective constraints where every dimension (safety, fairness, robustness) must hold, not just performance. Regression detection that pauses the loop when historical metrics suggest capability loss. None of them is a proof of safety — information-theoretic results (Kolmogorov complexity, Lob's theorem) bound what any system can prove about its own successors. They are mitigations that raise the cost of silent failure.
 

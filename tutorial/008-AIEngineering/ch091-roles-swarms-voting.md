@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch340): Society of Mind and Multi-Agent Debate
+## Part 1: Society of Mind and Multi-Agent Debate
 
 > Minsky's 1986 premise — intelligence is a society of specialists — gets rediscovered every decade. In 2023 Du et al. turned it into a concrete algorithm: multiple LLM instances propose answers, read each other's answers, critique, and update. Over N rounds they converge on a consensus that beats zero-shot CoT and reflection.
 
@@ -112,7 +112,7 @@ python3 code/main.py
 
 ---
 
-## Part 2 (ch341): Role Specialization — Planner, Critic, Executor, Verifier
+## Part 2: Role Specialization — Planner, Critic, Executor, Verifier
 
 > The most common multi-agent decomposition in 2026: one agent plans, one executes, one critiques or verifies. MetaGPT formalizes this as SOPs encoded into role prompts. ChatDev chains designer, programmer, reviewer, tester through a "chat chain." The verifier is load-bearing: Cemri et al. (MAST) show every multi-agent failure can be traced to missing or broken verification.
 
@@ -224,7 +224,7 @@ Checklist:
 
 ---
 
-## Part 3 (ch342): Parallel / Swarm / Networked Architectures
+## Part 3: Parallel / Swarm / Networked Architectures
 
 > Contrast with supervisor: no central decider. Agents read a shared event bus, pick up work asynchronously, write results back. The tradeoff is explicit: determinism and traceability for scalability. Swarm fits tasks with many independent sub-problems; it does not fit tasks that need a single coherent plan.
 
@@ -337,7 +337,7 @@ Checklist:
 
 ---
 
-## Part 4 (ch348): Voting, Self-Consistency, and Debate Topology
+## Part 4: Voting, Self-Consistency, and Debate Topology
 
 > The cheapest aggregation: sample N independent agents, majority-vote. Multi-agent extends it with **heterogeneous** agents to escape monoculture. Beyond majority vote, debate topology matters: MultiAgentBench (ACL 2025) evaluated star / chain / tree / graph coordination and found **graph best for research**, with a "coordination tax" past ~4 agents.
 

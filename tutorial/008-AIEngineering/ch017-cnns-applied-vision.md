@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch066): Image Fundamentals — Pixels, Channels, Color Spaces
+## Part 1: Image Fundamentals — Pixels, Channels, Color Spaces
 
 > An image is a tensor of light samples. Every vision model you will ever use starts from this one fact.
 
@@ -406,7 +406,7 @@ This lesson produces:
 
 ---
 
-## Part 2 (ch067): Convolutions from Scratch
+## Part 2: Convolutions from Scratch
 
 > A convolution is a tiny dense layer you slide across an image, sharing the same weights at every location.
 
@@ -766,7 +766,7 @@ This lesson produces:
 
 ---
 
-## Part 3 (ch068): CNNs — LeNet to ResNet
+## Part 3: CNNs — LeNet to ResNet
 
 > Every major CNN of the last thirty years is the same conv–nonlinearity–downsample recipe with one new idea bolted on. Learn the ideas in order.
 
@@ -1112,7 +1112,7 @@ This lesson produces:
 
 ---
 
-## Part 4 (ch069): Image Classification
+## Part 4: Image Classification
 
 > A classifier is a function from pixels to a probability distribution over classes. Everything else is plumbing.
 
@@ -1481,7 +1481,7 @@ This lesson produces:
 
 ---
 
-## Part 5 (ch070): Transfer Learning & Fine-Tuning
+## Part 5: Transfer Learning & Fine-Tuning
 
 > Somebody else spent a million GPU hours teaching a network what edges, textures, and object parts look like. You should borrow those features before training your own.
 
@@ -1765,7 +1765,7 @@ Two production-grade defaults:
 
 ---
 
-## Part 6 (ch080): Real-Time Vision — Edge Deployment
+## Part 6: Real-Time Vision — Edge Deployment
 
 > Edge inference is the discipline of getting a 90-accuracy model to run at 30 fps on a device with 2 GB of RAM. Every percentage point of accuracy is traded against milliseconds of latency.
 
@@ -1956,7 +1956,7 @@ Production paths:
 
 ---
 
-## Part 7 (ch081): Build a Complete Vision Pipeline — Capstone
+## Part 7: Build a Complete Vision Pipeline — Capstone
 
 > A production vision system is a chain of models and rules stitched with data contracts. The pieces are already in this phase; the capstone wires them together end-to-end.
 

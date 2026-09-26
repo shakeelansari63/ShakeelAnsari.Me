@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch265): A2A — Agent-to-Agent Protocol
+## Part 1: A2A — Agent-to-Agent Protocol
 
 > MCP is agent-to-tool. A2A is agent-to-agent — an open protocol for letting opaque agents built on different frameworks collaborate. Released by Google in April 2025, donated to the Linux Foundation in June 2025, v1.0 in April 2026.
 
@@ -118,7 +118,7 @@ Use MCP for specific tools, A2A for delegating whole tasks. Many systems use bot
 
 ---
 
-## Part 2 (ch266): OpenTelemetry GenAI — Tracing Tool Calls End-to-End
+## Part 2: OpenTelemetry GenAI — Tracing Tool Calls End-to-End
 
 > An agent calls five tools, three MCP servers, and two sub-agents. You need one trace across all of it. The OpenTelemetry GenAI semantic conventions (stable in v1.37+) are the 2026 standard, natively supported by Datadog, Langfuse, Arize Phoenix, OpenLLMetry, and AgentOps.
 
@@ -220,7 +220,7 @@ Alongside spans: `gen_ai.client.token.usage` (histogram), `gen_ai.client.operati
 
 ---
 
-## Part 3 (ch267): LLM Routing Layer — LiteLLM, OpenRouter, Portkey
+## Part 3: LLM Routing Layer — LiteLLM, OpenRouter, Portkey
 
 > Provider lock-in is expensive. Different tool-calling workloads suit different models. Routing gateways give one API surface, retries, failover, cost tracking, and guardrails.
 
@@ -333,7 +333,7 @@ cost = tokens_in * PRICING[provider, model]["input"] + tokens_out * PRICING[prov
 
 ---
 
-## Part 4 (ch268): Skills and Agent SDKs — Anthropic Skills, AGENTS.md, OpenAI Apps SDK
+## Part 4: Skills and Agent SDKs — Anthropic Skills, AGENTS.md, OpenAI Apps SDK
 
 > MCP says "what tools exist." Skills say "how to do a task." The 2026 stack layers both. Anthropic's Agent Skills ship as SKILL.md with progressive disclosure. OpenAI's Apps SDK is MCP plus widget metadata. AGENTS.md sits at the repo root as project-level agent context.
 
@@ -454,7 +454,7 @@ Launched October 2025. Built directly on MCP: an MCP server (tools, resources, p
 
 ---
 
-## Part 5 (ch269): Capstone — Build a Complete Tool Ecosystem
+## Part 5: Capstone — Build a Complete Tool Ecosystem
 
 > Phase 13 taught every piece. This capstone wires them into one production-shaped system: an MCP server with tools + resources + prompts + tasks + UI, OAuth 2.1 at the edge, an RBAC gateway, a multi-server client, an A2A sub-agent call, OTel tracing into a collector, tool-poisoning detection in CI, and an AGENTS.md + SKILL.md bundle.
 

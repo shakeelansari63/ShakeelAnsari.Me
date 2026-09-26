@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch371): LLM Observability Stack Selection
+## Part 1: LLM Observability Stack Selection
 
 > The 2026 observability market splits into two categories. Development platforms (LangSmith, Langfuse, Comet Opik) bundle monitoring with evals, prompt management, session replays. Gateway/instrumentation tools (Helicone, SigNoz, OpenLLMetry, Phoenix) focus on telemetry. Common production pattern: Gateway (Helicone/Portkey) + eval platform (Phoenix/TruLens) glued by OpenTelemetry.
 
@@ -157,7 +157,7 @@ This lesson produces `outputs/skill-observability-stack.md`. Given stack, scale,
 
 ---
 
-## Part 2 (ch372): Prompt Caching and Semantic Caching Economics
+## Part 2: Prompt Caching and Semantic Caching Economics
 
 > Caching happens at two layers. L2 (provider-level) prompt/prefix caching reuses attention KV for repeated prefixes — Anthropic's prompt-caching docs advertise up to 90% cost reduction and 85% latency reduction; for Claude 3.5 Sonnet cache reads are $0.30/M vs $3.00/M fresh with a 5-minute TTL and a 2x write premium for the 1-hour TTL option. L1 (app-level) semantic caching skips the LLM entirely on embedding similarity hits.
 
@@ -323,7 +323,7 @@ This lesson produces `outputs/skill-cache-auditor.md`. Given prompt template and
 
 ---
 
-## Part 3 (ch373): Batch APIs — the 50% Discount as Industry Standard
+## Part 3: Batch APIs — the 50% Discount as Industry Standard
 
 > Every major provider ships an async batch API with a 50% discount and ~24-hour turnaround. OpenAI, Anthropic, Google, and most of the inference platforms (Fireworks batch tier, Together batch) implement the same pattern. Stack batch with prompt caching and overnight pipelines drop to ~10% of synchronous-uncached cost. The rule is brutally simple: if it is not interactive, it belongs on batch. Content generation pipelines, document classification, data extraction, report generation, bulk labeling, catalog tagging — anything tolerant of 24-hour latency is money left on the table until it moves to batch. The 2026 production pattern is to triage every new LLM workload into three lanes: interactive (synchronous with caching), semi-interactive (async queue with fallback), batch (overnight, cached input stacked). Workloads that pretend to be interactive but tolerate minutes of latency waste most.
 
@@ -445,7 +445,7 @@ This lesson produces `outputs/skill-batch-triager.md`. Given workload characteri
 
 ---
 
-## Part 4 (ch374): Model Routing as a Cost-Reduction Primitive
+## Part 4: Model Routing as a Cost-Reduction Primitive
 
 > A dynamic broker evaluates every request (task type, token length, embedding similarity, confidence) and sends simple queries to a cheap model, escalating complex ones to a frontier model. Also called model cascading. Production case studies show 20-60% cost reduction at iso-quality across US/UK/EU deployments; a 30% routing efficiency improvement on high-volume SaaS turns into six-figure annual savings. The 2026 context is that LLM inference prices dropped ~10x per year — a GPT-4-class token went from $20/M to ~$0.40/M from late 2022 to 2026. Most of the drop is better serving stacks (Phase 17 · 04-09), not hardware. Routing is how you convert that price drop into margin without product regression. The failure mode is cheap-model drift: the route pushes 40% to a weaker model, quality drops 3-5% on reasoning tasks, no one notices for a quarter. Gate routes by online quality metrics, not just offline eval sets.
 
@@ -562,7 +562,7 @@ This lesson produces `outputs/skill-router-plan.md`. Given workload and quality 
 
 ---
 
-## Part 5 (ch386): Self-Hosted Serving Selection — llama.cpp, Ollama, TGI, vLLM, SGLang
+## Part 5: Self-Hosted Serving Selection — llama.cpp, Ollama, TGI, vLLM, SGLang
 
 > Four engines dominate self-hosted inference in 2026. Pick based on hardware, scale, and ecosystem. **llama.cpp** is fastest on CPU — widest model support, full control over quantization and threading. **Ollama** is the dev-laptop one-command install, ~15-30% slower than llama.cpp (Go + CGo + HTTP serialization), 3x throughput gap under prod-like load. **TGI entered maintenance mode December 11, 2025** — only bug fixes, ~10% slower raw throughput than vLLM but historically top observability and HF-ecosystem integration. That maintenance status makes it a risky long-term bet — SGLang or vLLM are safer defaults for new projects. **vLLM** is the general-purpose production default — v0.15.1 (February 2026) adds PyTorch 2.10, RTX Blackwell SM120, H200 optimization. **SGLang** is the agentic multi-turn / prefix-heavy specialist — 400,000+ GPUs in production (xAI, LinkedIn, Cursor, Oracle, GCP, Azure, AWS). Hardware constraints: CPU-only → llama.cpp only. AMD / non-NVIDIA → vLLM only (TRT-LLM is NVIDIA-locked). 2026 pipeline pattern: dev = Ollama, staging = llama.cpp, prod = vLLM or SGLang. Same GGUF/HF weights throughout.
 

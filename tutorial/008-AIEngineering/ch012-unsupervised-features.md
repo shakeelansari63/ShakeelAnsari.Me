@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch041): Unsupervised Learning
+## Part 1: Unsupervised Learning
 
 > No labels, no teacher. The algorithm finds structure on its own.
 
@@ -512,7 +512,7 @@ This lesson produces working implementations of K-Means, DBSCAN, and GMM from sc
 
 ---
 
-## Part 2 (ch042): Feature Engineering & Selection
+## Part 2: Feature Engineering & Selection
 
 > A good feature is worth a thousand data points.
 
@@ -1101,7 +1101,7 @@ This lesson produces:
 
 ---
 
-## Part 3 (ch052): Feature Selection
+## Part 3: Feature Selection
 
 > More features is not better. The right features is better.
 

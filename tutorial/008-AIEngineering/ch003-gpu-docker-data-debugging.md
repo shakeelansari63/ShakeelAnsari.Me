@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch003): GPU Setup & Cloud
+## Part 1: GPU Setup & Cloud
 
 > Training on CPU is fine for learning. Training for real needs a GPU.
 
@@ -147,7 +147,7 @@ if torch.cuda.is_available():
 
 ---
 
-## Part 2 (ch007): Docker for AI
+## Part 2: Docker for AI
 
 > Containers make "works on my machine" a thing of the past.
 
@@ -524,7 +524,7 @@ Remove the `--gpus all` flag and the NVIDIA deploy block. The container still wo
 
 ---
 
-## Part 3 (ch009): Data Management
+## Part 3: Data Management
 
 > Data is the fuel. How you manage it determines how fast you go.
 
@@ -783,7 +783,7 @@ This lesson produces:
 
 ---
 
-## Part 4 (ch012): Debugging and Profiling
+## Part 4: Debugging and Profiling
 
 > The worst AI bugs don't crash. They train silently on garbage and report a beautiful loss curve.
 

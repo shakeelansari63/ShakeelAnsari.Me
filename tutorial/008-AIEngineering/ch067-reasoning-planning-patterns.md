@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch270): The Agent Loop: Observe, Think, Act
+## Part 1: The Agent Loop: Observe, Think, Act
 
 > Every agent in 2026 — Claude Code, Cursor, Devin, Operator — is a variant of the ReAct loop from 2022. Reasoning tokens interleave with tool calls and observations until a stop condition fires. Learn this loop cold before touching any framework.
 
@@ -138,7 +138,7 @@ Reference the framework docs as you learn them:
 
 ---
 
-## Part 2 (ch271): ReWOO and Plan-and-Execute: Decoupled Planning
+## Part 2: ReWOO and Plan-and-Execute: Decoupled Planning
 
 > ReAct interleaves thought and action in one stream. ReWOO separates them: one big plan up front, then execute. 5x fewer tokens, +4% accuracy on HotpotQA, and you can distill the planner into a 7B model. Plan-and-Execute generalized it; Plan-and-Act scaled it to web navigation.
 
@@ -260,7 +260,7 @@ LangGraph ships Plan-and-Execute as a recipe (`create_react_agent` for ReAct, cu
 
 ---
 
-## Part 3 (ch272): Reflexion: Verbal Reinforcement Learning
+## Part 3: Reflexion: Verbal Reinforcement Learning
 
 > Gradient-based RL needs thousands of trials and a GPU cluster to fix a failure mode. Reflexion (Shinn et al., NeurIPS 2023) does it in natural language: after each failed trial, the agent writes a reflection, stores it in episodic memory, and conditions the next trial on that memory. This is the pattern behind Letta's sleep-time compute, Claude Code's CLAUDE.md learnings, and pro-workflow's learn-rule.
 
@@ -392,7 +392,7 @@ LangGraph ships reflection as a node pattern. Claude Code's `/memory` command an
 
 ---
 
-## Part 4 (ch273): Tree of Thoughts and LATS: Deliberate Search
+## Part 4: Tree of Thoughts and LATS: Deliberate Search
 
 > A single chain-of-thought trajectory has no room to backtrack. ToT (Yao et al., 2023) turns reasoning into a tree with self-evaluation on each node. LATS (Zhou et al., 2024) unifies ToT with ReAct and Reflexion under Monte Carlo Tree Search. Game of 24 goes from 4% (CoT) to 74% (ToT); LATS hits 92.7% pass@1 on HumanEval.
 
@@ -523,7 +523,7 @@ LangGraph ships ToT-style exploration as subgraph patterns; the LangChain team's
 
 ---
 
-## Part 5 (ch274): Self-Refine and CRITIC: Iterative Output Improvement
+## Part 5: Self-Refine and CRITIC: Iterative Output Improvement
 
 > Self-Refine (Madaan et al., 2023) uses one LLM in three roles — generate, feedback, refine — in a loop. Average gain: +20 absolute on 7 tasks. CRITIC (Gou et al., 2023) hardens the feedback step by routing verification through external tools. In 2026 this pattern ships in every framework as "evaluator-optimizer" (Anthropic) or a guardrail loop (OpenAI Agents SDK).
 

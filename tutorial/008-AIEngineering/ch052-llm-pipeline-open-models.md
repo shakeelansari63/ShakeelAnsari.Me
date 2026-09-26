@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch195): Building a Complete LLM Pipeline
+## Part 1: Building a Complete LLM Pipeline
 
 > Everything from Lessons 01 to 12 is one stage of one pipeline. This lesson is the scaffold that turns those stages into a single end-to-end run: tokenize, pre-train, scale, SFT, align, evaluate, quantize, serve.
 
@@ -160,7 +160,7 @@ This lesson produces `outputs/skill-llm-pipeline-reviewer.md` -- checks pipeline
 
 ---
 
-## Part 2 (ch196): Open Models: Architecture Walkthroughs
+## Part 2: Open Models: Architecture Walkthroughs
 
 > You built a GPT-2 Small from scratch. Frontier open models are the same family with five or six concrete changes. The math you already know covers 95% of them.
 
@@ -270,7 +270,7 @@ This lesson produces `outputs/skill-open-model-picker.md` -- recommends model + 
 
 ---
 
-## Part 3 (ch451): Loading Pretrained Weights
+## Part 3: Loading Pretrained Weights
 
 > Training a 124M parameter model from scratch is a budget decision; loading a published checkpoint is a Tuesday. This lesson loads pretrained GPT-2 style weights from a safetensors file into the exact architecture from lesson 35, walks the parameter name mapping, and sanity generates a continuation to prove the load worked.
 
@@ -326,7 +326,7 @@ The `c_attn`/`c_proj`/`c_fc` linears are stored with the matrix transposed relat
 
 ---
 
-## Part 4 (ch452): Classifier Fine-Tuning by Head Swap
+## Part 4: Classifier Fine-Tuning by Head Swap
 
 > Track B's first capstone. A pretrained language model is a stack of self-attention blocks ending in a token-prediction head. This lesson rips the head off, glues a two-class linear layer onto the pooled representation, and trains the classifier two different ways: final-layer only and full fine-tuning.
 
@@ -377,7 +377,7 @@ flowchart LR
 
 ---
 
-## Part 5 (ch423): End-to-End Fine-Tuning Pipeline (Data to SFT to DPO to Serve)
+## Part 5: End-to-End Fine-Tuning Pipeline (Data to SFT to DPO to Serve)
 
 > An 8B model trained on your own data, DPO-aligned on your own preferences, quantized, speculative-decoded, and served at measurable $/1M tokens. The 2026 open stack is Axolotl v0.8, TRL 0.15, Unsloth for iteration, GPTQ/AWQ/GGUF for quantization, vLLM 0.7 with EAGLE-3 for serving. The capstone is to run the whole pipeline reproducibly — YAML in, served endpoint out — and publish a model card under the 2026 Model Openness Framework.
 

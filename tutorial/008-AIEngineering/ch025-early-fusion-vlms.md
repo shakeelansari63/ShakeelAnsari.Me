@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch230): Qwen-VL Family and Dynamic-FPS Video
+## Part 1: Qwen-VL Family and Dynamic-FPS Video
 
 > The Qwen-VL family — Qwen-VL (2023), Qwen2-VL (2024), Qwen2.5-VL (2025), Qwen3-VL (2025) — is the most influential open vision-language model lineage in 2026. Each generation made a single decisive architectural bet that the rest of the open ecosystem copied within twelve months: native dynamic resolution via M-RoPE, dynamic-FPS sampling with absolute time alignment, window attention in the ViT, and structured agent output formats. By Qwen3-VL, the recipe had stabilized: a 2D-RoPE-ViT encoder with native-aspect-ratio inputs, an MLP projector into a large Qwen3 language base, and training stages that emphasized OCR, grounding, and agent behavior as first-class targets. This lesson reads the family chronologically so you understand why every knob is where it is.
 
@@ -167,7 +167,7 @@ This lesson produces `outputs/skill-qwen-vl-pipeline-designer.md`. Given a video
 
 ---
 
-## Part 2 (ch231): InternVL3: Native Multimodal Pretraining
+## Part 2: InternVL3: Native Multimodal Pretraining
 
 > Every open VLM before InternVL3 followed the same three-step recipe: take a text LLM trained on trillions of text tokens, bolt on a vision encoder, then fine-tune the seams. This works but has alignment debt — the text LLM has spent its full pretraining budget on pure text and does not natively understand visual tokens. When you add vision post-hoc, the LLM has to re-learn how to relate visual input to its text reasoning without forgetting the text. InternVL3 (Zhu et al., April 2025) rejects the post-hoc approach: one pretraining run, text and multimodal interleaved from step one. The result matches Gemini 2.5 Pro on MMMU-Pro at 78B params open. This lesson reads the case for native pretraining and what changes when you make it.
 
@@ -309,7 +309,7 @@ This lesson produces `outputs/skill-native-vs-posthoc-auditor.md`. Given a propo
 
 ---
 
-## Part 3 (ch232): Chameleon and Early-Fusion Token-Only Multimodal Models
+## Part 3: Chameleon and Early-Fusion Token-Only Multimodal Models
 
 > Every VLM we have seen so far keeps images and text separate. Visual tokens come from a vision encoder, flow into a projector, then meet text inside the LLM. The vision and text vocabularies never overlap. Chameleon (Meta, May 2024) asked: what if they did? Train a VQ-VAE that turns an image into a sequence of discrete tokens from a shared vocabulary. Every multimodal document is now one sequence — text tokens and image tokens interleaved, a single autoregressive loss. Side effect: the model can generate mixed-modality outputs — alternating text and image tokens in a single inference call. This lesson reads the early-fusion thesis and builds a toy version end to end.
 
@@ -460,7 +460,7 @@ This lesson produces `outputs/skill-tokenizer-vs-adapter-picker.md`. Given a pro
 
 ---
 
-## Part 4 (ch233): Emu3: Next-Token Prediction for Image and Video Generation
+## Part 4: Emu3: Next-Token Prediction for Image and Video Generation
 
 > BAAI's Emu3 (Wang et al., September 2024) is the 2024 result that should have ended the diffusion-versus-autoregressive debate. A single Llama-style decoder-only transformer, trained only on the next-token-prediction objective, across a unified vocabulary of text + VQ image tokens + 3D VQ video tokens, beats SDXL on image generation and LLaVA-1.6 on perception. No CLIP loss. No diffusion schedule. Classifier-free guidance is used at inference for quality, but the core training objective is next-token prediction with teacher forcing. Published in Nature. This lesson reads the Emu3 thesis — why a better tokenizer plus scale is all you need — and contrasts with diffusion approaches.
 

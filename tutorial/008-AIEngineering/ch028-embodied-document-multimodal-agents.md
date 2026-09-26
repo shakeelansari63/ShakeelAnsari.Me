@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch242): Embodied VLAs: RT-2, OpenVLA, π0, GR00T
+## Part 1: Embodied VLAs: RT-2, OpenVLA, π0, GR00T
 
 > The first time a model read a recipe off a website and executed it in a kitchen robot was RT-2 (Google DeepMind, July 2023). RT-2 discretized actions as text tokens, co-fine-tuned a VLM on web data plus robot-action data, and proved that web-scale vision-language knowledge transfers to robotic control. OpenVLA (June 2024) shipped the open 7B reference. Physical Intelligence's π0 series (2024-2025) added flow-matching action experts. NVIDIA's GR00T N1 (March 2025) delivered dual-system (System 1 / System 2) control for humanoid robots at scale. The VLA primitive — vision-language-action, a single model that sees, reads, and acts — is the bridge between this phase's understanding models and the autonomous systems in Phase 15.
 
@@ -163,7 +163,7 @@ This lesson produces `outputs/skill-vla-action-format-picker.md`. Given a robot 
 
 ---
 
-## Part 2 (ch243): Document and Diagram Understanding
+## Part 2: Document and Diagram Understanding
 
 > Documents are not photos. A PDF, scientific paper, invoice, or handwritten form has layout, tables, diagrams, footnotes, headers, and semantic structure that plain image understanding cannot capture. The pre-VLM stack was a pipeline: Tesseract OCR + LayoutLMv3 + table-extraction heuristics. The VLM wave replaced that with OCR-free models — Donut (2022), Nougat (2023), DocLLM (2023) — that emit structured markup directly. By 2026 the frontier is just "feed the page image to Claude Opus 4.7 at 2576px native," and the structured-markup output comes for free. This lesson reads the three-era arc of document AI.
 
@@ -339,7 +339,7 @@ This lesson produces `outputs/skill-document-ai-stack-picker.md`. Given a docume
 
 ---
 
-## Part 3 (ch244): ColPali and Vision-Native Document RAG
+## Part 3: ColPali and Vision-Native Document RAG
 
 > Traditional RAG parses PDFs into text, splits into chunks, embeds chunks, stores vectors. Every step loses signal: OCR drops chart data, chunking breaks table rows, text embeddings ignore figures. ColPali (Faysse et al., July 2024) asked the simpler question: why extract text at all? Embed the page image directly via PaliGemma, use ColBERT-style late interaction for retrieval, and keep all the layout, figures, fonts, and formatting signal the document carries. Published benchmarks: 20-40% better end-to-end accuracy than text-RAG on visually-rich documents. ColQwen2, ColSmol, and VisRAG extended the pattern. This lesson reads the vision-native RAG thesis and builds a tiny ColPali-like indexer.
 
@@ -497,7 +497,7 @@ This lesson produces `outputs/skill-vision-rag-designer.md`. Given a document-RA
 
 ---
 
-## Part 4 (ch245): Multimodal RAG and Cross-Modal Retrieval
+## Part 4: Multimodal RAG and Cross-Modal Retrieval
 
 > Vision-native document RAG is one slice. Production multimodal RAG goes wider — retrieving across text, images, audio, and video for workflows like trip planning ("find me a quiet vegan brunch with natural light"), medical triage ("what injury matches this photo + these notes"), e-commerce ("outfits similar to this selfie, in my size"), and field service ("diagnose this engine sound plus photo of the part"). Three 2025 surveys — Abootorabi et al., Mei et al., Zhao et al. — codified the sub-problems: cross-modal retrieval, retrieval fusion, generation grounding, multimodal evaluation. This lesson reads the surveys and designs a production pipeline.
 
@@ -658,7 +658,7 @@ This lesson produces `outputs/skill-multimodal-rag-designer.md`. Given a product
 
 ---
 
-## Part 5 (ch246): Multimodal Agents and Computer-Use (Capstone)
+## Part 5: Multimodal Agents and Computer-Use (Capstone)
 
 > The 2026 frontier product is a multimodal agent that reads screenshots, clicks buttons, navigates web UIs, fills forms, and completes workflows end-to-end. SeeClick and CogAgent (2024) proved the GUI-grounding primitive. Ferret-UI added mobile. ChartAgent introduced visual tool-use for charts. VisualWebArena and AgentVista (2026) are the benchmarks the frontier chases — and even Gemini 3 Pro and Claude Opus 4.7 score ~30% on AgentVista's hard tasks. This capstone pulls together every thread of Phase 12: perception (high-res VLM), reasoning (LLM with tool use), grounding (coordinate output), long-horizon memory, and evaluation.
 
@@ -832,7 +832,7 @@ This lesson produces `outputs/skill-multimodal-agent-designer.md`. Given a compu
 
 ---
 
-## Part 6 (ch420): Multimodal Document QA (Vision-First PDF, Tables, Charts)
+## Part 6: Multimodal Document QA (Vision-First PDF, Tables, Charts)
 
 > The 2026 document-QA frontier moved away from OCR-then-text and toward vision-first late interaction. ColPali, ColQwen2.5, and ColQwen3-omni treat each PDF page as an image, embed it with multi-vector late interaction, and let the query attend to patches directly. On financial 10-Ks, scientific papers, and handwritten notes this pattern beats OCR-first by a large margin. Build the pipeline end to end on 10k pages and publish the side-by-side against OCR-then-text.
 

@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch288): Benchmarks: SWE-bench, GAIA, AgentBench
+## Part 1: Benchmarks: SWE-bench, GAIA, AgentBench
 
 > Three benchmarks anchor agent evaluation in 2026. SWE-bench tests code patching. GAIA tests generalist tool use. AgentBench tests multi-environment reasoning. Know their composition, their contamination story, and what they do not measure.
 
@@ -140,7 +140,7 @@ The output shows resolution rate per task + per difficulty and makes the evaluat
 
 ---
 
-## Part 2 (ch289): Benchmarks: WebArena and OSWorld
+## Part 2: Benchmarks: WebArena and OSWorld
 
 > WebArena tests web-agent capability across four self-hosted apps. OSWorld tests desktop-agent capability across Ubuntu, Windows, macOS. At release (2023–2024) both showed a big gap between best-in-class agents and humans. The gap is narrowing; the failure modes haven't changed.
 
@@ -259,7 +259,7 @@ Output: per-task success rate and trajectory efficiency, mirroring OSWorld-Human
 
 ---
 
-## Part 3 (ch290): Computer Use: Claude, OpenAI CUA, Gemini
+## Part 3: Computer Use: Claude, OpenAI CUA, Gemini
 
 > Three production computer-use models in 2026. All three are vision-based. All three treat screenshots, DOM text, and tool outputs as untrusted input. Only direct user instructions count as permission. Per-step safety services are the norm.
 
@@ -390,7 +390,7 @@ The output shows the safety classifier catching an injected directive in DOM tex
 
 ---
 
-## Part 4 (ch322): Browser Agents and Long-Horizon Web Tasks
+## Part 4: Browser Agents and Long-Horizon Web Tasks
 
 > ChatGPT agent (July 2025) merged Operator and deep research into one browser/terminal agent and set BrowseComp SOTA at 68.9%. OpenAI shut Operator down August 31, 2025 — consolidation at the product layer. Anthropic's Vercept acquisition moved Claude Sonnet on OSWorld from under 15% to 72.5%. WebArena-Verified (ServiceNow, ICLR 2026) fixed 11.3 percentage points of false-negative rate in the original WebArena and shipped the 258-task Hard subset. The numbers are real. So is the attack surface: OpenAI's head of preparedness stated publicly that indirect prompt injection into browser agents "is not a bug that can be fully patched." Documented 2025–2026 attacks: Tainted Memories (Atlas CSRF), HashJack (Cato Networks), and one-click hijacks in Perplexity Comet.
 

@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch183): Tokenizers: BPE, WordPiece, SentencePiece
+## Part 1: Tokenizers: BPE, WordPiece, SentencePiece
 
 > Your LLM does not read English. It reads integers. The tokenizer decides whether those integers carry meaning or waste it.
 
@@ -459,7 +459,7 @@ This lesson produces `outputs/prompt-tokenizer-analyzer.md` -- a reusable prompt
 
 ---
 
-## Part 2 (ch184): Building a Tokenizer from Scratch
+## Part 2: Building a Tokenizer from Scratch
 
 > Lesson 01 gave you a toy. This lesson gives you a weapon.
 
@@ -898,7 +898,7 @@ This lesson produces a prompt for building and debugging production tokenizers. 
 
 ---
 
-## Part 3 (ch444): BPE Tokenizer From Scratch
+## Part 3: BPE Tokenizer From Scratch
 
 > Bytes in, ids out, ids back to the same bytes. Build the tokenizer that every modern text model still starts from.
 
@@ -957,7 +957,7 @@ Encoding then decoding must return the input bytes exactly. The decoder concaten
 
 ---
 
-## Part 4 (ch445): Tokenized Dataset with Sliding Window
+## Part 4: Tokenized Dataset with Sliding Window
 
 > A pretraining run is a function from token ids to gradients. This lesson builds the conveyor that feeds the ids in.
 

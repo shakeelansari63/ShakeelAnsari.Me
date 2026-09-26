@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch022): Dimensionality Reduction
+## Part 1: Dimensionality Reduction
 
 > High-dimensional data has structure. You find it by looking from the right angle.
 
@@ -381,7 +381,7 @@ This lesson produces:
 
 ---
 
-## Part 2 (ch023): Singular Value Decomposition
+## Part 2: Singular Value Decomposition
 
 > SVD is the Swiss Army knife of linear algebra. Every matrix has one. Every data scientist needs one.
 
@@ -918,7 +918,7 @@ This lesson produces:
 
 ---
 
-## Part 3 (ch029): Linear Systems
+## Part 3: Linear Systems
 
 > Most of machine learning is solving linear systems you cannot directly solve, and pretending nonlinear systems are linear.
 

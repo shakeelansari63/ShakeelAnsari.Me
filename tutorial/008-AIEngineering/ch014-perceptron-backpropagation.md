@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch053): The Perceptron
+## Part 1: The Perceptron
 
 > The perceptron is the atom of neural networks. Split it open and you find weights, a bias, and a decision.
 
@@ -280,7 +280,7 @@ What changes in production networks: the step function becomes sigmoid, ReLU, or
 
 ---
 
-## Part 2 (ch054): Multi-Layer Networks and Forward Pass
+## Part 2: Multi-Layer Networks and Forward Pass
 
 > One neuron draws a line. Stack them, and you can draw anything.
 
@@ -564,7 +564,7 @@ output = model(x)
 
 ---
 
-## Part 3 (ch055): Backpropagation from Scratch
+## Part 3: Backpropagation from Scratch
 
 > Backpropagation is the algorithm that makes learning possible. Without it, neural networks are just expensive random number generators.
 

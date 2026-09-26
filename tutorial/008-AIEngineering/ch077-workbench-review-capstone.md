@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch308): Reviewer Agent: Separate Builder from Marker
+## Part 1: Reviewer Agent: Separate Builder from Marker
 
 > The agent that wrote the code cannot grade it. A reviewer is a second loop with a different system prompt, a different goal, and read-only access to everything the builder produced. The gap between builder and reviewer is where most reliability lives.
 
@@ -138,7 +138,7 @@ Cloudflare's April 2026 AI Code Review system ran 131,246 review runs across 48,
 
 ---
 
-## Part 2 (ch309): Multi-Session Handoff
+## Part 2: Multi-Session Handoff
 
 > The session is going to end. The work is not. The handoff packet is the artifact that turns "the agent worked for an hour" into "the next session is productive in the first minute." Build it on purpose, not as an afterthought.
 
@@ -267,7 +267,7 @@ python3 code/main.py
 
 ---
 
-## Part 3 (ch310): The Workbench on a Real Repo
+## Part 3: The Workbench on a Real Repo
 
 > Eleven lessons of surfaces are worth nothing if they do not survive contact with a real codebase. This lesson runs the same task twice on a small sample app: prompt-only versus workbench-guided. The numbers do the arguing.
 
@@ -382,7 +382,7 @@ This lesson is the case file you cite when someone asks why every PR carries an 
 
 ---
 
-## Part 4 (ch311): Capstone: Ship a Reusable Agent Workbench Pack
+## Part 4: Capstone: Ship a Reusable Agent Workbench Pack
 
 > The mini-track ends with a pack you drop into any repo. Eleven lessons of surfaces compressed into a directory you can `cp -r` and have an agent working reliably the next morning. The capstone is the artifact this curriculum trades on.
 

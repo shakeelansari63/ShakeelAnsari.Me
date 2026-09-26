@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch438): Plan-Execute Control Flow
+## Part 1: Plan-Execute Control Flow
 
 > A plan that cannot survive a failure is a script. A script that can replan is an agent. Build the replanner first.
 
@@ -105,7 +105,7 @@ Two extensions: partial-plan caching (you do not want to re-run the first three 
 
 ---
 
-## Part 2 (ch439): Verification Gates and the Observation Budget
+## Part 2: Verification Gates and the Observation Budget
 
 > An agent harness without a verification layer is a wish in a trenchcoat. This lesson builds the deterministic gate chain that decides whether a tool call is allowed to fire, how much of its output the agent is allowed to see, and when the loop has to stop because the agent has read too much.
 
@@ -165,7 +165,7 @@ Previous lessons gave the loop, tool registry, message store, prompt builder, an
 
 ---
 
-## Part 3 (ch440): Sandbox Runner with Denylist and Path Jail
+## Part 3: Sandbox Runner with Denylist and Path Jail
 
 > The verification gate decides whether a tool call should run. The sandbox decides what happens when it does. This lesson ships a subprocess runner that refuses dangerous executables, refuses dangerous argv shapes, jails every file path to a project root, truncates oversized output, and kills runaway processes on a wall-clock timeout.
 
@@ -224,7 +224,7 @@ This sandbox does not use namespaces, cgroups, seccomp, gVisor, or Firecracker. 
 
 ---
 
-## Part 4 (ch441): Eval Harness with Fixture Tasks
+## Part 4: Eval Harness with Fixture Tasks
 
 > A coding agent is only as good as the suite of tasks you measure it against. This lesson builds an evaluation harness that takes a folder of fixture tasks, runs each through a candidate agent, scores pass or fail through a deterministic verifier, and aggregates the results into pass@1, pass@k, mean latency, and mean cost.
 
@@ -278,7 +278,7 @@ Real LLM agents are stochastic. A pass@1 of 0.6 looks like a failure. A pass@5 o
 
 ---
 
-## Part 5 (ch442): Observability with OTel GenAI Spans and Prometheus Metrics
+## Part 5: Observability with OTel GenAI Spans and Prometheus Metrics
 
 > An agent harness without observability is a black box that costs money. This lesson hand-rolls a span builder that emits records compliant with the OpenTelemetry GenAI semantic conventions, writes them to a JSON-Lines file, and exposes counters and histograms in Prometheus text format.
 
@@ -331,7 +331,7 @@ The OTel Python SDK is a real dependency. The hand-rolled version teaches the wi
 
 ---
 
-## Part 6 (ch443): End-to-End Coding Agent on the Harness
+## Part 6: End-to-End Coding Agent on the Harness
 
 > Track A's payoff. This lesson stitches the gate chain, the sandbox, the eval harness, and the OTel spans into one working coding agent that fixes a real (small, fixture-scale) bug in a multi-file Python project.
 

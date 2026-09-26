@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch434): Agent Harness Loop Contract
+## Part 1: Agent Harness Loop Contract
 
 > The harness is the agent. The model is a coprocessor. This lesson freezes the loop contract you can wire any model into.
 
@@ -118,7 +118,7 @@ The next lesson adds the tool registry. After that, the JSON-RPC transport. Afte
 
 ---
 
-## Part 2 (ch435): Tool Registry with Schema Validation
+## Part 2: Tool Registry with Schema Validation
 
 > A tool the agent cannot validate is a tool the agent cannot call. Build the registry and the schema checker before you build the tools.
 
@@ -223,7 +223,7 @@ The next lesson builds the JSON-RPC stdio transport that surfaces this registry 
 
 ---
 
-## Part 3 (ch436): JSON-RPC 2.0 Over Newline-Delimited Stdio
+## Part 3: JSON-RPC 2.0 Over Newline-Delimited Stdio
 
 > The transport between a model client and a tool server is JSON-RPC over stdio. Hand-rolling it once teaches you what every framing layer is paying for.
 
@@ -331,7 +331,7 @@ This transport is enough for the lessons that follow. Production transports add 
 
 ---
 
-## Part 4 (ch437): Function Call Dispatcher
+## Part 4: Function Call Dispatcher
 
 > The dispatcher is where the harness pays for every promise the schema made. Timeouts, retries, dedupe, error mapping. All on one seam.
 

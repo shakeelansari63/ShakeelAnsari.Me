@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch210): RAG (Retrieval-Augmented Generation)
+## Part 1: RAG (Retrieval-Augmented Generation)
 
 > Your LLM knows everything up to its training cutoff. It knows nothing about your company's docs, your codebase, or last week's meeting notes. RAG solves this by retrieving relevant documents and stuffing them into the prompt. It's the most deployed pattern in production AI. If you build one thing from this course, build a RAG pipeline.
 
@@ -441,7 +441,7 @@ This lesson produces:
 
 ---
 
-## Part 2 (ch115): Embedding Models — The 2026 Deep Dive
+## Part 2: Embedding Models — The 2026 Deep Dive
 
 Word2Vec gave you a vector per word. Modern embedding models give you a vector per passage, cross-lingual, with sparse, dense, and multi-vector views, sized to fit your index.
 
@@ -577,7 +577,7 @@ Run candidate models on a representative subset. Leaderboard rank alone is not e
 
 ---
 
-## Part 3 (ch116): Chunking Strategies for RAG
+## Part 3: Chunking Strategies for RAG
 
 Chunking configuration influences retrieval quality as much as the choice of embedding model (Vectara NAACL 2025). Get chunking wrong and no amount of reranking saves you.
 
@@ -739,7 +739,7 @@ Start with recursive 512. Measure recall@5 on a 50-query eval set. Tune from the
 
 ---
 
-## Part 4 (ch478): Chunking Strategies, Compared
+## Part 4: Chunking Strategies, Compared
 
 > Chunking decides what your retriever can ever surface. Get the boundaries wrong and no model can repair the damage downstream.
 
@@ -803,7 +803,7 @@ flowchart LR
 
 ---
 
-## Part 5 (ch479): Hybrid Retrieval with BM25 and Dense Embeddings
+## Part 5: Hybrid Retrieval with BM25 and Dense Embeddings
 
 > Lexical and semantic retrieval fail on opposite query distributions. Hybrid retrieval with RRF votes, and the vote wins on every query class.
 
@@ -865,7 +865,7 @@ Default k = 60. Per-modality weights multiply the rank contribution.
 
 ---
 
-## Part 6 (ch480): Cross-Encoder Reranker
+## Part 6: Cross-Encoder Reranker
 
 > A bi-encoder embeds query and document independently. A cross-encoder concatenates them and reads both at once.
 

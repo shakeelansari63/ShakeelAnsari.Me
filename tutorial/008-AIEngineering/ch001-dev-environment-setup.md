@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch001): Dev Environment
+## Part 1: Dev Environment
 
 > Your tools shape your thinking. Set them up once, set them up right.
 
@@ -175,7 +175,7 @@ See `outputs/prompt-env-check.md` for a prompt that helps AI assistants diagnose
 
 ---
 
-## Part 2 (ch005): Jupyter Notebooks
+## Part 2: Jupyter Notebooks
 
 > Notebooks are the lab bench of AI engineering. You prototype here, then move what works into production.
 
@@ -431,7 +431,7 @@ This lesson produces:
 
 ---
 
-## Part 3 (ch006): Python Environments
+## Part 3: Python Environments
 
 > Dependency hell is real. Virtual environments are the cure.
 
@@ -702,7 +702,7 @@ This creates a `.venv` at the repo root with core dependencies installed and ver
 
 ---
 
-## Part 4 (ch008): Editor Setup
+## Part 4: Editor Setup
 
 > Your editor is your co-pilot. Configure it once so it stays out of your way and starts pulling its weight.
 

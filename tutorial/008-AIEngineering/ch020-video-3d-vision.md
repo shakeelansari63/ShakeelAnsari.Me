@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch077): Video Understanding — Temporal Modeling
+## Part 1: Video Understanding — Temporal Modeling
 
 > A video is a sequence of images plus the physics that connects them. Every video model either treats time as an extra axis (3D conv), a sequence to attend over (transformer), or a feature to extract once and pool (2D+pool).
 
@@ -157,7 +157,7 @@ class Conv2Plus1D(nn.Module):
 
 ---
 
-## Part 2 (ch078): 3D Vision — Point Clouds & NeRFs
+## Part 2: 3D Vision — Point Clouds & NeRFs
 
 > 3D vision comes in two flavours. Point clouds are the sensor's raw output. NeRFs are the learned volumetric field. Both answer "what is where in space."
 
@@ -357,7 +357,7 @@ print(f"rendered colour: {rendered.tolist()}")
 
 ---
 
-## Part 3 (ch087): 3D Gaussian Splatting from Scratch
+## Part 3: 3D Gaussian Splatting from Scratch
 
 > A scene is a cloud of millions of 3D Gaussians. Each one has a position, orientation, scale, opacity, and a colour that depends on viewing direction. Rasterise them, backprop through the rasterisation, done.
 
@@ -582,7 +582,7 @@ Export: `.ply`, `.splat`, glTF `KHR_gaussian_splatting`, OpenUSD.
 
 ---
 
-## Part 4 (ch091): Monocular Depth & Geometry Estimation
+## Part 4: Monocular Depth & Geometry Estimation
 
 > A depth map is a single-channel image where each pixel is a distance from the camera. Predicting it from one RGB frame used to be impossible without stereo or LiDAR. In 2026 a frozen ViT encoder plus a lightweight head gets within a few percent of ground truth.
 
@@ -802,7 +802,7 @@ This lesson produces:
 
 ---
 
-## Part 5 (ch092): Multi-Object Tracking & Video Memory
+## Part 5: Multi-Object Tracking & Video Memory
 
 > Tracking is detection plus association. Detect every frame. Match this frame's detections to last frame's tracks by ID.
 
@@ -1057,7 +1057,7 @@ This lesson produces:
 
 ---
 
-## Part 6 (ch093): World Models & Video Diffusion
+## Part 6: World Models & Video Diffusion
 
 > A video model that predicts the next seconds of a scene is a world simulator. Condition that prediction on actions and you have a learned game engine.
 

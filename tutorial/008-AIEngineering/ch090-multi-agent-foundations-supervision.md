@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch334): Why Multi-Agent?
+## Part 1: Why Multi-Agent?
 
 > One agent hits a wall. The smart move is not a bigger agent - it is more agents.
 
@@ -278,7 +278,7 @@ The multi-agent version uses more total tokens but each agent's context stays cl
 
 ---
 
-## Part 2 (ch335): Heritage of FIPA-ACL and Speech Acts
+## Part 2: Heritage of FIPA-ACL and Speech Acts
 
 > Before MCP, before A2A, there was FIPA-ACL. In 2000 the IEEE Foundation for Intelligent Physical Agents ratified an agent communication language with twenty performatives, two content languages, and a set of interaction protocols — contract net, subscribe/notify, request-when. It faded from industry because the ontology overhead was too heavy for the web, but the LLM revival of multi-agent systems is quietly reimplementing the same ideas without the formal semantics: JSON contracts stand in for performatives, natural language stands in for ontologies.
 
@@ -451,7 +451,7 @@ Do not bring FIPA-ACL back. Bring back its checklist:
 
 ---
 
-## Part 3 (ch336): Communication Protocols
+## Part 3: Communication Protocols
 
 > Agents that can't speak the same language aren't a team. They're strangers shouting into the void.
 
@@ -1173,7 +1173,7 @@ graph TD
 
 ---
 
-## Part 4 (ch337): The Multi-Agent Primitive Model
+## Part 4: The Multi-Agent Primitive Model
 
 > Every multi-agent framework shipping in 2026 — AutoGen, LangGraph, CrewAI, OpenAI Agents SDK, Microsoft Agent Framework — is a point in a four-dimensional design space. Four primitives, nothing more: the agent, the handoff, the shared state, the orchestrator.
 
@@ -1276,7 +1276,7 @@ Expected output: three orchestrator runs, one per pattern. Each prints the final
 
 ---
 
-## Part 5 (ch338): Supervisor / Orchestrator-Worker Pattern
+## Part 5: Supervisor / Orchestrator-Worker Pattern
 
 > One lead agent plans and delegates; specialized workers execute in parallel contexts and report back. This is the pattern behind Anthropic's Research system (Claude Opus 4 as lead, Sonnet 4 as subagents), measured at +90.2% over single-agent Opus 4 on internal research evals.
 
@@ -1400,7 +1400,7 @@ Checklist before deploying a supervisor pattern:
 
 ---
 
-## Part 6 (ch339): Hierarchical Architecture and Its Failure Mode
+## Part 6: Hierarchical Architecture and Its Failure Mode
 
 > Hierarchical is supervisor nested. Manager agents over sub-managers over workers. CrewAI `Process.hierarchical` is the textbook version: a `manager_llm` dynamically delegates tasks and validates outputs. It is the natural pattern when the task is a real org chart. It is also the pattern most likely to collapse into managerial looping.
 
@@ -1510,7 +1510,7 @@ If you ship hierarchical:
 
 ---
 
-## Part 7 (ch343): Group Chat and Speaker Selection
+## Part 7: Group Chat and Speaker Selection
 
 > AutoGen GroupChat and AG2 GroupChat share one conversation across N agents; a selector function (LLM, round-robin, or custom) picks who speaks next. This is the archetype of emergent multi-agent conversation — agents do not know their role in a static graph, they just react to the shared pool.
 
@@ -1630,7 +1630,7 @@ Checklist:
 
 ---
 
-## Part 8 (ch344): Handoffs and Routines — Stateless Orchestration
+## Part 8: Handoffs and Routines — Stateless Orchestration
 
 > OpenAI's Swarm (October 2024) distilled multi-agent orchestration to two primitives: **routines** (instructions + tools as a system prompt) and **handoffs** (a tool that returns another Agent). No state machine, no branching DSL — the LLM routes by calling the right handoff tool.
 

@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch213): Function Calling & Tool Use
+## Part 1: Function Calling & Tool Use
 
 > LLMs cannot do anything. They generate text. That is the entire capability. They cannot check the weather, query a database, send an email, run code, or read a file. Every "AI agent" you have ever seen is an LLM generating JSON that says which function to call -- and then your code actually calling it. The model is the brain. Tools are the hands. Function calling is the nervous system connecting them.
 
@@ -725,7 +725,7 @@ It also produces `outputs/skill-function-calling-patterns.md` -- a decision fram
 
 ---
 
-## Part 2 (ch220): LangGraph — State Machines for Agents
+## Part 2: LangGraph — State Machines for Agents
 
 > A ReAct loop written by hand is a `while True`. A ReAct loop written in LangGraph is a graph you can checkpoint, interrupt, branch, and time-travel through. The agent hasn't changed. The harness around it has.
 
@@ -934,7 +934,7 @@ Refuse to ship a LangGraph agent that has no checkpointer. Refuse to ship one th
 
 ---
 
-## Part 3 (ch221): Agent Framework Tradeoffs — LangGraph vs CrewAI vs AutoGen vs Agno
+## Part 3: Agent Framework Tradeoffs — LangGraph vs CrewAI vs AutoGen vs Agno
 
 > Every framework sells the same demo (research agent builds a report) and hides the same bug (state schema fights with the orchestration layer). Pick the framework whose abstractions match the shape of your problem; everything else is glue you write twice.
 

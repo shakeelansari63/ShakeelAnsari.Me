@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch408): Differential Privacy for LLMs
+## Part 1: Differential Privacy for LLMs
 
 > DP-SGD remains the standard — noise-injected gradient updates provide formal (epsilon, delta) guarantees. Overhead in compute, memory, and utility is substantial; parameter-efficient DP fine-tuning (LoRA + DP-SGD) is the common 2025 configuration (ACM 2025). Two bodies of evidence in tension: canary-based membership inference (Duan et al., 2024) reports limited success against language models; training-data extraction (Carlini et al., 2021; Nasr et al., 2025) recovers substantial verbatim memorization. Resolution (arXiv:2503.06808, March 2025): the gap is in what is measured — inserted canaries vs "most extractable" data. New canary designs enable loss-based MIA without shadow models and yield the first nontrivial DP audit of an LLM trained on real data with realistic DP guarantees. Alternatives: PMixED (arXiv:2403.15638) — private prediction at inference time via mixture of experts on next-token distributions; DP synthetic data generation (Google Research 2024). Emerging attack: Differential Privacy Reversal via LLM Feedback — confidence-score leakage.
 
@@ -122,7 +122,7 @@ This lesson produces `outputs/skill-dp-audit.md`. Given a DP claim on a language
 
 ---
 
-## Part 2 (ch409): Watermarking — SynthID, Stable Signature, C2PA
+## Part 2: Watermarking — SynthID, Stable Signature, C2PA
 
 > Three technologies structure 2026 AI-generated-content provenance. SynthID (Google DeepMind) — image watermarking launched August 2023, text+video May 2024 (Gemini + Veo), text open-sourced October 2024 via Responsible GenAI Toolkit, unified multi-media detector November 2025 alongside Gemini 3 Pro. Text watermarking adjusts next-token sampling probabilities imperceptibly; image/video watermarks survive compression, cropping, filters, frame-rate changes. Stable Signature (Fernandez et al., ICCV 2023, arXiv:2303.15435) — fine-tunes the latent diffusion decoder so every output contains a fixed message; cropped (10% of content) generated images detected >90% at FPR<1e-6. Follow-up "Stable Signature is Unstable" (arXiv:2405.07145, May 2024) — fine-tuning removes the watermark while preserving quality. C2PA — cryptographically signed, tamper-evident metadata standard (C2PA 2.2 Explainer 2025). Watermarking and C2PA are complementary: metadata can be stripped but carries richer provenance; watermarks persist through transcoding but carry less information.
 
@@ -241,7 +241,7 @@ This lesson produces `outputs/skill-provenance-audit.md`. Given a content deploy
 
 ---
 
-## Part 3 (ch410): Regulatory Frameworks — EU, US, UK, Korea
+## Part 3: Regulatory Frameworks — EU, US, UK, Korea
 
 > Four primary regulatory regimes define the 2026 AI governance landscape. EU AI Act (in force 1 August 2024) — prohibited practices and AI literacy from 2 February 2025; GPAI obligations from 2 August 2025; full applicability and Article 50 transparency 2 August 2026; legacy GPAI and embedded high-risk systems 2 August 2027; penalties up to 15M EUR or 3% of global turnover. GPAI Code of Practice (10 July 2025): three chapters — Transparency, Copyright, Safety and Security — 12 commitments; enforcement begins August 2026. UK AISI -> AI Security Institute (February 2025): rename signals narrower scope. US AISI -> CAISI (June 2025): Center for AI Standards and Innovation under NIST; shift toward pro-growth posture. Korean AI Framework Act (passed December 2024, effective January 2026): Article 12 establishes AISI under MSIT; mandates local representatives for foreign AI companies, risk assessment, safety measures for high-impact and generative AI.
 
@@ -369,7 +369,7 @@ This lesson produces `outputs/skill-regulatory-map.md`. Given a deployment descr
 
 ---
 
-## Part 4 (ch411): EchoLeak and the Emergence of CVEs for AI
+## Part 4: EchoLeak and the Emergence of CVEs for AI
 
 > CVE-2025-32711 "EchoLeak" (CVSS 9.3) was the first publicly documented zero-click prompt injection in a production LLM system (Microsoft 365 Copilot). Discovered by Aim Labs (Aim Security), disclosed to MSRC, patched via server-side update June 2025. Attack: attacker sends a crafted email to any employee; the victim's Copilot retrieves the email as RAG context during a routine query; hidden instructions execute; Copilot exfiltrates sensitive organizational data via a CSP-approved Microsoft domain. Bypassed XPIA prompt-injection filters and Copilot's link-redaction mechanisms. Aim Labs's term: "LLM Scope Violation" — external untrusted input manipulates the model to access and leak confidential data. Related: CamoLeak (CVSS 9.6, GitHub Copilot Chat) exploited the Camo image proxy; fixed by disabling image rendering entirely. GitHub Copilot RCE CVE-2025-53773. NIST has called indirect prompt injection "generative AI's greatest security flaw"; OWASP 2025 ranks it #1 threat to LLM applications.
 
@@ -482,7 +482,7 @@ This lesson produces `outputs/skill-cve-review.md`. Given a production AI deploy
 
 ---
 
-## Part 5 (ch412): Model, System, and Dataset Cards
+## Part 5: Model, System, and Dataset Cards
 
 > Three documentation formats structure AI transparency. Model Cards (Mitchell et al. 2019) — nutrition labels for models: training data, quantitative disaggregated analyses, ethical considerations, caveats; only 0.3% of Hugging Face model cards document ethical considerations (Oreamuno et al. 2023). Datasheets for Datasets (Gebru et al. 2018, CACM) — motivation, composition, collection process, labeling, distribution, maintenance; electronics-datasheet analogy. Data Cards (Pushkarna et al., Google 2022) — modular layered detail (telescopic, periscopic, microscopic) as boundary objects for diverse readers. 2024-2025 developments: automated generation via LLMs (CardGen, Liu et al. 2024); model-card detail correlates with up to 29% download increase on HF (Liang et al. 2024); verifiable attestations (Laminator, Duddu et al. 2024); sustainability reporting additions for carbon/water (Jouneaux et al. July 2025); EU/ISO regulatory cards emerging. System Cards (Sidhpurwala 2024; Meta system-level transparency; "Blueprints of Trust" arXiv:2509.20394) — end-to-end AI system documentation covering security capabilities, prompt-injection protection, data-exfiltration detection, alignment with human values.
 
@@ -607,7 +607,7 @@ This lesson produces `outputs/skill-card-audit.md`. Given a model card, datashee
 
 ---
 
-## Part 6 (ch413): Data Provenance and Training-Data Governance
+## Part 6: Data Provenance and Training-Data Governance
 
 > EU AI Act requires machine-readable opt-out standards for GPAI by August 2025 (via EU Copyright Directive TDM exception). California AB 2013 (signed 2024) — Generative AI training-data transparency requires developers to publish a summary of datasets with 12 mandated fields. 2025 DPA alignment on legitimate interest: Irish DPC (21 May 2025) accepts Meta's LLM training on first-party public EU/EEA adult content with safeguards after EDPB opinion; Cologne Higher Regional Court (23 May 2025) dismisses injunction; Hamburg DPA drops urgency; UK ICO (23 September 2025) issues a positive regulatory response to LinkedIn's AI-training safeguards (transparency, simplified opt-out, extended objection windows) and continues monitoring — not a formal clearance. Brazilian ANPD (2 July 2024) suspended Meta's processing over insufficient information transparency; the preventive measure was lifted on 30 August 2024 after Meta submitted a compliance plan. Key irreversibility problem: cookie-consent frameworks are designed for real-time, reversible tracking; once data is in model weights, surgical erasure is impossible — no practical GDPR right-to-erasure for trained neural networks. Compliance window is at collection time. Data Provenance Initiative (dataprovenance.org, Longpre, Mahari, Lee et al., "Consent in Crisis", July 2024): large-scale audit shows rapid decline of the AI data commons as publishers add robots.txt restrictions.
 

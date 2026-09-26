@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch110): Chatbots — Rule-Based to Neural to LLM Agents
+## Part 1: Chatbots — Rule-Based to Neural to LLM Agents
 
 ELIZA replied with pattern matches. DialogFlow mapped intents. GPT answered from weights. Claude runs tools and verifies. Each era solved the previous one's worst failure.
 
@@ -157,7 +157,7 @@ def is_destructive_action(text):
 
 ---
 
-## Part 2 (ch111): Multilingual NLP
+## Part 2: Multilingual NLP
 
 One model, 100+ languages, zero training data for most of them. Cross-lingual transfer is the practical miracle of the 2020s.
 
@@ -300,7 +300,7 @@ Low-resource languages tokenize into far more tokens per word. That 3-5x eats yo
 
 ---
 
-## Part 3 (ch113): Structured Outputs & Constrained Decoding
+## Part 3: Structured Outputs & Constrained Decoding
 
 Ask an LLM for JSON. Get JSON most of the time. In production, "most" is the problem. Constrained decoding turns "most" into "always" by editing the logits before sampling.
 
@@ -450,7 +450,7 @@ print(response.output_parsed)
 
 ---
 
-## Part 4 (ch122): Dialogue State Tracking
+## Part 4: Dialogue State Tracking
 
 "I want a cheap restaurant in the north... actually make it moderate... and add Italian." Three turns, three state updates. DST keeps the slot-value dict in sync so the booking works.
 

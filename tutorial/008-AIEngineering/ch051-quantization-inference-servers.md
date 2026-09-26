@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch193): Quantization: Making Models Fit
+## Part 1: Quantization: Making Models Fit
 
 > A 70B model in FP16 needs 140GB. Two A100s just for weights. Quantize to FP8: one 80GB GPU. INT4: a MacBook.
 
@@ -404,7 +404,7 @@ This lesson produces `outputs/skill-quantization.md` -- a decision framework for
 
 ---
 
-## Part 2 (ch194): Inference Optimization
+## Part 2: Inference Optimization
 
 > Two phases define LLM inference. Prefill processes your prompt in parallel -- compute-bound. Decode generates tokens one at a time -- memory-bound. Every optimization targets one or both.
 
@@ -771,7 +771,7 @@ This lesson produces `outputs/skill-inference-optimization.md` -- a guide for di
 
 ---
 
-## Part 3 (ch197): Speculative Decoding and EAGLE-3
+## Part 3: Speculative Decoding and EAGLE-3
 
 > The Leviathan rejection rule preserves the verifier's distribution exactly. EAGLE-3 turned the draft model into a purpose-built network trained on the verifier's own hidden states. Result: 3x to 6.5x speedup, acceptance rates above 0.9, no distributional tradeoff.
 
@@ -888,7 +888,7 @@ This lesson produces `outputs/skill-eagle3-tuner.md` -- recommends spec-decoding
 
 ---
 
-## Part 4 (ch200): Multi-Token Prediction (MTP)
+## Part 4: Multi-Token Prediction (MTP)
 
 > Every autoregressive LLM trains on one loss per position. DeepSeek-V3 added a second: predict the token after that. The extra parameters got distilled back through gradient flow, and the trained heads were repurposed as speculative-decoding drafters.
 
@@ -1018,7 +1018,7 @@ This lesson produces `outputs/skill-mtp-planner.md` -- plan for integrating MTP 
 
 ---
 
-## Part 5 (ch204): Async and Hogwild! Inference
+## Part 5: Async and Hogwild! Inference
 
 > Run N instances of the same LLM in parallel against a SHARED key-value cache. Each worker sees every other worker's generated tokens instantly. Modern reasoning models self-coordinate through that shared cache without any fine-tuning.
 
@@ -1166,7 +1166,7 @@ This lesson produces `outputs/skill-parallel-inference-router.md` -- routes betw
 
 ---
 
-## Part 6 (ch430): Speculative-Decoding Inference Server
+## Part 6: Speculative-Decoding Inference Server
 
 > EAGLE-3 in vLLM 0.7 ships 2.5-3x throughput on real traffic. P-EAGLE (AWS 2026) pushed parallel speculation even further. SGLang's SpecForge trained draft heads at scale. Red Hat's Speculators hub published aligned drafts for common open models. TensorRT-LLM made speculative decoding first-class on NVIDIA. The 2026 production serving stack is vLLM or SGLang with EAGLE-family drafts, FP8 or INT4 quantization, and HPA on queue-wait. This capstone is to serve two open models at 2.5x+ baseline throughput with a full tail-latency report.
 

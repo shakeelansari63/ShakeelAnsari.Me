@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch071): Object Detection — YOLO from Scratch
+## Part 1: Object Detection — YOLO from Scratch
 
 > Detection is classification plus regression, run at every position in a feature map, then cleaned up with non-maximum suppression.
 
@@ -305,7 +305,7 @@ For real-time inference: `from ultralytics import YOLO; model = YOLO('yolov8n.pt
 
 ---
 
-## Part 2 (ch072): Semantic Segmentation — U-Net
+## Part 2: Semantic Segmentation — U-Net
 
 > Segmentation is classification at every pixel. U-Net makes it work by pairing a downsampling encoder with an upsampling decoder and wiring skip connections between them.
 
@@ -534,7 +534,7 @@ model = smp.Unet(
 
 ---
 
-## Part 3 (ch073): Instance Segmentation — Mask R-CNN
+## Part 3: Instance Segmentation — Mask R-CNN
 
 > Add a tiny mask branch to a Faster R-CNN detector and you have instance segmentation. The hard part is RoIAlign, and it is harder than it looks.
 
@@ -714,7 +714,7 @@ def train_step(model, images, targets, optimizer):
 
 ---
 
-## Part 4 (ch089): SAM 3 & Open-Vocabulary Segmentation
+## Part 4: SAM 3 & Open-Vocabulary Segmentation
 
 > Give a model a text prompt and an image and get masks for every matching object. SAM 3 made that a single forward pass.
 

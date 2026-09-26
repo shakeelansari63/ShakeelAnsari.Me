@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch021): Information Theory
+## Part 1: Information Theory
 
 > Information theory measures surprise. Loss functions are built on it.
 
@@ -478,7 +478,7 @@ You built from scratch what `torch.nn.CrossEntropyLoss()` does internally. Now y
 
 ---
 
-## Part 2 (ch024): Tensor Operations
+## Part 2: Tensor Operations
 
 > Tensors are the common language between data and deep learning. Every image, every sentence, every gradient flows through them.
 
@@ -823,7 +823,7 @@ This lesson produces two reusable prompts:
 
 ---
 
-## Part 3 (ch025): Numerical Stability
+## Part 3: Numerical Stability
 
 > Floating point is a leaky abstraction. It will bite you during training, and you will not see it coming.
 
@@ -1546,7 +1546,7 @@ These stable implementations reappear in Phase 3 when building the training loop
 
 ---
 
-## Part 4 (ch026): Norms and Distances
+## Part 4: Norms and Distances
 
 > The geometry of data is defined by how we measure distance.
 

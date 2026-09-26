@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch149): Audio Transformers — Whisper Architecture
+## Part 1: Audio Transformers — Whisper Architecture
 
 > Audio is an image of frequency over time. Whisper is a ViT that eats mel spectrograms and speaks back.
 
@@ -177,7 +177,7 @@ See `outputs/skill-asr-configurator.md`. The skill picks an ASR model, decoding 
 
 ---
 
-## Part 2 (ch150): Mixture of Experts (MoE)
+## Part 2: Mixture of Experts (MoE)
 
 > A dense 70B transformer activates every parameter for every token. A 671B MoE activates only 37B per token and beats it on every benchmark. Sparsity is the most important scaling idea of the decade.
 
@@ -344,7 +344,7 @@ See `outputs/skill-moe-configurator.md`. The skill picks E, k, and shared-expert
 
 ---
 
-## Part 3 (ch198): Differential Attention (V2)
+## Part 3: Differential Attention (V2)
 
 > Softmax attention spreads a small amount of probability over every non-matching token. Over 100k tokens that noise adds up. Differential Transformer computes attention as the difference of two softmaxes, subtracting the shared noise floor.
 
@@ -472,7 +472,7 @@ This lesson produces `outputs/skill-diff-attention-integrator.md` -- integration
 
 ---
 
-## Part 4 (ch199): Native Sparse Attention (DeepSeek NSA)
+## Part 4: Native Sparse Attention (DeepSeek NSA)
 
 > At 64k tokens, attention eats 70-80% of decode latency. DeepSeek's NSA (ACL 2025 Best Paper) runs three parallel attention branches -- compressed coarse-grained, selectively retained fine-grained, and sliding windows -- combined through a learned gate.
 
@@ -595,7 +595,7 @@ This lesson produces `outputs/skill-nsa-integrator.md` -- NSA integration plan f
 
 ---
 
-## Part 5 (ch203): Jamba -- Hybrid SSM-Transformer
+## Part 5: Jamba -- Hybrid SSM-Transformer
 
 > AI21's Jamba puts Transformer and Mamba layers in the same model: 1 Transformer layer for every 7 Mamba layers, MoE on every other block, and a 256k context window that fits on a single 80GB GPU.
 

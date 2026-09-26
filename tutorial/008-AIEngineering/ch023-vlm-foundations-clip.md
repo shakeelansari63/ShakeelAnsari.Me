@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch090): Vision-Language Models — The ViT-MLP-LLM Pattern
+## Part 1: Vision-Language Models — The ViT-MLP-LLM Pattern
 
 > A vision encoder converts an image into tokens. An MLP projector maps those tokens into the LLM's embedding space. A language model does the rest. That pattern — ViT-MLP-LLM — is every production VLM in 2026.
 
@@ -237,7 +237,7 @@ This lesson produces:
 
 ---
 
-## Part 2 (ch223): CLIP and Contrastive Vision-Language Pretraining
+## Part 2: CLIP and Contrastive Vision-Language Pretraining
 
 > OpenAI's CLIP (2021) proved a single idea big enough to power the next five years: align an image encoder and a text encoder in the same vector space using only noisy web image-caption pairs and a contrastive loss. Zero supervised labels. 400M pairs. The resulting embedding space does zero-shot classification, image-text retrieval, and plugs into every 2026 VLM as its vision tower. SigLIP 2 (2025) replaced softmax with sigmoid and scaled past CLIP at lower cost. This lesson walks the math from InfoNCE to sigmoid pairwise loss and builds the training step in stdlib Python.
 
@@ -402,7 +402,7 @@ This lesson produces `outputs/skill-clip-zero-shot.md`. Given a set of images (v
 
 ---
 
-## Part 3 (ch224): From CLIP to BLIP-2 — Q-Former as Modality Bridge
+## Part 3: From CLIP to BLIP-2 — Q-Former as Modality Bridge
 
 > CLIP aligns image and text but cannot generate captions, answer questions, or hold a conversation. BLIP-2 (Salesforce, 2023) solved that with a small trainable bridge: 32 learnable query vectors attend over a frozen ViT's features via cross-attention, then slot directly into a frozen LLM's input stream. 188M parameters of bridge connected an 11B LLM to a ViT-g/14. Every adapter-based VLM through 2026 — MiniGPT-4, InstructBLIP, LLaVA's cousins — is a descendant. This lesson reads the Q-Former's architecture, explains its two-stage training, and builds a toy version that feeds visual tokens into a frozen text decoder.
 
@@ -547,7 +547,7 @@ This lesson produces `outputs/skill-modality-bridge-picker.md`. Given a target V
 
 ---
 
-## Part 4 (ch225): Flamingo and Gated Cross-Attention for Few-Shot VLMs
+## Part 4: Flamingo and Gated Cross-Attention for Few-Shot VLMs
 
 > DeepMind's Flamingo (2022) did two things before anyone else. It showed a single model could process arbitrarily interleaved sequences of images, videos, and text. And it showed VLMs could learn in-context — give a few-shot prompt with three example (image, caption) pairs and the model captions a new image without any gradient step. The mechanism: gated cross-attention layers, inserted between the frozen LLM's existing layers, with a learned tanh gate that starts at zero so the LLM's text capability is preserved at initialization. This lesson walks Flamingo's Perceiver resampler and gated cross-attention architecture — the ancestor of Gemini's interleaved inputs and Idefics2's visual tokens.
 

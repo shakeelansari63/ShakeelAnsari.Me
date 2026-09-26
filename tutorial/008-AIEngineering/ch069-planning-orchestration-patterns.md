@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch280): Planning with HTN and Evolutionary Search
+## Part 1: Planning with HTN and Evolutionary Search
 
 > Symbolic planning handles the cases where the plan is provably correct. Evolutionary code search handles the cases where the fitness function is machine-checkable. ChatHTN (2025) and AlphaEvolve (2025) show what each unlocks when paired with an LLM.
 
@@ -147,7 +147,7 @@ The trace shows the HTN planner decomposing a compound task (with a mid-plan LLM
 
 ---
 
-## Part 2 (ch281): Anthropic's Workflow Patterns: Simple Over Complex
+## Part 2: Anthropic's Workflow Patterns: Simple Over Complex
 
 > Schluntz and Zhang (Anthropic, Dec 2024) distinguish workflows (predefined paths) from agents (dynamic tool-use). Five workflow patterns cover most cases. Start with direct API calls. Add agents only when steps cannot be predicted.
 
@@ -264,7 +264,7 @@ Each pattern prints its trace. Total lines of code per pattern is ~10-15; the co
 
 ---
 
-## Part 3 (ch282): LangGraph: Stateful Graphs and Durable Execution
+## Part 3: LangGraph: Stateful Graphs and Durable Execution
 
 > LangGraph is the 2026 reference for low-level stateful orchestration. Agent is a state machine; nodes are functions; edges are transitions; state is immutable and checkpointed after every step. Resume from any failure exactly where it left off.
 
@@ -386,7 +386,7 @@ The trace shows the first run failing at the human gate, persistence, then resum
 
 ---
 
-## Part 4 (ch297): Orchestration Patterns: Supervisor, Swarm, Hierarchical
+## Part 4: Orchestration Patterns: Supervisor, Swarm, Hierarchical
 
 > Four orchestration patterns recur across 2026 frameworks: supervisor-worker, swarm / peer-to-peer, hierarchical, debate. Anthropic's guidance: "It's about building the right system for your needs." Start simple; add topology only when a single agent plus five workflow patterns is insufficient.
 

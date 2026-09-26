@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch320): The Autonomous Coding Agent Landscape (2026)
+## Part 1: The Autonomous Coding Agent Landscape (2026)
 
 > SWE-bench Verified went from 4% to 80.9% in under three years. Same Claude Sonnet 4.5 scored 43.2% on SWE-agent v1 and 59.8% on Cline autonomous — the scaffolding around the model now matters as much as the model itself. OpenHands (formerly OpenDevin) is the most active MIT-licensed platform and its CodeAct loop executes Python actions directly in a sandbox instead of JSON tool calls. The headline numbers hide a methodological issue: 161 of 500 SWE-bench Verified tasks require only a 1–2 line change, and SWE-bench Pro (10+ line tasks) sits at 23–59% for the same frontier models.
 
@@ -144,7 +144,7 @@ Both use a stub "model" (deterministic rules) so the comparison isolates the sca
 
 ---
 
-## Part 2 (ch321): Claude Code as an Autonomous Agent: Permission Modes and Auto Mode
+## Part 2: Claude Code as an Autonomous Agent: Permission Modes and Auto Mode
 
 > Claude Code exposes seven permission modes. "plan" asks before every action, "default" asks only for risky ones, "acceptEdits" auto-approves file writes but still confirms shell execution, and "bypassPermissions" approves everything. Auto Mode (March 24, 2026) replaces per-action approval with a two-stage parallel safety classifier: a single-token fast check runs on every action; flagged actions kick off a chain-of-thought deep review. Action budgets are enforced via `max_turns` and `max_budget_usd`. Auto Mode shipped as a research preview — Anthropic has stated explicitly that the classifier is not sufficient alone.
 
@@ -281,7 +281,7 @@ Anthropic shipped Auto Mode as a research preview. The documentation is explicit
 
 ---
 
-## Part 3 (ch417): Terminal-Native Coding Agent
+## Part 3: Terminal-Native Coding Agent
 
 > By 2026 the shape of a coding agent is settled. A TUI harness, a stateful plan, a sandboxed tool surface, a loop that plans, acts, observes, recovers. Claude Code, Cursor 3, and OpenCode all look the same from 50 feet. This capstone asks you to build one end to end — CLI in, pull request out — and measure it against mini-swe-agent and Live-SWE-agent on SWE-bench Pro. You will learn why the hard part is not the model call but the tool loop, the sandbox, and the cost ceiling on a 50-turn run.
 
@@ -420,7 +420,7 @@ The deliverable skill lives in `outputs/skill-terminal-coding-agent.md`. Given a
 
 ---
 
-## Part 4 (ch425): Code Migration Agent (Repo-Level Language / Runtime Upgrade)
+## Part 4: Code Migration Agent (Repo-Level Language / Runtime Upgrade)
 
 > Amazon's MigrationBench (Java 8 to 17) and Google's App Engine Py2-to-Py3 migrator set the 2026 bar. Moderne's OpenRewrite does deterministic AST rewrites at scale. Grit targets the same problem with codemod-style DSL. The production pattern combines both: a deterministic substrate for safe rewrites plus an agent layer for the ambiguous cases, a sandbox for per-branch builds, and a test harness that flips green before the PR opens. The capstone is to migrate 50 real repos and publish a pass rate with a failure taxonomy.
 
@@ -554,7 +554,7 @@ $ migrate legacy-java-service --target java17
 
 ---
 
-## Part 5 (ch432): GitHub Issue-to-PR Autonomous Agent
+## Part 5: GitHub Issue-to-PR Autonomous Agent
 
 > AWS Remote SWE Agents, Cursor Background Agents, OpenAI Codex cloud, and Google Jules all ship the same 2026 product shape: label an issue, get a PR. Run an agent in a cloud sandbox, verify tests pass, and post a review-ready PR with rationale. The hard parts are reproducing the repo's build environment automatically, preventing credential leakage, enforcing per-repo budgets, and making sure the agent cannot force-push. This capstone builds the self-hosted version and compares it on cost and pass rate to the hosted alternatives.
 

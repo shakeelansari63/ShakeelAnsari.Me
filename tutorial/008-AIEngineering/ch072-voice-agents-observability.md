@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch291): Voice Agents: Pipecat and LiveKit
+## Part 1: Voice Agents: Pipecat and LiveKit
 
 > Voice agents are a first-class production category in 2026. Pipecat gives you a Python frame-based pipeline (VAD → STT → LLM → TTS → transport). LiveKit Agents bridges AI models to users over WebRTC. Production latency targets land at 450–600ms end-to-end for premium stacks.
 
@@ -136,7 +136,7 @@ The trace shows normal flow and a barge-in cancel that stops TTS mid-utterance.
 
 ---
 
-## Part 2 (ch292): OpenTelemetry GenAI Semantic Conventions
+## Part 2: OpenTelemetry GenAI Semantic Conventions
 
 > OpenTelemetry's GenAI SIG (launched April 2024) defines the standard schema for agent telemetry. Span names, attributes, and content-capture rules converge across vendors so agent traces mean the same thing in Datadog, Grafana, Jaeger, and Honeycomb.
 
@@ -265,7 +265,7 @@ Output: a span tree with all required GenAI attributes, and an "external store" 
 
 ---
 
-## Part 3 (ch293): Agent Observability: Langfuse, Phoenix, Opik
+## Part 3: Agent Observability: Langfuse, Phoenix, Opik
 
 > Three open-source agent observability platforms dominate 2026. Langfuse (MIT) — 6M+ installs/month, tracing + prompt management + evals + session replay. Arize Phoenix (Elastic 2.0) — deep agent-specific evals, RAG relevancy, OpenInference auto-instrumentation. Comet Opik (Apache 2.0) — automated prompt optimization, guardrails, LLM-judge hallucination detection.
 
@@ -385,7 +385,7 @@ Output: per-session eval scores and failure categorization matching what Langfus
 
 ---
 
-## Part 4 (ch427): LLM Observability & Eval Dashboard
+## Part 4: LLM Observability & Eval Dashboard
 
 > Langfuse went open-core. Arize Phoenix published the 2026 GenAI semconv mappings. Helicone and Braintrust both doubled down on per-user cost attribution. Traceloop's OpenLLMetry became the de-facto SDK instrumentation. The production shape is ClickHouse for traces, Postgres for metadata, Next.js for UI, and a small army of eval jobs (DeepEval, RAGAS, LLM-judge) running over sampled traces. Build one self-hosted, ingest from at least four SDK families, and demonstrate catching an injected regression in under five minutes.
 
@@ -518,7 +518,7 @@ $ curl -X POST https://my-otel-collector/v1/traces -d @trace.json
 
 ---
 
-## Part 5 (ch419): Real-Time Voice Assistant (ASR to LLM to TTS)
+## Part 5: Real-Time Voice Assistant (ASR to LLM to TTS)
 
 > A voice agent that feels right has end-to-end latency under 800ms, knows when you have stopped talking, handles barge-in, and can call a tool without stalling. Retell, Vapi, LiveKit Agents, and Pipecat all hit this bar in 2026. They do it with the same shape: a streaming ASR, a turn-detector, a streaming LLM, and a streaming TTS, all wired through WebRTC with aggressive latency budgets at every hop. Build one, measure WER and MOS and false-cutoff rate, and run it under packet loss.
 

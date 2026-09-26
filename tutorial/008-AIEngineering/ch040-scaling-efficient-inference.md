@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch151): KV Cache, Flash Attention & Inference Optimization
+## Part 1: KV Cache, Flash Attention & Inference Optimization
 
 > Training is parallel and FLOP-bound. Inference is serial and memory-bound. Different bottleneck, different tricks.
 
@@ -217,7 +217,7 @@ See `outputs/skill-inference-optimizer.md`. The skill picks attention implementa
 
 ---
 
-## Part 2 (ch152): Scaling Laws
+## Part 2: Scaling Laws
 
 > The 2020 Kaplan paper said: bigger model, lower loss. The 2022 Hoffmann paper said: you were under-training. Compute goes into two buckets — parameters and tokens — and the split is not obvious.
 
@@ -393,7 +393,7 @@ See `outputs/skill-training-budget-estimator.md`. The skill picks `(N, D, hours,
 
 ---
 
-## Part 3 (ch153): Build a Transformer from Scratch — The Capstone
+## Part 3: Build a Transformer from Scratch — The Capstone
 
 > Thirteen lessons. One model. No shortcuts.
 
@@ -662,7 +662,7 @@ See `outputs/skill-transformer-review.md`. The skill reviews a transformer-from-
 
 ---
 
-## Part 4 (ch155): Speculative Decoding — Draft, Verify, Repeat
+## Part 4: Speculative Decoding — Draft, Verify, Repeat
 
 > Autoregressive decoding is serial. Each token waits for the previous one. Speculative decoding breaks the chain: a cheap model drafts N tokens, the expensive model verifies all N in one forward pass. When the draft is right you paid one big forward for N generations.
 

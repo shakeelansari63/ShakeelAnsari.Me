@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch156): Generative Models — Taxonomy & History
+## Part 1: Generative Models — Taxonomy & History
 
 > Every image model, text model, video model, and 3D model fits in one of five buckets. Pick the wrong bucket and you will fight the math for weeks. Pick the right one and the field's last twelve years of progress stacks cleanly in your head.
 
@@ -168,7 +168,7 @@ Notice: the first two let you ask "how likely is this point?" The third cannot. 
 
 ---
 
-## Part 2 (ch157): Autoencoders & Variational Autoencoders (VAE)
+## Part 2: Autoencoders & Variational Autoencoders (VAE)
 
 > A plain autoencoder compresses then reconstructs. It memorizes. It does not generate. Add one trick — force the code to look Gaussian — and you get a sampler. That single trick, the reparameterization of `z = μ + σ·ε`, is why every latent-diffusion and flow-matching image model you use in 2026 has a VAE at the input.
 
@@ -322,7 +322,7 @@ In a Stable Diffusion / Flux / SD3 pipeline the VAE is called twice per request 
 
 ---
 
-## Part 3 (ch158): GANs — Generator vs Discriminator
+## Part 3: GANs — Generator vs Discriminator
 
 > Goodfellow's trick in 2014 was to skip density entirely. Two networks. One makes fakes. One catches them. They fight until the fakes are indistinguishable from real. It shouldn't work. It often doesn't. When it does, the samples are still the sharpest in the literature for narrow domains.
 
@@ -476,7 +476,7 @@ This is why GAN distillation (SDXL-Turbo, SD3-Turbo, ADD, LCM) is the dominant t
 
 ---
 
-## Part 4 (ch159): Conditional GANs & Pix2Pix
+## Part 4: Conditional GANs & Pix2Pix
 
 > The first big unlock of 2014-2017 was controlling what a GAN makes. Attach a label, or an image, or a sentence. Pix2Pix did the image version and it still beats every generic text-to-image model on narrow image-to-image tasks.
 
@@ -621,7 +621,7 @@ Pix2Pix wins on throughput in static batches. The modern play is often to ship a
 
 ---
 
-## Part 5 (ch160): StyleGAN
+## Part 5: StyleGAN
 
 > Most generators stir `z` into every layer at the same time. StyleGAN split it apart: first map `z` to an intermediate `w`, then *inject* `w` at every resolution level through AdaIN. That single change untangled the latent space and made photorealistic faces a solved problem for seven years running.
 
@@ -762,7 +762,7 @@ StyleGAN3 on a 4090 generates a 1024² FFHQ face in under 10 ms — `num_steps =
 
 ---
 
-## Part 6 (ch161): Diffusion Models — DDPM from Scratch
+## Part 6: Diffusion Models — DDPM from Scratch
 
 > Ho, Jain, Abbeel (2020) gave the field a recipe it could not quit. Destroy the data with noise over a thousand small steps. Train one neural net to predict the noise. Reverse the process at inference. Today every mainstream image, video, 3D, and music model runs on this loop, possibly with flow matching or consistency tricks on top.
 
@@ -946,7 +946,7 @@ The DDPM paper runs T=1000 reverse steps. Nobody ships that in production.
 
 ---
 
-## Part 7 (ch162): Latent Diffusion & Stable Diffusion
+## Part 7: Latent Diffusion & Stable Diffusion
 
 > Pixel-space diffusion on 512×512 images is a computational war crime. Rombach et al. (2022) noticed that you do not need all 786k dimensions to generate an image — you need enough to capture semantic structure, and a separate decoder for the rest. Run diffusion inside a VAE's latent space. That one idea is Stable Diffusion.
 
@@ -1083,7 +1083,7 @@ This is the only substantive difference between a class-conditional diffusion mo
 
 ---
 
-## Part 8 (ch163): ControlNet, LoRA & Conditioning
+## Part 8: ControlNet, LoRA & Conditioning
 
 > Text alone is a clumsy control signal. ControlNet lets you clone a pretrained diffusion model and steer it with a depth map, pose skeleton, scribble, or edge image. LoRA lets you fine-tune a 2B-parameter model by training 10 million parameters. Together they turned Stable Diffusion from a toy into the 2026 image pipeline that ships at every agency.
 
@@ -1234,7 +1234,7 @@ A real text-to-image SaaS serves hundreds of LoRAs and a dozen ControlNets over 
 
 ---
 
-## Part 9 (ch164): Inpainting, Outpainting & Image Editing
+## Part 9: Inpainting, Outpainting & Image Editing
 
 > Text-to-image makes new things. Inpainting fixes old ones. In production, 70% of billable image work is editing — swap a background, remove a logo, extend the canvas, regenerate a hand. Inpainting is where diffusion earns its keep.
 

@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch082): Self-Supervised Vision — SimCLR, DINO, MAE
+## Part 1: Self-Supervised Vision — SimCLR, DINO, MAE
 
 > Labels are the bottleneck of supervised vision. Self-supervised pretraining removes them: learn visual features from 100M unlabelled images, fine-tune on 10k labelled ones.
 
@@ -163,7 +163,7 @@ with torch.no_grad():
 
 ---
 
-## Part 2 (ch083): Open-Vocabulary Vision — CLIP
+## Part 2: Open-Vocabulary Vision — CLIP
 
 > Train an image encoder and a text encoder together so that matching (image, caption) pairs land at the same point in a shared space. That is the whole trick.
 
@@ -324,7 +324,7 @@ print(probs)
 
 ---
 
-## Part 3 (ch084): OCR & Document Understanding
+## Part 3: OCR & Document Understanding
 
 > OCR is a three-stage pipeline — detect text boxes, recognise the characters, then lay them out. Every modern OCR system reorders these stages or merges them.
 
@@ -508,7 +508,7 @@ model = VisionEncoderDecoderModel.from_pretrained("naver-clova-ix/donut-base-fin
 
 ---
 
-## Part 4 (ch085): Image Retrieval & Metric Learning
+## Part 4: Image Retrieval & Metric Learning
 
 > A retrieval system ranks candidates by a distance in embedding space. Metric learning is the discipline of shaping that space so the distances mean what you want.
 
@@ -678,7 +678,7 @@ for step in range(200):
 
 ---
 
-## Part 5 (ch086): Keypoint Detection & Pose Estimation
+## Part 5: Keypoint Detection & Pose Estimation
 
 > A pose is a set of ordered keypoints. A keypoint detector is a heatmap regressor. Everything else is bookkeeping.
 

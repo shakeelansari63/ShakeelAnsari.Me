@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch056): Activation Functions
+## Part 1: Activation Functions
 
 > Without nonlinearity, your 100-layer network is a fancy matrix multiply. Activations are the gates that let neural networks think in curves.
 
@@ -278,7 +278,7 @@ Hidden layers in a transformer: GELU. Hidden layers in a CNN: ReLU. Output layer
 
 ---
 
-## Part 2 (ch057): Loss Functions
+## Part 2: Loss Functions
 
 > Your network makes a prediction. The ground truth says otherwise. How wrong is it? That number is the loss. Pick the wrong loss function and your model optimizes for the wrong thing entirely.
 
@@ -531,7 +531,7 @@ Use `F.cross_entropy` (not `F.nll_loss` plus manual softmax). It combines log-so
 
 ---
 
-## Part 3 (ch058): Optimizers
+## Part 3: Optimizers
 
 > Gradient descent tells you which direction to move. It says nothing about how far or how fast. SGD is a compass. Adam is GPS with traffic data.
 
@@ -781,7 +781,7 @@ The pattern is always: zero_grad, forward, loss, backward, (clip), step, (schedu
 
 ---
 
-## Part 4 (ch059): Regularization
+## Part 4: Regularization
 
 > Your model gets 99% on training data and 60% on test data. It memorized instead of learning. Regularization is the tax you impose on complexity to force generalization.
 
@@ -1063,7 +1063,7 @@ For transformers: LayerNorm, dropout p=0.1.
 
 ---
 
-## Part 5 (ch060): Weight Initialization and Training Stability
+## Part 5: Weight Initialization and Training Stability
 
 > Initialize wrong and training never starts. Initialize right and 50 layers train as smoothly as 3.
 

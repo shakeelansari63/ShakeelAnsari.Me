@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch061): Learning Rate Schedules and Warmup
+## Part 1: Learning Rate Schedules and Warmup
 
 > The learning rate is the single most important hyperparameter. Not the architecture. Not the dataset size. Not the activation function. The learning rate. If you tune nothing else, tune this.
 
@@ -230,7 +230,7 @@ When in doubt, use warmup + cosine with warmup = 3-5% of total steps.
 
 ---
 
-## Part 2 (ch062): Build Your Own Mini Framework
+## Part 2: Build Your Own Mini Framework
 
 > You have built neurons, layers, networks, backprop, activations, loss functions, optimizers, regularization, initialization, and LR schedules. All as separate pieces. Now wire them together into a framework. Not PyTorch. Not TensorFlow. Yours.
 
@@ -640,7 +640,7 @@ The structure is identical. `Sequential`, `Linear`, `ReLU`, `BCELoss`, `Adam`, `
 
 ---
 
-## Part 3 (ch063): Introduction to PyTorch
+## Part 3: Introduction to PyTorch
 
 > You built the engine from pistons and crankshafts. Now learn the one everyone actually drives.
 
@@ -971,7 +971,7 @@ for epoch in range(10):
 
 ---
 
-## Part 4 (ch064): Introduction to JAX
+## Part 4: Introduction to JAX
 
 > PyTorch mutates tensors. TensorFlow builds graphs. JAX compiles pure functions. That last one changes how you think about deep learning.
 
@@ -1289,7 +1289,7 @@ optimizer = optax.chain(
 
 ---
 
-## Part 5 (ch065): Debugging Neural Networks
+## Part 5: Debugging Neural Networks
 
 > Your network compiled. It ran. It produced a number. The number is wrong and nothing crashed. Welcome to the hardest kind of debugging -- the kind where there is no error message.
 

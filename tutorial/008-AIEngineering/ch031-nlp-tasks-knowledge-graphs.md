@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch098): Sentiment Analysis
+## Part 1: Sentiment Analysis
 
 The canonical NLP task. Most of what you need to know about classical text classification shows up here.
 
@@ -193,7 +193,7 @@ Sarcasm detection, long reviews with mid-document sentiment shifts, aspect-based
 
 ---
 
-## Part 2 (ch099): Named Entity Recognition
+## Part 2: Named Entity Recognition
 
 Pull the names out. Sounds easy until you deal with ambiguous boundaries, nested entities, and domain jargon.
 
@@ -402,7 +402,7 @@ Domain shift, nested entities, long entities, sparse entity types.
 
 ---
 
-## Part 3 (ch100): POS Tagging and Syntactic Parsing
+## Part 3: POS Tagging and Syntactic Parsing
 
 Grammar was unfashionable for a while. Then every LLM pipeline needed to validate structured extraction, and it came back.
 
@@ -567,7 +567,7 @@ Lemmatization (needs POS), structured extraction from LLM outputs, aspect-based 
 
 ---
 
-## Part 4 (ch108): Topic Modeling — LDA and BERTopic
+## Part 4: Topic Modeling — LDA and BERTopic
 
 LDA: documents are mixtures of topics, topics are distributions over words. BERTopic: documents cluster in embedding space, clusters are topics. Same goal, different decompositions.
 
@@ -680,7 +680,7 @@ BERTopic is the default for short text. `gensim.models.LdaModel` for production 
 
 ---
 
-## Part 5 (ch114): Natural Language Inference — Textual Entailment
+## Part 5: Natural Language Inference — Textual Entailment
 
 "t entails h" means a human reading t would conclude h is true. NLI is the task of predicting entailment / contradiction / neutral. Boring on the surface, load-bearing in production.
 
@@ -794,7 +794,7 @@ The 2026 meta-pattern: NLI is the duct tape of text understanding. Whenever you 
 
 ---
 
-## Part 6 (ch117): Coreference Resolution
+## Part 6: Coreference Resolution
 
 "She called him. He did not answer. The doctor was at lunch." Three references to two people and nobody is named. Coreference resolution figures out who is who.
 
@@ -884,7 +884,7 @@ Integration pattern: run NER first, run coref, merge coref clusters into NER ent
 
 ---
 
-## Part 7 (ch118): Entity Linking & Disambiguation
+## Part 7: Entity Linking & Disambiguation
 
 NER found "Paris." Entity linking decides: Paris, France? Paris Hilton? Paris, Texas? Without linking, your knowledge graph stays ambiguous.
 
@@ -981,7 +981,7 @@ Production pattern: NER → coref → EL on each mention → collapse clusters t
 
 ---
 
-## Part 8 (ch119): Relation Extraction & Knowledge Graph Construction
+## Part 8: Relation Extraction & Knowledge Graph Construction
 
 NER found the entities. Entity linking anchored them. Relation extraction finds the edges between them. A knowledge graph is the sum of nodes, edges, and their provenance.
 

@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch367): Production Quantization — AWQ, GPTQ, GGUF K-quants, FP8, MXFP4/NVFP4
+## Part 1: Production Quantization — AWQ, GPTQ, GGUF K-quants, FP8, MXFP4/NVFP4
 
 > Quantization format is not a universal choice — it is a function of hardware, serving engine, and workload. GGUF Q4_K_M or Q5_K_M owns CPU and edge. GPTQ wins inside vLLM when you need multi-LoRA on the same base. AWQ with Marlin-AWQ kernels delivers ~741 tok/s on a 7B class model with the best Pass@1 at INT4 — the 2026 default for datacenter production. FP8 stays the middle ground on Hopper, Ada, and Blackwell. NVFP4 and MXFP4 are aggressive and require per-block validation.
 
@@ -158,7 +158,7 @@ This lesson produces `outputs/skill-quantization-picker.md`. Given hardware, mod
 
 ---
 
-## Part 2 (ch368): Cold Start Mitigation for Serverless LLMs
+## Part 2: Cold Start Mitigation for Serverless LLMs
 
 > A 20 GB model image takes 5-10 minutes (7B) to 20+ minutes (70B) to go from cold to serving. In a true serverless world, that is not a warm-up — it is an outage. Mitigations operate at five layers: pre-seeded node images, model streaming, GPU memory snapshots, warm pools, tiered loading, and live migration. Modal publishes 2-4s cold starts as a floor; Baseten 5-10s default, sub-second with pre-warming.
 
@@ -313,7 +313,7 @@ This lesson produces `outputs/skill-cold-start-planner.md`. Given SLA, model siz
 
 ---
 
-## Part 3 (ch369): Multi-Region LLM Serving and KV Cache Locality
+## Part 3: Multi-Region LLM Serving and KV Cache Locality
 
 > Round-robin load balancing is actively harmful for cached LLM inference. A request that does not land on the node holding its prefix pays full prefill cost — roughly 800 ms at P50 on a long prompt versus ~80 ms with a cache hit. In 2026 the production pattern is a cache-aware router (vLLM Router in Rust, llm-d router) that consumes KV-cache events and routes on prefix-hash match.
 
@@ -503,7 +503,7 @@ This lesson produces `outputs/skill-multi-region-router.md`. Given regions, resi
 
 ---
 
-## Part 4 (ch370): Edge Inference — Apple Neural Engine, Qualcomm Hexagon, WebGPU/WebLLM, Jetson
+## Part 4: Edge Inference — Apple Neural Engine, Qualcomm Hexagon, WebGPU/WebLLM, Jetson
 
 > The core edge constraint is memory bandwidth, not compute. Mobile DRAM sits at 50-90 GB/s; datacenter HBM3 clears 2-3 TB/s — a 30-50x gap. In 2026 the landscape splits four ways. Apple M4/A18 Neural Engine peaks at 38 TOPS with unified memory. Qualcomm Snapdragon X Elite / 8 Gen 4 Hexagon hits 45 TOPS. WebGPU + WebLLM runs Llama 3.1 8B (Q4) at ~41 tok/s on M3 Max. NVIDIA Jetson Orin Nano Super fits Llama 3.2 3B / Phi-3.
 

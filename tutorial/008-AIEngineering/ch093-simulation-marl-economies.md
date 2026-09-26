@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch350): Generative Agents and Emergent Simulation
+## Part 1: Generative Agents and Emergent Simulation
 
 > Park et al. 2023 populated **Smallville**, a sandbox of 25 agents, with a three-part architecture: **memory stream** (natural-language log), **reflection** (higher-level syntheses), and **plan** (day-level behavior). The landmark result was the Valentine's Day party emergence: one agent seeded with "wants to throw a Valentine's Day party" produced invitations spread through the population, coordinated dates, and the party happened.
 
@@ -111,7 +111,7 @@ Expected output: tick-by-tick trace. By the final tick, at least 3 of the 5 agen
 
 ---
 
-## Part 2 (ch351): Theory of Mind and Emergent Coordination
+## Part 2: Theory of Mind and Emergent Coordination
 
 > Li et al. showed that LLM agents in a cooperative text game exhibit **emergent high-order Theory of Mind** (ToM) — reasoning about what another agent believes about a third agent's beliefs — but fail on long-horizon planning. Riedl measured higher-order synergy across a population and found that **only** the ToM-prompt condition produces identity-linked differentiation and goal-directed complementarity.
 
@@ -229,7 +229,7 @@ Coordination claims checklist:
 
 ---
 
-## Part 3 (ch352): Swarm Optimization for LLMs (PSO, ACO)
+## Part 3: Swarm Optimization for LLMs (PSO, ACO)
 
 > Bio-inspired optimization is making an LLM comeback. **LMPSO** uses PSO where each particle's velocity is a prompt; **Model Swarms** treats each LLM expert as a PSO particle on a model-weight manifold (13.3% average gain); **AMRO-S** is ACO-inspired pheromone specialists for multi-agent LLM routing (4.7x speedup).
 
@@ -345,7 +345,7 @@ Expected output: LMPSO g_best improves from random to near-optimal over 30 itera
 
 ---
 
-## Part 4 (ch353): MARL — MADDPG, QMIX, MAPPO
+## Part 4: MARL — MADDPG, QMIX, MAPPO
 
 > The reinforcement-learning heritage of multi-agent coordination, which still informs LLM-agent systems in 2026. **MADDPG** introduced Centralized Training, Decentralized Execution (CTDE). **QMIX** is value-decomposition with a monotonic mixing network. **MAPPO** is PPO with a centralized value function — the default 2026 cooperative-MARL baseline.
 
@@ -462,7 +462,7 @@ Expected output: independent agents take ~6 steps on average; CTDE variants conv
 
 ---
 
-## Part 5 (ch354): Agent Economies, Token Incentives, Reputation
+## Part 5: Agent Economies, Token Incentives, Reputation
 
 > Long-horizon autonomous agents need economic agency. The emerging **5-layer stack** is: **DePIN** (physical compute) → **Identity** (W3C DIDs + reputation capital) → **Cognition** (RAG + MCP) → **Settlement** (account abstraction) → **Governance** (Agentic DAOs). Production agent-incentive networks include Bittensor, Fetch.ai / ASI Alliance, and Gonka.
 

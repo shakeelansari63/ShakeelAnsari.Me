@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch129): Text-to-Speech (TTS) — From Tacotron to F5 and Kokoro
+## Part 1: Text-to-Speech (TTS) — From Tacotron to F5 and Kokoro
 
 > ASR inverts speech to text; TTS inverts text to speech. The 2026 stack is three parts: text → tokens, tokens → mel, mel → waveform. Each part has a default model that fits in a laptop.
 
@@ -156,7 +156,7 @@ Save as `outputs/skill-tts-designer.md`. Design a TTS pipeline for a given voice
 
 ---
 
-## Part 2 (ch130): Voice Cloning & Voice Conversion
+## Part 2: Voice Cloning & Voice Conversion
 
 > Voice cloning reads your text in someone else's voice. Voice conversion rewrites your voice into someone else's while preserving what you said. Both hang on the same decomposition: separate speaker identity from content.
 
@@ -306,7 +306,7 @@ Save as `outputs/skill-voice-cloner.md`. Design a cloning or conversion pipeline
 
 ---
 
-## Part 3 (ch131): Music Generation — MusicGen, Stable Audio, Suno, and the Licensing Earthquake
+## Part 3: Music Generation — MusicGen, Stable Audio, Suno, and the Licensing Earthquake
 
 > 2026 music generation: Suno v5 and Udio v4 dominate commercial; MusicGen, Stable Audio Open, and ACE-Step lead open-source. The technical problem is mostly solved. The legal problem (Warner Music $500M settlement, UMG settlement) reshaped the field in 2025-2026.
 
@@ -461,7 +461,7 @@ Save as `outputs/skill-music-designer.md`. Pick model, license strategy, length 
 
 ---
 
-## Part 4 (ch132): Audio-Language Models — Qwen2.5-Omni, Audio Flamingo, GPT-4o Audio
+## Part 4: Audio-Language Models — Qwen2.5-Omni, Audio Flamingo, GPT-4o Audio
 
 > 2026 audio-language models reason over speech + environmental sound + music. Qwen2.5-Omni-7B matches GPT-4o Audio on MMAU-Pro. Audio Flamingo Next beats Gemini 2.5 Pro on LongAudioBench. The gap between open and closed is essentially closed — except on multi-audio tasks.
 
@@ -616,7 +616,7 @@ Save as `outputs/skill-alm-picker.md`. Pick LALM + benchmark subset + output-mod
 
 ---
 
-## Part 5 (ch133): Real-Time Audio Processing
+## Part 5: Real-Time Audio Processing
 
 > Batch pipelines process a file. Real-time pipelines process the next 20 milliseconds before the next 20 arrive. Every conversational AI, broadcast studio, and telephony bot lives and dies by this latency budget.
 
@@ -775,7 +775,7 @@ Save as `outputs/skill-realtime-designer.md`. Design a real-time audio pipeline 
 
 ---
 
-## Part 6 (ch134): Build a Voice Assistant Pipeline — The Phase 6 Capstone
+## Part 6: Build a Voice Assistant Pipeline — The Phase 6 Capstone
 
 > Everything from lessons 01-11, stitched together. Build a voice assistant that listens, reasons, and talks back. In 2026 that is a solved engineering problem, not a research problem — but the integration details decide whether it ships.
 
@@ -956,7 +956,7 @@ Save as `outputs/skill-voice-assistant-architect.md`. Given budget + scale + lan
 
 ---
 
-## Part 7 (ch135): Neural Audio Codecs — EnCodec, SNAC, Mimi, DAC and the Semantic-Acoustic Split
+## Part 7: Neural Audio Codecs — EnCodec, SNAC, Mimi, DAC and the Semantic-Acoustic Split
 
 > 2026 audio generation is almost all tokens. EnCodec, SNAC, Mimi, and DAC turn continuous waveforms into discrete sequences that a transformer can predict. The semantic-vs-acoustic token split is the most important architectural shift since the Transformer for audio.
 
@@ -1149,7 +1149,7 @@ Save as `outputs/skill-codec-picker.md`. Pick a codec for a given generative or 
 
 ---
 
-## Part 8 (ch137): Streaming Speech-to-Speech — Moshi, Hibiki, and Full-Duplex Dialogue
+## Part 8: Streaming Speech-to-Speech — Moshi, Hibiki, and Full-Duplex Dialogue
 
 > 2024-2026 redefined voice AI. Moshi ships a single model that listens and speaks simultaneously at 200 ms latency. Hibiki does speech-to-speech translation chunk-by-chunk. Both abandon the ASR → LLM → TTS pipeline for a unified full-duplex architecture over Mimi codec tokens.
 
@@ -1302,7 +1302,7 @@ Save as `outputs/skill-duplex-pipeline.md`. Pick pipeline vs full-duplex archite
 
 ---
 
-## Part 9 (ch138): Voice Anti-Spoofing & Audio Watermarking — ASVspoof 5, AudioSeal, WaveVerify
+## Part 9: Voice Anti-Spoofing & Audio Watermarking — ASVspoof 5, AudioSeal, WaveVerify
 
 > Voice cloning shipped faster than defenses. 2026 production voice systems need two things: a detector (AASIST, RawNet2) that classifies real vs fake speech, and a watermark (AudioSeal) that survives compression and editing.
 

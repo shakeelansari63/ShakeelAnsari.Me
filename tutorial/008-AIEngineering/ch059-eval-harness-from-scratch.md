@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch484): Task Spec Format
+## Part 1: Task Spec Format
 
 > An eval harness is only as good as the contract its tasks honour. Freeze the JSONL shape and metric vocabulary before you write a single scoring function.
 
@@ -78,7 +78,7 @@ flowchart TD
 
 ---
 
-## Part 2 (ch485): Classical Metrics
+## Part 2: Classical Metrics
 
 > BLEU, ROUGE-L, F1, exact-match, accuracy. Implement each from first principles so you know what the number means.
 
@@ -153,7 +153,7 @@ def score(metric_name, pred, targets):
 
 ---
 
-## Part 3 (ch486): Code Exec Metric
+## Part 3: Code Exec Metric
 
 > Generated code is right when it passes the tests. The eval harness extracts code, runs it without crashing the host, and tallies pass-rates.
 
@@ -217,7 +217,7 @@ pass_at_k(n, c, k) = 1 - C(n - c, k) / C(n, k)
 
 ---
 
-## Part 4 (ch487): Perplexity and Calibration
+## Part 4: Perplexity and Calibration
 
 > If your model says 90% confident on a thousand answers and gets six hundred right, it is not well calibrated.
 
@@ -278,7 +278,7 @@ def brier(p, y):
 
 ---
 
-## Part 5 (ch488): Leaderboard Aggregation
+## Part 5: Leaderboard Aggregation
 
 > Per-task scores are easy. Per-model rankings across heterogeneous tasks are harder. Statistical significance is the part everyone skips.
 
@@ -342,7 +342,7 @@ Resample tasks with replacement B times, compute mean each time, take alpha/2 an
 
 ---
 
-## Part 6 (ch489): End-to-End Eval Runner
+## Part 6: End-to-End Eval Runner
 
 > Five lessons of plumbing, one lesson to glue them. The runner reads tasks, calls a model adapter, scores, attaches calibration, emits a leaderboard.
 

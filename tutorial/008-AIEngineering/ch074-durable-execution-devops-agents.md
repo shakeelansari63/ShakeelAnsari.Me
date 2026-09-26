@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch298): Production Runtimes: Queue, Event, Cron
+## Part 1: Production Runtimes: Queue, Event, Cron
 
 > Production agents run on six runtime shapes: request-response, streaming, durable execution, queue-based background, event-driven, and scheduled. Pick the shape before you pick the framework. Observability is load-bearing at every shape.
 
@@ -146,7 +146,7 @@ Output: five traces showing each shape's behavior on the same task. Same agent l
 
 ---
 
-## Part 2 (ch323): Long-Running Background Agents: Durable Execution
+## Part 2: Long-Running Background Agents: Durable Execution
 
 > Production long-horizon agents do not run in `while True`. Every LLM call becomes an activity with checkpoint, retry, and replay. Temporal's OpenAI Agents SDK integration went GA March 2026. Claude Code Routines (Anthropic) runs scheduled Claude Code invocations without a persistent local process. Sessions pause on human-input, survive deploys, and resume from the latest checkpoint keyed by `thread_id`. Behind the new ergonomics sits an old pattern — workflow orchestration — with one new input: LLM calls as non-deterministic activities that must be deterministically replayed on recovery.
 
@@ -285,7 +285,7 @@ The driver simulates a three-activity workflow, crashes halfway through, and sho
 
 ---
 
-## Part 3 (ch325): Kill Switches, Circuit Breakers, and Canary Tokens
+## Part 3: Kill Switches, Circuit Breakers, and Canary Tokens
 
 > A kill switch is a boolean held outside the agent's edit surface — a Redis key, a feature flag, a signed config — that disables the agent entirely. A circuit breaker is finer-grained: it trips on a specific pattern (five identical tool calls in a row), pauses the offending path, and escalates to a human. A canary token inherits from classical deception: a fake credential or honeypot record an agent has no legitimate reason to touch, whose access triggers an alert. eBPF-based datapaths (e.g. Cilium) can rewrite a quarantined pod's egress to a forensic honeypot at the kernel layer. Statistical detectors (EWMA, CUSUM) that adapt to a moving baseline will quietly accept drift — layer them with hard constitutional limits that do not bend.
 
@@ -439,7 +439,7 @@ Cilium's eBPF-based network policy can rewrite a quarantined pod's egress to a f
 
 ---
 
-## Part 4 (ch422): DevOps Troubleshooting Agent for Kubernetes
+## Part 4: DevOps Troubleshooting Agent for Kubernetes
 
 > AWS's DevOps Agent went GA, Resolve AI published its K8s playbooks, NeuBird demoed semantic monitoring, and Metoro tied AI SRE to per-service SLOs. The production shape is settled: an alert webhook fires, an agent reads telemetry, walks a graph of K8s objects, ranks root-cause hypotheses, and posts a Slack brief with approval buttons. Read-only by default. Every remediation gated by a human. This capstone is that agent, evaluated on 20 synthetic incidents and compared against AWS's Agent on three shared cases.
 

@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch187): Scaling: Distributed Training, FSDP, DeepSpeed
+## Part 1: Scaling: Distributed Training, FSDP, DeepSpeed
 
 > Your 124M model trained on one GPU. Now try 7 billion parameters. The model doesn't fit in memory. The data takes weeks on a single machine. Distributed training isn't optional at scale. It's the only path forward.
 
@@ -662,7 +662,7 @@ This lesson produces `outputs/prompt-distributed-training-planner.md` — a prom
 
 ---
 
-## Part 2 (ch201): DualPipe Parallelism
+## Part 2: DualPipe Parallelism
 
 > DeepSeek-V3 was trained on 2,048 H800 GPUs. Cross-node expert all-to-all cost 1 GPU-hour of comm for every 1 GPU-hour of compute. DualPipe is a bidirectional pipeline that overlaps forward and backward computation with all-to-all comms.
 
@@ -761,7 +761,7 @@ This lesson produces `outputs/skill-dualpipe-planner.md` -- recommends pipeline 
 
 ---
 
-## Part 3 (ch202): DeepSeek-V3 Architecture Walkthrough
+## Part 3: DeepSeek-V3 Architecture Walkthrough
 
 > DeepSeek-V3 turns all six architectural knobs and adds four more: Multi-Head Latent Attention, auxiliary-loss-free load balancing, Multi-Token Prediction, and DualPipe training.
 
@@ -881,7 +881,7 @@ This lesson produces `outputs/skill-deepseek-v3-reader.md` -- reads any DeepSeek
 
 ---
 
-## Part 4 (ch462): Distributed Data Parallel and FSDP from Scratch
+## Part 4: Distributed Data Parallel and FSDP from Scratch
 
 > Multi-rank training is two collectives and one rule. Broadcast the parameters at startup, average the gradients after backward, never let the ranks disagree about what step they are on.
 

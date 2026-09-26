@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch345): A2A — The Agent-to-Agent Protocol
+## Part 1: A2A — The Agent-to-Agent Protocol
 
 > Google announced A2A in April 2025; by April 2026 the spec is at https://a2a-protocol.org/latest/specification/ and 150+ organizations back it. A2A is the horizontal complement to MCP: where MCP is vertical (agent ↔ tools), A2A is peer-to-peer (agent ↔ agent).
 
@@ -129,7 +129,7 @@ Checklist:
 
 ---
 
-## Part 2 (ch346): Shared Memory and Blackboard Patterns
+## Part 2: Shared Memory and Blackboard Patterns
 
 > Two approaches coexist in 2026 multi-agent systems: the **message pool** (everyone sees everyone's messages) and the **blackboard with subscription** (agents subscribe to relevant events). Both are the only stateful part of a multi-agent system — which means both are where the interesting bugs live. The reference failure mode is **memory poisoning**.
 
@@ -253,7 +253,7 @@ For any shared-memory design:
 
 ---
 
-## Part 3 (ch347): Consensus and Byzantine Fault Tolerance for Agents
+## Part 3: Consensus and Byzantine Fault Tolerance for Agents
 
 > Classical distributed-systems BFT meets stochastic LLMs. In 2025-2026 three research directions emerged: **CP-WBFT** (arXiv:2511.10400) weighs each vote by a confidence probe; **DecentLLMs** (arXiv:2507.14928) goes leaderless with geometric-median aggregation; **WBFT** (arXiv:2505.05103) combines weighted voting with Hierarchical Structure Clustering.
 
@@ -362,7 +362,7 @@ Expected output: a table of (attack, aggregator) -> final answer. Plurality fail
 
 ---
 
-## Part 4 (ch349): Negotiation and Bargaining
+## Part 4: Negotiation and Bargaining
 
 > Agents negotiate resources, prices, task allocations, and terms. The 2026 benchmark set is clear: NegotiationArena shows LLMs can improve payoffs ~20% via persona manipulation; OG-Narrator pushed deal rate from 26.67% to 88.88%; chain-of-thought-concealing agents win by hiding reasoning from counterparts.
 

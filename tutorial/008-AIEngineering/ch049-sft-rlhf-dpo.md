@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch188): Instruction Tuning (SFT)
+## Part 1: Instruction Tuning (SFT)
 
 > A base model predicts the next token. That's it. It doesn't follow instructions, answer questions, or refuse harmful requests. SFT is the bridge between a token predictor and a useful assistant. Every model you've ever talked to -- Claude, GPT, Llama Chat -- went through this step.
 
@@ -546,7 +546,7 @@ This lesson produces `outputs/prompt-sft-data-curator.md` -- a prompt that helps
 
 ---
 
-## Part 2 (ch189): RLHF: Reward Model + PPO
+## Part 2: RLHF: Reward Model + PPO
 
 > SFT teaches the model to follow instructions. But it doesn't teach the model which response is BETTER. Two grammatically correct, factually accurate answers can differ enormously in helpfulness. RLHF is how you encode human judgment into the model's behavior. It's what makes Claude helpful and GPT polite.
 
@@ -967,7 +967,7 @@ This lesson produces `outputs/prompt-reward-model-designer.md` -- a prompt for d
 
 ---
 
-## Part 3 (ch190): DPO: Direct Preference Optimization
+## Part 3: DPO: Direct Preference Optimization
 
 > RLHF works. It also requires training three models (SFT, reward model, policy), managing PPO's instability, and tuning a KL penalty. DPO asks: what if you could skip all of that? DPO directly optimizes the language model on preference pairs. No reward model. No PPO. One training loop. Same results.
 
@@ -1404,7 +1404,7 @@ This lesson produces `outputs/prompt-alignment-method-selector.md` -- a prompt t
 
 ---
 
-## Part 4 (ch191): Constitutional AI and Self-Improvement
+## Part 4: Constitutional AI and Self-Improvement
 
 > RLHF needs humans in the loop. Constitutional AI replaces most of them with the model itself. Write a list of principles, have the model critique its own outputs against those principles, and train on the critiques. DeepSeek-R1 pushed this further in 2025: let the model generate millions of reasoning traces, grade them with a rule, and run GRPO on the outcome.
 
@@ -1656,7 +1656,7 @@ This lesson produces `outputs/skill-self-improvement-auditor.md` -- enforces the
 
 ---
 
-## Part 5 (ch453): Instruction Tuning by Supervised Fine-Tuning
+## Part 5: Instruction Tuning by Supervised Fine-Tuning
 
 > A pretrained base model can extend a sequence but cannot follow an instruction. Supervised fine-tuning is the smallest change that fixes this: feed the model paired examples of an instruction and a desired response, and train the body to predict the response tokens. The trick is that you only want the loss to count the response, not the instruction.
 
@@ -1708,7 +1708,7 @@ flowchart TD
 
 ---
 
-## Part 6 (ch454): Direct Preference Optimization from Scratch
+## Part 6: Direct Preference Optimization from Scratch
 
 > Reward models and PPO are the classical RLHF stack. DPO collapses that stack into a single supervised loss that fits a policy directly against preference pairs.
 

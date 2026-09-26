@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch211): Advanced RAG (Chunking, Reranking, Hybrid Search)
+## Part 1: Advanced RAG (Chunking, Reranking, Hybrid Search)
 
 > Basic RAG retrieves the top-k most similar chunks. That works for simple questions. It falls apart for multi-hop reasoning, ambiguous queries, and large corpora. Advanced RAG is the difference between a demo that works on 10 documents and a system that works on 10 million.
 
@@ -540,7 +540,7 @@ This lesson produces:
 
 ---
 
-## Part 2 (ch481): Query Rewriting: HyDE, Multi-Query, and Decomposition
+## Part 2: Query Rewriting: HyDE, Multi-Query, and Decomposition
 
 > The query the user types is not the query your retriever wants. Rewriting bridges the gap before retrieval.
 
@@ -590,7 +590,7 @@ flowchart LR
 
 ---
 
-## Part 3 (ch482): RAG Evaluation: Precision, Recall, MRR, nDCG, Faithfulness, Answer Relevance
+## Part 3: RAG Evaluation: Precision, Recall, MRR, nDCG, Faithfulness, Answer Relevance
 
 > If you cannot grade your retrieval and your answer at the same time, you cannot ship the system.
 
@@ -650,7 +650,7 @@ flowchart LR
 
 ---
 
-## Part 4 (ch483): End-to-End RAG System
+## Part 4: End-to-End RAG System
 
 > Six lessons of components. One pipeline. One eval loop. One self-terminating demo.
 
@@ -710,7 +710,7 @@ flowchart LR
 
 ---
 
-## Part 5 (ch418): RAG over Codebase (Cross-Repo Semantic Search)
+## Part 5: RAG over Codebase (Cross-Repo Semantic Search)
 
 > Every serious engineering org in 2026 runs an internal code search that understands meaning, not just strings. Sourcegraph Amp, Cursor's codebase answers, Augment's enterprise graph, Aider's repomap, Pinterest's internal MCP — same shape. Ingest many repos, parse with tree-sitter, embed function- and class-level chunks, hybrid-search, re-rank, answer with citations. This capstone asks you to build one that handles 2M lines of code across 10 repos and survives incremental re-indexing on every git push.
 
@@ -854,7 +854,7 @@ Deliverable skill `outputs/skill-codebase-rag.md`. Given a corpus of repos, it s
 
 ---
 
-## Part 6 (ch424): Production RAG Chatbot for a Regulated Vertical
+## Part 6: Production RAG Chatbot for a Regulated Vertical
 
 > Harvey, Glean, Mendable, and LlamaCloud all run the same production shape in 2026. Ingest with docling or Unstructured and ColPali for visuals. Hybrid search. Re-rank with bge-reranker-v2-gemma. Synthesize with Claude Sonnet 4.7 using prompt caching at 60-80% hit rate. Guard with Llama Guard 4 and NeMo Guardrails. Watch with Langfuse and Phoenix. Grade with RAGAS on a 200-question golden set. Build one in a regulated domain (legal, clinical, insurance), and the capstone is passing the golden set, the red team, and the drift dashboard.
 

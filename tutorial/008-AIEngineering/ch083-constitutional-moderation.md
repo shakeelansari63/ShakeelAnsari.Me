@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch328): Constitutional AI and Rule Overrides
+## Part 1: Constitutional AI and Rule Overrides
 
 > Anthropic's January 22, 2026 Claude Constitution runs 79 pages and is CC0. It moves from rule-based to reason-based alignment and establishes a four-tier priority hierarchy: (1) safety and supporting human oversight, (2) ethics, (3) Anthropic guidelines, (4) helpfulness. Behaviours split into hardcoded prohibitions (bioweapons uplift, CSAM) that operators and users cannot override and soft-coded defaults that operators can adjust within defined bounds. The 2022 original (Bai et al.) trained harmlessness via self-critique and RLAIF against a constitution. The honest caveat: reason-based alignment relies on the model generalising principles to unanticipated situations. Anthropic's own 2023 participatory experiment showed ~50% divergence between public-sourced and corporate principles; the 2026 version did not incorporate those findings.
 
@@ -161,7 +161,7 @@ The Constitution is not a kill switch. It lives at the model layer: what the mod
 
 ---
 
-## Part 2 (ch329): Llama Guard and Input/Output Classification
+## Part 2: Llama Guard and Input/Output Classification
 
 > Llama Guard 3 (Meta, Llama-3.1-8B base, fine-tuned for content safety) classifies both LLM inputs and outputs against an MLCommons 13-hazard taxonomy across 8 languages. A 1B-INT4 quantized variant runs at over 30 tokens/sec on mobile CPUs. Llama Guard 4 is multimodal (image + text), expands to the S1–S14 category set (including S14 Code Interpreter Abuse), and is a drop-in replacement for Llama Guard 3 8B/11B. NVIDIA NeMo Guardrails v0.20.0 (January 2026) adds Colang dialog-flow rails on top of input and output rails. The honest note: "Bypassing Prompt Injection and Jailbreak Detection in LLM Guardrails" (Huang et al., arXiv:2504.11168) showed Emoji Smuggling hit 100% attack success rate on six prominent guard systems; NeMo Guard Detect recorded 72.54% ASR on jailbreaks. Classifiers are a layer, not a solution.
 
@@ -321,7 +321,7 @@ No single layer is sufficient. The layers cover different attack classes.
 
 ---
 
-## Part 3 (ch391): Constitutional AI and RLAIF
+## Part 3: Constitutional AI and RLAIF
 
 > Bai et al. (arXiv:2212.08073, 2022) asked: what if we replaced the human labeler with an AI that reads a list of principles? Constitutional AI has two phases — self-critique and revision under a constitution, then RL from AI Feedback. The technique coined the term RLAIF and shipped in the Claude 1 post-training pipeline. On 21 January 2026 Anthropic published a rewritten Claude constitution: explanatory reasoning over prescriptive rules, a four-tier priority hierarchy, and the first major-lab formal acknowledgment of uncertainty about model moral status. Released under CC0 1.0.
 
@@ -438,7 +438,7 @@ This lesson produces `outputs/skill-constitution-writer.md`. Given a domain (cus
 
 ---
 
-## Part 4 (ch415): Moderation Systems — OpenAI, Perspective, Llama Guard
+## Part 4: Moderation Systems — OpenAI, Perspective, Llama Guard
 
 > Production moderation systems operationalize the safety policies defined in Lessons 12-16. OpenAI Moderation API: `omni-moderation-latest` (2024) built on GPT-4o classifies text + images in one call; 42% better on multilingual test set than prior version; the response schema returns 13 category booleans — harassment, harassment/threatening, hate, hate/threatening, illicit, illicit/violent, self-harm, self-harm/intent, self-harm/instructions, sexual, sexual/minors, violence, violence/graphic; free for most developers. Layered patterns: Input moderation (pre-generation), Output moderation (post-generation), Custom moderation (domain rules). Async parallel calls hide latency; placeholder responses on flag. Llama Guard 3/4 (Lesson 16): 14 MLCommons hazards, Code Interpreter Abuse, 8 languages (v3), multi-image (v4). Perspective API (Google Jigsaw): toxicity scoring predating the LLM-as-moderator wave; primarily single-dimension toxicity with severe-toxicity/insult/profanity variants; baseline for content-moderation research. Deprecations: Azure Content Moderator deprecated February 2024, retired February 2027, replaced by Azure AI Content Safety.
 

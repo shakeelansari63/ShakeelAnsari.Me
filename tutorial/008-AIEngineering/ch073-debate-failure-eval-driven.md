@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch294): Multi-Agent Debate and Collaboration
+## Part 1: Multi-Agent Debate and Collaboration
 
 > Du et al. (ICML 2024, "Society of Minds") run N model instances that independently propose answers, then iteratively critique each other over R rounds to converge. Improves factuality, rule-following, reasoning. Sparse topology beats full mesh on token cost.
 
@@ -126,7 +126,7 @@ Output: per-protocol accuracy and cost; sparse matches full mesh on 2/3 question
 
 ---
 
-## Part 2 (ch295): Failure Modes: Why Agents Break
+## Part 2: Failure Modes: Why Agents Break
 
 > MASFT (Berkeley, 2025) catalogs 14 multi-agent failure modes in 3 categories. Microsoft's Taxonomy documents how existing AI failures amplify in agentic settings. Industry field data converges on five recurring modes: hallucinated actions, scope creep, cascading errors, context loss, tool misuse.
 
@@ -255,7 +255,7 @@ Output: per-trace labels + aggregate distribution, a cheap reproduction of what 
 
 ---
 
-## Part 3 (ch296): Prompt Injection and the PVE Defense
+## Part 3: Prompt Injection and the PVE Defense
 
 > Greshake et al. (AISec 2023) established indirect prompt injection as the defining agent security problem. Attacker plants instructions in data the agent retrieves; on ingest, those instructions override the developer prompt. Treat all retrieved content as arbitrary code execution on the tool-use surface.
 
@@ -376,7 +376,7 @@ Output: per-call trace showing validator verdicts and executor behavior.
 
 ---
 
-## Part 4 (ch299): Eval-Driven Agent Development
+## Part 4: Eval-Driven Agent Development
 
 > Anthropic's guidance: "start with simple prompts, optimize them with comprehensive evaluation, and add multi-step agentic systems only when needed." Evaluation is not the last step. It's the outer loop that drives every other choice in Phase 14.
 

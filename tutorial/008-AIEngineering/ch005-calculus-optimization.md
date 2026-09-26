@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch016): Calculus for Machine Learning
+## Part 1: Calculus for Machine Learning
 
 > Derivatives tell you which way is downhill. That is all a neural network needs to learn.
 
@@ -638,7 +638,7 @@ You just built gradient descent from scratch. PyTorch automates the gradient com
 
 ---
 
-## Part 2 (ch017): Chain Rule & Automatic Differentiation
+## Part 2: Chain Rule & Automatic Differentiation
 
 > The chain rule is the engine behind every neural network that learns.
 
@@ -1164,7 +1164,7 @@ The Value class built here is the foundation for the neural network training loo
 
 ---
 
-## Part 3 (ch020): Optimization
+## Part 3: Optimization
 
 > Training a neural network is nothing more than finding the bottom of a valley.
 
@@ -1517,7 +1517,7 @@ The optimizer classes built here reappear in Phase 3 when we train a neural netw
 
 ---
 
-## Part 4 (ch030): Convex Optimization
+## Part 4: Convex Optimization
 
 > If you can make your problem convex, you have solved it. If you cannot, you are doing approximate inference.
 

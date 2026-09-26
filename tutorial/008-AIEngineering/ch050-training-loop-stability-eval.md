@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch192): Evaluation: Benchmarks, Evals, LM Harness
+## Part 1: Evaluation: Benchmarks, Evals, LM Harness
 
 > Goodhart's Law: when a measure becomes a target, it ceases to be a good measure. Every frontier lab games benchmarks. MMLU scores go up while models still can't reliably count the number of R's in "strawberry." The only eval that matters is YOUR eval -- on YOUR task, with YOUR data.
 
@@ -420,7 +420,7 @@ This lesson produces `outputs/prompt-eval-designer.md` and `outputs/skill-llm-ev
 
 ---
 
-## Part 2 (ch450): Training Loop and Evaluation
+## Part 2: Training Loop and Evaluation
 
 > A loop that does not measure is a loop that lies. This lesson builds the training loop that drives the GPT model: AdamW with weight decay split, a warmup plus cosine LR schedule, held out evaluation, qualitative sample generation, and a JSONL log.
 
@@ -487,7 +487,7 @@ Warmup ramps LR from zero to target over a few hundred steps. Cosine decay drops
 
 ---
 
-## Part 3 (ch455): Full Evaluation Pipeline
+## Part 3: Full Evaluation Pipeline
 
 > Training is the part you can monitor with loss curves. Evaluation is the part you have to design. This lesson builds a unified eval pipeline that takes any trained language model, runs four heterogeneous evals, aggregates the results into a per-task report, and ships a local mock LLM-as-judge.
 
@@ -556,7 +556,7 @@ flowchart TD
 
 ---
 
-## Part 4 (ch463): Language Model Evaluation Harness
+## Part 4: Language Model Evaluation Harness
 
 > A model that does well on a task you cannot define is a model that does well by accident. The harness is the task definition, the metric, the runner, and the leaderboard, in one shape.
 
@@ -626,7 +626,7 @@ python3 code/main.py
 
 ---
 
-## Part 5 (ch458): Cosine LR with Linear Warmup
+## Part 5: Cosine LR with Linear Warmup
 
 > The learning-rate schedule is the second most important decision after the loss function. AdamW with a cosine decay and a linear warmup is the modern default for language-model training.
 
@@ -712,7 +712,7 @@ python3 code/main.py
 
 ---
 
-## Part 6 (ch459): Gradient Clipping and Mixed Precision
+## Part 6: Gradient Clipping and Mixed Precision
 
 > The optimizer and schedule assume gradients are sane. They usually are not. A single bad batch can spike the gradient norm by three orders of magnitude. Mixed-precision training amplifies this with FP16 overflow.
 
@@ -788,7 +788,7 @@ python3 code/main.py
 
 ---
 
-## Part 7 (ch460): Gradient Accumulation
+## Part 7: Gradient Accumulation
 
 > Train at an effective batch you cannot afford, one micro-batch at a time. Scale the loss, hold the optimizer step, and let the gradients pile up.
 
@@ -868,7 +868,7 @@ python3 code/main.py
 
 ---
 
-## Part 8 (ch461): Checkpoint Save and Resume
+## Part 8: Checkpoint Save and Resume
 
 > Train interrupts kill runs; checkpoints let them continue. Save model, optimizer, scheduler, loss history, step counter, and RNG state, atomically, so a kill at any moment leaves a valid file on disk.
 

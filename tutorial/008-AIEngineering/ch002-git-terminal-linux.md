@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch002): Git & Collaboration
+## Part 1: Git & Collaboration
 
 > Version control is not optional. Every experiment, every model, every lesson you build here gets tracked.
 
@@ -121,7 +121,7 @@ That's it. You don't need rebase, cherry-pick, or submodules for this course.
 
 ---
 
-## Part 2 (ch004): APIs & Keys
+## Part 2: APIs & Keys
 
 > Every AI API works the same way: send a request, get a response. The details change, the pattern doesn't.
 
@@ -270,7 +270,7 @@ This lesson produces:
 
 ---
 
-## Part 3 (ch010): Terminal & Shell
+## Part 3: Terminal & Shell
 
 > The terminal is where AI engineers live. Get comfortable here.
 
@@ -619,7 +619,7 @@ Here's when each tool comes into play during this course:
 
 ---
 
-## Part 4 (ch011): Linux for AI
+## Part 4: Linux for AI
 
 > Most AI runs on Linux. You need to know enough to not be stuck.
 

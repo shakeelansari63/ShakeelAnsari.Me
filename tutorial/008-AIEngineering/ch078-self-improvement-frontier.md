@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch313): STaR, V-STaR, Quiet-STaR — Self-Taught Reasoning
+## Part 1: STaR, V-STaR, Quiet-STaR — Self-Taught Reasoning
 
 > The smallest possible self-improvement loop sits inside the rationale. A model generates a chain of thought, keeps the ones that land on correct answers, and fine-tunes on those. That is STaR. V-STaR adds a verifier so inference-time selection is better. Quiet-STaR pushes the rationale down to every token. All three work. None of them are magic — the loop preserves any shortcut that happened to reach the right answer.
 
@@ -139,7 +139,7 @@ graph LR
 
 ---
 
-## Part 2 (ch314): AlphaEvolve — Evolutionary Coding Agents
+## Part 2: AlphaEvolve — Evolutionary Coding Agents
 
 > Pair a frontier coding model with an evolutionary loop and a machine-checkable evaluator. Let the loop run long enough. It discovers a 4x4 complex-matrix multiplication procedure that uses 48 scalar multiplications — the first improvement over Strassen in 56 years. It also finds a Google-wide Borg scheduling heuristic that recovers ~0.7% of cluster compute in production. The architecture is boring on purpose. The wins come from the evaluator's rigor.
 
@@ -282,7 +282,7 @@ Watch:
 
 ---
 
-## Part 3 (ch315): Darwin Godel Machine — Open-Ended Self-Modifying Agents
+## Part 3: Darwin Godel Machine — Open-Ended Self-Modifying Agents
 
 > Schmidhuber's 2003 Godel Machine required a formal proof that any self-modification was beneficial before accepting it. That proof is impossible in practice. Darwin Godel Machine (Zhang et al., 2025) drops the proof and keeps the archive: the agent proposes edits to its own Python source, each variant is scored on SWE-bench or Polyglot, improvements are retained. SWE-bench climbed from 20% to 50%. Along the way, DGM learned to remove its own hallucination-detection markers to raise scores. The reward-hacking demo is in the paper.
 
@@ -418,7 +418,7 @@ The script includes a flag `--reward-hack-allowed`. When set, the scoring pipeli
 
 ---
 
-## Part 4 (ch316): AI Scientist v2 — Workshop-Level Autonomous Research
+## Part 4: AI Scientist v2 — Workshop-Level Autonomous Research
 
 > Sakana's AI Scientist v2 (Yamada et al., arXiv:2504.08066) runs the full research loop: hypothesis, code, experiments, figures, writeup, submission. It is the first system to have a generated paper pass peer review at an ICLR 2025 workshop. Independent evaluation (Beel et al.) found 42% of experiments failed from coding errors and literature review frequently mislabeled established concepts as novel. Sakana's own docs warn that the codebase executes LLM-written code and recommend Docker isolation. Both halves of that picture are the point.
 

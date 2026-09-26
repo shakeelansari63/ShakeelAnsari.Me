@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch094): Text Processing — Tokenization, Stemming, Lemmatization
+## Part 1: Text Processing — Tokenization, Stemming, Lemmatization
 
 Language is continuous. Models are discrete. Preprocessing is the bridge.
 
@@ -200,7 +200,7 @@ spaCy hides the whole pipeline behind `nlp(text)`. Tokenization, POS tagging, an
 
 ---
 
-## Part 2 (ch095): Bag of Words, TF-IDF, and Text Representation
+## Part 2: Bag of Words, TF-IDF, and Text Representation
 
 Count first, think later. TF-IDF still beats embeddings on well-defined tasks in 2026.
 
@@ -376,7 +376,7 @@ You get semantic capacity from embeddings and rare-word emphasis from TF-IDF. Ou
 
 ---
 
-## Part 3 (ch096): Word Embeddings — Word2Vec from Scratch
+## Part 3: Word Embeddings — Word2Vec from Scratch
 
 A word is the company it keeps. Train a shallow net on that idea and geometry falls out.
 
@@ -564,7 +564,7 @@ The polysemy wall. `bank` has one vector for `river bank` and `financial bank`. 
 
 ---
 
-## Part 4 (ch097): GloVe, FastText, and Subword Embeddings
+## Part 4: GloVe, FastText, and Subword Embeddings
 
 Word2Vec left two open questions. GloVe factorized the co-occurrence matrix. FastText embedded the pieces. BPE bridged to transformers.
 
@@ -745,7 +745,7 @@ print(tok.tokenize("unbelievably tokenized"))
 
 ---
 
-## Part 5 (ch112): Subword Tokenization — BPE, WordPiece, Unigram, SentencePiece
+## Part 5: Subword Tokenization — BPE, WordPiece, Unigram, SentencePiece
 
 Word tokenizers choke on unseen words. Character tokenizers blow up sequence length. Subword tokenizers split the difference. Every modern LLM ships on one.
 

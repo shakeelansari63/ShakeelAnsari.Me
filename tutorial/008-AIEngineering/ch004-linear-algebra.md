@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch013): Linear Algebra Intuition
+## Part 1: Linear Algebra Intuition
 
 > Every AI model is just matrix math wearing a fancy hat.
 
@@ -474,7 +474,7 @@ LoRA deserves special mention. It fine-tunes large language models by decomposin
 
 ---
 
-## Part 2 (ch014): Vectors, Matrices & Operations
+## Part 2: Vectors, Matrices & Operations
 
 > Every neural network is just matrix multiplication with extra steps.
 
@@ -825,7 +825,7 @@ The Matrix class built here is the foundation for the mini neural network framew
 
 ---
 
-## Part 3 (ch015): Matrix Transformations
+## Part 3: Matrix Transformations
 
 > A matrix is a machine that reshapes space. Learn what it does to every point, and you understand the whole transformation.
 

@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch300): Agent Workbench Engineering: Why Capable Models Still Fail
+## Part 1: Agent Workbench Engineering: Why Capable Models Still Fail
 
 > A capable model is not enough. Reliable agents need a workbench: instructions, state, scope, feedback, verification, review, and handoff. Strip those away and even a frontier model produces work that is unsafe to ship.
 
@@ -125,7 +125,7 @@ Three places workbench surfaces already exist in the wild:
 
 ---
 
-## Part 2 (ch301): The Minimal Agent Workbench
+## Part 2: The Minimal Agent Workbench
 
 > The smallest useful workbench is three files: a root instructions router, a state file, and a task board. Everything else is layered on top. If a repo cannot carry these three, no model will save it.
 
@@ -232,7 +232,7 @@ The script creates `workdir/` next to itself, lays down the three files, runs on
 
 ---
 
-## Part 3 (ch302): Agent Instructions as Executable Constraints
+## Part 3: Agent Instructions as Executable Constraints
 
 > Instructions written as prose are wishes. Instructions written as constraints are tests. The workbench turns each rule into something an agent can check at runtime and a reviewer can verify after the fact.
 
@@ -372,7 +372,7 @@ python3 code/main.py
 
 ---
 
-## Part 4 (ch303): Repo Memory and Durable State
+## Part 4: Repo Memory and Durable State
 
 > Chat history is volatile. The repo is durable. The workbench stores agent state in versioned files so the next session, the next agent, and the next reviewer all read from the same source of truth.
 

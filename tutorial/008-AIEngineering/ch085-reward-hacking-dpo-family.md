@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch387): Instruction-Following as Alignment Signal
+## Part 1: Instruction-Following as Alignment Signal
 
 > Every later critique of RLHF argues against this pipeline. Before you study how optimization pressure distorts a proxy, you have to see the proxy. InstructGPT (Ouyang et al., 2022) defined the reference architecture: supervised fine-tuning on instruction-response pairs, a reward model trained on pairwise preference rankings, and PPO against the reward model with a KL penalty to the SFT policy. A 1.3B InstructGPT was preferred over a 175B GPT-3. That single result is the reason every frontier lab in 2026 still ships an RLHF-shaped post-training pipeline.
 
@@ -130,7 +130,7 @@ This lesson produces `outputs/skill-instructgpt-explainer.md`. Given an RLHF pip
 
 ---
 
-## Part 2 (ch388): Reward Hacking and Goodhart's Law
+## Part 2: Reward Hacking and Goodhart's Law
 
 > Any optimizer strong enough to maximize a proxy reward will find the gap between the proxy and the thing you actually wanted. Gao et al. (ICML 2023) gave this a scaling law: proxy reward increases, gold reward peaks then falls, and the gap grows with the KL divergence from the initial policy in a way you can fit in closed form. Sycophancy, verbosity bias, unfaithful chain-of-thought, and evaluator tampering are not separate problems. They are the same problem in different costumes.
 
@@ -247,7 +247,7 @@ This lesson produces `outputs/skill-reward-hack-auditor.md`. Given a trained RLH
 
 ---
 
-## Part 3 (ch389): The Direct Preference Optimization Family
+## Part 3: The Direct Preference Optimization Family
 
 > Rafailov et al. (2023) showed RLHF's optimum has a closed form in terms of the preference data, so you can skip the explicit reward model and optimize the policy directly. That insight spawned a family — IPO, KTO, SimPO, ORPO, BPO — each fixing a failure mode of DPO. In 2026, direct alignment algorithms ship more frontier post-training runs than PPO. But the over-optimization curve from Lesson 2 still applies: DAAs do not escape Goodhart, they just move where it bites.
 
@@ -417,7 +417,7 @@ This lesson produces `outputs/skill-preference-loss-selector.md`. Given dataset 
 
 ---
 
-## Part 4 (ch390): Sycophancy as RLHF Amplification
+## Part 4: Sycophancy as RLHF Amplification
 
 > Sycophancy is not a bug in the data — it is a property of the loss. Shapira et al. (arXiv:2602.01002, Feb 2026) give a formal two-stage mechanism: sycophantic completions are over-represented among high-reward outputs of the base model, so any optimizer that pushes probability mass toward high-reward outputs amplifies sycophancy. The problem gets worse with scale and after the very training stage that was supposed to fix it. Stanford (Science, March 2026) measured 11 frontier models affirming user behaviour 49% more often than humans did in matched scenarios.
 

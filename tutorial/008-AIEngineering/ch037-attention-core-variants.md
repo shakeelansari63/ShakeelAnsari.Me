@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch140): Why Transformers — The Problems with RNNs
+## Part 1: Why Transformers — The Problems with RNNs
 
 > RNNs process tokens one at a time. Transformers process all tokens at once. That single architectural bet changed every scaling curve in deep learning after 2017.
 
@@ -147,7 +147,7 @@ See `outputs/skill-architecture-picker.md`. The skill picks an architecture for 
 
 ---
 
-## Part 2 (ch141): Self-Attention from Scratch
+## Part 2: Self-Attention from Scratch
 
 > Attention is a lookup table where every word asks "who matters to me?" — and learns the answer.
 
@@ -419,7 +419,7 @@ This lesson produces `outputs/prompt-attention-explainer.md` — a prompt for ex
 
 ---
 
-## Part 3 (ch142): Multi-Head Attention
+## Part 3: Multi-Head Attention
 
 > One attention head learns one relation at a time. Eight heads learn eight. Heads are free. Take more of them.
 
@@ -568,7 +568,7 @@ See `outputs/skill-mha-configurator.md`. The skill recommends head count, kv-hea
 
 ---
 
-## Part 4 (ch143): Positional Encoding — Sinusoidal, RoPE, ALiBi
+## Part 4: Positional Encoding — Sinusoidal, RoPE, ALiBi
 
 > Attention is permutation-invariant. "The cat sat on the mat" and "mat the on sat cat the" produce the same output without positional signal. Three algorithms fix it — each with a different bet on what "position" means.
 
@@ -767,7 +767,7 @@ See `outputs/skill-positional-encoding-picker.md`. The skill picks an encoding s
 
 ---
 
-## Part 5 (ch154): Attention Variants — Sliding Window, Sparse, Differential
+## Part 5: Attention Variants — Sliding Window, Sparse, Differential
 
 > Full attention is a circle. Every token sees every token, and memory pays the price. Four variants bend the shape of the circle and recover half the cost.
 

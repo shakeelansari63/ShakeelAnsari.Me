@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch421): Autonomous Research Agent (AI-Scientist Class)
+## Part 1: Autonomous Research Agent (AI-Scientist Class)
 
 > Sakana's AI-Scientist-v2 published full papers. Agent Laboratory ran the experiments. Allen AI shared traces. The 2026 shape is plan-execute-verify tree search over experiments, budgeted cost, sandboxed code execution, a vision-feedback LaTeX writer, and an automated NeurIPS-style reviewer ensemble. The capstone is to build one, run it end to end within $30 per paper, and survive the sandbox-escape red team that Sakana documented.
 
@@ -148,7 +148,7 @@ $ ai-scientist run --seed "attention sparsity in sub-1B transformers" --budget 3
 
 ---
 
-## Part 2 (ch464): Hypothesis Generator
+## Part 2: Hypothesis Generator
 
 > A research agent that asks the same question twice is wasting tokens. The trick is forcing each draft to land somewhere new.
 
@@ -216,7 +216,7 @@ flowchart TD
 
 ---
 
-## Part 3 (ch465): Literature Retrieval
+## Part 3: Literature Retrieval
 
 > A hypothesis is cheap. Knowing whether someone already proved it is the expensive part.
 
@@ -273,7 +273,7 @@ flowchart TD
 
 ---
 
-## Part 4 (ch466): Experiment Runner
+## Part 4: Experiment Runner
 
 > The loop is only as honest as its measurements. Build the runner that takes a spec, executes it in a sandboxed subprocess, and emits a JSON metrics blob.
 
@@ -327,7 +327,7 @@ flowchart TD
 
 ---
 
-## Part 5 (ch467): Result Evaluator
+## Part 5: Result Evaluator
 
 > The runner produced numbers. The evaluator decides whether those numbers are an improvement, a regression, or noise.
 
@@ -388,7 +388,7 @@ flowchart TD
 
 ---
 
-## Part 6 (ch468): Paper Writer
+## Part 6: Paper Writer
 
 > A LaTeX skeleton is a contract between researcher and typesetter. Build the skeleton first, then fill it.
 
@@ -441,7 +441,7 @@ flowchart TB
 
 ---
 
-## Part 7 (ch469): Critic Loop
+## Part 7: Critic Loop
 
 > A critic that always returns "looks good" or "needs work" is broken. The interesting critic is the one that converges, and you have to engineer convergence.
 
@@ -503,7 +503,7 @@ flowchart TB
 
 ---
 
-## Part 8 (ch470): Iteration Scheduler
+## Part 8: Iteration Scheduler
 
 > A research loop without a scheduler is a queue with delusions. The scheduler decides what to stop exploring.
 
@@ -560,7 +560,7 @@ Untried branches get +inf. Pruning removes branches with mean reward below floor
 
 ---
 
-## Part 9 (ch471): End-to-End Research Demo
+## Part 9: End-to-End Research Demo
 
 > A demo is where every contract you wrote earlier has to compose. If any one of them leaks, the demo catches it.
 

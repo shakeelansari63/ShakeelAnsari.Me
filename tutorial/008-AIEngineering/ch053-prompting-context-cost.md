@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch205): Prompt Engineering: Techniques & Patterns
+## Part 1: Prompt Engineering: Techniques & Patterns
 
 > Most people write prompts like they are texting a friend. Then they wonder why a 200-billion parameter model gives mediocre answers. Prompt engineering is not about tricks. It is about understanding that every token you send is an instruction, and the model follows instructions literally. Write better instructions, get better outputs. It is that simple and that hard.
 
@@ -1035,7 +1035,7 @@ The Python code (`code/prompt_engineering.py`) is a standalone testing harness. 
 
 ---
 
-## Part 2 (ch206): Few-Shot, Chain-of-Thought, Tree-of-Thought
+## Part 2: Few-Shot, Chain-of-Thought, Tree-of-Thought
 
 > Telling a model what to do is prompting. Showing it how to think is engineering. The gap between 78% and 91% accuracy on the same model, same task, same data is not a better model. It is a better reasoning strategy.
 
@@ -1616,7 +1616,7 @@ This lesson produces two artifacts.
 
 ---
 
-## Part 3 (ch207): Structured Outputs: JSON, Schema Validation, Constrained Decoding
+## Part 3: Structured Outputs: JSON, Schema Validation, Constrained Decoding
 
 > Your LLM returns a string. Your application needs JSON. That gap has crashed more production systems than any model hallucination. Structured output is the bridge between natural language and typed data. Get it right and your LLM becomes a reliable API. Get it wrong and you're parsing free-text with regex at 3am.
 
@@ -2169,7 +2169,7 @@ It also produces `outputs/skill-structured-outputs.md` -- a decision framework f
 
 ---
 
-## Part 4 (ch208): Embeddings & Vector Representations
+## Part 4: Embeddings & Vector Representations
 
 > Text is discrete. Math is continuous. Every time you ask an LLM to find "similar" documents, compare meanings, or search beyond keywords, you're relying on a bridge between these two worlds. That bridge is an embedding. If you don't understand embeddings, you don't understand modern AI. You just use it.
 
@@ -2683,7 +2683,7 @@ This lesson produces:
 
 ---
 
-## Part 5 (ch209): Context Engineering: Windows, Budgets, Memory, and Retrieval
+## Part 5: Context Engineering: Windows, Budgets, Memory, and Retrieval
 
 > Prompt engineering is a subset. Context engineering is the whole game. A prompt is a string you type. Context is everything that goes into the model's window: system instructions, retrieved documents, tool definitions, conversation history, few-shot examples, and the prompt itself. The best AI engineers in 2026 are context engineers. They decide what goes in, what stays out, and in what order.
 
@@ -3276,7 +3276,7 @@ It also produces `outputs/skill-context-engineering.md` -- a decision framework 
 
 ---
 
-## Part 6 (ch215): Caching, Rate Limiting & Cost Optimization
+## Part 6: Caching, Rate Limiting & Cost Optimization
 
 > Most AI startups do not die from bad models. They die from bad unit economics. A single GPT-4o call costs fractions of a cent. Ten thousand users making ten calls per day costs $250 in input tokens alone -- before you charge a single dollar. The companies that survive are the ones that treat every API call as a financial transaction, not a function call.
 
@@ -4187,7 +4187,7 @@ It also produces `outputs/skill-cost-patterns.md` -- a decision framework for ch
 
 ---
 
-## Part 7 (ch219): Prompt Caching and Context Caching
+## Part 7: Prompt Caching and Context Caching
 
 > Your system prompt is 4,000 tokens. Your RAG context is 20,000 tokens. You send both with every request. You also pay for both — every time. Prompt caching lets the provider keep that prefix warm on their side and bill you 10% of the normal rate on reuse. Used correctly, it cuts inference cost by 50–90% and first-token latency by 40–85%.
 

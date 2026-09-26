@@ -6,7 +6,7 @@
 
 ---
 
-## Part 1 (ch031): Complex Numbers
+## Part 1: Complex Numbers
 
 > Imaginary numbers are not imaginary. They are a 90-degree rotation.
 
@@ -443,7 +443,7 @@ This lesson produces `code/complex_numbers.py` with complex arithmetic, polar co
 
 ---
 
-## Part 2 (ch032): Fourier Transform
+## Part 2: Fourier Transform
 
 > In the beginning, there was time. The Fourier Transform lets you see the frequencies hidden within.
 
@@ -896,7 +896,7 @@ This lesson produces `code/fourier.py` with DFT, FFT, inverse FFT, filtering, 2D
 
 ---
 
-## Part 3 (ch033): Graph Theory
+## Part 3: Graph Theory
 
 > Your data is not a grid of pixels. Your data is a web of relationships. Graph theory is how you navigate it.
 
@@ -1433,7 +1433,7 @@ This lesson produces `code/graph_theory.py` with graph representation, traversal
 
 ---
 
-## Part 4 (ch034): Stochastic Processes
+## Part 4: Stochastic Processes
 
 > Randomness is not the absence of structure. It is a different kind of structure.
 
