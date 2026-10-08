@@ -14,7 +14,6 @@ import type {
 } from "../models/types";
 
 const baseApiUrl = "https://api.github.com";
-const contribBaseUrl = "https://gh-calendar.rschristian.dev";
 
 export async function fetchUserProfile(): Promise<GitProfile | null> {
   try {
@@ -209,27 +208,50 @@ export async function fetchAnalytics(
   }
 }
 
-export async function fetchUserContributions(): Promise<ContribSubject | null> {
-  try {
-    const res = await fetch(`${contribBaseUrl}/user/${userData.githubUser}`);
-    if (!res.ok) return null;
-    const contribResult: ContributionResult = await res.json();
+let contributionResultPromise: Promise<ContributionResult | null> | null = null;
 
-    let contribData: ContributionData[] = [];
-    contribResult.contributions.forEach(
-      (contrib) => (contribData = [...contribData, ...contrib]),
-    );
-
-    const hmData = contribData.map((contrib) => ({
-      date: new Date(contrib.date),
-      value: parseInt(contrib.intensity),
-    }));
-
-    const startDate = hmData.reduce((a, b) => (a.date < b.date ? a : b)).date;
-    const endDate = hmData.reduce((a, b) => (a.date > b.date ? a : b)).date;
-
-    return { data: hmData, startDate, endDate };
-  } catch {
-    return null;
+function getContributionResult(): Promise<ContributionResult | null> {
+  if (!contributionResultPromise) {
+    contributionResultPromise = (async () => {
+      try {
+        const res = await fetch(
+          `/api/github/contributions?user=${userData.githubUser}`,
+        );
+        if (!res.ok) return null;
+        return (await res.json()) as ContributionResult;
+      } catch {
+        return null;
+      }
+    })();
+    contributionResultPromise.then((result) => {
+      if (result === null) contributionResultPromise = null;
+    });
   }
+  return contributionResultPromise;
+}
+
+export function fetchContributionCounts(): Promise<ContributionData[] | null> {
+  return getContributionResult().then((result) =>
+    result ? result.contributions.flat() : null,
+  );
+}
+
+export async function fetchUserContributions(): Promise<ContribSubject | null> {
+  const contribResult = await getContributionResult();
+  if (!contribResult) return null;
+
+  let contribData: ContributionData[] = [];
+  contribResult.contributions.forEach(
+    (contrib) => (contribData = [...contribData, ...contrib]),
+  );
+
+  const hmData = contribData.map((contrib) => ({
+    date: new Date(contrib.date),
+    value: parseInt(contrib.intensity),
+  }));
+
+  const startDate = hmData.reduce((a, b) => (a.date < b.date ? a : b)).date;
+  const endDate = hmData.reduce((a, b) => (a.date > b.date ? a : b)).date;
+
+  return { data: hmData, startDate, endDate };
 }

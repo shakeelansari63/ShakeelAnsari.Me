@@ -74,6 +74,14 @@ This project is a **PHP 8.1+ REST API** using **Slim Framework 4** with naked **
 5. Remove subjects/chapters not in current scan.
 6. Detect `images/thumbnail.*` for subject card thumbnail.
 
+### GitHub Contribution Calendar (`github-routes.php`)
+- `GET /api/github/contributions?user={u}` (rolling ~365 days), `&year={YYYY}`, or `&from={Y}&to={Y}` (merged range, span capped at 20 years).
+- Fetches `https://github.com/users/{u}/contributions` server-side (the page sends no CORS headers — browsers cannot read it) and parses day cells + `tool-tip` counts with `DOMXPath`. Parsing adapted from `rschristian/github-contribution-calendar-api` (MIT, © Ryan Christian) — keep the attribution header.
+- Response mirrors gh-calendar's shape: `{ total, contributions: [[{ date, intensity, count }]] }` + `Cache-Control: public, max-age=3600`.
+- File cache per `user|year` in `sys_get_temp_dir()` (`github_contrib_*.json`, 24h TTL via `filemtime`; stale copy is served if GitHub is unreachable). Cold multi-year loads are sequential with a 2.5s timeout per year and a 45s overall budget (under the 60s PHP cap).
+- No DB dependency — works in degraded mode. Username must match GitHub's rules (`^[a-zA-Z0-9](?:[a-zA-Z0-9]|-(?=[a-zA-Z0-9])){0,38}$`); invalid `user`/`year`/range → 400, GitHub/parse failure → 502, budget exceeded → 503.
+- Consumers: `fetchContributionCounts()` (ProfileStats + ActivityGraph heatmap) and `fetchStreakStats()` (StreakStatsCard streak algorithm lives in `ui/src/services/stats.ts`).
+
 ### Helpers (from `api/src/helpers.php`)
 - `parseFrontmatter(string $content): array` — parses `---` delimited YAML frontmatter.
 - `rewriteImageUrls(string $content): string` — rewrites `](images/` to `](/api/blogs/` (for blogs) or `/api/products/{id}/` (for products).

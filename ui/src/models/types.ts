@@ -10,6 +10,8 @@ export interface GitProfile {
   name: string | null;
   login: string;
   html_url: string | null;
+  email?: string | null;
+  created_at?: string | null;
 }
 
 export interface GitProject {
@@ -85,4 +87,40 @@ export interface LearnChapter {
   chapter_id: string;
   title: string;
   sort_order: number;
+}
+
+export interface LanguageStat {
+  name: string;
+  value: number;
+  color: string;
+}
+
+export interface MonthlyContribution {
+  label: string;
+  value: number;
+}
+
+export interface ProfileStats {
+  title: string;
+  contributions: number | null;
+  publicRepos: number;
+  createdAt: string | null;
+  email: string | null;
+  company: string | null;
+  location: string | null;
+  monthly: MonthlyContribution[];
+}
+
+export interface StreakRange {
+  length: number;
+  start: string;
+  end: string;
+}
+
+export interface StreakStats {
+  total: number;
+  firstContribution: string;
+  current: StreakRange;
+  longest: StreakRange;
+  today: string;
 }

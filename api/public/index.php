@@ -57,5 +57,6 @@ $pdo = \App\DB::connect();
 (require __DIR__ . "/../src/learn-routes.php")($app, $pdo);
 (require __DIR__ . "/../src/admin-routes.php")($app, $pdo);
 (require __DIR__ . "/../src/products-routes.php")($app);
+(require __DIR__ . "/../src/github-routes.php")($app);
 
 $app->run();
