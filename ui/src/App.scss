@@ -347,9 +347,9 @@ body {
 
 /* Custom tag colors for blog tags */
 .ant-tag-blue {
-  background: rgba(213, 58, 157, 0.1);
+  background: color-mix(in srgb, var(--base-ascent-theme-color) 10%, transparent);
   color: var(--ant-color-primary);
-  border-color: rgba(213, 58, 157, 0.3);
+  border-color: color-mix(in srgb, var(--base-ascent-theme-color) 30%, transparent);
 }
 
 /* Timeline customization */
@@ -418,7 +418,7 @@ body {
 
 .gradient-btn:hover {
   filter: brightness(1.1);
-  box-shadow: 0 0 12px rgba(213, 58, 157, 0.53);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--base-ascent-theme-color) 53%, transparent);
 }
 
 /* Theme-outline pill button (Expo Details) */
@@ -428,7 +428,7 @@ body {
 }
 
 .outline-theme-btn:hover {
-  background: rgba(213, 58, 157, 0.08) !important;
+  background: color-mix(in srgb, var(--base-ascent-theme-color) 8%, transparent) !important;
 }
 
 /* Hero social links */
@@ -448,7 +448,7 @@ body {
 
 .skill-tag:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 12px rgba(213, 58, 157, 0.4);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--base-ascent-theme-color) 40%, transparent);
 }
 
 /* Footer links */
@@ -457,7 +457,7 @@ body {
 }
 
 .footer-link:hover {
-  color: #d53a9b !important;
+  color: var(--base-ascent-theme-color) !important;
 }
 
 /* Code block copy button reveal */

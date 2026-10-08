@@ -39,15 +39,15 @@ html.scrolled .header {
 
 .brand {
   font-weight: 700;
-  font-size: 1.4rem;
-  color: #d53a9b;
+  font-size: 1.5rem;
+  color: var(--base-ascent-theme-color);
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
 }
 
 .start :global(.ant-btn) {
-  color: #d53a9b;
+  color: var(--base-ascent-theme-color);
   font-size: 1rem;
   padding: 6px 12px;
   height: auto;
@@ -58,7 +58,7 @@ html.scrolled .header {
 }
 
 .start :global(.ant-btn:hover) {
-  color: #d53a9b;
+  color: var(--base-ascent-theme-color);
   background: transparent !important;
   box-shadow: none !important;
 }
@@ -76,7 +76,7 @@ html.scrolled .header {
 }
 
 .navGroup :global(.ant-btn) {
-  color: #d53a9b;
+  color: var(--base-ascent-theme-color);
   font-size: 1rem;
   padding: 6px 12px;
   height: auto;
@@ -87,7 +87,7 @@ html.scrolled .header {
 }
 
 .navGroup :global(.ant-btn:hover) {
-  color: #d53a9b;
+  color: var(--base-ascent-theme-color);
   background: transparent !important;
   box-shadow: none !important;
 }
@@ -100,14 +100,14 @@ html.scrolled .header {
 }
 
 .themeToggle:global(.ant-btn) {
-  color: #d53a9b;
+  color: var(--base-ascent-theme-color);
   font-size: 1.15rem;
   width: 40px;
   height: 40px;
 }
 
 .themeToggle:global(.ant-btn:hover) {
-  color: #d53a9b;
+  color: var(--base-ascent-theme-color);
   background: transparent !important;
   box-shadow: none !important;
 }
@@ -123,11 +123,11 @@ html.scrolled .header {
 }
 
 .mobileMenuBtn:global(.ant-btn) {
-  color: #d53a9b;
+  color: var(--base-ascent-theme-color);
 }
 
 .mobileMenuBtn:global(.ant-btn:hover) {
-  color: #d53a9b;
+  color: var(--base-ascent-theme-color);
   background: transparent !important;
   box-shadow: none !important;
 }
@@ -183,7 +183,7 @@ html.scrolled .header {
 }
 
 .drawer :global(.ant-menu-item) {
-  color: #d53a9b;
+  color: var(--base-ascent-theme-color);
   font-size: 1rem;
 }
 
@@ -194,16 +194,16 @@ html.scrolled .header {
 .drawer :global(.ant-menu-item:hover) {
   background: transparent !important;
   box-shadow: none !important;
-  color: #d53a9b;
+  color: var(--base-ascent-theme-color);
 }
 
 .drawer :global(.ant-menu-item-selected) {
-  background: rgba(213, 58, 155, 0.08);
-  color: #d53a9b;
+  background: color-mix(in srgb, var(--base-ascent-theme-color) 8%, transparent);
+  color: var(--base-ascent-theme-color);
 }
 
 .drawer :global(.ant-menu-item-selected:hover) {
-  background: rgba(213, 58, 155, 0.12);
+  background: color-mix(in srgb, var(--base-ascent-theme-color) 12%, transparent);
 }
 
 @media (max-width: 600px) {

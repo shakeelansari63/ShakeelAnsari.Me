@@ -37,7 +37,7 @@ export default function LearnPage() {
         </Title>
 
         {loading ? (
-          <Row gutter={[16, 16]}>
+          <Row gutter={[24, 32]}>
             <Col xs={24} md={12}>
               <Skeleton active avatar paragraph={{ rows: 3 }} />
             </Col>
@@ -58,7 +58,7 @@ export default function LearnPage() {
             </Title>
           </div>
         ) : (
-          <Row gutter={[16, 16]}>
+          <Row gutter={[24, 32]} style={{ rowGap: 32 }}>
             {subjects.map(subject => (
               <Col key={subject.id} xs={24} md={12} lg={8}>
                 <Card

@@ -55,10 +55,10 @@ export default function MarkdownRenderer({ content }: Props) {
             <blockquote
               className="mx-0 my-3 px-4 py-2"
               style={{
-                borderLeft: '3px solid #d53a9d',
+                borderLeft: '3px solid var(--base-ascent-theme-color)',
                 background: isLight
-                  ? 'rgba(213, 58, 157, 0.05)'
-                  : 'rgba(213, 58, 157, 0.1)',
+                  ? 'color-mix(in srgb, var(--base-ascent-theme-color) 5%, transparent)'
+                  : 'color-mix(in srgb, var(--base-ascent-theme-color) 10%, transparent)',
               }}
             >
               {children}
