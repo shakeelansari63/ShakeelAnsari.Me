@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Skeleton } from 'antd';
+import { PictureOutlined } from '@ant-design/icons';
 
 interface Props {
   src: string;
@@ -35,15 +36,16 @@ export default function LazyImage({
       }}
     >
       {!loaded && (
-        <Skeleton
+        <Skeleton.Node
           active
-          avatar={{ size: 'large', shape: rounded ? 'circle' : 'square' }}
           style={{
             width: '100%',
             aspectRatio,
             borderRadius,
           }}
-        />
+        >
+          <PictureOutlined style={{ fontSize: 32, opacity: 0.45 }} />
+        </Skeleton.Node>
       )}
       <div
         style={{
