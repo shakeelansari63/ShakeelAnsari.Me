@@ -1,18 +1,12 @@
 # LR Schedules, AMP, Checkpoints & Eval Harness
 
-> Combined lessons (8 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Evaluation: Benchmarks, Evals, LM Harness
 
 > Goodhart's Law: when a measure becomes a target, it ceases to be a good measure. Every frontier lab games benchmarks. MMLU scores go up while models still can't reliably count the number of R's in "strawberry." The only eval that matters is YOUR eval -- on YOUR task, with YOUR data.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 10, Lessons 01-05 (LLMs from Scratch)
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build), ch046 (Data Pipelines, Mini-GPT & Corpus Builds), ch047 (Distributed Training, DualPipe & DeepSeek-V3)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -426,7 +420,7 @@ This lesson produces `outputs/prompt-eval-designer.md` and `outputs/skill-llm-ev
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 lessons 30 to 35
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build), ch038 (BERT, GPT, T5 & Building GPT from Scratch)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -493,7 +487,7 @@ Warmup ramps LR from zero to target over a few hundred steps. Cosine decay drops
 
 **Type:** Build
 **Languages:** Python (torch, numpy)
-**Prerequisites:** Phase 19 lessons 30-37
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build), ch038 (BERT, GPT, T5 & Building GPT from Scratch), Part 2 (Training Loop and Evaluation), ch052 (Complete LLM Pipeline)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -562,7 +556,7 @@ flowchart TD
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 lessons 42 to 45
+**Prerequisites:** ch046 (Data Pipelines, Mini-GPT & Corpus Builds), Part 5 (Cosine LR with Linear Warmup), Part 6 (Gradient Clipping and Mixed Precision)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -632,7 +626,7 @@ python3 code/main.py
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 lessons 30-37
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build), ch038 (BERT, GPT, T5 & Building GPT from Scratch), Part 2 (Training Loop and Evaluation), ch052 (Complete LLM Pipeline)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -718,7 +712,7 @@ python3 code/main.py
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 lessons 30-37
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build), ch038 (BERT, GPT, T5 & Building GPT from Scratch), Part 2 (Training Loop and Evaluation), ch052 (Complete LLM Pipeline)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -794,7 +788,7 @@ python3 code/main.py
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 lessons 42 to 45
+**Prerequisites:** ch046 (Data Pipelines, Mini-GPT & Corpus Builds), Part 5 (Cosine LR with Linear Warmup), Part 6 (Gradient Clipping and Mixed Precision)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -874,7 +868,7 @@ python3 code/main.py
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 lessons 42 to 45
+**Prerequisites:** ch046 (Data Pipelines, Mini-GPT & Corpus Builds), Part 5 (Cosine LR with Linear Warmup), Part 6 (Gradient Clipping and Mixed Precision)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -949,3 +943,9 @@ python3 code/main.py
 | Mid-epoch resume | Fast-forward RNG and continue from next batch |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/47-checkpoint-save-resume)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

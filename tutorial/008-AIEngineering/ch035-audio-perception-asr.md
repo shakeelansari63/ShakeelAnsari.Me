@@ -1,18 +1,12 @@
 # Audio Features, Classification, ASR & Whisper
 
-> Combined lessons (8 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Audio Fundamentals — Waveforms, Sampling, Fourier Transform
 
 > Waveforms are the raw signal. Spectrograms are the representation. Mel features are the ML-friendly form. Every modern ASR and TTS pipeline walks this ladder, and the first rung is understanding sampling and Fourier.
 
 **Type:** Learn
 **Languages:** Python
-**Prerequisites:** Phase 1 · 06 (Vectors & Matrices), Phase 1 · 14 (Probability Distributions)
+**Prerequisites:** ch004 (Linear Algebra), ch006 (Probability & Statistics)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -32,7 +26,7 @@ Every bug in speech systems traces back to one of three questions:
 2. Is the signal aliased?
 3. Are you operating on raw samples or on a frequency representation?
 
-Get these right and the rest of Phase 6 is tractable. Get them wrong and even Whisper-Large-v4 produces garbage.
+Get these right and the rest of ch035–ch036 (Speech & Audio) is tractable. Get them wrong and even Whisper-Large-v4 produces garbage.
 
 ## The Concept
 
@@ -173,7 +167,7 @@ Save as `outputs/skill-audio-loader.md`. The skill helps you check that audio in
 
 1. **Easy.** Synthesize a 1-second mix of 220 Hz + 440 Hz + 880 Hz at 16 kHz. Run DFT. Confirm three peaks at the expected bins.
 2. **Medium.** Record a 3-second WAV of your voice at 48 kHz. Downsample to 16 kHz using `torchaudio.transforms.Resample` (with anti-aliasing), then to 16 kHz using naive decimation (every third sample). FFT both. Where does the aliasing appear?
-3. **Hard.** Build the STFT from scratch using only `math` and the DFT from Step 3. Frame size 400, hop 160, Hann window. Plot magnitudes with `matplotlib.pyplot.imshow`. This is the spectrogram of Lesson 02.
+3. **Hard.** Build the STFT from scratch using only `math` and the DFT from Step 3. Frame size 400, hop 160, Hann window. Plot magnitudes with `matplotlib.pyplot.imshow`. This is the spectrogram of Part 2.
 
 ## Key Terms
 
@@ -198,7 +192,7 @@ Save as `outputs/skill-audio-loader.md`. The skill helps you check that audio in
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 6 · 01 (Audio Fundamentals)
+**Prerequisites:** Part 1 (Audio Fundamentals — Waveforms, Sampling, Fourier Transform)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -366,7 +360,7 @@ Save as `outputs/skill-feature-extractor.md`. The skill picks feature type, mel 
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 6 · 02 (Spectrograms & Mel), Phase 3 · 06 (CNNs), Phase 5 · 08 (CNNs & RNNs for Text)
+**Prerequisites:** Part 2 (Spectrograms, Mel Scale & Audio Features), ch015 (Activations), ch032 (RNNs, Seq2Seq & the Attention Breakthrough)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -542,7 +536,7 @@ Save as `outputs/skill-classifier-designer.md`. Pick architecture, augmentations
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 6 · 02 (Spectrograms & Mel), Phase 5 · 08 (CNNs & RNNs for Text), Phase 5 · 10 (Attention)
+**Prerequisites:** Part 2 (Spectrograms, Mel Scale & Audio Features), ch032 (RNNs, Seq2Seq & the Attention Breakthrough)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -718,7 +712,7 @@ Save as `outputs/skill-asr-picker.md`. Pick model, decoding strategy, chunking, 
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 6 · 04 (ASR), Phase 5 · 10 (Attention), Phase 7 · 05 (Full Transformer)
+**Prerequisites:** Part 4 (Speech Recognition (ASR) — CTC, RNN-T, Attention), ch032 (RNNs, Seq2Seq & the Attention Breakthrough), ch038 (BERT, GPT, T5 & Building GPT from Scratch)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -893,7 +887,7 @@ Save as `outputs/skill-whisper-tuner.md`. Design a Whisper fine-tune or inferenc
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 6 · 02 (Spectrograms & Mel), Phase 5 · 22 (Embedding Models)
+**Prerequisites:** Part 2 (Spectrograms, Mel Scale & Audio Features), ch054 (Embeddings)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -1059,7 +1053,7 @@ Save as `outputs/skill-speaker-verifier.md`. Pick model, enrollment protocol, th
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 6 · 11 (Real-Time Audio), Phase 6 · 12 (Voice Assistant)
+**Prerequisites:** ch036 (TTS, Voice Cloning, Music & Real-Time Audio)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -1228,7 +1222,7 @@ Save as `outputs/skill-vad-tuner.md`. Pick VAD model, threshold, hangover, pre-r
 
 **Type:** Learn
 **Languages:** Python
-**Prerequisites:** Phase 6 · 04, 06, 07, 09, 10; Phase 2 · 09 (Model Evaluation)
+**Prerequisites:** Part 4 (Speech Recognition (ASR) — CTC, RNN-T, Attention), Part 6 (Speaker Recognition & Verification), ch036 (TTS, Voice Cloning, Music & Real-Time Audio), ch013 (Evaluation, Tuning, Ensembles & Special Data)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -1391,7 +1385,7 @@ Save as `outputs/skill-audio-evaluator.md`. Pick metrics, benchmarks, and report
 
 1. **Easy.** Run `code/main.py`. Compute WER / CER / EER / SECS / FAD-ish / MMAU-ish on toy inputs.
 2. **Medium.** Build a TTS round-trip WER harness. Run Kokoro or F5-TTS output through Whisper. Compute WER over 50 prompts.
-3. **Hard.** Score your Lesson 10 LALM choice on MMAU-Pro speech + multi-audio subsets (50 items each). Report per-category accuracy.
+3. **Hard.** Score your ch036 Part 4 LALM choice on MMAU-Pro speech + multi-audio subsets (50 items each). Report per-category accuracy.
 
 ## Key Terms
 
@@ -1408,3 +1402,9 @@ Save as `outputs/skill-audio-evaluator.md`. Pick metrics, benchmarks, and report
 | RTFx | Throughput | Audio seconds per wall-clock second. |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/06-speech-and-audio/17-audio-evaluation-metrics)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

@@ -1,18 +1,12 @@
 # Why Multi-Agent, Protocols, Supervisors & Group Chat
 
-> Combined lessons (8 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Why Multi-Agent?
 
 > One agent hits a wall. The smart move is not a bigger agent - it is more agents.
 
 **Type:** Learn
 **Languages:** TypeScript
-**Prerequisites:** Phase 14 (Agent Engineering)
+**Prerequisites:** ch067–ch077 (Agent Engineering)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -24,7 +18,7 @@
 
 ## The Problem
 
-You built a single agent in Phase 14. It works. It can read files, run commands, call APIs, and reason about results. Then you point it at a real codebase: 200 files, three languages, tests that depend on infrastructure, and a requirement to research external APIs before writing code.
+You built a single agent in ch067–ch077 (Agent Engineering). It works. It can read files, run commands, call APIs, and reason about results. Then you point it at a real codebase: 200 files, three languages, tests that depend on infrastructure, and a requirement to research external APIs before writing code.
 
 The agent chokes. Not because the LLM is dumb, but because the task exceeds what one agent loop can handle. The context window fills up with file contents. The agent forgets what it read 40 tool calls ago. It tries to be a researcher, a coder, and a reviewer all at once, and does all three poorly.
 
@@ -284,7 +278,7 @@ The multi-agent version uses more total tokens but each agent's context stays cl
 
 **Type:** Learn
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 16 · 01 (Why Multi-Agent)
+**Prerequisites:** Part 1 (Why Multi-Agent?)
 **Time:** ~60 minutes
 
 ## Problem
@@ -457,7 +451,7 @@ Do not bring FIPA-ACL back. Bring back its checklist:
 
 **Type:** Build
 **Languages:** TypeScript
-**Prerequisites:** Phase 14 (Agent Engineering), Lesson 16.01 (Why Multi-Agent)
+**Prerequisites:** ch067–ch077 (Agent Engineering), Part 1 (Why Multi-Agent?)
 **Time:** ~120 minutes
 
 ## Learning Objectives
@@ -1179,7 +1173,7 @@ graph TD
 
 **Type:** Learn
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 (Agent Engineering), Phase 16 · 01 (Why Multi-Agent)
+**Prerequisites:** ch067–ch077 (Agent Engineering), Part 1 (Why Multi-Agent?)
 **Time:** ~60 minutes
 
 ## Problem
@@ -1282,7 +1276,7 @@ Expected output: three orchestrator runs, one per pattern. Each prints the final
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib, `threading`)
-**Prerequisites:** Phase 16 · 04 (Primitive Model)
+**Prerequisites:** Part 4 (The Multi-Agent Primitive Model)
 **Time:** ~75 minutes
 
 ## Problem
@@ -1406,7 +1400,7 @@ Checklist before deploying a supervisor pattern:
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 16 · 05 (Supervisor Pattern)
+**Prerequisites:** Part 5 (Supervisor / Orchestrator-Worker Pattern)
 **Time:** ~60 minutes
 
 ## Problem
@@ -1516,7 +1510,7 @@ If you ship hierarchical:
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 16 · 04 (Primitive Model)
+**Prerequisites:** Part 4 (The Multi-Agent Primitive Model)
 **Time:** ~60 minutes
 
 ## Problem
@@ -1636,7 +1630,7 @@ Checklist:
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 16 · 04 (Primitive Model)
+**Prerequisites:** Part 4 (The Multi-Agent Primitive Model)
 **Time:** ~60 minutes
 
 ## Problem
@@ -1740,3 +1734,9 @@ Checklist:
 - [Anthropic handoff-in-Claude notes](https://docs.anthropic.com/en/docs/claude-code)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/16-multi-agent-and-swarms/11-handoffs-and-routines)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

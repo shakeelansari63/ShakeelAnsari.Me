@@ -1,18 +1,12 @@
 # Roles, Swarms & Voting Topologies
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Society of Mind and Multi-Agent Debate
 
 > Minsky's 1986 premise — intelligence is a society of specialists — gets rediscovered every decade. In 2023 Du et al. turned it into a concrete algorithm: multiple LLM instances propose answers, read each other's answers, critique, and update. Over N rounds they converge on a consensus that beats zero-shot CoT and reflection.
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 16 · 04 (Primitive Model)
+**Prerequisites:** ch090 (Why Multi-Agent)
 **Time:** ~60 minutes
 
 ## Problem
@@ -118,7 +112,7 @@ python3 code/main.py
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 16 · 04 (Primitive Model), Phase 16 · 05 (Supervisor)
+**Prerequisites:** ch090 (Why Multi-Agent)
 **Time:** ~60 minutes
 
 ## Problem
@@ -230,7 +224,7 @@ Checklist:
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib, `threading`, `queue`)
-**Prerequisites:** Phase 16 · 05 (Supervisor Pattern), Phase 16 · 04 (Primitive Model)
+**Prerequisites:** ch090 (Why Multi-Agent)
 **Time:** ~75 minutes
 
 ## Problem
@@ -343,7 +337,7 @@ Checklist:
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 16 · 07 (Society of Mind and Debate), Phase 16 · 14 (Consensus and BFT)
+**Prerequisites:** Part 1 (Society of Mind and Multi-Agent Debate), ch092 (A2A, Blackboards, Consensus & Negotiation)
 **Time:** ~75 minutes
 
 ## Problem
@@ -450,3 +444,9 @@ Expected output: a table of topology × N → (accuracy, tokens, latency). Graph
 - [MARBLE repo](https://github.com/ulab-uiuc/MARBLE)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/16-multi-agent-and-swarms/15-voting-debate-topology)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

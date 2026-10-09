@@ -1,18 +1,12 @@
 # MCP Resources, Sampling, Roots, Tasks & Apps
 
-> Combined lessons (5 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: MCP Resources and Prompts — Context Exposure Beyond Tools
 
 > Tools get 90 percent of MCP attention. The other two server primitives solve different problems. Resources expose data for reading; prompts expose reusable templates as slash-commands.
 
 **Type:** Build
 **Languages:** Python (stdlib, resource + prompt handler)
-**Prerequisites:** Phase 13 · 07
+**Prerequisites:** ch061 (MCP Fundamentals)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -63,14 +57,14 @@ A resource URI can compute content dynamically: `notes://recent` returns the lat
 
 ## Use It
 
-`code/main.py` extends the notes server from Lesson 07 with per-note resources, a `review_note` prompt, a file-watcher simulation emitting `notifications/resources/updated`, and a `notes://recent` dynamic resource.
+`code/main.py` extends the notes server from ch061 Part 3 with per-note resources, a `review_note` prompt, a file-watcher simulation emitting `notifications/resources/updated`, and a `notes://recent` dynamic resource.
 
 ## Exercises
 
 1. Trigger a note edit and verify `notifications/resources/updated` fires.
 2. Add a `resources/list_changed` emitter when a new note is created.
 3. Design three prompts for a GitHub MCP server.
-4. Reclassify an existing Lesson 07 tool as resource + tool pair.
+4. Reclassify an existing ch061 Part 3 tool as resource + tool pair.
 5. Read the spec and identify the rarely-populated field in `resources/read`.
 
 ## Key Terms
@@ -94,7 +88,7 @@ A resource URI can compute content dynamically: `notes://recent` returns the lat
 
 **Type:** Build
 **Languages:** Python (stdlib, sampling harness)
-**Prerequisites:** Phase 13 · 07, 10
+**Prerequisites:** ch061 (MCP Fundamentals), Part 1 (MCP Resources and Prompts — Context Exposure Beyond Tools)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -188,7 +182,7 @@ The server never touches an LLM API. The client's user pays for completions.
 
 **Type:** Build
 **Languages:** Python (stdlib, roots + elicitation demo)
-**Prerequisites:** Phase 13 · 07
+**Prerequisites:** ch061 (MCP Fundamentals)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -288,7 +282,7 @@ Instead of a schema, the server sends a URL for OAuth flows, payment authorizati
 
 **Type:** Build
 **Languages:** Python (stdlib, async task state machine)
-**Prerequisites:** Phase 13 · 07, 09
+**Prerequisites:** ch061 (MCP Fundamentals)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -392,7 +386,7 @@ A task can itself call `sampling/createMessage`. Long-running research tasks wor
 
 **Type:** Build
 **Languages:** Python (stdlib, UI resource emitter), HTML (sample app)
-**Prerequisites:** Phase 13 · 07, 10
+**Prerequisites:** ch061 (MCP Fundamentals), Part 1 (MCP Resources and Prompts — Context Exposure Beyond Tools)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -486,3 +480,9 @@ After iframe loads, it sends `ui/initialize` with theme, locale, sessionId. Host
 | `ui/initialize` | First postMessage handshake from UI to host |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/13-tools-and-protocols/14-mcp-apps)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

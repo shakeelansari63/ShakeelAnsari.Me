@@ -1,18 +1,12 @@
 # Embodied VLAs, Documents & Multimodal RAG/Agents
 
-> Combined lessons (6 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Embodied VLAs: RT-2, OpenVLA, π0, GR00T
 
-> The first time a model read a recipe off a website and executed it in a kitchen robot was RT-2 (Google DeepMind, July 2023). RT-2 discretized actions as text tokens, co-fine-tuned a VLM on web data plus robot-action data, and proved that web-scale vision-language knowledge transfers to robotic control. OpenVLA (June 2024) shipped the open 7B reference. Physical Intelligence's π0 series (2024-2025) added flow-matching action experts. NVIDIA's GR00T N1 (March 2025) delivered dual-system (System 1 / System 2) control for humanoid robots at scale. The VLA primitive — vision-language-action, a single model that sees, reads, and acts — is the bridge between this phase's understanding models and the autonomous systems in Phase 15.
+> The first time a model read a recipe off a website and executed it in a kitchen robot was RT-2 (Google DeepMind, July 2023). RT-2 discretized actions as text tokens, co-fine-tuned a VLM on web data plus robot-action data, and proved that web-scale vision-language knowledge transfers to robotic control. OpenVLA (June 2024) shipped the open 7B reference. Physical Intelligence's π0 series (2024-2025) added flow-matching action experts. NVIDIA's GR00T N1 (March 2025) delivered dual-system (System 1 / System 2) control for humanoid robots at scale. The VLA primitive — vision-language-action, a single model that sees, reads, and acts — is the bridge between the Multimodal AI chapters' understanding models and the autonomous systems in ch071, ch074, ch078, ch080–ch084 (Autonomous Systems).
 
 **Type:** Learn
 **Languages:** Python (stdlib, action tokenizer + VLA inference skeleton)
-**Prerequisites:** Phase 12 · 05 (LLaVA), Phase 15 (Autonomous Systems, referenced)
+**Prerequisites:** ch024 (LLaVA, Any-Resolution & Open-Weight Recipes), ch071, ch074, ch078, ch080–ch084 (Autonomous Systems)
 **Time:** ~180 minutes
 
 ## Learning Objectives
@@ -169,7 +163,7 @@ This lesson produces `outputs/skill-vla-action-format-picker.md`. Given a robot 
 
 **Type:** Build
 **Languages:** Python (stdlib, layout-aware document parser skeleton)
-**Prerequisites:** Phase 12 · 05 (LLaVA), Phase 5 (NLP)
+**Prerequisites:** ch024 (LLaVA, Any-Resolution & Open-Weight Recipes), ch030–ch034, ch054, ch058 (NLP)
 **Time:** ~180 minutes
 
 ## Learning Objectives
@@ -345,7 +339,7 @@ This lesson produces `outputs/skill-document-ai-stack-picker.md`. Given a docume
 
 **Type:** Build
 **Languages:** Python (stdlib, multi-vector indexer + MaxSim scorer)
-**Prerequisites:** Phase 11 (LLM Engineering — RAG basics), Phase 12 · 05 (LLaVA)
+**Prerequisites:** ch053–ch058, ch061 (LLM Engineering), ch024 (LLaVA, Any-Resolution & Open-Weight Recipes)
 **Time:** ~180 minutes
 
 ## Learning Objectives
@@ -503,7 +497,7 @@ This lesson produces `outputs/skill-vision-rag-designer.md`. Given a document-RA
 
 **Type:** Build
 **Languages:** Python (stdlib, cross-modal retriever with fusion + grounded generator)
-**Prerequisites:** Phase 12 · 23 (ColPali), Phase 11 (RAG basics)
+**Prerequisites:** Part 3 (ColPali and Vision-Native Document RAG), ch053–ch058, ch061 (LLM Engineering)
 **Time:** ~180 minutes
 
 ## Learning Objectives
@@ -592,7 +586,7 @@ This is well beyond text-RAG. Each modality adds signal that text alone misses.
 
 ### Agentic multimodal RAG
 
-Multi-hop: if the first retrieval does not return high-confidence answers, the LLM reformulates and retrieves again. Agentic RAG patterns from Phase 14 apply here. Examples:
+Multi-hop: if the first retrieval does not return high-confidence answers, the LLM reformulates and retrieves again. Agentic RAG patterns from ch067–ch077 (Agent Engineering) apply here. Examples:
 
 - Retrieve initial top-10 → LLM asks "too noisy, filter for <40 dB" → re-retrieve.
 - Retrieve images → LLM sees one has a menu → retrieve the menu text → answer.
@@ -660,11 +654,11 @@ This lesson produces `outputs/skill-multimodal-rag-designer.md`. Given a product
 
 ## Part 5: Multimodal Agents and Computer-Use (Capstone)
 
-> The 2026 frontier product is a multimodal agent that reads screenshots, clicks buttons, navigates web UIs, fills forms, and completes workflows end-to-end. SeeClick and CogAgent (2024) proved the GUI-grounding primitive. Ferret-UI added mobile. ChartAgent introduced visual tool-use for charts. VisualWebArena and AgentVista (2026) are the benchmarks the frontier chases — and even Gemini 3 Pro and Claude Opus 4.7 score ~30% on AgentVista's hard tasks. This capstone pulls together every thread of Phase 12: perception (high-res VLM), reasoning (LLM with tool use), grounding (coordinate output), long-horizon memory, and evaluation.
+> The 2026 frontier product is a multimodal agent that reads screenshots, clicks buttons, navigates web UIs, fills forms, and completes workflows end-to-end. SeeClick and CogAgent (2024) proved the GUI-grounding primitive. Ferret-UI added mobile. ChartAgent introduced visual tool-use for charts. VisualWebArena and AgentVista (2026) are the benchmarks the frontier chases — and even Gemini 3 Pro and Claude Opus 4.7 score ~30% on AgentVista's hard tasks. This capstone pulls together every thread of ch021, ch023–ch028 (Multimodal AI): perception (high-res VLM), reasoning (LLM with tool use), grounding (coordinate output), long-horizon memory, and evaluation.
 
 **Type:** Capstone
 **Languages:** Python (stdlib, action schema + agent loop skeleton)
-**Prerequisites:** Phase 12 · 05 (LLaVA), Phase 12 · 09 (Qwen-VL JSON), Phase 14 (Agent Engineering)
+**Prerequisites:** ch024 (LLaVA, Any-Resolution & Open-Weight Recipes), ch025 (Qwen-VL, InternVL, Chameleon & Emu3), ch067–ch077 (Agent Engineering)
 **Time:** ~240 minutes
 
 ## Learning Objectives
@@ -838,7 +832,7 @@ This lesson produces `outputs/skill-multimodal-agent-designer.md`. Given a compu
 
 **Type:** Capstone
 **Languages:** Python (pipeline), TypeScript (viewer UI)
-**Prerequisites:** Phase 4 (computer vision), Phase 5 (NLP), Phase 7 (transformers), Phase 11 (LLM engineering), Phase 12 (multimodal), Phase 17 (infrastructure)
+**Prerequisites:** ch017–ch023 (Computer Vision), ch030–ch034, ch054, ch058 (NLP), ch037–ch040 (Transformers), ch053, ch055–ch057, ch061 (LLM Engineering), ch024–ch027 (Multimodal AI), ch095–ch100 (Infrastructure & Production)
 **Time:** 30 hours
 
 ## Problem
@@ -962,3 +956,9 @@ answer:
 - [Nougat OCR](https://github.com/facebookresearch/nougat)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/04-multimodal-document-qa)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

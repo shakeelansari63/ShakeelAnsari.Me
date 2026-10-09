@@ -1,11 +1,5 @@
 # Translation, Summarization, QA & Search
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Machine Translation
 
 Translation is the task that paid for NLP research for thirty years and keeps paying now.
@@ -550,3 +544,9 @@ def hybrid_search(query, bm25, encoder, dense_embeddings, corpus, top_k=5, pool_
 | Recall@k | Fraction of queries where a relevant doc is in top-k. |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/05-nlp-foundations-to-advanced/14-information-retrieval-search)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

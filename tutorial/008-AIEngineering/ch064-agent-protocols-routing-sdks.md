@@ -1,18 +1,12 @@
 # A2A, OTel, Routing, SDKs & Tool Capstone
 
-> Combined lessons (5 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: A2A — Agent-to-Agent Protocol
 
 > MCP is agent-to-tool. A2A is agent-to-agent — an open protocol for letting opaque agents built on different frameworks collaborate. Released by Google in April 2025, donated to the Linux Foundation in June 2025, v1.0 in April 2026.
 
 **Type:** Build
 **Languages:** Python (stdlib, Agent Card + Task harness)
-**Prerequisites:** Phase 13 · 06, 08
+**Prerequisites:** ch061 (MCP Fundamentals)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -124,7 +118,7 @@ Use MCP for specific tools, A2A for delegating whole tasks. Many systems use bot
 
 **Type:** Build
 **Languages:** Python (stdlib, OTel span emitter)
-**Prerequisites:** Phase 13 · 07, 08
+**Prerequisites:** ch061 (MCP Fundamentals)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -226,7 +220,7 @@ Alongside spans: `gen_ai.client.token.usage` (histogram), `gen_ai.client.operati
 
 **Type:** Learn
 **Languages:** Python (stdlib, routing + failover + cost tracker)
-**Prerequisites:** Phase 13 · 02, 17
+**Prerequisites:** ch060 (Tool Interface, Function Calling & Schemas), ch063 (MCP Security, Gateways & Production Auth)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -339,7 +333,7 @@ cost = tokens_in * PRICING[provider, model]["input"] + tokens_out * PRICING[prov
 
 **Type:** Learn
 **Languages:** Python (stdlib, SKILL.md parser and loader)
-**Prerequisites:** Phase 13 · 07
+**Prerequisites:** ch061 (MCP Fundamentals)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -456,11 +450,11 @@ Launched October 2025. Built directly on MCP: an MCP server (tools, resources, p
 
 ## Part 5: Capstone — Build a Complete Tool Ecosystem
 
-> Phase 13 taught every piece. This capstone wires them into one production-shaped system: an MCP server with tools + resources + prompts + tasks + UI, OAuth 2.1 at the edge, an RBAC gateway, a multi-server client, an A2A sub-agent call, OTel tracing into a collector, tool-poisoning detection in CI, and an AGENTS.md + SKILL.md bundle.
+> ch060–ch064 (Tools & Protocols) taught every piece. This capstone wires them into one production-shaped system: an MCP server with tools + resources + prompts + tasks + UI, OAuth 2.1 at the edge, an RBAC gateway, a multi-server client, an A2A sub-agent call, OTel tracing into a collector, tool-poisoning detection in CI, and an AGENTS.md + SKILL.md bundle.
 
 **Type:** Build
 **Languages:** Python (stdlib, end-to-end ecosystem harness)
-**Prerequisites:** Phase 13 · 01 through 21
+**Prerequisites:** ch060 (Tool Interface, Function Calling & Schemas), ch061 (MCP Fundamentals), ch062 (MCP Resources, Sampling, Roots, Tasks & Apps), ch063 (MCP Security, Gateways & Production Auth), Part 1 (A2A — Agent-to-Agent Protocol), Part 2 (OpenTelemetry GenAI — Tracing Tool Calls End-to-End), Part 3 (LLM Routing Layer — LiteLLM, OpenRouter, Portkey)
 **Time:** ~120 minutes
 
 ## Learning Objectives
@@ -535,18 +529,18 @@ research-system/
     config.yaml                 # RBAC + pinned manifest
 ```
 
-### What each lesson contributed
+### What each part contributed
 
-| Lesson | Capstone usage |
+| Ref | Capstone usage |
 |--------|----------------|
-| 01-05 | Tool interface, provider-portability, parallel calls, schemas, linting |
-| 06-10 | MCP primitives, server, client, transports, resources + prompts |
-| 11-14 | Sampling, roots + elicitation, async tasks, `ui://` apps |
-| 15-17 | Tool poisoning, OAuth 2.1, gateway + registry |
-| 18 | A2A sub-agent delegation |
-| 19 | OTel GenAI tracing |
-| 20 | Routing gateway for LLM layer |
-| 21 | SKILL.md + AGENTS.md packaging |
+| ch060 Parts 1–5 | Tool interface, provider-portability, parallel calls, schemas, linting |
+| ch061 Parts 2–5, ch062 Part 1 | MCP primitives, server, client, transports, resources + prompts |
+| ch062 Parts 2–5 | Sampling, roots + elicitation, async tasks, `ui://` apps |
+| ch063 Parts 1–3 | Tool poisoning, OAuth 2.1, gateway + registry |
+| ch064 Part 1 | A2A sub-agent delegation |
+| ch064 Part 2 | OTel GenAI tracing |
+| ch064 Part 3 | Routing gateway for LLM layer |
+| ch064 Part 4 | SKILL.md + AGENTS.md packaging |
 
 ## Use It
 
@@ -554,9 +548,9 @@ research-system/
 
 ## Exercises
 
-1. Run the demo and count how many primitives from Phase 13 it touches.
+1. Run the demo and count how many primitives from ch060–ch064 (Tools & Protocols) it touches.
 2. Add a second backend MCP server (e.g. `bibliography`) and verify namespace merging.
-3. Replace the fake A2A writer with a real subprocess (use Lesson 19 harness).
+3. Replace the fake A2A writer with a real subprocess (use Part 1 harness).
 4. Add PII redaction in the routing gateway between orchestrator and LLM.
 5. Write an AGENTS.md for a teammate — under 5 minutes to read, everything needed to drive the capstone.
 
@@ -564,7 +558,7 @@ research-system/
 
 | Term | What it actually means |
 |------|------------------------|
-| Capstone | End-to-end system using every Phase 13 primitive |
+| Capstone | End-to-end system using every ch060–ch064 (Tools & Protocols) primitive |
 | Research and report | Search, summarize, render pattern |
 | Trace hierarchy | Single trace id across every hop |
 | Gateway-issued token | Client sees only gateway's token; gateway holds upstream creds |
@@ -573,3 +567,9 @@ research-system/
 | Defense-in-depth | Pinned hashes, OAuth, RBAC, Rule of Two, audit log |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/13-tools-and-protocols/23-capstone-tool-ecosystem)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

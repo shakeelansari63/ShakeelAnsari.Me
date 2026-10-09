@@ -1,18 +1,12 @@
 # MCP Security, Gateways & Production Auth
 
-> Combined lessons (5 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: MCP Security I — Tool Poisoning, Rug Pulls, Cross-Server Shadowing
 
 > Tool descriptions land in the model's context verbatim. Malicious servers embed hidden instructions that users never see. Research in 2025-2026 measured attack-success rates above 70% on frontier models and ~85% against state-of-the-art defenses under adaptive attacks.
 
 **Type:** Learn
 **Languages:** Python (stdlib, hash-pin + poisoning detector)
-**Prerequisites:** Phase 13 · 07, 08
+**Prerequisites:** ch061 (MCP Fundamentals)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -116,7 +110,7 @@ def lint_description(desc, tool_name):
 
 **Type:** Build
 **Languages:** Python (stdlib, OAuth state machine simulator)
-**Prerequisites:** Phase 13 · 09, 15
+**Prerequisites:** ch061 (MCP Fundamentals), Part 1 (MCP Security I — Tool Poisoning, Rug Pulls, Cross-Server Shadowing)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -209,7 +203,7 @@ Access tokens: 1 hour default. Refresh tokens rotate on every refresh. Client ha
 
 **Type:** Learn
 **Languages:** Python (stdlib, minimal gateway)
-**Prerequisites:** Phase 13 · 15, 16
+**Prerequisites:** Part 1 (MCP Security I — Tool Poisoning, Rug Pulls, Cross-Server Shadowing), Part 2 (MCP Security II — OAuth 2.1, Resource Indicators, Incremental Scopes)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -295,11 +289,11 @@ Gateways merge tool namespaces with prefix-on-collision: `github.open_pr`, `note
 
 ## Part 4: MCP Auth in Production — Enrollment, JWKS Refresh, Audience-Pinned Tokens
 
-> Lesson 16 stood up the OAuth 2.1 state machine in memory. By 2026, every MCP server you ship to a real org sits behind production auth: client enrollment that scales, authorization-server metadata discovery, JWKS cache refresh that does not break 3 a.m. token validation, and audience-pinned tokens that refuse cross-resource replay.
+> Part 2 stood up the OAuth 2.1 state machine in memory. By 2026, every MCP server you ship to a real org sits behind production auth: client enrollment that scales, authorization-server metadata discovery, JWKS cache refresh that does not break 3 a.m. token validation, and audience-pinned tokens that refuse cross-resource replay.
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 13 · 16, 17
+**Prerequisites:** Part 2 (MCP Security II — OAuth 2.1, Resource Indicators, Incremental Scopes), Part 3 (MCP Gateways and Registries — Enterprise Control Planes)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -311,7 +305,7 @@ Gateways merge tool namespaces with prefix-on-collision: `github.open_pr`, `note
 
 ## The Problem
 
-Lesson 16 ran OAuth 2.1 in memory. Production has three gaps: enrollment (thousands of clients, no manual registration), key rotation (JWKS refresh), and audience binding (preventing token replay).
+Part 2 ran OAuth 2.1 in memory. Production has three gaps: enrollment (thousands of clients, no manual registration), key rotation (JWKS refresh), and audience binding (preventing token replay).
 
 ## The Concept
 
@@ -437,7 +431,7 @@ Client must validate RFC 9207 `iss` parameter against the issuer it recorded bef
 
 **Type:** Capstone
 **Languages:** Python (server, via FastMCP) or TypeScript (@modelcontextprotocol/sdk), Go (registry service)
-**Prerequisites:** Phase 11 (LLM engineering), Phase 13 (tools and MCP), Phase 14 (agents), Phase 17 (infrastructure), Phase 18 (safety)
+**Prerequisites:** ch053–ch058, ch061 (LLM Engineering), ch060, ch062, ch064 (Tools & Protocols), ch067–ch077 (Agent Engineering), ch095–ch100 (Infrastructure & Production), ch083–ch088 (Ethics, Safety & Alignment)
 **Time:** 25 hours
 
 ## Problem
@@ -566,3 +560,9 @@ response:    { "result": { "rows": [[1]] } }
 - [SPIFFE / SPIRE](https://spiffe.io)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/13-mcp-server-with-registry)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

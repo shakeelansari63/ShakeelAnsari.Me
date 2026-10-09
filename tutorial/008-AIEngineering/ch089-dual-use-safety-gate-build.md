@@ -1,18 +1,12 @@
 # Cyber/Bio Risk & End-to-End Safety Gate
 
-> Combined lessons (7 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Dual-Use Risk — Cyber, Bio, Chem, Nuclear Uplift
 
-> The 2026 dual-use picture, domain by domain. Bio/chem: Lesson 17 covers WMDP; Anthropic's bioweapon-acquisition trial (2.53x uplift) and OpenAI's April 2025 Preparedness Framework v2 warning ("on the cusp of meaningfully helping novices create known biological threats") mark the inflection point. Cyber (November 2025 Anthropic report): Chinese-linked state actors used Claude's agentic coding tool to automate up to 90% of a cyberattack campaign, with human intervention only in 4-6 steps. Chem/bio execution gap erosion: the classic defense was "information access alone is insufficient." Vision-enabled frontier models (GPT-5.2, Gemini 3 Pro, Claude Opus 4.5, Grok 4.1) can observe wet-lab video and provide real-time correction. December 2025: OpenAI demonstrated GPT-5 iterating on wet-lab experiments, achieving 79x efficiency improvement via AI-driven protocol optimization. Novice-vs-expert pattern: AI provides greater relative uplift to novices but greater absolute capability to experts.
+> The 2026 dual-use picture, domain by domain. Bio/chem: ch087 Part 1 covers WMDP; Anthropic's bioweapon-acquisition trial (2.53x uplift) and OpenAI's April 2025 Preparedness Framework v2 warning ("on the cusp of meaningfully helping novices create known biological threats") mark the inflection point. Cyber (November 2025 Anthropic report): Chinese-linked state actors used Claude's agentic coding tool to automate up to 90% of a cyberattack campaign, with human intervention only in 4-6 steps. Chem/bio execution gap erosion: the classic defense was "information access alone is insufficient." Vision-enabled frontier models (GPT-5.2, Gemini 3 Pro, Claude Opus 4.5, Grok 4.1) can observe wet-lab video and provide real-time correction. December 2025: OpenAI demonstrated GPT-5 iterating on wet-lab experiments, achieving 79x efficiency improvement via AI-driven protocol optimization. Novice-vs-expert pattern: AI provides greater relative uplift to novices but greater absolute capability to experts.
 
 **Type:** Learn
 **Languages:** none
-**Prerequisites:** Phase 18 · 17 (WMDP), Phase 18 · 18 (safety frameworks), Phase 18 · 28 (ecosystem)
+**Prerequisites:** ch087 (Dual-Use Eval, Bias, Fairness & Ecosystem), ch084 (RSP, Preparedness, METR & Frontier Frameworks)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -24,13 +18,13 @@
 
 ## The Problem
 
-Lesson 17 is the measurement methodology. Lesson 30 is the 2026 state of the measurement. The picture shifted materially between 2024 and late 2025: each domain crossed a threshold that the 2024 frameworks did not anticipate.
+ch087 Part 1 is the measurement methodology. Part 1 is the 2026 state of the measurement. The picture shifted materially between 2024 and late 2025: each domain crossed a threshold that the 2024 frameworks did not anticipate.
 
 ## The Concept
 
 ### Bio/chem uplift narrative
 
-Three phases (repeated from Lesson 17 for coherence):
+Three phases (repeated from ch087 Part 1 for coherence):
 
 1. **2024 "mild uplift."** Early Preparedness/RSP evaluations reported small novice advantages over internet search.
 2. **April 2025 "on the cusp."** OpenAI PF v2 warned models were "on the cusp of meaningfully helping novices create known biological threats."
@@ -67,7 +61,7 @@ A pattern across all four domains:
 - **Novice-relative uplift.** High. Multiplicative. Per Anthropic 2025 bio, 2.53x.
 - **Expert-absolute capability.** High ceiling. An expert extracts more than a novice because the expert knows what to ask and how to interpret.
 
-Implication for safety cases: addressing only novice uplift (via input filters, refusals, uncertainty) is insufficient for expert-absolute control. Additional measures required: elicitation-hardening, capability unlearning (Lesson 17), and control protocols (Lesson 10).
+Implication for safety cases: addressing only novice uplift (via input filters, refusals, uncertainty) is insufficient for expert-absolute control. Additional measures required: elicitation-hardening, capability unlearning (ch087 Part 1), and control protocols (ch086 Part 5).
 
 ### Cross-domain synthesis
 
@@ -80,9 +74,9 @@ Implication for safety cases: addressing only novice uplift (via input filters, 
 
 Three domains crossed thresholds. One remains bounded by non-informational barriers.
 
-### Where this fits in Phase 18
+### Where this fits in the Ethics, Safety & Alignment chapters
 
-Lesson 30 is the capstone: the current dual-use picture that every prior lesson contributes to measuring, limiting, or governing. Lessons 17-18 give the measurement and frameworks; Lessons 12-16 give the evaluation tooling; Lessons 24-25 give the regulatory and disclosure layer; Lesson 28 gives the research ecosystem. Lesson 30 is where the evidence lands.
+Part 1 is the capstone: the current dual-use picture that every prior lesson contributes to measuring, limiting, or governing. ch087 Part 1, ch084 Part 5 give the measurement and frameworks; ch058 Parts 4–8 give the evaluation tooling; ch088 Parts 3–4 give the regulatory and disclosure layer; ch087 Part 5 gives the research ecosystem. Part 1 is where the evidence lands.
 
 ## Use It
 
@@ -100,7 +94,7 @@ This lesson produces `outputs/skill-dual-use-triage.md`. Given a 2026 capability
 
 3. Nuclear uplift appears bounded by material access. Argue for and against the position that a future AI breakthrough could shift this bottleneck.
 
-4. Construct a safety case (Lesson 18 three-pillar) for a cyber-capable frontier model that bounds both novice and expert uplift.
+4. Construct a safety case (the three-pillar model from ch084 Part 5) for a cyber-capable frontier model that bounds both novice and expert uplift.
 
 5. Pick one of the four domains and write a one-paragraph 2027 forecast based on the 2024-2025 trajectory. Identify the evidence that would falsify your forecast.
 
@@ -133,7 +127,7 @@ This lesson produces `outputs/skill-dual-use-triage.md`. Given a 2026 capability
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 18 safety lessons, Phase 19 Track A lessons 25-29
+**Prerequisites:** ch058, ch083–ch088 (Ethics, Safety & Alignment), ch066 (Harness: Planning, Sandbox, Eval & Demo)
 **Time:** ~90 min
 
 ## Problem
@@ -195,7 +189,7 @@ flowchart TB
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 18 safety lessons, Phase 19 Track A lessons 25-29
+**Prerequisites:** ch058, ch083–ch088 (Ethics, Safety & Alignment), ch066 (Harness: Planning, Sandbox, Eval & Demo)
 **Time:** ~90 min
 
 ## Problem
@@ -228,7 +222,7 @@ Each rule has a name, category, and score function. Substring rules and regex ru
 
 ## Build It
 
-`code/main.py` loads taxonomy from lesson 82. Rules live as data in `code/rules.py`. Detector class compiles rules once. Metrics runner produces per-category precision, recall, F1.
+`code/main.py` loads taxonomy from Part 2. Rules live as data in `code/rules.py`. Detector class compiles rules once. Metrics runner produces per-category precision, recall, F1.
 
 ## Key Terms
 
@@ -250,7 +244,7 @@ Each rule has a name, category, and score function. Substring rules and regex ru
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 18 safety lessons, Phase 19 Track A lessons 25-29
+**Prerequisites:** ch058, ch083–ch088 (Ethics, Safety & Alignment), ch066 (Harness: Planning, Sandbox, Eval & Demo)
 **Time:** ~90 min
 
 ## Problem
@@ -306,7 +300,7 @@ flowchart LR
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 18 safety lessons, Phase 19 Track A lessons 25-29
+**Prerequisites:** ch058, ch083–ch088 (Ethics, Safety & Alignment), ch066 (Harness: Planning, Sandbox, Eval & Demo)
 **Time:** ~90 min
 
 ## Problem
@@ -364,7 +358,7 @@ flowchart TB
 
 **Type:** Build
 **Languages:** Python, YAML
-**Prerequisites:** Phase 18 safety lessons, Phase 19 Track A lessons 25-29
+**Prerequisites:** ch058, ch083–ch088 (Ethics, Safety & Alignment), ch066 (Harness: Planning, Sandbox, Eval & Demo)
 **Time:** ~90 min
 
 ## Problem
@@ -425,12 +419,12 @@ flowchart LR
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 18 safety lessons, Phase 19 Track A lessons 25-29
+**Prerequisites:** ch058, ch083–ch088 (Ethics, Safety & Alignment), ch066 (Harness: Planning, Sandbox, Eval & Demo)
 **Time:** ~90 min
 
 ## Problem
 
-Lessons 82-86 each shipped a single piece. A real safety gate composes them at the right moment, decides action when they disagree, and produces a trace for review.
+Parts 2–6 each shipped a single piece. A real safety gate composes them at the right moment, decides action when they disagree, and produces a trace for review.
 
 ## Concept
 
@@ -473,3 +467,9 @@ flowchart TB
 | trace | structured per-request record with every checkpoint's verdict |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/87-end-to-end-safety-gate)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

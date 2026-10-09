@@ -1,18 +1,12 @@
 # Tool Interface, Function Calling & Schemas
 
-> Combined lessons (5 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: The Tool Interface — Why Agents Need Structured I/O
 
 > A language model produces tokens. A program takes actions. The gap between those two is the tool interface: a contract that lets the model request an action and the host execute it. Every 2026 stack — function calling on OpenAI, Anthropic, and Gemini; MCP's `tools/call`; A2A's task parts — is a different encoding of the same four-step loop.
 
 **Type:** Learn
 **Languages:** Python (stdlib, no LLM)
-**Prerequisites:** Phase 11
+**Prerequisites:** ch053–ch058, ch061 (LLM Engineering)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -133,7 +127,7 @@ A TypeScript equivalent (`code/main.ts`) mirrors the same shape.
 
 **Type:** Build
 **Languages:** Python (stdlib, schema translators)
-**Prerequisites:** Phase 13 · 01
+**Prerequisites:** Part 1 (The Tool Interface — Why Agents Need Structured I/O)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -233,7 +227,7 @@ def parse_gemini(resp):
 
 **Type:** Build
 **Languages:** Python (stdlib, thread pool + streaming harness)
-**Prerequisites:** Phase 13 · 02
+**Prerequisites:** Part 2 (Function Calling Deep Dive — OpenAI, Anthropic, Gemini)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -342,7 +336,7 @@ print(f"speedup: {seq_ms/par_ms:.2f}x")
 
 **Type:** Build
 **Languages:** Python (stdlib, JSON Schema 2020-12 subset)
-**Prerequisites:** Phase 13 · 02
+**Prerequisites:** Part 2 (Function Calling Deep Dive — OpenAI, Anthropic, Gemini)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -443,7 +437,7 @@ Outside strict mode: generate → parse → validate → if fail, inject error a
 
 **Type:** Learn
 **Languages:** Python (stdlib, tool schema linter)
-**Prerequisites:** Phase 13 · 01, Phase 13 · 04
+**Prerequisites:** Part 1 (The Tool Interface — Why Agents Need Structured I/O), Part 4 (Structured Output — JSON Schema, Pydantic, Zod, Constrained Decoding)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -543,3 +537,9 @@ Descriptions land in the model's context verbatim. The linter rejects descriptio
 | Namespace prefix | `notes_*` — shared prefix grouping related tools |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/13-tools-and-protocols/05-tool-schema-design)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

@@ -1,18 +1,12 @@
 # Debate, Failure Modes & Eval-Driven Dev
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Multi-Agent Debate and Collaboration
 
 > Du et al. (ICML 2024, "Society of Minds") run N model instances that independently propose answers, then iteratively critique each other over R rounds to converge. Improves factuality, rule-following, reasoning. Sparse topology beats full mesh on token cost.
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 12 (Workflow Patterns), Phase 14 · 05 (Self-Refine and CRITIC)
+**Prerequisites:** ch069 (HTN, Workflow & Orchestration Patterns), ch067 (Agent Loop, ReWOO, Reflexion & Tree Search)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -24,7 +18,7 @@
 
 ## The Problem
 
-Self-Refine (Lesson 05) is one model critiquing itself — risks groupthink. CRITIC (Lesson 05) grounds critique in external tools — not always available. Debate introduces a third mode: multiple instances, cross-critique, convergence by disagreement.
+Self-Refine (ch067 Part 5) is one model critiquing itself — risks groupthink. CRITIC (ch067 Part 5) grounds critique in external tools — not always available. Debate introduces a third mode: multiple instances, cross-critique, convergence by disagreement.
 
 ## The Concept
 
@@ -62,9 +56,9 @@ Implications:
 
 ### 2026 practical instantiations
 
-- **Anthropic orchestrator-workers** (Lesson 12) — one variant of debate with a synthesis step.
-- **LangGraph supervisor** (Lesson 13) — central router + specialist agents can implement debate as a node.
-- **OpenAI Agents SDK** (Lesson 16) — agents handoff back and forth for iterative critique.
+- **Anthropic orchestrator-workers** (ch069 Part 2) — one variant of debate with a synthesis step.
+- **LangGraph supervisor** (ch069 Part 3) — central router + specialist agents can implement debate as a node.
+- **OpenAI Agents SDK** (ch070 Part 3) — agents handoff back and forth for iterative critique.
 - **Multi-agent evals** — pair debate + evaluator-optimizer for eval signal.
 
 ### Where this pattern goes wrong
@@ -132,7 +126,7 @@ Output: per-protocol accuracy and cost; sparse matches full mesh on 2/3 question
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 05 (Self-Refine and CRITIC), Phase 14 · 24 (Observability)
+**Prerequisites:** ch067 (Agent Loop, ReWOO, Reflexion & Tree Search), ch072 (Voice Agents, OTel & Observability Dashboards)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -190,9 +184,9 @@ Cascading is the killer. Agents cannot distinguish "I failed" from "the task is 
 
 Automated verification gates at every step of a reasoning chain, checking factual grounding against environment state. Concretely:
 
-- Per-step safety classifier (Lesson 21).
-- Tool-call argument validation (Lesson 06).
-- Cross-check retrieved content against known facts (Lesson 05, CRITIC).
+- Per-step safety classifier (ch071 Part 3).
+- Tool-call argument validation (ch068 Part 1).
+- Cross-check retrieved content against known facts (ch067 Part 5, CRITIC).
 - Detect success hallucination by re-probing state (was the file actually created?).
 
 ### Where failure monitoring goes wrong
@@ -219,7 +213,7 @@ Output: per-trace labels + aggregate distribution, a cheap reproduction of what 
 
 ## Use It
 
-- **Phoenix** for production drift clustering (Lesson 24).
+- **Phoenix** for production drift clustering (ch072 Part 3).
 - **Langfuse** for session replay + annotation.
 - **Custom** for domain-specific signatures your observability platform can't detect.
 
@@ -261,7 +255,7 @@ Output: per-trace labels + aggregate distribution, a cheap reproduction of what 
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 06 (Tool Use), Phase 14 · 21 (Computer Use)
+**Prerequisites:** ch068 (Memory Systems, Mem0 & Skill Libraries), ch071 (SWE-bench, WebArena & Browser Agents)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -301,9 +295,9 @@ Six controls that have converged across vendor guidance:
 1. **Treat all retrieved content as untrusted.** OpenAI CUA docs: "only direct instructions from the user count as permission."
 2. **Allowlist / blocklist navigation.** Narrow the set of URLs, domains, or files the agent can touch.
 3. **Per-step safety evaluation.** Gemini 2.5 Computer Use pattern — assess each action before execution.
-4. **Guardrails on tool inputs and outputs.** Lesson 16 (OpenAI Agents SDK); Lesson 06 (argument validation).
+4. **Guardrails on tool inputs and outputs.** ch070 Part 3 (OpenAI Agents SDK); ch068 Part 1 (argument validation).
 5. **Human-in-the-loop confirmation.** Login, purchase, CAPTCHA, send-message — human decides.
-6. **Content capture with external storage.** Lesson 23 — store retrieved content externally; spans carry references, not prose; incidents are auditable.
+6. **Content capture with external storage.** ch072 Part 2 — store retrieved content externally; spans carry references, not prose; incidents are auditable.
 
 ### PVE: Prompt-Validator-Executor
 
@@ -340,7 +334,7 @@ Output: per-call trace showing validator verdicts and executor behavior.
 
 ## Use It
 
-- **OpenAI Agents SDK guardrails** (Lesson 16) — built-in PVE-shaped pattern.
+- **OpenAI Agents SDK guardrails** (ch070 Part 3) — built-in PVE-shaped pattern.
 - **Gemini 2.5 Computer Use safety service** — per-step vendor-managed.
 - **Anthropic tool-use best practices** — treat retrieved content as untrusted; Claude's system prompt discusses this explicitly.
 - **Custom PVE** — your own validator model for domain-specific injection patterns.
@@ -378,11 +372,11 @@ Output: per-call trace showing validator verdicts and executor behavior.
 
 ## Part 4: Eval-Driven Agent Development
 
-> Anthropic's guidance: "start with simple prompts, optimize them with comprehensive evaluation, and add multi-step agentic systems only when needed." Evaluation is not the last step. It's the outer loop that drives every other choice in Phase 14.
+> Anthropic's guidance: "start with simple prompts, optimize them with comprehensive evaluation, and add multi-step agentic systems only when needed." Evaluation is not the last step. It's the outer loop that drives every other choice in ch067–ch077 (Agent Engineering).
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib)
-**Prerequisites:** All of Phase 14.
+**Prerequisites:** ch067–ch072, ch074–ch077 (Agent Engineering)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -390,7 +384,7 @@ Output: per-call trace showing validator verdicts and executor behavior.
 - Name the three evaluation layers — static benchmarks, custom offline, online production — and what each is for.
 - Explain the evaluator-optimizer tight loop.
 - Describe the 2026 best practice: evals live next to code, run in CI, gate PRs.
-- Connect every Phase 14 lesson to the eval case it generates.
+- Connect every ch067–ch077 (Agent Engineering) lesson to the eval case it generates.
 
 ## The Problem
 
@@ -400,17 +394,17 @@ Agents pass demos. They fail in production in ways demos cannot predict. Benchma
 
 ### Three evaluation layers
 
-1. **Static benchmarks** — SWE-bench Verified for code (Lesson 19), WebArena/OSWorld for browsing / desktop (Lesson 20), GAIA for generalist (Lesson 19), BFCL V4 for tool use (Lesson 06). Use for cross-model comparison and regression gating. Contamination is real: SWE-bench+ found 32.67% solution leakage. Always report Verified / +-audited scores.
+1. **Static benchmarks** — SWE-bench Verified for code (ch071 Part 1), WebArena/OSWorld for browsing / desktop (ch071 Part 2), GAIA for generalist (ch071 Part 1), BFCL V4 for tool use (ch068 Part 1). Use for cross-model comparison and regression gating. Contamination is real: SWE-bench+ found 32.67% solution leakage. Always report Verified / +-audited scores.
 
 2. **Custom offline evals** — your product's shape:
-   - LLM-as-judge (Langfuse, Phoenix, Opik — Lesson 24).
+   - LLM-as-judge (Langfuse, Phoenix, Opik — ch072 Part 3).
    - Execution-based (run the patch, check tests).
    - Trajectory-based (compare action sequences against gold; OSWorld-Human shows top agents 1.4-2.7x over gold).
 
 3. **Online evals** — production:
    - Session replays (Langfuse).
-   - Guardrail-triggered alerts (Lesson 16, 21).
-   - Per-step cost / latency tracking (Lesson 23 OTel spans).
+   - Guardrail-triggered alerts (ch070 Part 3, ch071 Part 3).
+   - Per-step cost / latency tracking (ch072 Part 2 OTel spans).
 
 ### Evaluator-optimizer (Anthropic)
 
@@ -420,7 +414,7 @@ The tight loop:
 2. Evaluator judges.
 3. Refine until evaluator passes.
 
-This is Self-Refine (Lesson 05) generalized. Any agent flow you care about can wrap in evaluator-optimizer for reliability.
+This is Self-Refine (ch067 Part 5) generalized. Any agent flow you care about can wrap in evaluator-optimizer for reliability.
 
 ### 2026 best practice
 
@@ -430,37 +424,37 @@ This is Self-Refine (Lesson 05) generalized. Any agent flow you care about can w
 - Every guardrail maps to an eval case.
 - Every learned rule (Reflexion, pro-workflow learn-rule) maps to a failure case.
 
-### Tying Phase 14 together
+### Tying the Agent Engineering chapters together
 
-Every lesson in Phase 14 generates eval cases:
+Every lesson in ch067–ch077 (Agent Engineering) generates eval cases:
 
-| Lesson | Eval case it generates |
+| Ref | Eval case it generates |
 |--------|------------------------|
-| 01 Agent Loop | Budget-exhausted, infinite-loop guard |
-| 02 ReWOO | Planner replans correctly when a tool fails |
-| 03 Reflexion | Learned reflections apply on retry |
-| 05 Self-Refine/CRITIC | Judge passes refined output |
-| 06 Tool Use | Argument coercion works; unknown tools rejected |
-| 07-10 Memory | Retrieval citations match sources; stale facts invalidate |
-| 12 Workflow Patterns | Each pattern produces correct output |
-| 13 LangGraph | Resume reproduces state exactly |
-| 14 AutoGen Actors | DLQ catches crashed handlers |
-| 16 OpenAI Agents SDK | Guardrail trips on the right inputs |
-| 17 Claude Agent SDK | Subagent results return to orchestrator |
-| 19-20 Benchmarks | SWE-bench Verified score, WebArena success rate, OSWorld efficiency |
-| 21 Computer Use | Per-step safety catches injected DOM |
-| 23 OTel | Spans emit required attributes |
-| 26 Failure Modes | Detectors tag known failures |
-| 27 Prompt Injection | PVE refuses poisoned retrievals |
-| 28 Orchestration | Supervisor routes to the right specialist |
-| 29 Runtime Shapes | DLQ handles N% failure |
+| ch067 Part 1 (Agent Loop) | Budget-exhausted, infinite-loop guard |
+| ch067 Part 2 (ReWOO) | Planner replans correctly when a tool fails |
+| ch067 Part 3 (Reflexion) | Learned reflections apply on retry |
+| ch067 Part 5 (Self-Refine/CRITIC) | Judge passes refined output |
+| ch068 Part 1 (Tool Use) | Argument coercion works; unknown tools rejected |
+| ch068 Parts 2–5 (Memory) | Retrieval citations match sources; stale facts invalidate |
+| ch069 Part 2 (Workflow Patterns) | Each pattern produces correct output |
+| ch069 Part 3 (LangGraph) | Resume reproduces state exactly |
+| ch070 Part 1 (AutoGen Actors) | DLQ catches crashed handlers |
+| ch070 Part 3 (OpenAI Agents SDK) | Guardrail trips on the right inputs |
+| ch070 Part 4 (Claude Agent SDK) | Subagent results return to orchestrator |
+| ch071 Parts 1–2 (Benchmarks) | SWE-bench Verified score, WebArena success rate, OSWorld efficiency |
+| ch071 Part 3 (Computer Use) | Per-step safety catches injected DOM |
+| ch072 Part 2 (OTel) | Spans emit required attributes |
+| ch073 Part 2 (Failure Modes) | Detectors tag known failures |
+| ch073 Part 3 (Prompt Injection) | PVE refuses poisoned retrievals |
+| ch069 Part 4 (Orchestration) | Supervisor routes to the right specialist |
+| ch074 Part 1 (Runtime Shapes) | DLQ handles N% failure |
 
-If your eval suite has cases for each, you have covered Phase 14.
+If your eval suite has cases for each, you have covered ch067–ch077 (Agent Engineering).
 
 ### Where eval-driven development fails
 
 - **No baseline.** Evals without a last-known-good are unreadable. Store baselines.
-- **LLM-judge without grounding.** Judges hallucinate too. CRITIC pattern (Lesson 05) — judge grounds on external tools.
+- **LLM-judge without grounding.** Judges hallucinate too. CRITIC pattern (ch067 Part 5) — judge grounds on external tools.
 - **Over-fitting to evals.** Optimizing for the eval diverges from production usefulness. Rotate cases.
 - **Flaky evals.** Non-deterministic cases cause false alarms. Pin seeds, snapshot state.
 
@@ -495,7 +489,7 @@ Output: per-case pass/fail, regression flag, CI gate verdict.
 2. Build an LLM-judge rubric for your domain with three dimensions (factual, tone, scope). Score 50 sessions.
 3. Wire the eval suite into CI. Fail the build on >=5% regression.
 4. Add a trajectory-efficiency metric: how many steps did the agent take vs a gold trajectory?
-5. Map every Phase 14 lesson to an eval case in your suite. Any missing? That's a gap to close.
+5. Map every ch067–ch077 (Agent Engineering) lesson to an eval case in your suite. Any missing? That's a gap to close.
 
 ## Key Terms
 
@@ -517,3 +511,9 @@ Output: per-case pass/fail, regression flag, CI gate verdict.
 - [Langfuse docs](https://langfuse.com/) — evals + session replay in practice
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/14-agent-engineering/30-eval-driven-agent-development)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

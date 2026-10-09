@@ -1,18 +1,12 @@
 # Memory Systems, Mem0 & Skill Libraries
 
-> Combined lessons (5 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Tool Use and Function Calling
 
 > Toolformer (Schick et al., 2023) started self-supervised tool annotation. Berkeley Function Calling Leaderboard V4 (Patil et al., 2025) sets the 2026 bar: 40% agentic, 30% multi-turn, 10% live, 10% non-live, 10% hallucination. Single-turn is solved. Memory, dynamic decision-making, and long-horizon tool chains are not.
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 01 (Agent Loop), Phase 13 · 01 (Function Calling Deep Dive)
+**Prerequisites:** ch067 (Agent Loop, ReWOO, Reflexion & Tree Search), ch060 (Tool Interface, Function Calling & Schemas)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -87,7 +81,7 @@ Engineering rule: treat correlation IDs as load-bearing. Swap them and you get w
 
 ### Sandboxing
 
-Tool execution is the sandbox boundary. See Lesson 09 for detail. Short version: every tool should specify read/write surface, network access, timeout, memory cap. Generic `run_shell(cmd)` is a red flag; specific `git_status()` is safer.
+Tool execution is the sandbox boundary. See Part 4 for detail. Short version: every tool should specify read/write surface, network access, timeout, memory cap. Generic `run_shell(cmd)` is a red flag; specific `git_status()` is safer.
 
 ## Build It
 
@@ -149,7 +143,7 @@ Every provider has its own tool schema — Anthropic, OpenAI, Gemini, Bedrock. U
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 01 (Agent Loop), Phase 14 · 06 (Tool Use)
+**Prerequisites:** ch067 (Agent Loop, ReWOO, Reflexion & Tree Search), Part 1 (Tool Use and Function Calling)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -157,7 +151,7 @@ Every provider has its own tool schema — Anthropic, OpenAI, Gemini, Bedrock. U
 - Explain the OS analogy MemGPT builds on: main context = RAM, external context = disk, memory tools = page in/out.
 - Implement the two-tier MemGPT pattern in stdlib with a main-context buffer, an external searchable store, and page in/out tools.
 - Describe how the agent issues "interrupts" to query or modify external memory and how the result is spliced back into the next prompt.
-- Identify the MemGPT design choices that carry into Letta (Lesson 08) and Mem0 (Lesson 09).
+- Identify the MemGPT design choices that carry into Letta (Part 3) and Mem0 (Part 4).
 
 ## The Problem
 
@@ -207,16 +201,16 @@ Canonical memory tool surface:
 
 In September 2024 MemGPT became Letta. The research repo (`cpacker/MemGPT`) remains; Letta extends the design:
 
-- Three tiers instead of two (core, recall, archival — Lesson 08).
-- Native reasoning replacing the `send_message`/heartbeat pattern (Lesson 08).
-- Sleep-time agents running async memory work (Lesson 08).
+- Three tiers instead of two (core, recall, archival — Part 3).
+- Native reasoning replacing the `send_message`/heartbeat pattern (Part 3).
+- Sleep-time agents running async memory work (Part 3).
 
 The MemGPT paper is the 2026 foundation even if production systems run Letta, Mem0, or a custom two-tier store.
 
 ### Where this pattern goes wrong
 
 - **Memory rot.** Writes accumulate faster than reads; retrieval drowns in stale facts. Fix: periodic consolidation (Letta sleep-time), explicit invalidation (Mem0 conflict detector).
-- **Memory poisoning.** External memory is retrieved text. If attacker-controlled content lands in a memory note, the agent re-ingests it next session. This is the Greshake et al. (Lesson 27) attack restated over time.
+- **Memory poisoning.** External memory is retrieved text. If attacker-controlled content lands in a memory note, the agent re-ingests it next session. This is the Greshake et al. (ch073 Part 3) attack restated over time.
 - **Citation loss.** Agent recalls "the user asked me to ship X" but cannot cite which turn. Store source references (session ID, turn ID) with every archival write.
 
 ## Build It
@@ -240,8 +234,8 @@ The trace shows the agent writing three facts, filling main context to the cap (
 
 Every production memory system today is a MemGPT variant:
 
-- **Letta** (Lesson 08) — three tiers, native reasoning, sleep-time compute.
-- **Mem0** (Lesson 09) — vector + KV + graph fused with a scoring layer.
+- **Letta** (Part 3) — three tiers, native reasoning, sleep-time compute.
+- **Mem0** (Part 4) — vector + KV + graph fused with a scoring layer.
 - **OpenAI Assistants / Responses** — managed memory via threads and files.
 - **Claude Agent SDK** — long-term memory via skills and session store.
 
@@ -285,7 +279,7 @@ Pick one by operational shape (self-hosted, managed, framework-integrated), not 
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 07 (MemGPT)
+**Prerequisites:** Part 2 (Memory: Virtual Context and MemGPT)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -297,7 +291,7 @@ Pick one by operational shape (self-hosted, managed, framework-integrated), not 
 
 ## The Problem
 
-MemGPT (Lesson 07) solved the virtual-memory control flow. Three production problems emerged:
+MemGPT (Part 2) solved the virtual-memory control flow. Three production problems emerged:
 
 1. **Latency.** Every memory operation sits on the critical path. If the agent has to prune, summarize, or reconcile while the user waits, tail latency blows up.
 2. **Memory rot.** Writes accumulate. Contradicted facts stay. Retrieval drowns in stale content.
@@ -353,7 +347,7 @@ Letta V1 (`letta_v1_agent`, 2026) deprecates `send_message`/heartbeat and inline
 
 - **Block bloat.** Infinite `block_append` hits the limit fast. Wire a block summarizer before the write that pushes over the cap.
 - **Silent drift.** Sleep-time agent rewrites a block and the primary agent never notices. Version blocks and surface diffs in the trace.
-- **Poisoned consolidation.** Sleep-time agent processes attacker-reachable content into core. Lesson 27 applies to the sleep-time surface too.
+- **Poisoned consolidation.** Sleep-time agent processes attacker-reachable content into core. ch073 Part 3 applies to the sleep-time surface too.
 
 ## Build It
 
@@ -416,7 +410,7 @@ The transcript shows the split: primary turns are fast and produce raw writes; t
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 07 (MemGPT), Phase 14 · 08 (Letta Blocks)
+**Prerequisites:** Part 2 (Memory: Virtual Context and MemGPT), Part 3 (Memory Blocks and Sleep-Time Compute (Letta))
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -562,7 +556,7 @@ The output shows three separate recall paths plus the fused top-k. Flip the scor
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 07 (MemGPT), Phase 14 · 08 (Letta Blocks)
+**Prerequisites:** Part 2 (Memory: Virtual Context and MemGPT), Part 3 (Memory Blocks and Sleep-Time Compute (Letta))
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -620,7 +614,7 @@ New task "make a diamond pickaxe." Agent:
 3. Retrieves `craftIronPickaxe`, `mineDiamond`, `placeCraftingTable` etc.
 4. Composes the new skill from retrieved primitives + new logic.
 
-This is the pattern MCP resources (Phase 13) and Agent SDK skills implement: retrieval over a knowledge/code surface, scoped to the current task.
+This is the pattern MCP resources (ch060–ch064 (Tools & Protocols)) and Agent SDK skills implement: retrieval over a knowledge/code surface, scoped to the current task.
 
 ### Iterative refinement
 
@@ -632,7 +626,7 @@ Voyager's feedback loop:
 4. Agent rewrites the skill using the signal as context.
 5. Loop until success or max rounds.
 
-This is Self-Refine (Lesson 05) applied to code generation with environment-grounded verification. CRITIC (Lesson 05) is the same pattern with external tools as the verifier.
+This is Self-Refine (ch067 Part 5) applied to code generation with environment-grounded verification. CRITIC (ch067 Part 5) is the same pattern with external tools as the verifier.
 
 ### Curriculum and exploration
 
@@ -697,3 +691,9 @@ The trace shows library writes, retrieval, composition, a failed execution, and 
 - [Madaan et al., Self-Refine (arXiv:2303.17651)](https://arxiv.org/abs/2303.17651) — the refinement loop underneath Voyager
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/14-agent-engineering/10-skill-libraries-voyager)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

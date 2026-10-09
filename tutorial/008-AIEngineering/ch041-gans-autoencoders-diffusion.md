@@ -1,18 +1,12 @@
 # Autoencoders, GANs & Diffusion Models
 
-> Combined lessons (9 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Generative Models — Taxonomy & History
 
 > Every image model, text model, video model, and 3D model fits in one of five buckets. Pick the wrong bucket and you will fight the math for weeks. Pick the right one and the field's last twelve years of progress stacks cleanly in your head.
 
 **Type:** Learn
 **Languages:** Python
-**Prerequisites:** Phase 2 (ML Fundamentals), Phase 3 (Deep Learning Core), Phase 7 · 14 (Transformers)
+**Prerequisites:** ch010–ch013 (ML Fundamentals), ch014–ch016 (Deep Learning Core), ch040 (Scaling Laws, KV Cache & Speculative Decoding)
 **Time:** ~45 minutes
 
 ## The Problem
@@ -174,7 +168,7 @@ Notice: the first two let you ask "how likely is this point?" The third cannot. 
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 3 · 02 (Backprop), Phase 3 · 07 (CNNs), Phase 8 · 01 (Taxonomy)
+**Prerequisites:** ch014 (Perceptron & Backpropagation), ch015 (Activations), Part 1 (Generative Models — Taxonomy & History)
 **Time:** ~75 minutes
 
 ## The Problem
@@ -328,7 +322,7 @@ In a Stable Diffusion / Flux / SD3 pipeline the VAE is called twice per request 
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 3 · 02 (Backprop), Phase 3 · 08 (Optimizers), Phase 8 · 02 (VAE)
+**Prerequisites:** ch014 (Perceptron & Backpropagation), ch015 (Activations), Part 2 (Autoencoders & Variational Autoencoders (VAE))
 **Time:** ~75 minutes
 
 ## The Problem
@@ -482,7 +476,7 @@ This is why GAN distillation (SDXL-Turbo, SD3-Turbo, ADD, LCM) is the dominant t
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 8 · 03 (GANs), Phase 4 · 06 (U-Net), Phase 3 · 07 (CNNs)
+**Prerequisites:** Part 3 (GANs — Generator vs Discriminator), ch018 (Detection & Segmentation (YOLO, U-Net, SAM)), ch015 (Activations)
 **Time:** ~75 minutes
 
 ## The Problem
@@ -627,7 +621,7 @@ Pix2Pix wins on throughput in static batches. The modern play is often to ship a
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 8 · 03 (GANs), Phase 4 · 08 (Normalization), Phase 3 · 07 (CNNs)
+**Prerequisites:** Part 3 (GANs — Generator vs Discriminator), ch018 (Detection & Segmentation (YOLO, U-Net, SAM)), ch015 (Activations)
 **Time:** ~45 minutes
 
 ## The Problem
@@ -768,7 +762,7 @@ StyleGAN3 on a 4090 generates a 1024² FFHQ face in under 10 ms — `num_steps =
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 3 · 02 (Backprop), Phase 8 · 02 (VAE)
+**Prerequisites:** ch014 (Perceptron & Backpropagation), Part 2 (Autoencoders & Variational Autoencoders (VAE))
 **Time:** ~75 minutes
 
 ## The Problem
@@ -952,7 +946,7 @@ The DDPM paper runs T=1000 reverse steps. Nobody ships that in production.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 8 · 02 (VAE), Phase 8 · 06 (DDPM), Phase 7 · 09 (ViT)
+**Prerequisites:** Part 2 (Autoencoders & Variational Autoencoders (VAE)), Part 6 (Diffusion Models — DDPM from Scratch), ch021 (Vision Transformers & Patch Tokens)
 **Time:** ~75 minutes
 
 ## The Problem
@@ -997,7 +991,7 @@ graph LR
 
 ## Build It
 
-`code/main.py` stacks a toy 1-D "VAE" on top of the DDPM from Lesson 06 and adds class conditioning with classifier-free guidance.
+`code/main.py` stacks a toy 1-D "VAE" on top of the DDPM from Part 6 and adds class conditioning with classifier-free guidance.
 
 ### Step 1: encoder/decoder
 
@@ -1089,7 +1083,7 @@ This is the only substantive difference between a class-conditional diffusion mo
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 8 · 07 (Latent Diffusion), Phase 10 (LLMs from Scratch — for LoRA foundation)
+**Prerequisites:** Part 7 (Latent Diffusion & Stable Diffusion), ch039, ch045–ch047, ch049–ch052 (LLMs from Scratch)
 **Time:** ~75 minutes
 
 ## The Problem
@@ -1240,7 +1234,7 @@ A real text-to-image SaaS serves hundreds of LoRAs and a dozen ControlNets over 
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 8 · 07 (Latent Diffusion), Phase 8 · 08 (ControlNet & LoRA)
+**Prerequisites:** Part 7 (Latent Diffusion & Stable Diffusion), Part 8 (ControlNet, LoRA & Conditioning)
 **Time:** ~75 minutes
 
 ## The Problem
@@ -1387,3 +1381,9 @@ Users editing an image expect sub-5-second round trips. A 30-step SDXL-Inpaint a
 - [Hertz et al. (2022). Prompt-to-Prompt Image Editing with Cross-Attention Control](https://arxiv.org/abs/2208.01626)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/08-generative-ai/09-inpainting-outpainting-editing)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

@@ -1,18 +1,12 @@
 # EAGLE-3, SGLang, TensorRT & Goodput Metrics
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: EAGLE-3 Speculative Decoding in Production
 
 > Speculative decoding pairs a fast draft model with the target model. The draft proposes K tokens; the target verifies in a single forward; accepted tokens are free. In 2026, EAGLE-3 is the production-grade variant — it trains a draft head on the target model's hidden states rather than on raw tokens, pushing acceptance rate alpha into the 0.6-0.8 band on general chat. If alpha drops below ~0.55, speculative decoding is net negative at high concurrency.
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy acceptance-rate simulator)
-**Prerequisites:** Phase 17 · 04 (vLLM Serving Internals), Phase 10 · 18 (Multi-Token Prediction)
+**Prerequisites:** ch096 (GPU Autoscaling, vLLM & Disaggregated Serving), ch051 (Quantization)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -191,7 +185,7 @@ This lesson produces `outputs/skill-eagle3-rollout.md`. Given target model and t
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy radix-tree cache + cache-aware scheduler)
-**Prerequisites:** Phase 17 · 04 (vLLM Serving Internals), Phase 14 (Agentic RAG)
+**Prerequisites:** ch096 (GPU Autoscaling, vLLM & Disaggregated Serving), ch067–ch077 (Agent Engineering)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -405,7 +399,7 @@ This lesson produces `outputs/skill-radix-scheduler-advisor.md`. Given workload 
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy FP8/NVFP4 memory and cost calculator)
-**Prerequisites:** Phase 17 · 04 (vLLM Serving Internals), Phase 10 · 13 (Quantization)
+**Prerequisites:** ch096 (GPU Autoscaling, vLLM & Disaggregated Serving), ch051 (Quantization)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -562,7 +556,7 @@ This lesson produces `outputs/skill-trtllm-blackwell-advisor.md`. Given workload
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy percentile calculator and goodput reporter)
-**Prerequisites:** Phase 17 · 04 (vLLM Serving Internals)
+**Prerequisites:** ch096 (GPU Autoscaling, vLLM & Disaggregated Serving)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -744,3 +738,9 @@ This lesson produces `outputs/skill-slo-goodput-gate.md`. Given a workload and S
 - [MLPerf Inference](https://mlcommons.org/benchmarks/inference-datacenter/)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/17-infrastructure-and-production/08-inference-metrics-goodput)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

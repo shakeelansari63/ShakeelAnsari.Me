@@ -1,18 +1,12 @@
 # Data/Zero/Pipeline Parallel from Scratch
 
-> Combined lessons (6 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Collective Ops From Scratch
 
 > The four collective operations that hold distributed training together: allreduce, broadcast, allgather, reduce_scatter.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 Track C lessons 42-49
+**Prerequisites:** ch046 (Data Pipelines, Mini-GPT & Corpus Builds), ch050 (LR Schedules, AMP, Checkpoints & Eval Harness), ch047 (Distributed Training, DualPipe & DeepSeek-V3)
 **Time:** ~90 min
 
 ## Learning Objectives
@@ -71,7 +65,7 @@ flowchart LR
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 Track C lessons 42-49
+**Prerequisites:** ch046 (Data Pipelines, Mini-GPT & Corpus Builds), ch050 (LR Schedules, AMP, Checkpoints & Eval Harness), ch047 (Distributed Training, DualPipe & DeepSeek-V3)
 **Time:** ~90 min
 
 ## Learning Objectives
@@ -131,7 +125,7 @@ sequenceDiagram
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 Track C lessons 42-49
+**Prerequisites:** ch046 (Data Pipelines, Mini-GPT & Corpus Builds), ch050 (LR Schedules, AMP, Checkpoints & Eval Harness), ch047 (Distributed Training, DualPipe & DeepSeek-V3)
 **Time:** ~90 min
 
 ## Learning Objectives
@@ -190,7 +184,7 @@ At N=8: 65% drop. At N=64: 74% drop.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 Track C lessons 42-49
+**Prerequisites:** ch046 (Data Pipelines, Mini-GPT & Corpus Builds), ch050 (LR Schedules, AMP, Checkpoints & Eval Harness), ch047 (Distributed Training, DualPipe & DeepSeek-V3)
 **Time:** ~90 min
 
 ## Learning Objectives
@@ -251,7 +245,7 @@ At M=8, N=4: 27%. At M=64, N=4: 4.5%.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 Track C lessons 42-49
+**Prerequisites:** ch046 (Data Pipelines, Mini-GPT & Corpus Builds), ch050 (LR Schedules, AMP, Checkpoints & Eval Harness), ch047 (Distributed Training, DualPipe & DeepSeek-V3)
 **Time:** ~90 min
 
 ## Learning Objectives
@@ -320,7 +314,7 @@ flowchart TD
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 Track C lessons 42-49
+**Prerequisites:** ch046 (Data Pipelines, Mini-GPT & Corpus Builds), ch050 (LR Schedules, AMP, Checkpoints & Eval Harness), ch047 (Distributed Training, DualPipe & DeepSeek-V3)
 **Time:** ~90 min
 
 ## Learning Objectives
@@ -364,3 +358,9 @@ flowchart TB
 | Self-terminating | Fixed step count, exit 0, no human in loop |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/81-end-to-end-distributed-train)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

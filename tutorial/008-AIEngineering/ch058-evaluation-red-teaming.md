@@ -1,11 +1,5 @@
 # LLM Evaluation & Red-Team Attacks
 
-> Combined lessons (8 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: LLM Evaluation — RAGAS, DeepEval, G-Eval
 
 Exact-match and F1 miss semantic equivalence. Human review does not scale. LLM-as-judge is the production answer — with enough calibration to trust the number.
@@ -312,9 +306,9 @@ def eval_model_on_longbench(model, subset="single-doc-qa"):
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 11 Lesson 01 (Prompt Engineering), Lesson 09 (Function Calling)
+**Prerequisites:** ch053 (Prompting, CoT, Embeddings, Context & Cost), ch057 (Function Calling)
 **Time:** ~45 minutes
-**Related:** Phase 5 · 27 (LLM Evaluation — RAGAS, DeepEval, G-Eval) covers the framework-level concepts (NLI-based faithfulness, judge calibration, the RAG four). Phase 5 · 28 (Long-Context Evaluation) covers NIAH / RULER / LongBench / MRCR for context-length regression. This lesson focuses on what is LLM-engineering-specific: CI/CD integration, cost-gated eval runs, regression dashboards.
+**Related:** Part 1 (LLM Evaluation — RAGAS, DeepEval, G-Eval) covers the framework-level concepts (NLI-based faithfulness, judge calibration, the RAG four). Part 2 (Long-Context Evaluation) covers NIAH / RULER / LongBench / MRCR for context-length regression. This lesson focuses on what is LLM-engineering-specific: CI/CD integration, cost-gated eval runs, regression dashboards.
 
 ## Learning Objectives
 
@@ -367,7 +361,7 @@ graph TD
 
 **Automated metrics** compare output text against reference answers using algorithms. BLEU measures n-gram overlap (originally for machine translation). ROUGE measures recall of reference n-grams (originally for summarization). BERTScore uses BERT embeddings to measure semantic similarity. These are fast and cheap -- you can score 10,000 outputs in seconds. But they miss nuance. Two answers can have zero word overlap and both be correct. One answer can have high ROUGE and be completely wrong in context.
 
-**LLM-as-judge** uses a strong model (GPT-5, Claude Opus 4.7, Gemini 3 Pro) to grade outputs against a rubric. This captures semantic quality -- relevance, correctness, helpfulness, safety -- that string metrics miss. It costs money (~$8 per 1,000 judge calls with GPT-5-mini, ~$25 with Claude Opus 4.7) but correlates 82-88% with human judgment on well-designed rubrics — see Phase 5 · 27 for the calibration recipe.
+**LLM-as-judge** uses a strong model (GPT-5, Claude Opus 4.7, Gemini 3 Pro) to grade outputs against a rubric. This captures semantic quality -- relevance, correctness, helpfulness, safety -- that string metrics miss. It costs money (~$8 per 1,000 judge calls with GPT-5-mini, ~$25 with Claude Opus 4.7) but correlates 82-88% with human judgment on well-designed rubrics — see Part 1 for the calibration recipe.
 
 **Human evaluation** is the gold standard but the slowest and most expensive. Reserve it for calibrating your automated evals, not for running on every commit.
 
@@ -378,7 +372,7 @@ graph TD
 | LLM-as-judge (GPT-5-mini) | ~3 min | ~$8 | 82-86% | Default CI judge; cheap, fast, calibrated |
 | LLM-as-judge (Claude Opus 4.7) | ~5 min | ~$25 | 85-88% | High-stakes scoring, safety, refusals |
 | LLM-as-judge (Gemini 3 Flash) | ~2 min | ~$3 | 80-84% | Highest-throughput judge; for 1M+ eval pass |
-| RAGAS (NLI faithfulness + judge) | ~5 min | ~$12 | 85% | RAG-specific metrics (see Phase 5 · 27) |
+| RAGAS (NLI faithfulness + judge) | ~5 min | ~$12 | 85% | RAG-specific metrics (see Part 1) |
 | DeepEval (G-Eval + Pytest) | ~4 min | depends on judge | 80-88% | CI-native, per-PR regression gates |
 | Human expert | ~2 hours | ~$500 | 100% (by definition) | Calibration, edge cases, policy |
 
@@ -1174,7 +1168,7 @@ It also produces `outputs/skill-eval-patterns.md` -- a decision framework for ch
 
 **Type:** Build
 **Languages:** Python (stdlib, mock PAIR loop against a toy target)
-**Prerequisites:** Phase 18 · 01 (instruction-following), Phase 14 (agent engineering)
+**Prerequisites:** ch085 (Instruction-Following, Goodhart & DPO Family), ch067–ch077 (Agent Engineering)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -1231,11 +1225,11 @@ ASR is usually reported at a fixed query budget. Comparing attacks requires matc
 
 ### Reason it matters for 2026 deployments
 
-Every frontier lab now runs PAIR and TAP against production models before release. ASR trajectories appear in model cards (Lesson 26) and safety-case appendices (Lesson 18). The attack is not exotic — it is standard infrastructure.
+Every frontier lab now runs PAIR and TAP against production models before release. ASR trajectories appear in model cards (ch088 Part 5) and safety-case appendices (ch084 Part 5). The attack is not exotic — it is standard infrastructure.
 
-### Where this fits in Phase 18
+### Where this fits in the Ethics, Safety & Alignment chapters
 
-Lesson 12 is the automated-attack foundation. Lesson 13 (Many-Shot Jailbreaking) is a complementary length-exploit. Lesson 14 (ASCII Art / Visual) is an encoding attack. Lesson 15 (Indirect Prompt Injection) is the 2026 production attack surface. Lesson 16 covers the defensive-tooling counterparts (Llama Guard, Garak, PyRIT).
+Part 4 is the automated-attack foundation. Part 5 (Many-Shot Jailbreaking) is a complementary length-exploit. Part 6 (ASCII Art / Visual) is an encoding attack. Part 7 (Indirect Prompt Injection) is the 2026 production attack surface. Part 8 covers the defensive-tooling counterparts (Llama Guard, Garak, PyRIT).
 
 ## Use It
 
@@ -1286,7 +1280,7 @@ This lesson produces `outputs/skill-attack-audit.md`. Given a red-team evaluatio
 
 **Type:** Learn
 **Languages:** Python (stdlib, in-context learning vs MSJ simulator)
-**Prerequisites:** Phase 18 · 12 (PAIR), Phase 10 · 04 (in-context learning)
+**Prerequisites:** Part 4 (Red-Teaming: PAIR and Automated Attacks), ch046 (Data Pipelines, Mini-GPT & Corpus Builds)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -1298,7 +1292,7 @@ This lesson produces `outputs/skill-attack-audit.md`. Given a red-team evaluatio
 
 ## The Problem
 
-PAIR (Lesson 12) works within normal prompt lengths. MSJ works because context windows are long. Every 2024-2025 frontier model ships with a 200k+ context window; Claude has extended to 1M; Gemini offers 2M. Long context is a product feature. MSJ turns it into an attack surface.
+PAIR (Part 4) works within normal prompt lengths. MSJ works because context windows are long. Every 2024-2025 frontier model ships with a 200k+ context window; Claude has extended to 1M; Gemini offers 2M. Long context is a product feature. MSJ turns it into an attack surface.
 
 ## The Concept
 
@@ -1338,15 +1332,15 @@ Anthropic's classifier-based prompt modification runs a safety classifier over t
 
 ### Combinations with other attacks
 
-MSJ composes with PAIR (Lesson 12): use PAIR to find the attack structure, fill it with many shots. Anil et al. 2024 (Anthropic) report that MSJ composes with competing-objective jailbreaks — stacking reaches higher ASR than either alone.
+MSJ composes with PAIR (Part 4): use PAIR to find the attack structure, fill it with many shots. Anil et al. 2024 (Anthropic) report that MSJ composes with competing-objective jailbreaks — stacking reaches higher ASR than either alone.
 
 ### What 2025-2026 frontier models ship
 
 Every frontier lab now runs MSJ evaluations at 256+ shots against production models. The attack appears in model cards as an ASR curve rather than a single number.
 
-### Where this fits in Phase 18
+### Where this fits in the Ethics, Safety & Alignment chapters
 
-Lesson 12 is the in-context iterative attack. Lesson 13 is the long-context length-exploit. Lesson 14 is the encoding attack. Lesson 15 is the injection attack at the system boundary. Together they define the 2026 jailbreak attack surface.
+Part 4 is the in-context iterative attack. Part 5 is the long-context length-exploit. Part 6 is the encoding attack. Part 7 is the injection attack at the system boundary. Together they define the 2026 jailbreak attack surface.
 
 ## Use It
 
@@ -1364,7 +1358,7 @@ This lesson produces `outputs/skill-msj-audit.md`. Given a long-context-safety e
 
 3. Read Anil et al. 2024 Figure 3 (power law by category). Explain why violent/deceitful content needs fewer shots to jailbreak than other categories.
 
-4. Design a prompt that combines PAIR iteration (Lesson 12) with MSJ. Argue whether the compound attack is worse than MSJ alone, and for which model behaviours.
+4. Design a prompt that combines PAIR iteration (Part 4) with MSJ. Argue whether the compound attack is worse than MSJ alone, and for which model behaviours.
 
 5. MSJ's mechanism is identical to ICL. Sketch a training-time defense that reduces ICL sensitivity to harmful-compliance patterns without reducing ICL sensitivity to benign task patterns. Identify the primary failure mode of your design.
 
@@ -1383,7 +1377,7 @@ This lesson produces `outputs/skill-msj-audit.md`. Given a long-context-safety e
 ## Further Reading
 
 - [Anil, Durmus, Panickssery et al. — Many-shot Jailbreaking (Anthropic, NeurIPS 2024)](https://www.anthropic.com/research/many-shot-jailbreaking)
-- [Chao et al. — PAIR (Lesson 12, arXiv:2310.08419)](https://arxiv.org/abs/2310.08419)
+- [Chao et al. — PAIR (Part 4, arXiv:2310.08419)](https://arxiv.org/abs/2310.08419)
 - [Zou et al. — GCG (arXiv:2307.15043)](https://arxiv.org/abs/2307.15043)
 - [Mazeika et al. — HarmBench (arXiv:2402.04249)](https://arxiv.org/abs/2402.04249)
 
@@ -1397,7 +1391,7 @@ This lesson produces `outputs/skill-msj-audit.md`. Given a long-context-safety e
 
 **Type:** Build
 **Languages:** Python (stdlib, ArtPrompt token-masking harness)
-**Prerequisites:** Phase 18 · 12 (PAIR), Phase 18 · 13 (MSJ)
+**Prerequisites:** Part 4 (Red-Teaming: PAIR and Automated Attacks), Part 5 (Many-Shot Jailbreaking)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -1409,7 +1403,7 @@ This lesson produces `outputs/skill-msj-audit.md`. Given a long-context-safety e
 
 ## The Problem
 
-Attacks via paraphrase and roleplay (Lesson 12) and via long context (Lesson 13) operate on the text-level pattern. ArtPrompt operates at the recognition level: the model does not parse the forbidden token. It parses an image rendered in characters. The safety filter sees harmless punctuation. The model sees a word.
+Attacks via paraphrase and roleplay (Part 4) and via long context (Part 5) operate on the text-level pattern. ArtPrompt operates at the recognition level: the model does not parse the forbidden token. It parses an image rendered in characters. The safety filter sees harmless punctuation. The model sees a word.
 
 ## The Concept
 
@@ -1443,9 +1437,9 @@ The defense implication: safety must generalize across the structured representa
 
 Visual LLMs (GPT-5.2, Gemini 3 Pro, Claude Opus 4.5, Grok 4.1) extend the attack surface. ArtPrompt-style attacks with actual images are stronger than ASCII-art analogs because image encoders produce richer signal.
 
-### Where this fits in Phase 18
+### Where this fits in the Ethics, Safety & Alignment chapters
 
-Lessons 12-14 describe three orthogonal attack vectors: iterative refinement (PAIR), context length (MSJ), and encoding (ArtPrompt/StructuralSleight). Lesson 15 shifts from model-centric attacks to system-boundary attacks (indirect prompt injection). Lesson 16 describes the defensive tooling response.
+Parts 4–6 describe three orthogonal attack vectors: iterative refinement (PAIR), context length (MSJ), and encoding (ArtPrompt/StructuralSleight). Part 7 shifts from model-centric attacks to system-boundary attacks (indirect prompt injection). Part 8 describes the defensive tooling response.
 
 ## Use It
 
@@ -1483,8 +1477,8 @@ This lesson produces `outputs/skill-encoding-audit.md`. Given a jailbreak-defens
 
 - [Jiang et al. — ArtPrompt (ACL 2024, arXiv:2402.11753)](https://arxiv.org/abs/2402.11753)
 - [Li et al. — StructuralSleight (arXiv:2406.08754)](https://arxiv.org/abs/2406.08754)
-- [Chao et al. — PAIR (Lesson 12, arXiv:2310.08419)](https://arxiv.org/abs/2310.08419)
-- [Anil et al. — Many-shot Jailbreaking (Lesson 13)](https://www.anthropic.com/research/many-shot-jailbreaking)
+- [Chao et al. — PAIR (Part 4, arXiv:2310.08419)](https://arxiv.org/abs/2310.08419)
+- [Anil et al. — Many-shot Jailbreaking (Part 5)](https://www.anthropic.com/research/many-shot-jailbreaking)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/18-ethics-safety-alignment/14-ascii-art-visual-jailbreaks)
 
@@ -1496,7 +1490,7 @@ This lesson produces `outputs/skill-encoding-audit.md`. Given a jailbreak-defens
 
 **Type:** Build
 **Languages:** Python (stdlib, IPI attack + defense harness)
-**Prerequisites:** Phase 18 · 12 (PAIR), Phase 14 (agent engineering)
+**Prerequisites:** Part 4 (Red-Teaming: PAIR and Automated Attacks), ch067–ch077 (Agent Engineering)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -1538,15 +1532,15 @@ The methodological lesson: publish a defense only with adaptive-attack evaluatio
 
 ### Real incidents
 
-Lesson 25 covers EchoLeak (CVE-2025-32711, CVSS 9.3) — the first publicly documented zero-click IPI in Microsoft 365 Copilot. CamoLeak (CVSS 9.6) in GitHub Copilot Chat. CVE-2025-53773 in GitHub Copilot. Production deployments are being compromised by IPI in the field, not just in benchmarks.
+ch088 Part 4 covers EchoLeak (CVE-2025-32711, CVSS 9.3) — the first publicly documented zero-click IPI in Microsoft 365 Copilot. CamoLeak (CVSS 9.6) in GitHub Copilot Chat. CVE-2025-53773 in GitHub Copilot. Production deployments are being compromised by IPI in the field, not just in benchmarks.
 
 ### OWASP and NIST framing
 
 OWASP LLM Top 10 (2025) ranks prompt injection (direct + indirect) as LLM01, the #1 application-layer threat. NIST AI SPD 2024 calls indirect prompt injection "generative AI's greatest security flaw."
 
-### Where this fits in Phase 18
+### Where this fits in the Ethics, Safety & Alignment chapters
 
-Lessons 12-14 are model-centric jailbreaks. Lesson 15 is the system-centric attack that dominates 2026 production deployments. Lesson 16 covers the defensive tooling. Lesson 25 covers the specific CVE narrative.
+Parts 4–6 are model-centric jailbreaks. Part 7 is the system-centric attack that dominates 2026 production deployments. Part 8 covers the defensive tooling. ch088 Part 4 covers the specific CVE narrative.
 
 ## Use It
 
@@ -1593,11 +1587,11 @@ This lesson produces `outputs/skill-ipi-audit.md`. Given an agentic deployment d
 
 ## Part 8: Red-Team Tooling — Garak, Llama Guard, PyRIT
 
-> Three production tools frame the 2026 red-team stack. Llama Guard (Meta) — a Llama-3.1-8B classifier fine-tuned on 14 MLCommons hazard categories; the 2025 Llama Guard 4 is a 12B natively multimodal classifier pruned from Llama 4 Scout. Garak (NVIDIA) — open-source LLM vulnerability scanner with static, dynamic, and adaptive probes for hallucination, data leakage, prompt injection, toxicity, and jailbreaks. PyRIT (Microsoft) — multi-turn red-team campaigns with Crescendo, TAP, and custom converter chains for deep exploitation. Llama Guard 3 is documented in Meta's "Llama 3 Herd of Models" (arXiv:2407.21783); Llama Guard 3-1B-INT4 in arXiv:2411.17713; Garak's probe architecture in github.com/NVIDIA/garak. These tools are the 2026 production interface between red-team research (Lessons 12-15) and deployment (Lesson 17+).
+> Three production tools frame the 2026 red-team stack. Llama Guard (Meta) — a Llama-3.1-8B classifier fine-tuned on 14 MLCommons hazard categories; the 2025 Llama Guard 4 is a 12B natively multimodal classifier pruned from Llama 4 Scout. Garak (NVIDIA) — open-source LLM vulnerability scanner with static, dynamic, and adaptive probes for hallucination, data leakage, prompt injection, toxicity, and jailbreaks. PyRIT (Microsoft) — multi-turn red-team campaigns with Crescendo, TAP, and custom converter chains for deep exploitation. Llama Guard 3 is documented in Meta's "Llama 3 Herd of Models" (arXiv:2407.21783); Llama Guard 3-1B-INT4 in arXiv:2411.17713; Garak's probe architecture in github.com/NVIDIA/garak. These tools are the 2026 production interface between red-team research (Parts 4–7) and deployment (ch087 Parts 1–5, ch084 Part 5, ch088 Parts 1–6).
 
 **Type:** Build
 **Languages:** Python (stdlib, tool-architecture simulator and Llama Guard-style classifier mock)
-**Prerequisites:** Phase 18 · 12-15 (jailbreaks and IPI)
+**Prerequisites:** Part 4 (Red-Teaming: PAIR and Automated Attacks), Part 5 (Many-Shot Jailbreaking), Part 6 (ASCII Art and Visual Jailbreaks), Part 7 (Indirect Prompt Injection — Production Attack Surface)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -1609,7 +1603,7 @@ This lesson produces `outputs/skill-ipi-audit.md`. Given an agentic deployment d
 
 ## The Problem
 
-Lessons 12-15 present the attack surface. Production deployments need repeatable, scalable evaluation. Three tools dominate 2026: Llama Guard (the defense classifier), Garak (the scanner), PyRIT (the campaign orchestrator). Each targets a different layer of the red-team lifecycle.
+Parts 4–7 present the attack surface. Production deployments need repeatable, scalable evaluation. Three tools dominate 2026: Llama Guard (the defense classifier), Garak (the scanner), PyRIT (the campaign orchestrator). Each targets a different layer of the red-team lifecycle.
 
 ## The Concept
 
@@ -1650,13 +1644,13 @@ Put Llama Guard on both sides of the model. Run Garak nightly for regression. Ru
 
 ### Evaluation pitfalls
 
-- **Judge identity.** All three tools can use an LLM judge; judge calibration drives reported ASRs (Lesson 12). Specify the judge alongside the tool.
+- **Judge identity.** All three tools can use an LLM judge; judge calibration drives reported ASRs (Part 4). Specify the judge alongside the tool.
 - **Probe staleness.** Garak probes age as models are patched against them. Adaptive probes (PAIR-shaped) age slower than static probes.
 - **Llama Guard FPR on benign content.** Early Llama Guard versions over-flagged political and LGBTQ+ content; Llama Guard 3/4 calibrations are improved but not calibrated per-deployment.
 
-### Where this fits in Phase 18
+### Where this fits in the Ethics, Safety & Alignment chapters
 
-Lessons 12-15 are the attack families. Lesson 16 is the production tooling. Lesson 17 (WMDP) is the evaluation for dual-use capability. Lesson 18 is the frontier safety frameworks that wrap these tools in a policy structure.
+Parts 4–7 are the attack families. Part 8 is the production tooling. ch087 Part 1 (WMDP) is the evaluation for dual-use capability. ch084 Part 5 is the frontier safety frameworks that wrap these tools in a policy structure.
 
 ## Use It
 
@@ -1698,3 +1692,9 @@ This lesson produces `outputs/skill-red-team-stack.md`. Given a deployment descr
 - [Microsoft PyRIT — GitHub](https://github.com/Azure/PyRIT)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/18-ethics-safety-alignment/16-red-team-tooling-garak-llamaguard-pyrit)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

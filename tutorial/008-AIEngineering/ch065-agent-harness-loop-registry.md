@@ -1,18 +1,12 @@
 # Agent Harness: Loop, Registry & Transport
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Agent Harness Loop Contract
 
 > The harness is the agent. The model is a coprocessor. This lesson freezes the loop contract you can wire any model into.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 13 lessons 01-07, Phase 14 lesson 01
+**Prerequisites:** ch060 (Tool Interface, Function Calling & Schemas), ch061 (MCP Fundamentals), ch067 (Agent Loop, ReWOO, Reflexion & Tree Search)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -124,7 +118,7 @@ The next lesson adds the tool registry. After that, the JSON-RPC transport. Afte
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 13 lessons 01-07, Phase 14 lesson 01
+**Prerequisites:** ch060 (Tool Interface, Function Calling & Schemas), ch061 (MCP Fundamentals), ch067 (Agent Loop, ReWOO, Reflexion & Tree Search)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -229,7 +223,7 @@ The next lesson builds the JSON-RPC stdio transport that surfaces this registry 
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 13 lessons 01-07, Phase 14 lesson 01
+**Prerequisites:** ch060 (Tool Interface, Function Calling & Schemas), ch061 (MCP Fundamentals), ch067 (Agent Loop, ReWOO, Reflexion & Tree Search)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -337,7 +331,7 @@ This transport is enough for the lessons that follow. Production transports add 
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 13 lessons 01-07, Phase 14 lesson 01
+**Prerequisites:** ch060 (Tool Interface, Function Calling & Schemas), ch061 (MCP Fundamentals), ch067 (Agent Loop, ReWOO, Reflexion & Tree Search)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -453,3 +447,9 @@ The dispatcher wraps `gather` in a semaphore. Default concurrency limit is eight
 Two extensions production dispatchers add: structured logging at every transition, and circuit breakers — after N failures in a window, a tool gets a cool-down period where dispatches return immediately with `kind="circuit_open"`.
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/23-function-call-dispatcher)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

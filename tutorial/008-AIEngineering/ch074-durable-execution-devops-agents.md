@@ -1,18 +1,12 @@
 # Durable Execution, Budgets & DevOps Agents
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Production Runtimes: Queue, Event, Cron
 
 > Production agents run on six runtime shapes: request-response, streaming, durable execution, queue-based background, event-driven, and scheduled. Pick the shape before you pick the framework. Observability is load-bearing at every shape.
 
 **Type:** Learn
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 13 (LangGraph), Phase 14 · 22 (Voice)
+**Prerequisites:** ch069 (HTN, Workflow & Orchestration Patterns), ch072 (Voice Agents, OTel & Observability Dashboards)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -38,15 +32,15 @@ Production agents fail in ways a Jupyter notebook doesn't surface: network timeo
 ### Streaming
 
 - SSE or WebSocket for progressive output.
-- LiveKit extends this to WebRTC for voice/video (Lesson 22).
+- LiveKit extends this to WebRTC for voice/video (ch072 Part 1).
 - Stacks: any framework with streaming support + a frontend that handles SSE/WS.
 - Observability: per-chunk timing, first-token latency, tail latency.
 
 ### Durable execution
 
 - State checkpointed after every step; auto-resumes on failure.
-- AutoGen v0.4 actor model isolates failures to one agent (Lesson 14).
-- LangGraph's core differentiator (Lesson 13).
+- AutoGen v0.4 actor model isolates failures to one agent (ch070 Part 1).
+- LangGraph's core differentiator (ch069 Part 3).
 - Essential when step count is unknown and recovery cost is high.
 
 ### Queue-based / background
@@ -59,8 +53,8 @@ Production agents fail in ways a Jupyter notebook doesn't surface: network timeo
 ### Event-driven
 
 - Agents subscribe to triggers: new email, PR opened, cron fire.
-- Claude Managed Agents covers this out of the box (Lesson 17).
-- CrewAI Flows (Lesson 15) structures event-driven deterministic workflows.
+- Claude Managed Agents covers this out of the box (ch070 Part 4).
+- CrewAI Flows (ch070 Part 2) structures event-driven deterministic workflows.
 - Observability: trigger source, event-to-start latency, agent latency.
 
 ### Scheduled
@@ -74,12 +68,12 @@ Production agents fail in ways a Jupyter notebook doesn't surface: network timeo
 - **CrewAI Flows** for event-driven production.
 - **Agno** stateless FastAPI for Python microservices.
 - **Mastra** server adapters (Express, Hono, Fastify, Koa) for embedding.
-- **Pipecat Cloud / LiveKit Cloud** for managed voice (Lesson 22).
+- **Pipecat Cloud / LiveKit Cloud** for managed voice (ch072 Part 1).
 - **Claude Managed Agents** for hosted long-running async.
 
 ### Observability is load-bearing
 
-Without OpenTelemetry GenAI spans (Lesson 23) plus a Langfuse/Phoenix/Opik backend (Lesson 24), you cannot debug a multi-step agent that failed at step 40. This is not optional for production. It's the difference between "we debug fast" and "we replay from scratch with more logging."
+Without OpenTelemetry GenAI spans (ch072 Part 2) plus a Langfuse/Phoenix/Opik backend (ch072 Part 3), you cannot debug a multi-step agent that failed at step 40. This is not optional for production. It's the difference between "we debug fast" and "we replay from scratch with more logging."
 
 ### Where production runtimes fail
 
@@ -117,7 +111,7 @@ Output: five traces showing each shape's behavior on the same task. Same agent l
 
 ## Exercises
 
-1. Port your Lesson 01 ReAct loop to all six shapes in your stack. Which shape fits which product surface?
+1. Port your ch067 Part 1 ReAct loop to all six shapes in your stack. Which shape fits which product surface?
 2. Add a DLQ to the queue-based demo. Simulate 10% job failure; surface DLQ size.
 3. Write a cron-triggered eval agent that runs nightly against your top 20 traces from the day.
 4. Implement streaming with backpressure: if the client is slow, pause the agent. How does this interact with a turn budget?
@@ -152,7 +146,7 @@ Output: five traces showing each shape's behavior on the same task. Same agent l
 
 **Type:** Learn
 **Languages:** Python (stdlib, minimal durable-execution state machine)
-**Prerequisites:** Phase 15 · 10 (Permission modes), Phase 15 · 01 (Long-horizon agents)
+**Prerequisites:** ch081 (Coding Agents, Claude Code & Issue-to-PR), ch080 (Long-Horizon Agents, RSI & Alignment Research)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -291,7 +285,7 @@ The driver simulates a three-activity workflow, crashes halfway through, and sho
 
 **Type:** Learn
 **Languages:** Python (stdlib, three-detector simulator: kill switch, circuit breaker, canary)
-**Prerequisites:** Phase 15 · 13 (Cost governors), Phase 15 · 10 (Permission modes)
+**Prerequisites:** ch082 (Cost Governors, Checkpoints & Safety Harness), ch081 (Coding Agents, Claude Code & Issue-to-PR)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -445,7 +439,7 @@ Cilium's eBPF-based network policy can rewrite a quarantined pod's egress to a f
 
 **Type:** Capstone
 **Languages:** Python (agent), TypeScript (Slack integration)
-**Prerequisites:** Phase 11 (LLM engineering), Phase 13 (tools and MCP), Phase 14 (agents), Phase 15 (autonomous), Phase 17 (infrastructure), Phase 18 (safety)
+**Prerequisites:** ch053–ch058, ch061 (LLM Engineering), ch060, ch062–ch064 (Tools & Protocols), ch067–ch073, ch075–ch077 (Agent Engineering), ch078, ch080–ch084 (Autonomous Systems), ch095–ch100 (Infrastructure & Production), ch085–ch088 (Ethics, Safety & Alignment)
 **Time:** 30 hours
 
 ## Problem
@@ -572,3 +566,9 @@ webhook: alert.pagerduty.com -> checkout-api SLO breach, error rate 14%
 - [ArgoCD rollback](https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_rollback/)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/06-devops-troubleshooting-agent)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

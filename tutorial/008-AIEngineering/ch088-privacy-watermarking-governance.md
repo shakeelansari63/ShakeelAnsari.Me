@@ -1,18 +1,12 @@
 # Privacy, Watermarking, Regulation & Provenance
 
-> Combined lessons (6 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Differential Privacy for LLMs
 
 > DP-SGD remains the standard — noise-injected gradient updates provide formal (epsilon, delta) guarantees. Overhead in compute, memory, and utility is substantial; parameter-efficient DP fine-tuning (LoRA + DP-SGD) is the common 2025 configuration (ACM 2025). Two bodies of evidence in tension: canary-based membership inference (Duan et al., 2024) reports limited success against language models; training-data extraction (Carlini et al., 2021; Nasr et al., 2025) recovers substantial verbatim memorization. Resolution (arXiv:2503.06808, March 2025): the gap is in what is measured — inserted canaries vs "most extractable" data. New canary designs enable loss-based MIA without shadow models and yield the first nontrivial DP audit of an LLM trained on real data with realistic DP guarantees. Alternatives: PMixED (arXiv:2403.15638) — private prediction at inference time via mixture of experts on next-token distributions; DP synthetic data generation (Google Research 2024). Emerging attack: Differential Privacy Reversal via LLM Feedback — confidence-score leakage.
 
 **Type:** Build
 **Languages:** Python (stdlib, DP-SGD noise-injection and ε-δ accountant demonstration)
-**Prerequisites:** Phase 01 · 09 (information theory), Phase 10 · 01 (large-model training)
+**Prerequisites:** ch007 (Tensors, Information Theory & Stability), ch045 (Tokenizers: Theory & BPE Build)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -74,9 +68,9 @@ Emerging 2025 attack. Use a DP-trained model's confidence scores as an oracle to
 
 The defense: do not expose confidences, or truncate/quantize them before exposure. This is an additional requirement beyond (ε, δ)-DP training.
 
-### Where this fits in Phase 18
+### Where this fits in the Ethics, Safety & Alignment chapters
 
-Lessons 20-21 are bias/fairness. Lesson 22 is privacy. Lesson 23 is provenance via watermarking. Lesson 27 covers the regulatory data-provenance layer.
+ch087 Parts 3–4 are bias/fairness. Part 1 is privacy. Part 2 is provenance via watermarking. Part 6 covers the regulatory data-provenance layer.
 
 ## Use It
 
@@ -128,7 +122,7 @@ This lesson produces `outputs/skill-dp-audit.md`. Given a DP claim on a language
 
 **Type:** Build
 **Languages:** Python (stdlib, token-watermark embed + detect)
-**Prerequisites:** Phase 10 · 04 (sampling), Phase 01 · 09 (information theory)
+**Prerequisites:** ch046 (Data Pipelines, Mini-GPT & Corpus Builds), ch007 (Tensors, Information Theory & Stability)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -193,9 +187,9 @@ Google integrates both in Search, Ads, and "About this image."
 
 Transparency Code for AI-generated content labeling (first draft December 2025, second draft March 2026, expected final June 2026 per the European Commission status page). The regulatory layer that requires the technical layer. Deepfakes must be labeled.
 
-### Where this fits in Phase 18
+### Where this fits in the Ethics, Safety & Alignment chapters
 
-Lessons 22-23 are about what the model emits (private data, provenance signal). Lesson 27 covers training-data governance. Lesson 24 is the regulatory framework that requires these technical measures.
+Parts 1–2 are about what the model emits (private data, provenance signal). Part 6 covers training-data governance. Part 3 is the regulatory framework that requires these technical measures.
 
 ## Use It
 
@@ -247,7 +241,7 @@ This lesson produces `outputs/skill-provenance-audit.md`. Given a content deploy
 
 **Type:** Learn
 **Languages:** none
-**Prerequisites:** Phase 18 · 18 (frontier frameworks), Phase 18 · 27 (data governance)
+**Prerequisites:** ch084 (RSP, Preparedness, METR & Frontier Frameworks), Part 6 (Data Provenance and Training-Data Governance)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -259,7 +253,7 @@ This lesson produces `outputs/skill-provenance-audit.md`. Given a content deploy
 
 ## The Problem
 
-Lab frameworks (Lesson 18) are voluntary. Regulatory frameworks are compulsory. The 2024-2026 period saw the first wave of comprehensive AI regulation enter force. Deployers must map technical controls to regulatory obligations; the mapping differs by jurisdiction.
+Lab frameworks (ch084 Part 5) are voluntary. Regulatory frameworks are compulsory. The 2024-2026 period saw the first wave of comprehensive AI regulation enter force. Deployers must map technical controls to regulatory obligations; the mapping differs by jurisdiction.
 
 ## The Concept
 
@@ -292,11 +286,11 @@ Published 10 July 2025. Three chapters:
 
 ### Transparency Code for Article 50
 
-First draft 17 December 2025. Second draft March 2026. Final version June 2026. Covers AI-generated content labelling including deepfakes — the regulatory layer that requires Lesson 23's watermarking technology.
+First draft 17 December 2025. Second draft March 2026. Final version June 2026. Covers AI-generated content labelling including deepfakes — the regulatory layer that requires Part 2's watermarking technology.
 
 ### UK AI Security Institute (February 2025)
 
-Renamed from AI Safety Institute. The rebrand narrows scope: drops algorithmic bias and free-speech framings; focuses on frontier capability security. Open-sourced the Inspect evaluation tool (May 2024). Collaborates with Redwood (Lesson 10) on control safety cases.
+Renamed from AI Safety Institute. The rebrand narrows scope: drops algorithmic bias and free-speech framings; focuses on frontier capability security. Open-sourced the Inspect evaluation tool (May 2024). Collaborates with Redwood (ch086 Part 5) on control safety cases.
 
 ### US CAISI (June 2025)
 
@@ -316,15 +310,15 @@ First Asian jurisdiction with a comprehensive horizontal AI regulation.
 ### Cross-jurisdiction dynamics
 
 - EU: strict, risk-tiered, heavy penalties. Benchmark for privacy-adjacent regulation.
-- US: innovation-favouring, decentralized, states (e.g., California AB 2013 — Lesson 27) fill federal gaps.
+- US: innovation-favouring, decentralized, states (e.g., California AB 2013 — Part 6) fill federal gaps.
 - UK: narrow security focus, strong evaluation infrastructure.
 - Korea: MSIT-led, foreign-provider-focused.
 
 Competing regulatory philosophies. Deployers in multiple jurisdictions have to comply with the strictest, which in 2026 is typically the EU AI Act.
 
-### Where this fits in Phase 18
+### Where this fits in the Ethics, Safety & Alignment chapters
 
-Lesson 18 is lab-voluntary governance; Lesson 24 is regulatory; Lesson 25 is an emerging class of CVEs for AI systems; Lessons 26-27 cover documentation (cards) and training-data governance.
+ch084 Part 5 is lab-voluntary governance; Part 3 is regulatory; Part 4 is an emerging class of CVEs for AI systems; Parts 5–6 cover documentation (cards) and training-data governance.
 
 ## Use It
 
@@ -375,7 +369,7 @@ This lesson produces `outputs/skill-regulatory-map.md`. Given a deployment descr
 
 **Type:** Learn
 **Languages:** Python (stdlib, scope-violation trace reconstruction)
-**Prerequisites:** Phase 18 · 15 (indirect prompt injection)
+**Prerequisites:** ch058 (LLM Evaluation & Red-Team Attacks)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -387,7 +381,7 @@ This lesson produces `outputs/skill-regulatory-map.md`. Given a deployment descr
 
 ## The Problem
 
-Lesson 15 describes indirect prompt injection as a concept. Lesson 25 describes the first production CVE of that class. The policy lesson: AI vulnerabilities are now ordinary security vulnerabilities — they get CVEs, they need disclosure, they follow CVSS scoring. The practice lesson: the threat model has been validated in production, not only in benchmarks.
+ch058 Part 7 describes indirect prompt injection as a concept. Part 4 describes the first production CVE of that class. The policy lesson: AI vulnerabilities are now ordinary security vulnerabilities — they get CVEs, they need disclosure, they follow CVSS scoring. The practice lesson: the threat model has been validated in production, not only in benchmarks.
 
 ## The Concept
 
@@ -435,9 +429,9 @@ Pattern across the three: vendors initially rated EchoLeak low (information disc
 - NIST AI SPD 2024: "generative AI's greatest security flaw" (prompt injection).
 - OWASP LLM Top 10 2025: prompt injection is LLM01 (the #1 application-layer threat).
 
-### Where this fits in Phase 18
+### Where this fits in the Ethics, Safety & Alignment chapters
 
-Lesson 15 is the attack class in the abstract. Lesson 25 is the concrete CVE layer. Lesson 24 is the regulatory framework that governs disclosure obligations. Lessons 26-27 cover documentation and data governance.
+ch058 Part 7 is the attack class in the abstract. Part 4 is the concrete CVE layer. Part 3 is the regulatory framework that governs disclosure obligations. Parts 5–6 cover documentation and data governance.
 
 ## Use It
 
@@ -488,7 +482,7 @@ This lesson produces `outputs/skill-cve-review.md`. Given a production AI deploy
 
 **Type:** Build
 **Languages:** Python (stdlib, model-card + datasheet + system-card generator)
-**Prerequisites:** Phase 18 · 18 (safety frameworks), Phase 18 · 24 (regulatory)
+**Prerequisites:** ch084 (RSP, Preparedness, METR & Frontier Frameworks), Part 3 (Regulatory Frameworks — EU, US, UK, Korea)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -500,7 +494,7 @@ This lesson produces `outputs/skill-cve-review.md`. Given a production AI deploy
 
 ## The Problem
 
-Regulatory frameworks (Lesson 24) and lab safety policies (Lesson 18) both require documentation. Documentation formats evolved from model-specific (model cards) to dataset-specific (datasheets) to system-specific (system cards). Each addresses a different scope of transparency. The 2024-2025 automation and verifiable-attestation work addresses the long-standing adoption problem.
+Regulatory frameworks (Part 3) and lab safety policies (ch084 Part 5) both require documentation. Documentation formats evolved from model-specific (model cards) to dataset-specific (datasheets) to system-specific (system cards). Each addresses a different scope of transparency. The 2024-2025 automation and verifiable-attestation work addresses the long-standing adoption problem.
 
 ## The Concept
 
@@ -558,11 +552,11 @@ Sidhpurwala 2024 and Meta system-level transparency work. "Blueprints of Trust" 
 - **Download correlation (Liang et al. 2024).** Detailed model cards correlate with up to 29% higher download rates on HF — adoption pressure is now market-driven, not only compliance-driven.
 - **Laminator (Duddu et al. 2024).** Verifiable attestations via hardware TEE / cryptographic signatures — allows the model card to carry a proof-of-claim, not just a claim.
 - **Sustainability (Jouneaux et al. July 2025).** Additions for carbon, water, and compute-energy footprint; emerging ISO standards.
-- **Regulatory cards.** EU AI Act (Lesson 24) GPAI Code of Practice Transparency chapter requires model cards as a compliance artifact.
+- **Regulatory cards.** EU AI Act (Part 3) GPAI Code of Practice Transparency chapter requires model cards as a compliance artifact.
 
-### Where this fits in Phase 18
+### Where this fits in the Ethics, Safety & Alignment chapters
 
-Lessons 24-25 are regulatory and CVE layers. Lesson 26 is the documentation layer. Lesson 27 is training-data governance, which is the datasheet's upstream. Lesson 28 is the research ecosystem that produces evaluations referenced in cards.
+Parts 3–4 are regulatory and CVE layers. Part 5 is the documentation layer. Part 6 is training-data governance, which is the datasheet's upstream. ch087 Part 5 is the research ecosystem that produces evaluations referenced in cards.
 
 ## Use It
 
@@ -576,7 +570,7 @@ This lesson produces `outputs/skill-card-audit.md`. Given a model card, datashee
 
 1. Run `code/main.py`. Inspect the generated cards. Identify sections that are weak (placeholder-only) and specify what evidence would strengthen them.
 
-2. Extend the model card with a quantitative disaggregated analysis across two demographic groups (Lesson 20).
+2. Extend the model card with a quantitative disaggregated analysis across two demographic groups (ch087 Part 3).
 
 3. Read Oreamuno et al. 2023 on the 0.3% adoption rate. Propose one structural change to the model card specification that would increase ethical-considerations adoption.
 
@@ -613,7 +607,7 @@ This lesson produces `outputs/skill-card-audit.md`. Given a model card, datashee
 
 **Type:** Learn
 **Languages:** Python (stdlib, 12-field California AB 2013 scaffolding generator)
-**Prerequisites:** Phase 18 · 24 (regulatory), Phase 18 · 26 (cards)
+**Prerequisites:** Part 3 (Regulatory Frameworks — EU, US, UK, Korea), Part 5 (Model, System, and Dataset Cards)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -625,7 +619,7 @@ This lesson produces `outputs/skill-card-audit.md`. Given a model card, datashee
 
 ## The Problem
 
-Training-data governance is the upstream of every model card (Lesson 26) and regulatory obligation (Lesson 24). In 2024-2025, the regulatory landscape consolidated on three principles: opt-out infrastructure, per-dataset disclosure, and legitimate-interest accommodations for publicly available data. Providers that do not comply at collection time cannot remediate downstream.
+Training-data governance is the upstream of every model card (Part 5) and regulatory obligation (Part 3). In 2024-2025, the regulatory landscape consolidated on three principles: opt-out infrastructure, per-dataset disclosure, and legitimate-interest accommodations for publicly available data. Providers that do not comply at collection time cannot remediate downstream.
 
 ## The Concept
 
@@ -647,7 +641,7 @@ Signed 2024. Documentation must be posted on or before January 1, 2026 for syste
 
 Item 12 (synthetic data) is new relative to Gebru et al. 2018 datasheets. Item 7 (personal information) triggers Privacy Rights Act (CPRA) obligations. The statute exempts security/integrity, aircraft-operation, and federal-only national-security systems (Section 3111(b)).
 
-### EU AI Act (Lesson 24) and TDM opt-out
+### EU AI Act (Part 3) and TDM opt-out
 
 EU Copyright Directive text-and-data-mining exception allows training on publicly available content unless the rightholder opts out. EU AI Act GPAI Code of Practice Copyright chapter requires GPAI providers to respect machine-readable opt-out signals (robots.txt, C2PA "No AI Training" claim, etc.).
 
@@ -666,7 +660,7 @@ Suspended Meta's processing of Brazilian user data for AI training over insuffic
 Cookie-consent was designed for real-time, reversible tracking. Training data is different: once data enters model weights, surgical erasure is not possible. Retraining from scratch is the only complete remediation, and it is prohibitively expensive.
 
 Partial remediations:
-- **Unlearning.** Approximate removal; measured by MIA (Lesson 22).
+- **Unlearning.** Approximate removal; measured by MIA (Part 1).
 - **Influence function-based localization.** Identify weights most influenced by the data; selectively update.
 - **Fine-tune-suppression.** Train the model to refuse outputs derived from the data.
 
@@ -676,9 +670,9 @@ None fully solve the problem. The compliance window is at collection time.
 
 dataprovenance.org. Longpre, Mahari, Lee et al. "Consent in Crisis" (July 2024): large-scale audit of AI training data commons. Finding: publishers are adding robots.txt restrictions at an accelerating rate. The openly-trainable-upon commons is contracting rapidly. 2023 -> 2024 saw about 25% of the top training sources add some restriction. Implication: future training-data availability depends on new acquisition paradigms (licensing, synthetic generation, incentivized participation).
 
-### Where this fits in Phase 18
+### Where this fits in the Ethics, Safety & Alignment chapters
 
-Lesson 26 is model-level documentation. Lesson 27 is dataset-level governance. Together they define the transparency layer. Lesson 28 maps the research ecosystem that works on these questions.
+Part 5 is model-level documentation. Part 6 is dataset-level governance. Together they define the transparency layer. ch087 Part 5 maps the research ecosystem that works on these questions.
 
 ## Use It
 
@@ -715,8 +709,14 @@ This lesson produces `outputs/skill-provenance-check.md`. Given a dataset used i
 ## Further Reading
 
 - [California AB 2013](https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240AB2013)
-- [EU AI Act + GPAI Code of Practice (Lesson 24)](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai)
+- [EU AI Act + GPAI Code of Practice (Part 3)](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai)
 - [Longpre, Mahari, Lee et al. — Consent in Crisis (dataprovenance.org, July 2024)](https://www.dataprovenance.org/consent-in-crisis-paper)
 - [IAPP — EU Digital Omnibus GDPR amendments (2025)](https://iapp.org/news/a/eu-digital-omnibus-amendments-to-gdpr-to-facilitate-ai-training-miss-the-mark)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/18-ethics-safety-alignment/27-data-provenance-training-governance)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

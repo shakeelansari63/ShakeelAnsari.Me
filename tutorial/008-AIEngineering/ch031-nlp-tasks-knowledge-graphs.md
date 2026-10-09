@@ -1,11 +1,5 @@
 # NLP Tasks, Inference & Knowledge Graphs
 
-> Combined lessons (8 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Sentiment Analysis
 
 The canonical NLP task. Most of what you need to know about classical text classification shows up here.
@@ -406,7 +400,7 @@ Domain shift, nested entities, long entities, sparse entity types.
 
 Grammar was unfashionable for a while. Then every LLM pipeline needed to validate structured extraction, and it came back.
 
-Lesson 01 promised that lemmatization needs a POS tag. Without knowing `running` is a verb, a lemmatizer cannot reduce it to `run`. This lesson introduces the tagsets, the baselines, and the point where you stop implementing from scratch and call spaCy.
+ch030 Part 1 promised that lemmatization needs a POS tag. Without knowing `running` is a verb, a lemmatizer cannot reduce it to `run`. This lesson introduces the tagsets, the baselines, and the point where you stop implementing from scratch and call spaCy.
 
 ## The Concept
 
@@ -1100,3 +1094,9 @@ Integration pattern: NER → coref → entity linking → RE → ontology mappin
 | Provenance | Every triple carries a doc id + char-span to its source. |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/05-nlp-foundations-to-advanced/26-relation-extraction-kg)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

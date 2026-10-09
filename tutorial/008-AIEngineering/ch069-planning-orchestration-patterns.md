@@ -1,18 +1,12 @@
 # HTN, Workflow & Orchestration Patterns
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Planning with HTN and Evolutionary Search
 
 > Symbolic planning handles the cases where the plan is provably correct. Evolutionary code search handles the cases where the fitness function is machine-checkable. ChatHTN (2025) and AlphaEvolve (2025) show what each unlocks when paired with an LLM.
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 02 (ReWOO and Plan-and-Execute)
+**Prerequisites:** ch067 (Agent Loop, ReWOO, Reflexion & Tree Search)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -24,7 +18,7 @@
 
 ## The Problem
 
-ReWOO (Lesson 02), Plan-and-Execute, and ReAct cover most agent planning. Two cases they don't cover well:
+ReWOO (ch067 Part 2), Plan-and-Execute, and ReAct cover most agent planning. Two cases they don't cover well:
 
 1. **Plans with provable correctness.** Scheduling, flight pathing, compliance workflows — the plan must be sound by construction. A fluent LLM plan that sometimes hallucinates a step is unacceptable.
 2. **Optimizations with a machine-checkable fitness function.** Matrix multiplication, scheduling heuristics, compiler passes — the goal is not "a correct plan" but "the best plan."
@@ -153,7 +147,7 @@ The trace shows the HTN planner decomposing a compound task (with a mid-plan LLM
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 01 (Agent Loop)
+**Prerequisites:** ch067 (Agent Loop, ReWOO, Reflexion & Tree Search)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -190,7 +184,7 @@ Foundation for all five patterns: one LLM with three capabilities wired in — s
 
 4. **Orchestrator-workers.** An orchestrator LLM dynamically decides which workers (also LLMs) to run and synthesizes their output. Similar to agent loops but the orchestrator does not loop indefinitely.
 
-5. **Evaluator-optimizer.** One LLM proposes an answer, another LLM evaluates it. Iterate until the evaluator passes. This is Self-Refine (Lesson 05) generalized.
+5. **Evaluator-optimizer.** One LLM proposes an answer, another LLM evaluates it. Iterate until the evaluator passes. This is Self-Refine (ch067 Part 5) generalized.
 
 ### Where workflows beat agents
 
@@ -206,7 +200,7 @@ Foundation for all five patterns: one LLM with three capabilities wired in — s
 
 ### The context-engineering companion
 
-"Effective context engineering for AI agents" (Anthropic 2025) formalizes the adjacent discipline: the 200k window is a budget, not a container. What to include, when to compact, when to let context grow. Covered in detail in Phase 14 lesson on context compression.
+"Effective context engineering for AI agents" (Anthropic 2025) formalizes the adjacent discipline: the 200k window is a budget, not a container. What to include, when to compact, when to let context grow. Covered in detail in the Agent Engineering lesson on context compression.
 
 ## Build It
 
@@ -270,7 +264,7 @@ Each pattern prints its trace. Total lines of code per pattern is ~10-15; the co
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 01 (Agent Loop), Phase 14 · 12 (Workflow Patterns)
+**Prerequisites:** ch067 (Agent Loop, ReWOO, Reflexion & Tree Search), Part 2 (Anthropic's Workflow Patterns: Simple Over Complex)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -350,8 +344,8 @@ The trace shows the first run failing at the human gate, persistence, then resum
 ## Use It
 
 - **LangGraph** — the reference, production-ready. Use `create_react_agent`, `create_supervisor`, or build your own graph.
-- **AutoGen v0.4** (Lesson 14) — actor model alternative for high-concurrency scenarios.
-- **Claude Agent SDK** (Lesson 17) — managed harness with built-in session store.
+- **AutoGen v0.4** (ch070 Part 1) — actor model alternative for high-concurrency scenarios.
+- **Claude Agent SDK** (ch070 Part 4) — managed harness with built-in session store.
 - **Custom** — when you need exact control over state shape or checkpointer backend.
 
 ## Exercises
@@ -392,7 +386,7 @@ The trace shows the first run failing at the human gate, persistence, then resum
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 12 (Workflow Patterns), Phase 14 · 25 (Multi-Agent Debate)
+**Prerequisites:** Part 2 (Anthropic's Workflow Patterns: Simple Over Complex), ch073 (Debate, Failure Modes & Eval-Driven Dev)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -437,7 +431,7 @@ When you need it: when a single supervisor's context budget cannot hold descript
 
 ### Debate
 
-- Parallel proposers + iterative cross-critique (Lesson 25).
+- Parallel proposers + iterative cross-critique (ch073 Part 1).
 - Not really orchestration — more verification — but shows up as a topology choice in frameworks.
 
 ### CrewAI Crew vs Flow
@@ -455,7 +449,7 @@ This is orthogonal to the four patterns above but maps to topology: Flow is typi
 
 Decision order:
 
-1. Single agent + workflow patterns (Lesson 12) — start here.
+1. Single agent + workflow patterns (Part 2) — start here.
 2. Supervisor-worker — when you have 2-4 specialists.
 3. Swarm — when latency matters more than reasoning clarity.
 4. Hierarchical — only when supervisor context budget fails.
@@ -508,7 +502,7 @@ Output: per-pattern trace + op count. Supervisor is cleanest; swarm is shortest;
 | Supervisor-worker | "Router + specialists" | Central LLM dispatches to specialists; they don't talk to each other |
 | Swarm | "Peer-to-peer" | Direct handoffs via shared tools; no central router |
 | Hierarchical | "Supervisors of supervisors" | Nested subgraphs for large populations |
-| Debate | "Proposer + critique" | Parallel proposers, cross-critique (Lesson 25) |
+| Debate | "Proposer + critique" | Parallel proposers, cross-critique (ch073 Part 1) |
 | Tool-call-based supervision | "Supervisor without a library" | Implement supervisor as direct tool calls for context control |
 | Crew | "Autonomous team" | CrewAI's role-based collaboration mode |
 | Flow | "Deterministic workflow" | CrewAI's event-driven production mode |
@@ -521,3 +515,9 @@ Output: per-pattern trace + op count. Supervisor is cleanest; swarm is shortest;
 - [Du et al., Society of Minds (arXiv:2305.14325)](https://arxiv.org/abs/2305.14325) — debate pattern
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/14-agent-engineering/28-orchestration-patterns)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

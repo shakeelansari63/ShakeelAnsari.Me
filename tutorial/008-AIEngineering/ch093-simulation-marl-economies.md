@@ -1,18 +1,12 @@
 # Generative Agents, MARL & Agent Economies
 
-> Combined lessons (5 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Generative Agents and Emergent Simulation
 
 > Park et al. 2023 populated **Smallville**, a sandbox of 25 agents, with a three-part architecture: **memory stream** (natural-language log), **reflection** (higher-level syntheses), and **plan** (day-level behavior). The landmark result was the Valentine's Day party emergence: one agent seeded with "wants to throw a Valentine's Day party" produced invitations spread through the population, coordinated dates, and the party happened.
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 16 · 04 (Primitive Model), Phase 16 · 13 (Shared Memory)
+**Prerequisites:** ch090 (Why Multi-Agent), ch092 (A2A, Blackboards, Consensus & Negotiation)
 **Time:** ~75 minutes
 
 ## Problem
@@ -117,7 +111,7 @@ Expected output: tick-by-tick trace. By the final tick, at least 3 of the 5 agen
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 16 · 07 (Society of Mind and Debate), Phase 16 · 17 (Generative Agents)
+**Prerequisites:** ch091 (Roles, Swarms & Voting Topologies), Part 1 (Generative Agents and Emergent Simulation)
 **Time:** ~75 minutes
 
 ## Problem
@@ -235,7 +229,7 @@ Coordination claims checklist:
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 16 · 09 (Parallel Swarm Networks), Phase 16 · 14 (Consensus and BFT)
+**Prerequisites:** ch091 (Roles, Swarms & Voting Topologies), ch092 (A2A, Blackboards, Consensus & Negotiation)
 **Time:** ~75 minutes
 
 ## Problem
@@ -351,7 +345,7 @@ Expected output: LMPSO g_best improves from random to near-optimal over 30 itera
 
 **Type:** Learn
 **Languages:** Python (stdlib, small NumPy-free implementations)
-**Prerequisites:** Phase 09 (Reinforcement Learning), Phase 16 · 09 (Parallel Swarm Networks)
+**Prerequisites:** ch043–ch044 (Reinforcement Learning), ch091 (Roles, Swarms & Voting Topologies)
 **Time:** ~90 minutes
 
 ## Problem
@@ -468,7 +462,7 @@ Expected output: independent agents take ~6 steps on average; CTDE variants conv
 
 **Type:** Learn
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 16 · 16 (Negotiation and Bargaining), Phase 16 · 09 (Parallel Swarm Networks)
+**Prerequisites:** ch092 (A2A, Blackboards, Consensus & Negotiation), ch091 (Roles, Swarms & Voting Topologies)
 **Time:** ~75 minutes
 
 ## Problem
@@ -575,3 +569,9 @@ python3 code/main.py
 - [W3C DIDs spec](https://www.w3.org/TR/did-core/)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/16-multi-agent-and-swarms/21-agent-economies)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

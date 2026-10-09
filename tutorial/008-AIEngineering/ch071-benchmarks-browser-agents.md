@@ -1,18 +1,12 @@
 # SWE-bench, WebArena & Browser Agents
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Benchmarks: SWE-bench, GAIA, AgentBench
 
 > Three benchmarks anchor agent evaluation in 2026. SWE-bench tests code patching. GAIA tests generalist tool use. AgentBench tests multi-environment reasoning. Know their composition, their contamination story, and what they do not measure.
 
 **Type:** Learn
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 06 (Tool Use)
+**Prerequisites:** ch068 (Memory Systems, Mem0 & Skill Libraries)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -75,7 +69,7 @@ GAIA is what you run to measure "generalist capability." Do not confuse with cod
 
 - Real-world operational cost (tokens, wall-clock).
 - Safety behavior in adversarial conditions.
-- Performance on your domain (use your own evals, Lesson 30).
+- Performance on your domain (use your own evals, ch073 Part 4).
 - Tail failures (benchmarks average; production operators care about the worst 1%).
 
 ### Where benchmarking goes wrong
@@ -106,7 +100,7 @@ The output shows resolution rate per task + per difficulty and makes the evaluat
 - **SWE-bench Verified** for code agents. Always report Verified scores.
 - **GAIA** for generalist agents. Use the private leaderboard split.
 - **AgentBench** for multi-environment comparison.
-- **Custom evals** (Lesson 30) for your product's actual shape.
+- **Custom evals** (ch073 Part 4) for your product's actual shape.
 
 ## Exercises
 
@@ -146,7 +140,7 @@ The output shows resolution rate per task + per difficulty and makes the evaluat
 
 **Type:** Learn
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 19 (SWE-bench, GAIA)
+**Prerequisites:** Part 1 (Benchmarks: SWE-bench, GAIA, AgentBench)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -195,7 +189,7 @@ The self-hosted framing matters — the benchmark is not flaky because the targe
 
 ### Why this matters
 
-Claude computer use, OpenAI CUA, Gemini 2.5 Computer Use (Lesson 21) all train on workloads shaped by WebArena and OSWorld. The benchmarks are the target; the production models are the shipped answer.
+Claude computer use, OpenAI CUA, Gemini 2.5 Computer Use (Part 3) all train on workloads shaped by WebArena and OSWorld. The benchmarks are the target; the production models are the shipped answer.
 
 ### Where benchmarking goes wrong
 
@@ -224,7 +218,7 @@ Output: per-task success rate and trajectory efficiency, mirroring OSWorld-Human
 
 - **WebArena Verified** self-hosted on an internal cluster for continuous evaluation.
 - **OSWorld** in a VM fleet for desktop agents.
-- **Computer-use agents** (Lesson 21) — Claude, OpenAI CUA, Gemini — all trained on workloads like these.
+- **Computer-use agents** (Part 3) — Claude, OpenAI CUA, Gemini — all trained on workloads like these.
 - **Your own product flows** — capture gold trajectories for your top 20 tasks; run agents against them weekly.
 
 ## Exercises
@@ -265,7 +259,7 @@ Output: per-task success rate and trajectory efficiency, mirroring OSWorld-Human
 
 **Type:** Learn
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 20 (WebArena, OSWorld), Phase 14 · 27 (Prompt Injection)
+**Prerequisites:** Part 2 (Benchmarks: WebArena and OSWorld), ch073 (Debate, Failure Modes & Eval-Driven Dev)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -314,14 +308,14 @@ All three treat:
 - PDF content
 - Anything retrieved
 
-...as **untrusted**. The model documentation is explicit: only direct user instructions count as permission. Retrieved content can contain prompt-injection payloads (Lesson 27).
+...as **untrusted**. The model documentation is explicit: only direct user instructions count as permission. Retrieved content can contain prompt-injection payloads (ch073 Part 3).
 
 Defense patterns (2026 convergence):
 
 1. Per-step safety classifier (Gemini 2.5 pattern).
 2. Allowlist/blocklist of navigation targets.
 3. Human-in-the-loop confirmation for sensitive actions (login, purchase, CAPTCHA).
-4. Content capture to external storage, span references (OTel GenAI, Lesson 23).
+4. Content capture to external storage, span references (OTel GenAI, ch072 Part 2).
 5. Hard-coded refusals for directives found in retrieved text.
 
 ### When to pick which
@@ -396,7 +390,7 @@ The output shows the safety classifier catching an injected directive in DOM tex
 
 **Type:** Learn
 **Languages:** Python (stdlib, indirect prompt-injection attack surface model)
-**Prerequisites:** Phase 15 · 10 (Permission modes), Phase 15 · 01 (Long-horizon agents)
+**Prerequisites:** ch081 (Coding Agents, Claude Code & Issue-to-PR), ch080 (Long-Horizon Agents, RSI & Alignment Research)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -523,3 +517,9 @@ graph TD
 - [Anthropic — Measuring agent autonomy in practice](https://www.anthropic.com/research/measuring-agent-autonomy)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/15-autonomous-systems/11-browser-agents)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

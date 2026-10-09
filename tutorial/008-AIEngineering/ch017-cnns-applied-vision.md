@@ -1,18 +1,12 @@
 # CNNs, Classification, Transfer & Edge Vision
 
-> Combined lessons (7 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Image Fundamentals — Pixels, Channels, Color Spaces
 
 > An image is a tensor of light samples. Every vision model you will ever use starts from this one fact.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 1 Lesson 12 (Tensor Operations), Phase 3 Lesson 11 (Intro to PyTorch)
+**Prerequisites:** ch007 (Tensors, Information Theory & Stability), ch016 (Training Practice: Schedules)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -28,7 +22,7 @@ Every paper you will read, every pretrained weight you will download, every visi
 
 A convolution is not complicated once you know what it is sliding over. The hard part is that "an image" means different things to a camera, a JPEG decoder, PIL, OpenCV, torchvision, and a CUDA kernel. Each stack has its own axis order, byte range, and channel convention. A vision engineer who cannot keep these straight ships broken pipelines.
 
-This lesson fixes the foundation so the rest of the phase can build on it.
+This lesson fixes the foundation so the rest of the Computer Vision chapters can build on it.
 
 ## The Concept
 
@@ -412,7 +406,7 @@ This lesson produces:
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 3 (Deep Learning Core), Phase 4 Lesson 01 (Image Fundamentals)
+**Prerequisites:** ch014–ch016 (Deep Learning Core), Part 1 (Image Fundamentals — Pixels, Channels, Color Spaces)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -772,7 +766,7 @@ This lesson produces:
 
 **Type:** Learn + Build
 **Languages:** Python
-**Prerequisites:** Phase 3 Lesson 11 (PyTorch), Phase 4 Lesson 01 (Image Fundamentals), Phase 4 Lesson 02 (Convolutions from Scratch)
+**Prerequisites:** ch016 (Training Practice: Schedules), Part 1 (Image Fundamentals — Pixels, Channels, Color Spaces), Part 2 (Convolutions from Scratch)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -1118,7 +1112,7 @@ This lesson produces:
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 2 Lesson 09 (Model Evaluation), Phase 3 Lesson 10 (Mini Framework), Phase 4 Lesson 03 (CNNs)
+**Prerequisites:** ch013 (Evaluation, Tuning, Ensembles & Special Data), ch016 (Training Practice: Schedules), Part 3 (CNNs — LeNet to ResNet)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -1487,7 +1481,7 @@ This lesson produces:
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 4 Lesson 03 (CNNs), Phase 4 Lesson 04 (Image Classification)
+**Prerequisites:** Part 3 (CNNs — LeNet to ResNet), Part 4 (Image Classification)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -1771,7 +1765,7 @@ Two production-grade defaults:
 
 **Type:** Learn + Build
 **Languages:** Python
-**Prerequisites:** Phase 4 Lesson 04 (Image Classification), Phase 10 Lesson 11 (Quantization)
+**Prerequisites:** Part 4 (Image Classification), ch051 (Quantization)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -1958,11 +1952,11 @@ Production paths:
 
 ## Part 7: Build a Complete Vision Pipeline — Capstone
 
-> A production vision system is a chain of models and rules stitched with data contracts. The pieces are already in this phase; the capstone wires them together end-to-end.
+> A production vision system is a chain of models and rules stitched with data contracts. The pieces are already in the Computer Vision chapters; the capstone wires them together end-to-end.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 4 Lessons 01-15
+**Prerequisites:** Part 1 (Image Fundamentals — Pixels, Channels, Color Spaces), Part 2 (Convolutions from Scratch), Part 3 (CNNs — LeNet to ResNet), Part 4 (Image Classification), Part 5 (Transfer Learning & Fine-Tuning), ch018 (Detection & Segmentation (YOLO, U-Net, SAM)), ch019 (Image Generation: GANs to Diffusion), ch020 (Video, Tracking, 3D & Depth Vision), ch021 (Vision Transformers & Patch Tokens), Part 6 (Real-Time Vision — Edge Deployment)
 **Time:** ~120 minutes
 
 ## Learning Objectives
@@ -2214,3 +2208,9 @@ Production additions: model versioning, trace IDs, fallback path, safety filters
 - [NVIDIA Triton Inference Server](https://developer.nvidia.com/triton-inference-server)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/04-computer-vision/16-vision-pipeline-capstone)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

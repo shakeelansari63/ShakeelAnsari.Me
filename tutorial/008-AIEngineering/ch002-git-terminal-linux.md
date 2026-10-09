@@ -1,18 +1,12 @@
 # Git, Terminal & Linux
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Git & Collaboration
 
 > Version control is not optional. Every experiment, every model, every lesson you build here gets tracked.
 
 **Type:** Learn
 **Languages:** --
-**Prerequisites:** Phase 0, Lesson 01
+**Prerequisites:** ch001 (Dev Environment Setup)
 **Time:** ~30 minutes
 
 ## Learning Objectives
@@ -127,7 +121,7 @@ That's it. You don't need rebase, cherry-pick, or submodules for this course.
 
 **Type:** Build
 **Languages:** Python, TypeScript
-**Prerequisites:** Phase 0, Lesson 01
+**Prerequisites:** ch001 (Dev Environment Setup)
 **Time:** ~30 minutes
 
 ## Learning Objectives
@@ -139,7 +133,7 @@ That's it. You don't need rebase, cherry-pick, or submodules for this course.
 
 ## The Problem
 
-Starting from Phase 11, you'll call LLM APIs (Anthropic, OpenAI, Google). In Phase 13-16 you'll build agents that use these APIs in loops. You need to know how API keys work, how to store them safely, and how to make your first API call.
+Starting from ch053–ch058, ch061 (LLM Engineering), you'll call LLM APIs (Anthropic, OpenAI, Google). In ch060–ch064, ch067–ch078, ch080–ch084, ch090–ch094 you'll build agents that use these APIs in loops. You need to know how API keys work, how to store them safely, and how to make your first API call.
 
 ## The Concept
 
@@ -240,9 +234,9 @@ For this course:
 
 | API | When you need it | Free tier |
 |-----|-----------------|-----------|
-| Anthropic (Claude) | Phases 11-16 (agents, tools) | $5 credit on signup |
-| OpenAI | Phase 11 (comparison) | $5 credit on signup |
-| Hugging Face | Phases 4-10 (models, datasets) | Free |
+| Anthropic (Claude) | the LLM Engineering, Multimodal AI, Tools & Protocols, Agent Engineering, Autonomous Systems, Multi-Agent & Swarms chapters (agents, tools) | $5 credit on signup |
+| OpenAI | ch053–ch058, ch061 (comparison) | $5 credit on signup |
+| Hugging Face | ch017–ch023, ch030–ch047, ch049–ch052, ch054, ch058 (models, datasets) | Free |
 
 You don't need all of them right now. Set them up when the lesson requires it.
 
@@ -276,7 +270,7 @@ This lesson produces:
 
 **Type:** Learn
 **Languages:** --
-**Prerequisites:** Phase 0, Lesson 01
+**Prerequisites:** ch001 (Dev Environment Setup)
 **Time:** ~35 minutes
 
 ## Learning Objectives
@@ -589,7 +583,7 @@ Here's when each tool comes into play during this course:
 
 | Tool | When you use it |
 |------|----------------|
-| tmux | Every training run (Phases 3+) |
+| tmux | Every training run (ch014 onward) |
 | `tail -f` + `grep` | Monitoring training logs |
 | `nohup` / `&` | Quick background tasks |
 | `htop` / `nvtop` | Debugging slow training, OOM errors |
@@ -625,7 +619,7 @@ Here's when each tool comes into play during this course:
 
 **Type:** Learn
 **Languages:** --
-**Prerequisites:** Phase 0, Lesson 01
+**Prerequisites:** ch001 (Dev Environment Setup)
 **Time:** ~30 minutes
 
 ## Learning Objectives
@@ -924,3 +918,9 @@ Sessions:       tmux new/attach/detach
 5. Transfer a file from your local machine to a remote one using `scp`, then do the same transfer with `rsync` and compare the experience.
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/00-setup-and-tooling/11-linux-for-ai)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

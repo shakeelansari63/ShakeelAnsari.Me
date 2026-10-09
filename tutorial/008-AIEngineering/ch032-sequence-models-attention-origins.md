@@ -1,11 +1,5 @@
 # RNNs, Seq2Seq & the Attention Breakthrough
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: CNNs and RNNs for Text
 
 Convolutions learn n-grams. Recurrences remember. Both are superseded by attention. Both still matter on constrained hardware.
@@ -142,7 +136,7 @@ Classification maps a variable-length sequence to a single label. Translation ma
 
 **Teacher forcing.** During training, the decoder's input at step `t` is the ground-truth token, not its own previous prediction. This stabilizes training. The gap between training and inference is called **exposure bias**.
 
-**The bottleneck.** Everything the encoder learned must be squeezed into one context vector. Long sentences lose detail. Attention (lesson 10) fixes this by letting the decoder look at every encoder hidden state.
+**The bottleneck.** Everything the encoder learned must be squeezed into one context vector. Long sentences lose detail. Attention (Part 3) fixes this by letting the decoder look at every encoder hidden state.
 
 ## Build It
 
@@ -283,7 +277,7 @@ Scheduled sampling (anneal teacher forcing), minimum risk training (train on BLE
 
 The decoder stops squinting at a compressed summary and starts looking at the whole source. Everything after this is attention plus engineering.
 
-Lesson 09 ended on a measured failure. A GRU encoder-decoder goes from 89% accuracy at length 5 to near-chance at length 80. Bahdanau, Cho, and Bengio published a three-line fix in 2014: instead of giving the decoder only the final encoder state, keep every encoder state. At each decoder step, compute a weighted average of encoder states where the weights say "how much does the decoder need to look at encoder position `i` right now?"
+Part 2 ended on a measured failure. A GRU encoder-decoder goes from 89% accuracy at length 5 to near-chance at length 80. Bahdanau, Cho, and Bengio published a three-line fix in 2014: instead of giving the decoder only the final encoder state, keep every encoder state. At each decoder step, compute a weighted average of encoder states where the weights say "how much does the decoder need to look at encoder position `i` right now?"
 
 ## The Concept
 
@@ -575,3 +569,9 @@ For Brown corpus, a well-tuned 4-gram KN model hits ~140 perplexity. A transform
 | Continuation probability | P(w) weighted by number of contexts w appears in. |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/05-nlp-foundations-to-advanced/16-text-generation-pre-transformer)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

@@ -1,18 +1,12 @@
 # Transfusion, Show-o, Janus & Any-to-Any Models
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Transfusion: Autoregressive Text + Diffusion Image in One Transformer
 
 > Chameleon and Emu3 bet everything on discrete tokens. They work, but the quantization bottleneck is visible — the image quality plateaus below continuous-space diffusion models. Transfusion (Meta, Zhou et al., August 2024) takes the opposite bet: keep images continuous, drop the VQ-VAE entirely, and train one transformer with two losses. Text tokens get next-token-prediction. Image patches get a flow-matching / diffusion loss. Both objectives optimize the same weights. The architecture underlying Stable Diffusion 3 (MMDiT) is a close cousin. This lesson reads the Transfusion thesis, builds a toy two-loss trainer, and traces the attention mask that lets one transformer do both jobs.
 
 **Type:** Build
 **Languages:** Python (stdlib, two-loss trainer on MNIST-scale toy)
-**Prerequisites:** Phase 12 · 11 (Chameleon), Phase 8 (Generative AI)
+**Prerequisites:** ch025 (Qwen-VL, InternVL, Chameleon & Emu3), ch041–ch042 (Generative AI)
 **Time:** ~180 minutes
 
 ## Learning Objectives
@@ -103,7 +97,7 @@ Downside: Transfusion is a dual-loss model, making training dynamics trickier. L
 
 ### What sits downstream
 
-Janus-Pro (Lesson 12.15) refines Transfusion's idea by decoupling the vision encoder for understanding and generation — SigLIP for one, VQ for the other — while sharing the transformer body. Show-o (Lesson 12.14) swaps diffusion for discrete-diffusion (masked prediction). The unified-generation family branches rapidly after Transfusion.
+Janus-Pro (Part 3) refines Transfusion's idea by decoupling the vision encoder for understanding and generation — SigLIP for one, VQ for the other — while sharing the transformer body. Show-o (Part 2) swaps diffusion for discrete-diffusion (masked prediction). The unified-generation family branches rapidly after Transfusion.
 
 2026 production VLMs that emit images — Gemini 3 Pro, GPT-5, Claude Opus 4.7's image generation path — almost certainly use some descendant of this family. Details are proprietary.
 
@@ -164,7 +158,7 @@ This lesson produces `outputs/skill-two-loss-trainer-designer.md`. Given a new m
 
 **Type:** Learn
 **Languages:** Python (stdlib, masked-discrete-diffusion sampler)
-**Prerequisites:** Phase 12 · 13 (Transfusion)
+**Prerequisites:** Part 1 (Transfusion: Autoregressive Text + Diffusion Image in One Transformer)
 **Time:** ~120 minutes
 
 ## Learning Objectives
@@ -306,7 +300,7 @@ This lesson produces `outputs/skill-unified-gen-model-picker.md`. Given a produc
 
 **Type:** Build
 **Languages:** Python (stdlib, dual-encoder routing + shared-body signal)
-**Prerequisites:** Phase 12 · 13 (Transfusion), Phase 12 · 14 (Show-o)
+**Prerequisites:** Part 1 (Transfusion: Autoregressive Text + Diffusion Image in One Transformer), Part 2 (Show-o and Discrete-Diffusion Unified Models)
 **Time:** ~120 minutes
 
 ## Learning Objectives
@@ -375,7 +369,7 @@ Interestingly, this means Janus-Pro's body could be initialized from a pretraine
 
 ### Compared to InternVL-U
 
-InternVL-U (Lesson 12.10) is the 2026 follow-up. It combines:
+InternVL-U (ch025 Part 2) is the 2026 follow-up. It combines:
 
 - Native multimodal pretraining (InternVL3 backbone).
 - Decoupled-encoder routing (SigLIP in, VQ + diffusion heads out).
@@ -447,7 +441,7 @@ This lesson produces `outputs/skill-decoupled-encoder-picker.md`. Given a produc
 
 **Type:** Learn
 **Languages:** Python (stdlib, four-modality token allocator + streaming decode loop)
-**Prerequisites:** Phase 12 · 11 (Chameleon), Phase 6 (Speech and Audio)
+**Prerequisites:** ch025 (Qwen-VL, InternVL, Chameleon & Emu3), ch035–ch036 (Speech & Audio)
 **Time:** ~120 minutes
 
 ## Learning Objectives
@@ -552,7 +546,7 @@ Even in 2026, open any-to-any models trail closed ones on two axes:
 - Speech quality. The residual-VQ tokenizer is lossy; conversational speech sounds robotic compared to ElevenLabs-class voices.
 - Cross-modality reasoning. Asking the model "sing about what you see" still fails more often than pure-vision tasks.
 
-These are open research problems. Qwen3-Omni (Lesson 12.20) is the most advanced open attempt in 2025.
+These are open research problems. Qwen3-Omni (ch027 Part 4) is the most advanced open attempt in 2025.
 
 ## Use It
 
@@ -599,3 +593,9 @@ This lesson produces `outputs/skill-any-to-any-pipeline-auditor.md`. Given a con
 - [Tang et al. — CoDi (arXiv:2305.11846)](https://arxiv.org/abs/2305.11846)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/12-multimodal-ai/16-mio-any-to-any-streaming)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

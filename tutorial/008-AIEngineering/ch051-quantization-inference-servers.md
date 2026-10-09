@@ -1,18 +1,12 @@
 # Quantization, Inference Opt & Spec-Dec Servers
 
-> Combined lessons (6 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Quantization: Making Models Fit
 
 > A 70B model in FP16 needs 140GB. Two A100s just for weights. Quantize to FP8: one 80GB GPU. INT4: a MacBook.
 
 **Type:** Build
 **Languages:** Python (with numpy)
-**Prerequisites:** Phase 10, Lessons 01-10 (LLMs from Scratch)
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build), ch046 (Data Pipelines, Mini-GPT & Corpus Builds), ch047 (Distributed Training, DualPipe & DeepSeek-V3), ch049 (SFT, RLHF, DPO & Constitutional AI), ch050 (LR Schedules, AMP, Checkpoints & Eval Harness)
 **Time:** ~120 minutes
 
 ## Learning Objectives
@@ -410,7 +404,7 @@ This lesson produces `outputs/skill-quantization.md` -- a decision framework for
 
 **Type:** Build
 **Languages:** Python (stdlib, numpy)
-**Prerequisites:** Phase 10, Lessons 01-08 (Transformer architecture, attention)
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build), ch046 (Data Pipelines, Mini-GPT & Corpus Builds), ch047 (Distributed Training, DualPipe & DeepSeek-V3), ch049 (SFT, RLHF, DPO & Constitutional AI)
 **Time:** ~120 minutes
 
 ## Learning Objectives
@@ -777,7 +771,7 @@ This lesson produces `outputs/skill-inference-optimization.md` -- a guide for di
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 7 · 16 (speculative decoding math), Phase 10 · 12 (inference optimization)
+**Prerequisites:** ch040 (Scaling Laws, KV Cache & Speculative Decoding), Part 2 (Inference Optimization)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -894,7 +888,7 @@ This lesson produces `outputs/skill-eagle3-tuner.md` -- recommends spec-decoding
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 10 · 04 (pre-training), Phase 10 · 15 (speculative decoding)
+**Prerequisites:** ch046 (Data Pipelines, Mini-GPT & Corpus Builds), Part 3 (Speculative Decoding and EAGLE-3)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -1024,7 +1018,7 @@ This lesson produces `outputs/skill-mtp-planner.md` -- plan for integrating MTP 
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 10 · 12 (inference optimization), Phase 10 · 15 (speculative decoding)
+**Prerequisites:** Part 2 (Inference Optimization), Part 3 (Speculative Decoding and EAGLE-3)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -1172,7 +1166,7 @@ This lesson produces `outputs/skill-parallel-inference-router.md` -- routes betw
 
 **Type:** Capstone
 **Languages:** Python (serving), C++ / CUDA (kernel inspection), YAML (configs)
-**Prerequisites:** Phase 3 (deep learning), Phase 7 (transformers), Phase 10 (LLMs from scratch), Phase 17 (infrastructure)
+**Prerequisites:** ch014–ch016 (Deep Learning Core), ch021, ch037–ch040 (Transformers), ch045–ch047, ch049–ch050, ch052 (LLMs from Scratch), ch095–ch100 (Infrastructure & Production)
 **Time:** 30 hours
 
 ## Problem
@@ -1293,3 +1287,9 @@ $ curl https://infer.example.com/v1/chat/completions -d '{"messages":[...]}'
 - [vLLM repository](https://github.com/vllm-project/vllm)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/14-speculative-decoding-server)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

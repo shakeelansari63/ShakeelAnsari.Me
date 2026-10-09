@@ -1,18 +1,12 @@
 # Qwen-VL, InternVL, Chameleon & Emu3
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Qwen-VL Family and Dynamic-FPS Video
 
 > The Qwen-VL family — Qwen-VL (2023), Qwen2-VL (2024), Qwen2.5-VL (2025), Qwen3-VL (2025) — is the most influential open vision-language model lineage in 2026. Each generation made a single decisive architectural bet that the rest of the open ecosystem copied within twelve months: native dynamic resolution via M-RoPE, dynamic-FPS sampling with absolute time alignment, window attention in the ViT, and structured agent output formats. By Qwen3-VL, the recipe had stabilized: a 2D-RoPE-ViT encoder with native-aspect-ratio inputs, an MLP projector into a large Qwen3 language base, and training stages that emphasized OCR, grounding, and agent behavior as first-class targets. This lesson reads the family chronologically so you understand why every knob is where it is.
 
 **Type:** Learn
 **Languages:** Python (stdlib, M-RoPE encoder + dynamic-FPS sampler)
-**Prerequisites:** Phase 12 · 06 (patch-n'-pack)
+**Prerequisites:** ch024 (LLaVA, Any-Resolution & Open-Weight Recipes)
 **Time:** ~120 minutes
 
 ## Learning Objectives
@@ -173,7 +167,7 @@ This lesson produces `outputs/skill-qwen-vl-pipeline-designer.md`. Given a video
 
 **Type:** Learn
 **Languages:** Python (stdlib, training-corpus mixer)
-**Prerequisites:** Phase 12 · 05, Phase 12 · 07 (recipes)
+**Prerequisites:** ch024 (LLaVA, Any-Resolution & Open-Weight Recipes)
 **Time:** ~120 minutes
 
 ## Learning Objectives
@@ -248,7 +242,7 @@ The alignment-debt hypothesis is measurable: InternVL3-8B loses fewer text-bench
 
 InternVL3.5 (August 2025) scales the recipe. Same native-pretrain approach, more data, more params. MMMU improvements are incremental.
 
-InternVL-U (2026) adds unified generation — image output via MMDiT heads on top of the same backbone. The "U" stands for "Understanding + generation," chasing Transfusion-style unified models (Lesson 12.13). The same native-pretrain backbone supports both understanding and generation heads.
+InternVL-U (2026) adds unified generation — image output via MMDiT heads on top of the same backbone. The "U" stands for "Understanding + generation," chasing Transfusion-style unified models (ch026 Part 1). The same native-pretrain backbone supports both understanding and generation heads.
 
 ### Trade-offs of native pretraining
 
@@ -315,7 +309,7 @@ This lesson produces `outputs/skill-native-vs-posthoc-auditor.md`. Given a propo
 
 **Type:** Build
 **Languages:** Python (stdlib, VQ-VAE tokenizer + interleaved decoder)
-**Prerequisites:** Phase 12 · 05, Phase 8 (Generative AI)
+**Prerequisites:** ch024 (LLaVA, Any-Resolution & Open-Weight Recipes), ch041–ch042 (Generative AI)
 **Time:** ~180 minutes
 
 ## Learning Objectives
@@ -385,7 +379,7 @@ Without these tricks, 34B-param Chameleon training diverged at multiple checkpoi
 
 VQ-VAE is lossy. At 8192 codebook entries and 1024 tokens per 512×512 image, reconstruction PSNR caps around 26-28 dB. This is enough for recognizable image gen but visibly worse than continuous-space diffusion (Stable Diffusion 3 achieves 32+ dB).
 
-The tokenizer is the bottleneck. Better tokenizers (MAGVIT-v2, IBQ, SBER-MoVQGAN) lift the ceiling. Emu3 (Lesson 12.12) achieves SDXL-quality generation via a better tokenizer alone.
+The tokenizer is the bottleneck. Better tokenizers (MAGVIT-v2, IBQ, SBER-MoVQGAN) lift the ceiling. Emu3 (Part 4) achieves SDXL-quality generation via a better tokenizer alone.
 
 ### Chameleon vs BLIP-2 / LLaVA
 
@@ -407,7 +401,7 @@ Pick by task. If you need image generation, Chameleon family. If you only need u
 
 Fuyu (Adept, 2023) is a related approach: skip the separate vision encoder entirely, feed raw image patches through the LLM's input projection as if they were tokens, no tokenizer. Simpler than Chameleon, loses the shared-vocab output generation.
 
-AnyGPT (Zhan et al., 2024) extends Chameleon to four modalities: text, image, speech, music. Same VQ-VAE trick for each, shared transformer. Any-to-any generation. Covered more in Lesson 12.16.
+AnyGPT (Zhan et al., 2024) extends Chameleon to four modalities: text, image, speech, music. Same VQ-VAE trick for each, shared transformer. Any-to-any generation. Covered more in ch026 Part 4.
 
 ## Use It
 
@@ -466,7 +460,7 @@ This lesson produces `outputs/skill-tokenizer-vs-adapter-picker.md`. Given a pro
 
 **Type:** Learn
 **Languages:** Python (stdlib, 3D video tokenizer math + autoregressive sampler skeleton)
-**Prerequisites:** Phase 12 · 11 (Chameleon)
+**Prerequisites:** Part 3 (Chameleon and Early-Fusion Token-Only Multimodal Models)
 **Time:** ~120 minutes
 
 ## Learning Objectives
@@ -478,7 +472,7 @@ This lesson produces `outputs/skill-tokenizer-vs-adapter-picker.md`. Given a pro
 
 ## The Problem
 
-The conventional wisdom through 2024: image generation needs diffusion. The argument: discrete image tokens lose too much information to reconstruct detail, and autoregressive sampling accumulates error across thousands of tokens. Stable Diffusion, DALL-E 3, Imagen, Midjourney all use some form of diffusion. Chameleon (Lesson 12.11) partially disproved this at small scale but did not match SDXL on quality.
+The conventional wisdom through 2024: image generation needs diffusion. The argument: discrete image tokens lose too much information to reconstruct detail, and autoregressive sampling accumulates error across thousands of tokens. Stable Diffusion, DALL-E 3, Imagen, Midjourney all use some form of diffusion. Chameleon (Part 3) partially disproved this at small scale but did not match SDXL on quality.
 
 Emu3 attacked the argument head-on. The claim: better visual tokenizer + enough scale + next-token loss = diffusion-beating image generation in the same model that also does perception.
 
@@ -592,3 +586,9 @@ This lesson produces `outputs/skill-token-gen-cost-analyzer.md`. Given a generat
 - [Tian et al. — VAR (arXiv:2404.02905)](https://arxiv.org/abs/2404.02905)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/12-multimodal-ai/12-emu3-next-token-for-generation)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

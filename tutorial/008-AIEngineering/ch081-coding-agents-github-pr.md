@@ -1,18 +1,12 @@
 # Coding Agents, Claude Code & Issue-to-PR
 
-> Combined lessons (5 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: The Autonomous Coding Agent Landscape (2026)
 
 > SWE-bench Verified went from 4% to 80.9% in under three years. Same Claude Sonnet 4.5 scored 43.2% on SWE-agent v1 and 59.8% on Cline autonomous — the scaffolding around the model now matters as much as the model itself. OpenHands (formerly OpenDevin) is the most active MIT-licensed platform and its CodeAct loop executes Python actions directly in a sandbox instead of JSON tool calls. The headline numbers hide a methodological issue: 161 of 500 SWE-bench Verified tasks require only a 1–2 line change, and SWE-bench Pro (10+ line tasks) sits at 23–59% for the same frontier models.
 
 **Type:** Learn
 **Languages:** Python (stdlib, CodeAct vs JSON tool-call comparison)
-**Prerequisites:** Phase 14 · 07 (Tool use), Phase 15 · 01 (Long-horizon agents)
+**Prerequisites:** ch068 (Memory Systems, Mem0 & Skill Libraries), ch080 (Long-Horizon Agents, RSI & Alignment Research)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -150,7 +144,7 @@ Both use a stub "model" (deterministic rules) so the comparison isolates the sca
 
 **Type:** Learn
 **Languages:** Python (stdlib, two-stage classifier simulator)
-**Prerequisites:** Phase 15 · 01 (Long-horizon agents), Phase 15 · 09 (Coding-agent landscape)
+**Prerequisites:** ch080 (Long-Horizon Agents, RSI & Alignment Research), Part 1 (The Autonomous Coding Agent Landscape (2026))
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -287,7 +281,7 @@ Anthropic shipped Auto Mode as a research preview. The documentation is explicit
 
 **Type:** Capstone
 **Languages:** TypeScript / Bun (harness), Python (eval scripts)
-**Prerequisites:** Phase 11 (LLM engineering), Phase 13 (tools and protocols), Phase 14 (agents), Phase 15 (autonomous systems), Phase 17 (infrastructure)
+**Prerequisites:** ch053–ch058, ch061 (LLM Engineering), ch060, ch062–ch064 (Tools & Protocols), ch067–ch077 (Agent Engineering), ch078, ch080, ch082–ch084 (Autonomous Systems), ch095–ch100 (Infrastructure & Production)
 **Time:** 35 hours
 
 ## Problem
@@ -426,7 +420,7 @@ The deliverable skill lives in `outputs/skill-terminal-coding-agent.md`. Given a
 
 **Type:** Capstone
 **Languages:** Python (agent), Java / Python (targets), TypeScript (dashboard)
-**Prerequisites:** Phase 5 (NLP), Phase 7 (transformers), Phase 11 (LLM engineering), Phase 13 (tools), Phase 14 (agents), Phase 15 (autonomous), Phase 17 (infrastructure)
+**Prerequisites:** ch030–ch034, ch054, ch058 (NLP), ch021, ch037–ch040 (Transformers), ch053, ch055–ch057, ch061 (LLM Engineering), ch060, ch062–ch064 (Tools & Protocols), ch067–ch077 (Agent Engineering), ch078, ch080, ch082–ch084 (Autonomous Systems), ch095–ch100 (Infrastructure & Production)
 **Time:** 30 hours
 
 ## Problem
@@ -560,7 +554,7 @@ $ migrate legacy-java-service --target java17
 
 **Type:** Capstone
 **Languages:** Python (agent), TypeScript (GitHub App), YAML (Actions)
-**Prerequisites:** Phase 11 (LLM engineering), Phase 13 (tools), Phase 14 (agents), Phase 15 (autonomous), Phase 17 (infrastructure)
+**Prerequisites:** ch053–ch058, ch061 (LLM Engineering), ch060, ch062–ch064 (Tools & Protocols), ch067–ch077 (Agent Engineering), ch078, ch080, ch082–ch084 (Autonomous Systems), ch095–ch100 (Infrastructure & Production)
 **Time:** 30 hours
 
 ## Problem
@@ -686,3 +680,9 @@ graph TD
 - [Daytona cloud sandboxes](https://daytona.io)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/16-github-issue-to-pr-agent)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

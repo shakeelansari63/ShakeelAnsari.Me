@@ -1,18 +1,12 @@
 # Detection & Segmentation (YOLO, U-Net, SAM)
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Object Detection — YOLO from Scratch
 
 > Detection is classification plus regression, run at every position in a feature map, then cleaned up with non-maximum suppression.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 4 Lesson 03 (CNNs), Phase 4 Lesson 04 (Image Classification), Phase 4 Lesson 05 (Transfer Learning)
+**Prerequisites:** ch017 (CNNs, Classification, Transfer & Edge Vision)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -311,7 +305,7 @@ For real-time inference: `from ultralytics import YOLO; model = YOLO('yolov8n.pt
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 4 Lesson 03 (CNNs), Phase 4 Lesson 04 (Image Classification)
+**Prerequisites:** ch017 (CNNs, Classification, Transfer & Edge Vision)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -540,7 +534,7 @@ model = smp.Unet(
 
 **Type:** Build + Learn
 **Languages:** Python
-**Prerequisites:** Phase 4 Lesson 06 (YOLO), Phase 4 Lesson 07 (U-Net)
+**Prerequisites:** Part 1 (Object Detection — YOLO from Scratch), Part 2 (Semantic Segmentation — U-Net)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -720,7 +714,7 @@ def train_step(model, images, targets, optimizer):
 
 **Type:** Use + Build
 **Languages:** Python
-**Prerequisites:** Phase 4 Lesson 07 (U-Net), Phase 4 Lesson 08 (Mask R-CNN), Phase 4 Lesson 18 (CLIP)
+**Prerequisites:** Part 2 (Semantic Segmentation — U-Net), Part 3 (Instance Segmentation — Mask R-CNN), ch022 (Self-Supervised, CLIP, OCR & Pose Vision)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -955,3 +949,9 @@ This lesson produces:
 - [SAM3-I: Instruction-aware SAM (arXiv 2512.04585)](https://arxiv.org/abs/2512.04585)
 
 > Reference: [ai-engineering/phases/04-computer-vision/24-sam3-open-vocab-segmentation/docs/en.md](https://github.com/anomalyco/ai-engineering/blob/main/phases/04-computer-vision/24-sam3-open-vocab-segmentation/docs/en.md)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

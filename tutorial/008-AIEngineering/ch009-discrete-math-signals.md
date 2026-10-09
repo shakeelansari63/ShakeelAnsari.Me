@@ -1,18 +1,12 @@
 # Complex Numbers, Fourier, Graphs & Stochastic Processes
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Complex Numbers
 
 > Imaginary numbers are not imaginary. They are a 90-degree rotation.
 
 **Type:** Build  
 **Languages:** Python  
-**Prerequisites:** Phase 1, Lessons 01-04  
+**Prerequisites:** ch004 (Linear Algebra), ch005 (Calculus & Optimization)
 **Time:** ~120 minutes  
 
 ## Learning Objectives
@@ -412,7 +406,7 @@ def complex_matrix_multiply(A, B):
 
 ## Ship It
 
-This lesson produces `code/complex_numbers.py` with complex arithmetic, polar conversion, Euler's formula, and roots of unity. These appear heavily in Lesson 20 (Fourier Transform) and Phase 4 for signal processing and sequence models.
+This lesson produces `code/complex_numbers.py` with complex arithmetic, polar conversion, Euler's formula, and roots of unity. These appear heavily in Part 2 (Fourier Transform) and ch017–ch023 (Computer Vision) for signal processing and sequence models.
 
 ## Exercises
 
@@ -449,7 +443,7 @@ This lesson produces `code/complex_numbers.py` with complex arithmetic, polar co
 
 **Type:** Build  
 **Languages:** Python  
-**Prerequisites:** Phase 1, Lessons 01-04, 19  
+**Prerequisites:** ch004 (Linear Algebra), ch005 (Calculus & Optimization), Part 1 (Complex Numbers)
 **Time:** ~120 minutes  
 
 ## Learning Objectives
@@ -865,7 +859,7 @@ def spectrogram(signal, window_size, hop_size):
 
 ## Ship It
 
-This lesson produces `code/fourier.py` with DFT, FFT, inverse FFT, filtering, 2D FFT, and spectrogram functions. These reappear in Phase 4 for audio processing, sequence modeling, and graph neural networks.
+This lesson produces `code/fourier.py` with DFT, FFT, inverse FFT, filtering, 2D FFT, and spectrogram functions. These reappear in ch017–ch023 (Computer Vision) for audio processing, sequence modeling, and graph neural networks.
 
 ## Exercises
 
@@ -902,7 +896,7 @@ This lesson produces `code/fourier.py` with DFT, FFT, inverse FFT, filtering, 2D
 
 **Type:** Build  
 **Languages:** Python  
-**Prerequisites:** Phase 1, Lessons 01-04  
+**Prerequisites:** ch004 (Linear Algebra), ch005 (Calculus & Optimization)
 **Time:** ~120 minutes  
 
 ## Learning Objectives
@@ -1401,7 +1395,7 @@ def normalized_laplacian(graph):
 
 ## Ship It
 
-This lesson produces `code/graph_theory.py` with graph representation, traversals, shortest paths, PageRank, and Laplacian utilities. These reappear in Phase 3 for clustering, Phase 4 for graph neural networks, and Phase 5 for advanced GNN architectures.
+This lesson produces `code/graph_theory.py` with graph representation, traversals, shortest paths, PageRank, and Laplacian utilities. These reappear in ch014–ch016 (Deep Learning Core) for clustering, ch017–ch023 (Computer Vision) for graph neural networks, and ch030–ch034, ch054, ch058 (NLP) for advanced GNN architectures.
 
 ## Exercises
 
@@ -1439,7 +1433,7 @@ This lesson produces `code/graph_theory.py` with graph representation, traversal
 
 **Type:** Build  
 **Languages:** Python  
-**Prerequisites:** Phase 1, Lessons 01-04, 07, 15  
+**Prerequisites:** ch004 (Linear Algebra), ch005 (Calculus & Optimization), ch006 (Probability & Statistics)
 **Time:** ~120 minutes  
 
 ## Learning Objectives
@@ -1920,7 +1914,7 @@ def fraction_exceeding_threshold(series, threshold):
 
 ## Ship It
 
-This lesson produces `code/stochastic.py` with random walks, Markov chains, Gaussian processes, and autocorrelation analysis. These reappear in Phase 3 for time series modeling, Phase 4 for diffusion models, and Phase 5 for training dynamics analysis.
+This lesson produces `code/stochastic.py` with random walks, Markov chains, Gaussian processes, and autocorrelation analysis. These reappear in ch014–ch016 (Deep Learning Core) for time series modeling, ch017–ch023 (Computer Vision) for diffusion models, and ch030–ch034, ch054, ch058 (NLP) for training dynamics analysis.
 
 ## Exercises
 
@@ -1950,3 +1944,9 @@ This lesson produces `code/stochastic.py` with random walks, Markov chains, Gaus
 | Detailed balance | "Reversibility condition" | pi_i * P[i][j] = pi_j * P[j][i]. Ensures the chain satisfies time reversibility. |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/01-math-foundations/22-stochastic-processes)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

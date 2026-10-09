@@ -1,18 +1,12 @@
 # Managed Platforms, Economics & FinOps
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Managed LLM Platforms — Bedrock, Vertex AI, Azure OpenAI
 
 > Three hyperscalers, three distinct strategies. AWS Bedrock is a model marketplace — Claude, Llama, Titan, Stability, Cohere behind one API. Azure OpenAI is an exclusive OpenAI partnership plus Provisioned Throughput Units (PTUs) for dedicated capacity. Vertex AI is Gemini-first with the best long-context and multimodal story. In 2026 Artificial Analysis measures Azure OpenAI at ~50 ms median and Bedrock at ~75 ms on Llama 3.1 405B equivalents — PTUs explain the gap because dedicated capacity beats shared on-demand. The decision rule is not "which is fastest" but "which model catalog and FinOps surface match my product."
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy cost-and-latency comparator)
-**Prerequisites:** Phase 11 (LLM Engineering), Phase 13 (Tools & Protocols)
+**Prerequisites:** ch053–ch058, ch061 (LLM Engineering), ch060, ch062–ch064 (Tools & Protocols)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -224,7 +218,7 @@ This lesson produces `outputs/skill-managed-platform-picker.md`. Given a workloa
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy per-call economics comparator)
-**Prerequisites:** Phase 17 · 01 (Managed LLM Platforms), Phase 17 · 04 (vLLM Serving Internals)
+**Prerequisites:** Part 1 (Managed LLM Platforms — Bedrock, Vertex AI, Azure OpenAI), ch096 (GPU Autoscaling, vLLM & Disaggregated Serving)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -447,7 +441,7 @@ This lesson produces `outputs/skill-inference-platform-picker.md`. Given workloa
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy gateway-routing simulator)
-**Prerequisites:** Phase 17 · 01 (Managed LLM Platforms), Phase 17 · 16 (Model Routing)
+**Prerequisites:** Part 1 (Managed LLM Platforms — Bedrock, Vertex AI, Azure OpenAI), ch099 (Observability, Caching, Batch & Self-Hosted)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -472,7 +466,7 @@ Reinventing this at the app layer couples every service to every provider. A gat
 3. **Retries** — exponential backoff, bounded attempts.
 4. **Rate limits** — per-tenant, per-key, per-model.
 5. **Secret references** — pull credentials from vault at runtime (never in app).
-6. **Observability** — OTel + GenAI attributes (Phase 17 · 13) + cost attribution.
+6. **Observability** — OTel + GenAI attributes (ch099 Part 1) + cost attribution.
 7. **Guardrails** — PII redaction, jailbreak detection, allowed-topics filters.
 
 ### LiteLLM — MIT OSS, Python
@@ -527,7 +521,7 @@ Simple token-bucket works up to moderate scale. Multi-tenant requires sliding-wi
 
 ### Gateway + observability + routing compose
 
-Phase 17 · 13 (observability) + 16 (model routing) + 19 (gateways) are the same layer in production. Pick one tool that covers all three or wire them carefully: most 2026 deployments combine Helicone (observability) or Portkey (guardrails) with Kong (scale) for split roles.
+ch099 Part 1 (observability), ch099 Part 4 (model routing), ch095 Part 3 (gateways) are the same layer in production. Pick one tool that covers all three or wire them carefully: most 2026 deployments combine Helicone (observability) or Portkey (guardrails) with Kong (scale) for split roles.
 
 ### Numbers you should remember
 
@@ -588,7 +582,7 @@ This lesson produces `outputs/skill-gateway-picker.md`. Given scale, ops posture
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy cost-attribution simulator with kill switch)
-**Prerequisites:** Phase 17 · 13 (Observability), Phase 17 · 14 (Caching)
+**Prerequisites:** ch099 (Observability, Caching, Batch & Self-Hosted)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -677,15 +671,15 @@ trace_id: abc123
   batch: false
 ```
 
-Emit on every call. Store in data lake. Aggregate per dimension. Phase 17 · 13 observability stack is where this lives.
+Emit on every call. Store in data lake. Aggregate per dimension. ch099 Part 1 observability stack is where this lives.
 
 ### The compounded-savings stack
 
 Stack: cache + batch + route + gateway. With all four:
-- Cache L2 (Phase 17 · 14): ~10x cheaper input.
-- Batch (Phase 17 · 15): 50% off.
-- Route to cheap model (Phase 17 · 16): 60% cost reduction.
-- Gateway efficiency (Phase 17 · 19): redundancy + retries.
+- Cache L2 (ch099 Part 2): ~10x cheaper input.
+- Batch (ch099 Part 3): 50% off.
+- Route to cheap model (ch099 Part 4): 60% cost reduction.
+- Gateway efficiency (Part 3): redundancy + retries.
 
 Best-case stacked: ~5-10% of naive baseline. Most teams have 2-3 levers engaged; few stack all four.
 
@@ -736,3 +730,9 @@ This lesson produces `outputs/skill-finops-plan.md`. Given product and scale, de
 - [PointFive — Managed LLMs in Azure OpenAI](https://www.pointfive.co/blog/finops-for-ai-economics-of-managed-llms-in-azure-open-ai)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/17-infrastructure-and-production/27-finops-llms)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

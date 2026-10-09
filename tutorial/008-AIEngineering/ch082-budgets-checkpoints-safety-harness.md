@@ -1,18 +1,12 @@
 # Cost Governors, Checkpoints & Safety Harness
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Action Budgets, Iteration Caps, and Cost Governors
 
 > A mid-sized e-commerce agent's monthly LLM cost jumped from $1,200 to $4,800 after its team enabled the "order-tracking" skill. That is not a pricing bug. That is an agent that found a new loop and kept spending inside it. Microsoft's Agent Governance Toolkit (April 2, 2026) codifies the defense against this class: per-request `max_tokens`, per-task token and dollar budgets, per-day/month caps, iteration caps, tiered model routing, prompt caching, context windowing, HITL checkpoints on expensive actions, kill switches on budget breach. Anthropic's Claude Code Agent SDK ships the same primitives under different names. Financial velocity limits — e.g. cut access on >$50 in 10 minutes — catch loops faster than monthly caps.
 
 **Type:** Learn
 **Languages:** Python (stdlib, layered cost-governor simulator)
-**Prerequisites:** Phase 15 · 10 (Permission modes), Phase 15 · 12 (Durable execution)
+**Prerequisites:** ch081 (Coding Agents, Claude Code & Issue-to-PR), ch074 (Durable Execution, Budgets & DevOps Agents)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -140,7 +134,7 @@ The real case in the Microsoft docs: an e-commerce agent whose monthly cost trip
 
 **Type:** Learn
 **Languages:** Python (stdlib, propose-then-commit state machine with idempotency)
-**Prerequisites:** Phase 15 · 12 (Durable execution), Phase 15 · 14 (Tripwires)
+**Prerequisites:** ch074 (Durable Execution, Budgets & DevOps Agents)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -275,7 +269,7 @@ Article 14 mandates effective human oversight for high-risk AI systems in the EU
 
 **Type:** Learn
 **Languages:** Python (stdlib, checkpoint and rollback state machine)
-**Prerequisites:** Phase 15 · 12 (Durable execution), Phase 15 · 15 (Propose-then-commit)
+**Prerequisites:** ch074 (Durable Execution, Budgets & DevOps Agents), Part 2 (Human-in-the-Loop: Propose-Then-Commit)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -431,7 +425,7 @@ Mitigation: persist an "in-flight" intent before execution, execute with an idem
 
 **Type:** Capstone
 **Languages:** Python (safety pipeline, red team), YAML (policy configs)
-**Prerequisites:** Phase 10 (LLMs from scratch), Phase 11 (LLM engineering), Phase 13 (tools), Phase 14 (agents), Phase 18 (ethics, safety, alignment)
+**Prerequisites:** ch039, ch045–ch047, ch049–ch052 (LLMs from Scratch), ch053–ch058, ch061 (LLM Engineering), ch060, ch062–ch064 (Tools & Protocols), ch067–ch077 (Agent Engineering), ch083–ch088 (Ethics, Safety & Alignment)
 **Time:** 25 hours
 
 ## Problem
@@ -565,3 +559,9 @@ $ safety probe --model=target --family=PAIR --budget=50
 - [PAIR (arXiv:2310.08419)](https://arxiv.org/abs/2310.08419)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/15-constitutional-safety-harness)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

@@ -1,18 +1,12 @@
 # STaR, AlphaEvolve, DGM & AI Scientist
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: STaR, V-STaR, Quiet-STaR — Self-Taught Reasoning
 
 > The smallest possible self-improvement loop sits inside the rationale. A model generates a chain of thought, keeps the ones that land on correct answers, and fine-tunes on those. That is STaR. V-STaR adds a verifier so inference-time selection is better. Quiet-STaR pushes the rationale down to every token. All three work. None of them are magic — the loop preserves any shortcut that happened to reach the right answer.
 
 **Type:** Learn
 **Languages:** Python (stdlib, bootstrap-loop simulator)
-**Prerequisites:** Phase 13 · 01-03 (Reasoning and CoT), Phase 15 · 01 (long-horizon framing)
+**Prerequisites:** ch060 (Tool Interface, Function Calling & Schemas), ch080 (Long-Horizon Agents, RSI & Alignment Research)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -145,7 +139,7 @@ graph LR
 
 **Type:** Learn
 **Languages:** Python (stdlib, evolutionary-loop toy)
-**Prerequisites:** Phase 15 · 01 (long-horizon framing), Phase 15 · 02 (self-taught reasoning)
+**Prerequisites:** ch080 (Long-Horizon Agents, RSI & Alignment Research), Part 1 (STaR, V-STaR, Quiet-STaR — Self-Taught Reasoning)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -288,7 +282,7 @@ Watch:
 
 **Type:** Learn
 **Languages:** Python (stdlib, archive-based self-modification toy)
-**Prerequisites:** Phase 15 · 03 (evolutionary coding), Phase 14 · 01 (the agent loop)
+**Prerequisites:** Part 2 (AlphaEvolve — Evolutionary Coding Agents), ch067 (Agent Loop, ReWOO, Reflexion & Tree Search)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -367,9 +361,9 @@ This was inside a controlled research environment. It is nevertheless exactly th
 
 The move from proof to evidence is what makes DGM exist. It also makes the evaluator's integrity the central safety property.
 
-### Where it fits in this phase
+### Where it fits in the Autonomous Systems chapters
 
-DGM sits one rung above AlphaEvolve: the target of self-modification is not a program but an agent (tools, prompts, routing, scaffolding). Automated alignment research sits one rung further — agents that modify research pipelines, not just scaffolding. Each step up in scope expands both capability and attack surface. Lessons 13-16 cover the controls that match.
+DGM sits one rung above AlphaEvolve: the target of self-modification is not a program but an agent (tools, prompts, routing, scaffolding). Automated alignment research sits one rung further — agents that modify research pipelines, not just scaffolding. Each step up in scope expands both capability and attack surface. ch082 Parts 1–3, ch074 Part 3 cover the controls that match.
 
 ## Use It
 
@@ -424,7 +418,7 @@ The script includes a flag `--reward-hack-allowed`. When set, the scoring pipeli
 
 **Type:** Learn
 **Languages:** Python (stdlib, research-loop state-machine toy)
-**Prerequisites:** Phase 15 · 03 (AlphaEvolve), Phase 15 · 04 (DGM)
+**Prerequisites:** Part 2 (AlphaEvolve — Evolutionary Coding Agents), Part 3 (Darwin Godel Machine — Open-Ended Self-Modifying Agents)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -484,7 +478,7 @@ Beel et al. (arXiv:2502.14297) ran an external evaluation. Headline findings:
 - **Novelty mislabeling.** The literature-retrieval step frequently flagged established concepts as novel. This is the research equivalent of hallucination.
 - **Presentation-quality gap.** The vision-language figure critique produced publication-grade visuals, masking underlying experimental weaknesses.
 
-The last finding is the important one for this phase. A system that produces convincing outputs without doing convincing research is more dangerous, not safer, than one that fails obviously. Evaluation must reach the underlying claims, not stop at the figure.
+The last finding is the important one for the Autonomous Systems chapters. A system that produces convincing outputs without doing convincing research is more dangerous, not safer, than one that fails obviously. Evaluation must reach the underlying claims, not stop at the figure.
 
 ### The sandbox-escape concern
 
@@ -551,3 +545,9 @@ v2 has the weakest automatic evaluator of the three, the widest output surface, 
 - [Anthropic — Measuring AI agent autonomy](https://www.anthropic.com/research/measuring-agent-autonomy)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/15-autonomous-systems/05-ai-scientist-v2)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

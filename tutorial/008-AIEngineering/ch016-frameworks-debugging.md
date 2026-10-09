@@ -1,18 +1,12 @@
 # Training Practice: Schedules, PyTorch, JAX & Debugging
 
-> Combined lessons (5 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Learning Rate Schedules and Warmup
 
 > The learning rate is the single most important hyperparameter. Not the architecture. Not the dataset size. Not the activation function. The learning rate. If you tune nothing else, tune this.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Lesson 03.06 (Optimizers), Lesson 03.08 (Weight Initialization)
+**Prerequisites:** ch015 (Activations)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -236,7 +230,7 @@ When in doubt, use warmup + cosine with warmup = 3-5% of total steps.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** All of Phase 03 (Lessons 01-09)
+**Prerequisites:** ch014 (Perceptron & Backpropagation), ch015 (Activations), Part 1 (Learning Rate Schedules and Warmup)
 **Time:** ~120 minutes
 
 ## Learning Objectives
@@ -646,7 +640,7 @@ The structure is identical. `Sequential`, `Linear`, `ReLU`, `BCELoss`, `Adam`, `
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Lesson 03.10 (Build Your Own Mini Framework)
+**Prerequisites:** Part 2 (Build Your Own Mini Framework)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -791,7 +785,7 @@ for inputs, targets in loader:
 
 ### Comparison: Mini Framework vs PyTorch
 
-| Mini Framework (Lesson 10) | PyTorch |
+| Mini Framework (Part 2) | PyTorch |
 |---------------------------|---------|
 | `model = Sequential(Linear(784, 256), ReLU(), ...)` | `model = nn.Sequential(nn.Linear(784, 256), nn.ReLU(), ...)` |
 | `pred = model.forward(x)` | `pred = model(x)` |
@@ -977,7 +971,7 @@ for epoch in range(10):
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 03 Lessons 01-10, basic NumPy
+**Prerequisites:** ch014 (Perceptron & Backpropagation), ch015 (Activations), Part 1 (Learning Rate Schedules and Warmup), Part 2 (Build Your Own Mini Framework), basic NumPy
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -1295,7 +1289,7 @@ optimizer = optax.chain(
 
 **Type:** Build
 **Languages:** Python, PyTorch
-**Prerequisites:** Phase 03 Lessons 01-10 (especially backpropagation, loss functions, optimizers)
+**Prerequisites:** ch014 (Perceptron & Backpropagation), ch015 (Activations), Part 1 (Learning Rate Schedules and Warmup), Part 2 (Build Your Own Mini Framework)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -1682,3 +1676,9 @@ for epoch in range(100):
 - PyTorch docs on `torch.autograd.detect_anomaly`
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/03-deep-learning-core/13-debugging-neural-networks)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

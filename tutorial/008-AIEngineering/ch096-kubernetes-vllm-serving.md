@@ -1,18 +1,12 @@
 # GPU Autoscaling, vLLM & Disaggregated Serving
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: GPU Autoscaling on Kubernetes — Karpenter, KAI Scheduler, Gang Scheduling
 
 > Three layers, not one. Karpenter provisions nodes dynamically (under one minute, 40% faster than Cluster Autoscaler). KAI Scheduler handles gang scheduling, topology awareness, and hierarchical queues — it prevents the 7-of-8 partial allocation trap where seven nodes wait and burn on one missing GPU. Application-level autoscalers (NVIDIA Dynamo Planner, llm-d Workload Variant Autoscaler) scale on inference-specific signals — queue depth, KV cache utilization — not CPU/DCGM duty cycle. The classic HPA trap is that `DCGM_FI_DEV_GPU_UTIL` is a duty-cycle measurement: 100% could be 10 requests or 100. vLLM pre-allocates KV cache memory, so memory never triggers scale-down.
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy queue-depth autoscaler simulator)
-**Prerequisites:** Phase 17 · 02 (Inference Platform Economics), Phase 17 · 04 (vLLM Serving Internals)
+**Prerequisites:** ch095 (Managed Platforms, Economics & FinOps), Part 2 (vLLM Serving Internals: PagedAttention, Continuous Batching, Chunked Prefill)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -283,7 +277,7 @@ This lesson produces `outputs/skill-gpu-autoscaler-plan.md`. Given cluster topol
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy continuous batching scheduler)
-**Prerequisites:** Phase 17 · 01 (Model Serving), Phase 11 (LLM Engineering)
+**Prerequisites:** ch095 (Managed Platforms, Economics & FinOps), ch053–ch058, ch061 (LLM Engineering)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -566,7 +560,7 @@ This lesson produces `outputs/skill-vllm-scheduler-reader.md`. Given a serving c
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy disaggregated-vs-colocated simulator)
-**Prerequisites:** Phase 17 · 04 (vLLM Serving Internals), Phase 17 · 08 (Inference Metrics)
+**Prerequisites:** Part 2 (vLLM Serving Internals: PagedAttention, Continuous Batching, Chunked Prefill), ch097 (EAGLE-3, SGLang, TensorRT & Goodput Metrics)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -649,9 +643,9 @@ We synthesize this figure from multiple customer disclosures rather than a singl
 - Team cannot operate two GPU pools with per-role scaling: Dynamo helps but not trivially.
 - No RDMA fabric: TCP transfer tax is heavier.
 
-### The router integrates with Phase 17 · 11
+### The router integrates with ch098 Part 3
 
-Disaggregated routers are KV-cache-aware (Phase 17 · 11). A request lands on the decode pool holding its prefix — if no match, it flows prefill → decode. Hit rate and disaggregation compound — the cache-aware router determines whether a new prefill is even needed.
+Disaggregated routers are KV-cache-aware (ch098 Part 3). A request lands on the decode pool holding its prefix — if no match, it flows prefill → decode. Hit rate and disaggregation compound — the cache-aware router determines whether a new prefill is even needed.
 
 ### MoE on Blackwell is where the real numbers are
 
@@ -715,7 +709,7 @@ This lesson produces `outputs/skill-disaggregation-decider.md`. Given workload a
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy KV-spill simulator)
-**Prerequisites:** Phase 17 · 04 (vLLM Serving Internals), Phase 17 · 06 (SGLang/RadixAttention)
+**Prerequisites:** Part 2 (vLLM Serving Internals: PagedAttention, Continuous Batching, Chunked Prefill), ch097 (EAGLE-3, SGLang, TensorRT & Goodput Metrics)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -739,7 +733,7 @@ LMCache extracts KV cache to CPU DRAM so preempted requests recover fast, and re
 
 `github.com/vllm-project/production-stack` is the reference Kubernetes deployment:
 
-- **Router** — cache-aware (Phase 17 · 11). Consumes KV events.
+- **Router** — cache-aware (ch098 Part 3). Consumes KV events.
 - **Engines** — vLLM workers. One per GPU or per TP/PP group.
 - **KV cache offload** — LMCache deployment or native connector.
 - **Observability** — Prometheus scrape, Grafana dashboards, OTel traces.
@@ -784,7 +778,7 @@ The 16x H100 (80 GB HBM) spread across 4 a3-highgpu-4g test:
 
 ### Integration with disaggregated serving
 
-Phase 17 · 17 disaggregated serving + LMCache compounds: KV transfers from prefill pool to decode pool land in LMCache if not used; subsequent queries pull from LMCache. Phase 17 · 11 cache-aware router can route to the engine whose local OR LMCache-shared cache matches.
+Part 3 disaggregated serving + LMCache compounds: KV transfers from prefill pool to decode pool land in LMCache if not used; subsequent queries pull from LMCache. ch098 Part 3 cache-aware router can route to the engine whose local OR LMCache-shared cache matches.
 
 ### Numbers you should remember
 
@@ -831,3 +825,9 @@ This lesson produces `outputs/skill-vllm-stack-decider.md`. Given workload shape
 - [vLLM 0.11.0 release notes](https://github.com/vllm-project/vllm/releases) — asynchronous path details.
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/17-infrastructure-and-production/18-vllm-production-stack-lmcache)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

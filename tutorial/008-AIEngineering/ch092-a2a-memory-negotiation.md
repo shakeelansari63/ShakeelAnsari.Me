@@ -1,18 +1,12 @@
 # A2A, Blackboards, Consensus & Negotiation
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: A2A — The Agent-to-Agent Protocol
 
 > Google announced A2A in April 2025; by April 2026 the spec is at https://a2a-protocol.org/latest/specification/ and 150+ organizations back it. A2A is the horizontal complement to MCP: where MCP is vertical (agent ↔ tools), A2A is peer-to-peer (agent ↔ agent).
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib, `http.server`, `json`)
-**Prerequisites:** Phase 16 · 04 (Primitive Model)
+**Prerequisites:** ch090 (Why Multi-Agent)
 **Time:** ~75 minutes
 
 ## Problem
@@ -135,7 +129,7 @@ Checklist:
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib, `threading`)
-**Prerequisites:** Phase 16 · 04 (Primitive Model), Phase 16 · 09 (Parallel Swarm Networks)
+**Prerequisites:** ch090 (Why Multi-Agent), ch091 (Roles, Swarms & Voting Topologies)
 **Time:** ~75 minutes
 
 ## Problem
@@ -259,7 +253,7 @@ For any shared-memory design:
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 16 · 07 (Society of Mind and Debate), Phase 16 · 13 (Shared Memory)
+**Prerequisites:** ch091 (Roles, Swarms & Voting Topologies), Part 2 (Shared Memory and Blackboard Patterns)
 **Time:** ~75 minutes
 
 ## Problem
@@ -368,7 +362,7 @@ Expected output: a table of (attack, aggregator) -> final answer. Plurality fail
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 16 · 02 (FIPA-ACL Heritage), Phase 16 · 09 (Parallel Swarm Networks)
+**Prerequisites:** ch090 (Why Multi-Agent), ch091 (Roles, Swarms & Voting Topologies)
 **Time:** ~75 minutes
 
 ## Problem
@@ -469,3 +463,9 @@ Expected output: naive-LLM deal rate ~65-75%; OG-Narrator deal rate ~85-95%.
 - [Smith 1980 — The Contract Net Protocol](https://ieeexplore.ieee.org/document/1675516)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/16-multi-agent-and-swarms/16-negotiation-bargaining)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

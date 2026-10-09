@@ -1,18 +1,12 @@
 # MDPs, DP, Monte Carlo, TD & Deep RL
 
-> Combined lessons (8 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: MDPs, States, Actions & Rewards
 
 > A Markov Decision Process is five things: states, actions, transitions, rewards, a discount. Everything in RL — Q-learning, PPO, DPO, GRPO — optimizes over this shape. Learn it once, read the rest of reinforcement learning for free.
 
 **Type:** Learn
 **Languages:** Python
-**Prerequisites:** Phase 1 · 06 (Probability & Distributions), Phase 2 · 01 (ML Taxonomy)
+**Prerequisites:** ch006 (Probability & Statistics), ch010 (ML Intro & Regression)
 **Time:** ~45 minutes
 
 ## The Problem
@@ -21,7 +15,7 @@ You are writing a chess bot. Or an inventory planner. Or a trading agent. Or the
 
 Supervised learning gives you `(x, y)` pairs and asks you to fit a function. Reinforcement learning gives you no labels — only a stream of states, the actions you took, and a scalar reward. Did the move win the game? Did the restock decision save money? Did the trade make a profit? Did the token the LLM just produced lead to a higher reward from the judge?
 
-You cannot learn from this stream until you formalize it. "What I saw," "what I did," "what happened next," "how good that was" — each has to become an object you can reason about. That formalization is a Markov Decision Process. Every RL algorithm in this phase, including the RLHF and GRPO loops at the end, optimizes over this shape.
+You cannot learn from this stream until you formalize it. "What I saw," "what I did," "what happened next," "how good that was" — each has to become an object you can reason about. That formalization is a Markov Decision Process. Every RL algorithm in the Reinforcement Learning chapters, including the RLHF and GRPO loops at the end, optimizes over this shape.
 
 ## The Concept
 
@@ -39,12 +33,12 @@ You cannot learn from this stream until you formalize it. "What I saw," "what I 
 
 **Policies and returns.** A policy `π(a | s)` maps states to action distributions. The return `G_t = r_t + γ r_{t+1} + γ² r_{t+2} + …` is the discounted sum of future rewards. The value `V^π(s) = E[G_t | s_t = s]` is the expected return starting from `s` under policy `π`. The Q-value `Q^π(s, a) = E[G_t | s_t = s, a_t = a]` is the expected return starting with a specific action. Every RL algorithm estimates one of these two, then improves `π` accordingly.
 
-**The Bellman equations.** The fixed-point equations that everything in this phase uses:
+**The Bellman equations.** The fixed-point equations that everything in the Reinforcement Learning chapters uses:
 
 `V^π(s) = Σ_a π(a|s) Σ_{s', r} P(s', r | s, a) [r + γ V^π(s')]`
 `Q^π(s, a) = Σ_{s', r} P(s', r | s, a) [r + γ Σ_{a'} π(a'|s') Q^π(s', a')]`
 
-These split expected return into "this step's reward" plus "discounted value of where you land." Recursive. Every algorithm in Phase 9 either iterates this equation to convergence (dynamic programming), samples from it (Monte Carlo), or bootstraps it one step (temporal difference).
+These split expected return into "this step's reward" plus "discounted value of where you land." Recursive. Every algorithm in ch043–ch044 (Reinforcement Learning) either iterates this equation to convergence (dynamic programming), samples from it (Monte Carlo), or bootstraps it one step (temporal difference).
 
 ## Build It
 
@@ -89,7 +83,7 @@ def rollout(policy, max_steps=200):
     return total, steps
 ```
 
-Run the random policy 1000 times. Average return is around -60 to -80 for this 4×4 board. The optimal return is -6 (straight-line path down-right). Closing that gap is everything in Phase 9.
+Run the random policy 1000 times. Average return is around -60 to -80 for this 4×4 board. The optimal return is -6 (straight-line path down-right). Closing that gap is everything in ch043–ch044 (Reinforcement Learning).
 
 ### Step 3: compute `V^π` exactly via the Bellman equation
 
@@ -124,7 +118,7 @@ Too low and the agent acts myopically. Too high and credit assignment becomes no
 ## Pitfalls
 
 - **Non-Markovian state.** If you need the last three observations to decide, the "state" is not just the current observation. Fix: stack frames (DQN on Atari stacks 4) or use a recurrent state (LSTM/GRU over observations).
-- **Sparse rewards.** Win-only rewards make learning nearly impossible in large state spaces. Shape rewards (intermediate signal) or bootstrap with imitation (Phase 9 · 09).
+- **Sparse rewards.** Win-only rewards make learning nearly impossible in large state spaces. Shape rewards (intermediate signal) or bootstrap with imitation (ch044 Part 1).
 - **Reward hacking.** Optimizing a proxy reward often produces pathological behavior. OpenAI's boat-racing agent spun in circles collecting powerups forever instead of finishing the race. Always define reward from the target outcome, not the proxy.
 - **Discount mis-spec.** `γ = 1` on an infinite-horizon task makes every value infinite. Always cap with either a finite horizon or `γ < 1`.
 - **Reward scale.** Rewards of {+100, -100} vs {+1, -1} give identical optimal policies but vastly different gradient magnitudes. Normalize to `[-1, 1]`-ish before plugging into PPO/DQN.
@@ -199,7 +193,7 @@ Refuse to ship any MDP where the state is non-Markovian without explicit mention
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 9 · 01 (MDPs)
+**Prerequisites:** Part 1 (MDPs, States, Actions & Rewards)
 **Time:** ~75 minutes
 
 ## The Problem
@@ -208,7 +202,7 @@ You have an MDP with a known model: you can query `P(s' | s, a)` and `R(s, a, s'
 
 Model-free RL (Q-learning, PPO, REINFORCE) was invented for the case where you don't have a model — you can only sample from the environment. But when you do have one, there are faster, better methods: dynamic programming. Bellman designed them in 1957. They still define correctness: when people say "optimal policy for this MDP," they mean the policy DP would return.
 
-You need them in 2026 for three reasons. First, every tabular environment in RL research (GridWorld, FrozenLake, CliffWalking) is solved with DP to produce the gold-standard policy. Second, exact values let you *debug* sampling methods: if Q-learning's estimate for `V*(s_0)` disagrees with the DP answer by 30%, your Q-learning has a bug. Third, modern offline RL and planning methods (MCTS, AlphaZero's search, model-based RL in Phase 9 · 10) all iterate a Bellman backup over a learned or given model.
+You need them in 2026 for three reasons. First, every tabular environment in RL research (GridWorld, FrozenLake, CliffWalking) is solved with DP to produce the gold-standard policy. Second, exact values let you *debug* sampling methods: if Q-learning's estimate for `V*(s_0)` disagrees with the DP answer by 30%, your Q-learning has a bug. Third, modern offline RL and planning methods (MCTS, AlphaZero's search, model-based RL in ch044 Part 2) all iterate a Bellman backup over a learned or given model.
 
 ## The Concept
 
@@ -237,7 +231,7 @@ Repeat until `max_s |V_{new}(s) - V(s)| < ε`. Extract the policy at the end by 
 
 ### Step 1: build the GridWorld MDP model
 
-Use the same 4×4 GridWorld from Lesson 01. We add a stochastic variant: with probability `0.1` the agent slips to a random perpendicular direction.
+Use the same 4×4 GridWorld from Part 1. We add a stochastic variant: with probability `0.1` the agent slips to a random perpendicular direction.
 
 ```python
 SLIP = 0.1
@@ -331,7 +325,7 @@ Same fixed point, fewer lines of code.
 - **Sup-norm vs L2 convergence.** Use `max |V_new - V|`, not average. The theoretical guarantee is on the sup-norm.
 - **In-place vs synchronous updates.** Updating `V[s]` in-place (Gauss-Seidel) converges faster than a separate `V_new` dict (Jacobi). Production code uses in-place.
 - **Policy ties.** If two actions have equal Q-value, `argmax` may break ties differently each iteration, causing the "policy stable" check to oscillate. Use a stable tie-break (first action in fixed order).
-- **State-space explosion.** DP is `O(|S| · |A|)` per sweep. Works up to ~10⁷ states. Beyond that, you need function approximation (Phase 9 · 05 onwards).
+- **State-space explosion.** DP is `O(|S| · |A|)` per sweep. Works up to ~10⁷ states. Beyond that, you need function approximation (Part 5 onwards).
 
 ## Use It
 
@@ -341,7 +335,7 @@ In 2026, DP is the correctness baseline and the inner loop of planners:
 |----------|--------|
 | Solve a small tabular MDP exactly | Value iteration (simpler) or policy iteration (fewer outer steps) |
 | Verify a Q-learning / PPO implementation | Compare to DP-optimal V* on a toy environment |
-| Model-based RL (Phase 9 · 10) | Bellman backup on a learned transition model |
+| Model-based RL (ch044 Part 2) | Bellman backup on a learned transition model |
 | Planning in AlphaZero / MuZero | Monte Carlo Tree Search = async Bellman backup |
 | Offline RL (CQL, IQL) | Conservative Q-iteration — DP with a penalty on OOD actions |
 
@@ -402,7 +396,7 @@ Refuse to run DP on state spaces > 10⁷. Refuse to claim convergence without a 
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 9 · 01 (MDPs), Phase 9 · 02 (Dynamic Programming)
+**Prerequisites:** Part 1 (MDPs, States, Actions & Rewards), Part 2 (Dynamic Programming — Policy Iteration & Value Iteration)
 **Time:** ~75 minutes
 
 ## The Problem
@@ -524,12 +518,12 @@ def mc_control(env, episodes, gamma=0.99, epsilon=0.1):
 
 ### Step 5: compare to DP gold standard
 
-Your MC estimate of `V^π` should agree with the DP result from Lesson 02 as episodes → ∞. In practice: 50,000 episodes on 4×4 GridWorld gets you within `~0.1` of the DP answer.
+Your MC estimate of `V^π` should agree with the DP result from Part 2 as episodes → ∞. In practice: 50,000 episodes on 4×4 GridWorld gets you within `~0.1` of the DP answer.
 
 ## Pitfalls
 
 - **Infinite episodes.** MC requires episodes to *terminate*. If your policy can loop forever, cap `max_steps` and treat the cap as implicit failure. GridWorld with a random policy routinely times out — that is normal, just make sure you count it correctly.
-- **Variance.** MC uses full returns. On long episodes, variance is huge — one unlucky reward at the end shifts `V(s_0)` by the same amount. TD methods (Lesson 04) cut this by bootstrapping.
+- **Variance.** MC uses full returns. On long episodes, variance is huge — one unlucky reward at the end shifts `V(s_0)` by the same amount. TD methods (Part 4) cut this by bootstrapping.
 - **State coverage.** Greedy MC on a fresh Q with ties will only ever try one action. You *must* explore (ε-greedy, exploring starts, UCB).
 - **Non-stationary policies.** If `π` changes (as in MC control), old returns are from a different policy. Constant-α MC handles this; sample-average MC does not.
 - **Off-policy importance sampling.** The weights `π(a|s)/μ(a|s)` multiply across a trajectory. Variance explodes with horizon. Cap with per-decision weighted IS or switch to TD.
@@ -593,7 +587,7 @@ Refuse to run MC on non-episodic tasks without a finite horizon cap. Refuse to r
 - [Singh & Sutton (1996). Reinforcement Learning with Replacing Eligibility Traces](https://link.springer.com/article/10.1007/BF00114726) — first-visit vs every-visit analysis.
 - [Precup, Sutton, Singh (2000). Eligibility Traces for Off-Policy Policy Evaluation](http://incompleteideas.net/papers/PSS-00.pdf) — off-policy MC and variance control.
 - [Mahmood et al. (2014). Weighted Importance Sampling for Off-Policy Learning](https://arxiv.org/abs/1404.6362) — modern low-variance IS estimators.
-- [Tesauro (1995). TD-Gammon, A Self-Teaching Backgammon Program](https://dl.acm.org/doi/10.1145/203330.203343) — the first large-scale empirical demonstration of MC/TD self-play converging to superhuman play; conceptual precursor to every lesson in the second half of this phase.
+- [Tesauro (1995). TD-Gammon, A Self-Teaching Backgammon Program](https://dl.acm.org/doi/10.1145/203330.203343) — the first large-scale empirical demonstration of MC/TD self-play converging to superhuman play; conceptual precursor to every lesson in the second half of the Reinforcement Learning chapters.
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/09-reinforcement-learning/03-monte-carlo-methods)
 
@@ -601,11 +595,11 @@ Refuse to run MC on non-episodic tasks without a finite horizon cap. Refuse to r
 
 ## Part 4: Temporal Difference — Q-Learning & SARSA
 
-> Monte Carlo waits until the episode ends. TD updates after every step by bootstrapping the next value estimate. Q-learning is off-policy and optimistic; SARSA is on-policy and cautious. Both are one line of code. Both underpin every deep-RL method in this phase.
+> Monte Carlo waits until the episode ends. TD updates after every step by bootstrapping the next value estimate. Q-learning is off-policy and optimistic; SARSA is on-policy and cautious. Both are one line of code. Both underpin every deep-RL method in the Reinforcement Learning chapters.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 9 · 01 (MDPs), Phase 9 · 02 (Dynamic Programming), Phase 9 · 03 (Monte Carlo)
+**Prerequisites:** Part 1 (MDPs, States, Actions & Rewards), Part 2 (Dynamic Programming — Policy Iteration & Value Iteration), Part 3 (Monte Carlo Methods — Learning from Complete Episodes)
 **Time:** ~75 minutes
 
 ## The Problem
@@ -616,7 +610,7 @@ Dynamic programming has the opposite profile — zero-variance bootstrapped back
 
 Temporal difference (TD) learning splits the difference. From a single transition `(s, a, r, s')`, form a one-step target `r + γ V(s')` and nudge `V(s)` toward it. No model. No complete episodes. Bias from using an approximate `V` on the RHS, but dramatically lower variance than MC and online updates from step one.
 
-This is the pivot on which all of modern RL — DQN, A2C, PPO, SAC — turns. The rest of Phase 9 is layers of function approximation and tricks built on top of the one-step TD update you will write in this lesson.
+This is the pivot on which all of modern RL — DQN, A2C, PPO, SAC — turns. The rest of ch043–ch044 (Reinforcement Learning) is layers of function approximation and tricks built on top of the one-step TD update you will write in this lesson.
 
 ## The Concept
 
@@ -632,7 +626,7 @@ The bracketed quantity is the TD error `δ = r + γ V(s') - V(s)`. It is the onl
 
 `Q(s, a) ← Q(s, a) + α [r + γ max_{a'} Q(s', a') - Q(s, a)]`
 
-The `max` assumes the *greedy* policy will be followed from `s'` onward, regardless of what action the agent actually takes. That decoupling makes Q-learning learn `Q*` while the agent explores via ε-greedy. Mnih et al. (2015) converted this into deep Q-learning on Atari (Lesson 05).
+The `max` assumes the *greedy* policy will be followed from `s'` onward, regardless of what action the agent actually takes. That decoupling makes Q-learning learn `Q*` while the agent explores via ε-greedy. Mnih et al. (2015) converted this into deep Q-learning on Atari (Part 5).
 
 **SARSA.** An on-policy TD method:
 
@@ -705,14 +699,14 @@ Track mean return per 100 episodes. Q-learning converges faster on simple determ
 
 ### Step 4: compare to DP truth
 
-Run value iteration (Lesson 02) to get `Q*`. Check `max_{s,a} |Q_learned(s,a) - Q*(s,a)|`. A healthy tabular TD agent lands within `~0.5` on the 4×4 GridWorld after 10,000 episodes.
+Run value iteration (Part 2) to get `Q*`. Check `max_{s,a} |Q_learned(s,a) - Q*(s,a)|`. A healthy tabular TD agent lands within `~0.5` on the 4×4 GridWorld after 10,000 episodes.
 
 ## Pitfalls
 
 - **Initial Q values matter.** Optimistic init (`Q = 0` for a negative-reward task) encourages exploration. Pessimistic init can trap a greedy policy forever.
 - **α schedule.** Constant `α` is fine for non-stationary problems. Decaying `α_n = 1/n` gives convergence in theory but is too slow in practice — pin `α` in `[0.05, 0.3]` and monitor the learning curve.
 - **ε schedule.** Start high (`ε=1.0`), decay to `ε=0.05`. "GLIE" (greedy in the limit with infinite exploration) is the convergence condition.
-- **Max bias in Q-learning.** The `max` operator is biased upward when `Q` is noisy. Leads to overestimation — Hasselt's Double Q-learning (used by DDQN in Lesson 05) fixes this with two Q tables.
+- **Max bias in Q-learning.** The `max` operator is biased upward when `Q` is noisy. Leads to overestimation — Hasselt's Double Q-learning (used by DDQN in Part 5) fixes this with two Q tables.
 - **Non-terminating episodes.** TD can learn without terminals, but you need to either cap steps or handle bootstrap correctly at the cap. Standard: treat cap as non-terminal, keep bootstrapping.
 - **State hashing.** If states are tuples/tensors, use a hashable key (tuple, not list; tuple of floats rounded, not raw).
 
@@ -724,10 +718,10 @@ The 2026 TD landscape:
 |------|--------|--------|
 | Small tabular environments | Q-learning | Learns optimal policy directly. |
 | On-policy safety-critical | SARSA / Expected SARSA | Conservative during exploration. |
-| High-dimensional state | DQN (Phase 9 · 05) | Neural-net Q-function with replay and target net. |
-| Continuous actions | SAC / TD3 (Phase 9 · 07) | TD update on a Q-network; policy net emits actions. |
-| LLM RL (reward-model-based) | PPO / GRPO (Phase 9 · 08, 12) | Actor-critic with TD-style advantage via GAE. |
-| Offline RL | CQL / IQL (Phase 9 · 08) | Q-learning with conservative regularization. |
+| High-dimensional state | DQN (Part 5) | Neural-net Q-function with replay and target net. |
+| Continuous actions | SAC / TD3 (Part 7) | TD update on a Q-network; policy net emits actions. |
+| LLM RL (reward-model-based) | PPO / GRPO (ch043 Part 8, ch044 Part 4) | Actor-critic with TD-style advantage via GAE. |
+| Offline RL | CQL / IQL (Part 8) | Q-learning with conservative regularization. |
 
 Ninety percent of the "RL" you read about in 2026 papers is some elaboration of Q-learning or SARSA. Understand the tabular update in your fingers before reading deeper.
 
@@ -788,7 +782,7 @@ Refuse to apply tabular TD to state spaces > 10⁶. Refuse to ship a Q-learning 
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 3 · 03 (Backpropagation), Phase 9 · 04 (Q-learning, SARSA)
+**Prerequisites:** ch014 (Perceptron & Backpropagation), Part 4 (Temporal Difference — Q-Learning & SARSA)
 **Time:** ~75 minutes
 
 ## The Problem
@@ -884,7 +878,7 @@ def train_step(online, target, batch, gamma, lr):
     apply_sgd(online, grads, lr / len(batch))
 ```
 
-The shape is Q-learning from Lesson 04 with two differences: (a) we backprop through a differentiable `Q(·; θ)` instead of indexing a table, (b) the target uses `Q(·; θ^-)`.
+The shape is Q-learning from Part 4 with two differences: (a) we backprop through a differentiable `Q(·; θ)` instead of indexing a table, (b) the target uses `Q(·; θ^-)`.
 
 ### Step 4: the outer loop
 
@@ -923,8 +917,8 @@ In 2026, DQN is rarely state-of-the-art but remains the reference off-policy alg
 | Task | Method of choice | Why not DQN? |
 |------|------------------|--------------|
 | Discrete-action Atari-like | Rainbow DQN or Muesli | Same framework, more tricks. |
-| Continuous control | SAC / TD3 (Phase 9 · 07) | DQN has no policy network. |
-| On-policy / high-throughput | PPO (Phase 9 · 08) | No replay buffer; easier to scale. |
+| Continuous control | SAC / TD3 (Part 7) | DQN has no policy network. |
+| On-policy / high-throughput | PPO (Part 8) | No replay buffer; easier to scale. |
 | Offline RL | CQL / IQL / Decision Transformer | Conservative Q targets, no bootstrapping blowups. |
 | Large discrete action spaces (recommender) | DQN with action embedding, or IMPALA | Fine; decoration matters. |
 | LLM RL | PPO / GRPO | Sequence-level, not step-level; different loss. |
@@ -991,7 +985,7 @@ Refuse to ship a DQN with no target network, no replay buffer, or ε held at 1. 
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 3 · 03 (Backpropagation), Phase 9 · 03 (Monte Carlo), Phase 9 · 04 (TD Learning)
+**Prerequisites:** ch014 (Perceptron & Backpropagation), Part 3 (Monte Carlo Methods — Learning from Complete Episodes), Part 4 (Temporal Difference — Q-Learning & SARSA)
 **Time:** ~75 minutes
 
 ## The Problem
@@ -1002,7 +996,7 @@ Policy gradients parameterize the *policy* instead. `π_θ(a | s)` is a neural n
 
 The REINFORCE theorem (Williams 1992) tells you this gradient is computable: `∇J(θ) = E_π[ G · ∇_θ log π_θ(a | s) ]`. Run an episode. Compute the return. Multiply by `∇ log π_θ(a | s)` at every step. Average. Gradient-ascent. Done.
 
-Every LLM-RL algorithm in 2026 — PPO, DPO, GRPO — is a refinement of REINFORCE. Understanding it in your fingers is the prerequisite for the rest of this phase, and for Phase 10 · 07 (RLHF implementation) and Phase 10 · 08 (DPO).
+Every LLM-RL algorithm in 2026 — PPO, DPO, GRPO — is a refinement of REINFORCE. Understanding it in your fingers is the prerequisite for the rest of the Reinforcement Learning chapters, and for ch049 Part 2 (RLHF implementation) and ch049 Part 3 (DPO).
 
 ## The Concept
 
@@ -1018,14 +1012,14 @@ where `G_t = Σ_{k=t}^{T} γ^{k-t} r_{k+1}` is the discounted return from step `
 
 **Variance reduction tricks.** Vanilla REINFORCE has murderous variance — returns are noisy, `∇ log π` is noisy, their product is very noisy. Two standard fixes:
 
-1. **Baseline subtraction.** Replace `G_t` with `G_t - b(s_t)` for any baseline `b(s_t)` that does not depend on `a_t`. Unbiased because `E[b(s_t) · ∇ log π(a_t | s_t)] = 0`. Typical choice: `b(s_t) = V̂(s_t)` learned by a critic → actor-critic (Lesson 07).
+1. **Baseline subtraction.** Replace `G_t` with `G_t - b(s_t)` for any baseline `b(s_t)` that does not depend on `a_t`. Unbiased because `E[b(s_t) · ∇ log π(a_t | s_t)] = 0`. Typical choice: `b(s_t) = V̂(s_t)` learned by a critic → actor-critic (Part 7).
 2. **Reward-to-go.** Replace `Σ_t G_t · ∇ log π_θ(a_t | s_t)` with `Σ_t G_t^{from t} · ∇ log π_θ(a_t | s_t)`. Only future returns matter for a given action — past rewards contribute zero-mean noise.
 
 Combined, you get:
 
 `∇J ≈ (1/N) Σ_{i=1}^{N} Σ_{t=0}^{T_i} [ G_t^{(i)} - V̂(s_t^{(i)}) ] · ∇_θ log π_θ(a_t^{(i)} | s_t^{(i)})`
 
-which is REINFORCE with a baseline — the direct ancestor of A2C (Lesson 07) and PPO (Lesson 08).
+which is REINFORCE with a baseline — the direct ancestor of A2C (Part 7) and PPO (Part 8).
 
 **Softmax policy parameterization.** For discrete actions, the standard choice:
 
@@ -1037,7 +1031,7 @@ where `f_θ` is any neural net that outputs a score per action. The gradient has
 
 i.e., score of the taken action minus its expected value under the policy.
 
-**Gaussian policy for continuous actions.** `π_θ(a | s) = N(μ_θ(s), σ_θ(s))`. `∇ log N(a; μ, σ)` has a closed form. That is all Phase 9 · 07's SAC needs.
+**Gaussian policy for continuous actions.** `π_θ(a | s) = N(μ_θ(s), σ_θ(s))`. `∇ log N(a; μ, σ)` has a closed form. That is all Part 7's SAC needs.
 
 ## Build It
 
@@ -1112,7 +1106,7 @@ A running mean of `G` over recent episodes is enough variance reduction to get a
 
 - **Exploding gradients.** Returns can be huge. Always normalize `G` to `~N(0, 1)` across the batch before multiplying by `∇ log π`.
 - **Entropy collapse.** The policy converges to a near-deterministic action too early, stops exploring, gets stuck. Fix: add entropy bonus `β · H(π(·|s))` to the objective.
-- **High variance.** Vanilla REINFORCE needs thousands of episodes. A critic baseline (Lesson 07) or TRPO/PPO's trust region (Lesson 08) is the standard fix.
+- **High variance.** Vanilla REINFORCE needs thousands of episodes. A critic baseline (Part 7) or TRPO/PPO's trust region (Part 8) is the standard fix.
 - **Sample inefficiency.** On-policy means you throw away every transition after one update. Off-policy corrections via importance sampling bring back data, at the cost of variance (PPO's ratio is a clipped IS weight).
 - **Non-stationary gradients.** The same gradient from 100 episodes ago uses old `π`. On-policy methods update every few rollouts for this reason.
 - **Credit assignment.** Without reward-to-go, past rewards contribute noise. Always use reward-to-go.
@@ -1188,7 +1182,7 @@ Refuse REINFORCE-no-baseline on horizons > 500 steps. Refuse continuous-action c
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 9 · 04 (TD Learning), Phase 9 · 06 (REINFORCE)
+**Prerequisites:** Part 4 (Temporal Difference — Q-Learning & SARSA), Part 6 (Policy Gradient — REINFORCE from Scratch)
 **Time:** ~75 minutes
 
 ## The Problem
@@ -1316,8 +1310,8 @@ A2C/A3C are rarely the final choice in 2026 but they are the architecture everyt
 |--------|----------------|
 | PPO | A2C + clipped importance ratio for multi-epoch updates |
 | IMPALA | A3C + V-trace off-policy correction |
-| SAC (Phase 9 · 07) | Off-policy A2C with a soft-value critic (next lesson) |
-| GRPO (Phase 9 · 12) | A2C without the critic — group-relative advantage |
+| SAC (Part 7) | Off-policy A2C with a soft-value critic (next lesson) |
+| GRPO (ch044 Part 4) | A2C without the critic — group-relative advantage |
 | DPO | A2C collapsed into a preference-ranking loss, no sampling |
 | AlphaStar / OpenAI Five | A2C with league training + imitation pre-training |
 
@@ -1380,12 +1374,12 @@ Refuse single-worker A2C on environments with horizon > 1000 (too on-policy, too
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 9 · 06 (REINFORCE), Phase 9 · 07 (Actor-Critic)
+**Prerequisites:** Part 6 (Policy Gradient — REINFORCE from Scratch), Part 7 (Actor-Critic — A2C and A3C)
 **Time:** ~75 minutes
 
 ## The Problem
 
-A2C (Lesson 07) is on-policy: the gradient `E_{π_θ}[A · ∇ log π_θ]` requires data sampled from the *current* `π_θ`. Take one update, and `π_θ` changes; the data you used is now off-policy. Re-use it and your gradient is biased.
+A2C (Part 7) is on-policy: the gradient `E_{π_θ}[A · ∇ log π_θ]` requires data sampled from the *current* `π_θ`. Take one update, and `π_θ` changes; the data you used is now off-policy. Re-use it and your gradient is biased.
 
 Rollouts are expensive. On Atari, one rollout across 8 envs × 128 steps = 1024 transitions and a dozen seconds of environment time. Throwing that away after one gradient step is wasteful.
 
@@ -1456,7 +1450,7 @@ for step in range(T):
 
 The snapshot is taken once, at rollout time. It does not change during the update epochs.
 
-### Step 2: compute GAE advantages (Lesson 07)
+### Step 2: compute GAE advantages (Part 7)
 
 Same as A2C. Normalize across the batch.
 
@@ -1520,7 +1514,7 @@ PPO is 2026's default RL algorithm across a surprising number of domains:
 | Atari / discrete games | PPO with categorical policy, rolling 128-step rollouts |
 | RLHF for LLMs | PPO with KL penalty to reference model, reward from RM at end of response |
 | Large-scale game agents | IMPALA + PPO (AlphaStar, OpenAI Five) |
-| Reasoning LLMs | GRPO (Lesson 12) — PPO variant without critic |
+| Reasoning LLMs | GRPO (ch044 Part 4) — PPO variant without critic |
 | Preference-only data | DPO — closed-form collapsing of PPO+KL, no online sampling |
 
 The PPO *loss shape* — clipped surrogate + value + entropy — is the scaffolding for DPO, GRPO, and nearly every RLHF pipeline.
@@ -1571,7 +1565,13 @@ Refuse `K > 30` or `ε > 0.3` (unsafe trust region). Refuse any PPO run without 
 - [Ouyang et al. (2022). Training language models to follow instructions with human feedback](https://arxiv.org/abs/2203.02155) — InstructGPT; the PPO-in-RLHF recipe.
 - [OpenAI Spinning Up — PPO](https://spinningup.openai.com/en/latest/algorithms/ppo.html) — clean modern exposition with PyTorch.
 - [CleanRL PPO implementation](https://github.com/vwxyzjn/cleanrl) — reference single-file PPO used by many papers.
-- [Hugging Face TRL — PPOTrainer](https://huggingface.co/docs/trl/main/en/ppo_trainer) — the production recipe for PPO on language models; read alongside Lesson 09 (RLHF).
+- [Hugging Face TRL — PPOTrainer](https://huggingface.co/docs/trl/main/en/ppo_trainer) — the production recipe for PPO on language models; read alongside ch044 Part 1 (RLHF).
 - [Engstrom et al. (2020). Implementation Matters in Deep Policy Gradients](https://arxiv.org/abs/2005.12729) — the "37 code-level optimizations" paper; which PPO tricks are load-bearing and which are folklore.
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/09-reinforcement-learning/08-ppo)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

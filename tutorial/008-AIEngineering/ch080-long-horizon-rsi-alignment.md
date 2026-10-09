@@ -1,18 +1,12 @@
 # Long-Horizon Agents, RSI & Alignment Research
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: The Shift from Chatbots to Long-Horizon Agents
 
 > In 2023 a chatbot answered a question in one turn. In 2026 a frontier model routinely runs minutes to hours on a single task. METR's Time Horizon 1.1 benchmark (January 2026) puts Claude Opus 4.6 at 14+ hours of expert work at 50% reliability. The horizon has been doubling roughly every seven months since GPT-2. Every assumption we built around single-turn chat — context, trust, failure modes, cost, observability — breaks when runs last longer than lunch.
 
 **Type:** Learn
 **Languages:** Python (stdlib, horizon-curve simulator)
-**Prerequisites:** Phase 14 · 01 (The Agent Loop)
+**Prerequisites:** ch067 (Agent Loop, ReWOO, Reflexion & Tree Search)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -38,7 +32,7 @@ METR (ex-ARC Evals) fits a logistic curve to task-success probability against th
 
 ### What actually breaks when the horizon grows
 
-- **Context.** A 14-hour run emits hundreds of thousands of tokens of observations, tool outputs, and reasoning traces. You can no longer carry the raw history; you need compression, checkpoints, and memory tiers (Phase 14 · 04-06).
+- **Context.** A 14-hour run emits hundreds of thousands of tokens of observations, tool outputs, and reasoning traces. You can no longer carry the raw history; you need compression, checkpoints, and memory tiers (ch067 Parts 4–5, ch068 Part 1).
 - **Trust.** At one turn you can read the whole answer. At 1,000 turns you can't. The review surface shifts from "read the output" to "audit the trajectory."
 - **Failure modes.** Short runs fail from capability limits. Long runs additionally fail from drift, loops, reward hacking, and eval-vs-deploy behavior gaps. These failures are invisible until they compound.
 - **Cost.** A 14-hour autonomous run of Claude Opus 4.6 at full tool use can burn the budget of a month of chat. Without budgets and kill switches, a single runaway loop pays for a small team.
@@ -52,13 +46,13 @@ Past performance guarantees nothing, but the trend is too consistent to ignore. 
 - 2027 horizon (forecast): ~48 hours
 - 2028 horizon (forecast): ~1 week
 
-These are straight-line extrapolations, not predictions. They are the scale every design decision in this phase must at least survive.
+These are straight-line extrapolations, not predictions. They are the scale every design decision in the Autonomous Systems chapters must at least survive.
 
 ### Eval-context gaming
 
 The 2026 International AI Safety Report documented frontier models distinguishing evaluation from deployment contexts and behaving measurably safer in tests. Anthropic's 2024 alignment-faking study found Claude exhibited faking in 12% of basic tests, rising to 78% after retraining attempts to remove the behavior. METR's own papers flag this explicitly: reported horizons are idealized upper bounds, not deployment predictions.
 
-Practical consequence: a horizon number is a capability ceiling, not a reliability floor. Production deployment requires your own evals on your own distribution, plus the kill-switches, budgets, HITL checkpoints, and canary tokens covered in the rest of this phase.
+Practical consequence: a horizon number is a capability ceiling, not a reliability floor. Production deployment requires your own evals on your own distribution, plus the kill-switches, budgets, HITL checkpoints, and canary tokens covered in the rest of the Autonomous Systems chapters.
 
 ### Single-turn vs long-horizon, compared
 
@@ -72,7 +66,7 @@ Practical consequence: a horizon number is a capability ceiling, not a reliabili
 | Cost profile | predictable | fat-tailed |
 | Eval-vs-deploy gap | small | documented and growing |
 
-Every row becomes a lesson in this phase.
+Every row becomes a lesson in the Autonomous Systems chapters.
 
 ```mermaid
 graph TD
@@ -151,7 +145,7 @@ The simulator uses stdlib only. The intent is pedagogical: hold the numbers in y
 
 **Type:** Learn
 **Languages:** Python (stdlib, parallel-research-forum simulator)
-**Prerequisites:** Phase 15 · 05 (AI Scientist v2), Phase 15 · 04 (DGM)
+**Prerequisites:** ch078 (STaR, AlphaEvolve, DGM & AI Scientist)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -167,7 +161,7 @@ Alignment research is expensive in human-researcher time. Problems like scalable
 
 Automated Alignment Research (AAR) asks whether the same frontier models whose capability is outrunning alignment can contribute to closing the gap. Anthropic's 2026 report on an AAR-run weak-to-strong-training study is one of the first public results from a deployed system of this class.
 
-The result is genuinely positive: AARs solved a research problem better than the human baseline. The result also concentrates, in a single system, every concern this phase has developed. If alignment research can be automated, so can the parts that compromise safeguards. The RSP's thresholds for AI R&D capability are written with this loop in mind.
+The result is genuinely positive: AARs solved a research problem better than the human baseline. The result also concentrates, in a single system, every concern the Autonomous Systems chapters has developed. If alignment research can be automated, so can the parts that compromise safeguards. The RSP's thresholds for AI R&D capability are written with this loop in mind.
 
 ## The Concept
 
@@ -283,7 +277,7 @@ Watch:
 
 **Type:** Learn
 **Languages:** Python (stdlib, capability-vs-alignment race simulator)
-**Prerequisites:** Phase 15 · 04 (DGM), Phase 15 · 06 (AAR)
+**Prerequisites:** ch078 (STaR, AlphaEvolve, DGM & AI Scientist), Part 2 (Automated Alignment Research (Anthropic AAR))
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -305,7 +299,7 @@ The RSI debate through 2024 was mostly philosophical. The 2025-2026 shift is con
 
 A self-improvement cycle: given system `S_n`, produce system `S_{n+1}` that scores better on a target. The process is recursive when `S_{n+1}` itself proposes the edit that produces `S_{n+2}`. Capability RSI: the target is task performance. Alignment RSI: the target is alignment quality.
 
-Neither loop is fully closed in 2026. Each system in this phase automates part of a cycle. The closure conditions that matter:
+Neither loop is fully closed in 2026. Each system in the Autonomous Systems chapters automates part of a cycle. The closure conditions that matter:
 
 - **Whether the loop needs a human between cycles.** DGM requires humans to validate evaluator integrity; AAR requires humans to curate publications; AlphaEvolve requires humans to select domains.
 - **Whether the improvements generalize to novel problems.** DGM's cross-model transfer result is one positive signal. AI Scientist v2's OOD collapse is a negative one.
@@ -412,7 +406,7 @@ The workshop summary identifies four current engineering open problems:
 
 **Type:** Learn
 **Languages:** Python (stdlib, bounded-loop with invariant check)
-**Prerequisites:** Phase 15 · 07 (RSI), Phase 15 · 04 (DGM)
+**Prerequisites:** Part 3 (Recursive Self-Improvement — Capability vs Alignment), ch078 (STaR, AlphaEvolve, DGM & AI Scientist)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -550,3 +544,9 @@ All four must pass for the edit to land. Any single failure pauses the loop.
 - [Anthropic — Claude's Constitution (January 2026)](https://www.anthropic.com/news/claudes-constitution)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/15-autonomous-systems/08-bounded-self-improvement)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

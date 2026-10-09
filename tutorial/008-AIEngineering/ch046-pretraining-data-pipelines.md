@@ -1,18 +1,12 @@
 # Data Pipelines, Mini-GPT & Corpus Builds
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Data Pipelines for Pre-Training
 
 > The model is a mirror. It reflects whatever data you feed it. Feed it garbage, it reflects garbage with perfect fluency.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 10, Lessons 01-02 (Tokenizers, Building a Tokenizer)
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -398,7 +392,7 @@ This lesson produces a prompt for validating and debugging data quality in LLM t
 
 **Type:** Build
 **Languages:** Python (with numpy), Rust
-**Prerequisites:** Phase 10, Lessons 01-03 (Tokenizers, Building a Tokenizer, Data Pipelines)
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build), Part 1 (Data Pipelines for Pre-Training)
 **Time:** ~120 minutes
 
 ## Learning Objectives
@@ -1210,7 +1204,7 @@ This lesson produces `outputs/prompt-gpt-architecture-analyzer.md` — a prompt 
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 lessons 30-37
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build), ch038 (BERT, GPT, T5 & Building GPT from Scratch), ch050 (LR Schedules, AMP, Checkpoints & Eval Harness), ch052 (Complete LLM Pipeline)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -1271,7 +1265,7 @@ MinHash estimates Jaccard similarity with `k` minimum hash values. LSH groups in
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 lessons 30-37
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build), ch038 (BERT, GPT, T5 & Building GPT from Scratch), ch050 (LR Schedules, AMP, Checkpoints & Eval Harness), ch052 (Complete LLM Pipeline)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -1313,7 +1307,7 @@ The token dataset is created with `maxshape=(None,)` and a fixed `chunks=(chunk_
 
 ### Sharded write
 
-Each input shard from lesson 42 produces one HDF5 output shard. A `shards.json` index records, per shard, the file path, the token count, the document count, and a sha256 over the tokens.
+Each input shard from Part 3 produces one HDF5 output shard. A `shards.json` index records, per shard, the file path, the token count, the document count, and a sha256 over the tokens.
 
 ### Memory-mapped read
 
@@ -1358,3 +1352,9 @@ python3 code/main.py
 | Sliding window | A fixed-length slice of the global token stream paired with its shift-by-one target |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/43-hdf5-tokenized-corpus)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

@@ -1,18 +1,12 @@
 # AutoGen, CrewAI, Agents SDKs & Software Teams
 
-> Combined lessons (6 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: AutoGen v0.4: Actor Model and Agent Framework
 
 > AutoGen v0.4 (Microsoft Research, Jan 2025) redesigned agent orchestration around the actor model. Async message exchange, event-driven agents, fault isolation, natural concurrency. The framework is now in maintenance mode while Microsoft Agent Framework (public preview Oct 2025) becomes the successor.
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 01 (Agent Loop), Phase 14 · 12 (Workflow Patterns)
+**Prerequisites:** ch067 (Agent Loop, ReWOO, Reflexion & Tree Search), ch069 (HTN, Workflow & Orchestration Patterns)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -62,7 +56,7 @@ In the v0.2 model, calling `agent_a.chat(agent_b)` synchronously blocks agent_a 
 
 ### Observability
 
-OpenTelemetry support is built in. Every message emits a span; tool calls carry `gen_ai.*` attributes per the 2026 OTel GenAI semantic conventions (Lesson 23).
+OpenTelemetry support is built in. Every message emits a span; tool calls carry `gen_ai.*` attributes per the 2026 OTel GenAI semantic conventions (ch072 Part 2).
 
 ### Status: maintenance mode
 
@@ -89,7 +83,7 @@ The trace shows message delivery, a simulated failure in one actor that does not
 
 - **AutoGen v0.4/v0.7** (maintenance) — stable for research, prototyping, multi-agent patterns.
 - **Microsoft Agent Framework** (public preview) — the forward path; same actor-model ideas in a refreshed API.
-- **LangGraph swarm topology** (Lesson 13) — similar pattern via shared-tool handoffs.
+- **LangGraph swarm topology** (ch069 Part 3) — similar pattern via shared-tool handoffs.
 - **Custom actor runtime** — when you need specific transport (NATS, RabbitMQ, gRPC).
 
 ## Exercises
@@ -97,7 +91,7 @@ The trace shows message delivery, a simulated failure in one actor that does not
 1. Add a dead-letter queue: when a handler raises, park the failing message for human inspection. How often does DLQ get hit in your toy?
 2. Implement `SelectorGroupChat`: a selector actor picks who processes the next message based on conversation state.
 3. Add distributed transport: swap the in-process queue for a JSON-over-HTTP server so actors can run in separate processes.
-4. Wire an OTel span per message (or a no-op stand-in). Emit `gen_ai.agent.name`, `gen_ai.operation.name` per Lesson 23.
+4. Wire an OTel span per message (or a no-op stand-in). Emit `gen_ai.agent.name`, `gen_ai.operation.name` per ch072 Part 2.
 5. Read AutoGen v0.4's architecture post. Port your toy to the real `autogen_core` API. What did you skip that matters in production?
 
 ## Key Terms
@@ -130,7 +124,7 @@ The trace shows message delivery, a simulated failure in one actor that does not
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 12 (Workflow Patterns), Phase 14 · 14 (Actor Model)
+**Prerequisites:** ch069 (HTN, Workflow & Orchestration Patterns), Part 1 (AutoGen v0.4: Actor Model and Agent Framework)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -238,9 +232,9 @@ Enable on the Crew with `memory=True` or per-type config. Backed by an embedding
 
 ### When CrewAI does not fit
 
-- Deterministic DAGs with strict ordering. Use LangGraph (Lesson 13). The graph shape is the right abstraction; CrewAI's role framing is friction.
+- Deterministic DAGs with strict ordering. Use LangGraph (ch069 Part 3). The graph shape is the right abstraction; CrewAI's role framing is friction.
 - Sub-second latency budgets. Hierarchical adds round trips. Even Sequential serializes prompts that include backstories and prior outputs.
-- Single-agent loops. Skip the framework; an agent loop (Lesson 1) plus a tool registry is shorter.
+- Single-agent loops. Skip the framework; an agent loop (ch067 Part 1) plus a tool registry is shorter.
 
 ### Where this pattern goes wrong
 
@@ -310,7 +304,7 @@ Trace covers sequential crew threading outputs through `context`, hierarchical c
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 01 (Agent Loop), Phase 14 · 06 (Tool Use)
+**Prerequisites:** ch067 (Agent Loop, ReWOO, Reflexion & Tree Search), ch068 (Memory Systems, Mem0 & Skill Libraries)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -342,7 +336,7 @@ The model sees `transfer_to_billing_agent` in its tool list. Calling it signals 
 2. Initialize the target agent with its instructions.
 3. Continue the run with the target agent.
 
-This is the supervisor pattern (Lesson 13 / Lesson 28) productized.
+This is the supervisor pattern (ch069 Part 3 / ch069 Part 4) productized.
 
 ### Guardrails
 
@@ -371,7 +365,7 @@ On by default. Every LLM generation, tool call, handoff, and guardrail emits a s
 
 - **Handoff drift.** Agent A hands off to Agent B which hands back to Agent A. Add a hop counter.
 - **Guardrail bypass.** Tool guardrails only fire on function tools; built-in tools (file reader, web fetch) need separate policy.
-- **Over-tracing.** Sensitive content in spans. Pair with OTel GenAI content-capture rules (Lesson 23) — store externally, reference by ID.
+- **Over-tracing.** Sensitive content in spans. Pair with OTel GenAI content-capture rules (ch072 Part 2) — store externally, reference by ID.
 
 ## Build It
 
@@ -393,8 +387,8 @@ The trace shows two successful handoffs, one input guardrail trip, and a span tr
 ## Use It
 
 - **OpenAI Agents SDK** for OpenAI-first products.
-- **Claude Agent SDK** (Lesson 17) for Claude-first products.
-- **LangGraph** (Lesson 13) when you want explicit state and durable resume.
+- **Claude Agent SDK** (Part 4) for Claude-first products.
+- **LangGraph** (ch069 Part 3) when you want explicit state and durable resume.
 - **Custom** when you need exact control (voice, multi-provider, federated deployments).
 
 ## Exercises
@@ -435,7 +429,7 @@ The trace shows two successful handoffs, one input guardrail trip, and a span tr
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 01 (Agent Loop), Phase 14 · 10 (Skill Libraries)
+**Prerequisites:** ch067 (Agent Loop, ReWOO, Reflexion & Tree Search), ch068 (Memory Systems, Mem0 & Skill Libraries)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -530,7 +524,7 @@ The trace shows subagent context isolation (orchestrator context size stays boun
 
 - **Claude Agent SDK** for Claude-first products that want the Claude Code harness shape.
 - **Claude Managed Agents** for hosted long-running async work.
-- **OpenAI Agents SDK** (Lesson 16) for OpenAI-first counterparts.
+- **OpenAI Agents SDK** (Part 3) for OpenAI-first counterparts.
 - **LangGraph + custom tools** if you want the graph-shaped state machine instead.
 
 ## Exercises
@@ -571,7 +565,7 @@ The trace shows subagent context isolation (orchestrator context size stays boun
 
 **Type:** Learn
 **Languages:** Python, TypeScript
-**Prerequisites:** Phase 14 · 01 (Agent Loop), Phase 14 · 13 (LangGraph)
+**Prerequisites:** ch067 (Agent Loop, ReWOO, Reflexion & Tree Search), ch069 (HTN, Workflow & Orchestration Patterns)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -614,14 +608,14 @@ Neither is trying to be LangGraph. They compete on:
 
 - **Language fit.** Agno for Python-first teams; Mastra for TypeScript-first.
 - **Runtime ergonomics.** Agno = near-zero overhead; Mastra = integrated with the Vercel ecosystem.
-- **Observability.** Both integrate with Langfuse/Phoenix/Opik (Lesson 24) but Mastra Studio is first-party.
+- **Observability.** Both integrate with Langfuse/Phoenix/Opik (ch072 Part 3) but Mastra Studio is first-party.
 
 ### When to pick each
 
 - **Agno** — Python backend, many short-lived agents, strong perf requirements, FastAPI shop.
 - **Mastra** — TypeScript backend, Next.js / Vercel deploy, unified multi-provider model routing, Zod-typed tools.
-- **LangGraph** (Lesson 13) — when durable state and explicit graph reasoning matter more than raw speed.
-- **OpenAI / Claude Agent SDK** — when you want the provider's productized shape (Lessons 16–17).
+- **LangGraph** (ch069 Part 3) — when durable state and explicit graph reasoning matter more than raw speed.
+- **OpenAI / Claude Agent SDK** — when you want the provider's productized shape (Parts 3–4).
 
 ### Where this pattern goes wrong
 
@@ -649,7 +643,7 @@ Two structurally different but functionally equivalent traces.
 
 ## Exercises
 
-1. Read Agno's docs. Port the stdlib ReAct loop (Lesson 01) to Agno. What disappeared? What stayed?
+1. Read Agno's docs. Port the stdlib ReAct loop (ch067 Part 1) to Agno. What disappeared? What stayed?
 2. Read Mastra's docs. Port the same loop to Mastra. What changed in tool typing (Zod vs nothing)?
 3. Benchmark: measure agent instantiation latency on your stack. Does Agno's 2μs matter to your workload?
 4. Design a migration: if you've been running CrewAI in Python, what breaks if you move to Agno?
@@ -683,7 +677,7 @@ Two structurally different but functionally equivalent traces.
 
 **Type:** Capstone
 **Languages:** Python / TypeScript (agents), Shell (worktree scripts)
-**Prerequisites:** Phase 11 (LLM engineering), Phase 13 (tools), Phase 14 (agents), Phase 15 (autonomous), Phase 16 (multi-agent), Phase 17 (infrastructure)
+**Prerequisites:** ch053–ch058, ch061 (LLM Engineering), ch060, ch062–ch064 (Tools & Protocols), ch067–ch069, ch071–ch077 (Agent Engineering), ch078, ch080–ch084 (Autonomous Systems), ch090–ch094 (Multi-Agent & Swarms), ch095–ch100 (Infrastructure & Production)
 **Time:** 40 hours
 
 ## Problem
@@ -818,3 +812,9 @@ $ team run --issue https://github.com/acme/widget/issues/842
 - [SWE-bench Pro](https://www.swebench.com)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/10-multi-agent-software-team)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

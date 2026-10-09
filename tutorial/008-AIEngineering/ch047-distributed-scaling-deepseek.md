@@ -1,18 +1,12 @@
 # Distributed Training, DualPipe & DeepSeek-V3
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Scaling: Distributed Training, FSDP, DeepSpeed
 
 > Your 124M model trained on one GPU. Now try 7 billion parameters. The model doesn't fit in memory. The data takes weeks on a single machine. Distributed training isn't optional at scale. It's the only path forward.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 10, Lesson 04 (Pre-Training a Mini GPT)
+**Prerequisites:** ch046 (Data Pipelines, Mini-GPT & Corpus Builds)
 **Time:** ~120 minutes
 
 ## Learning Objectives
@@ -668,7 +662,7 @@ This lesson produces `outputs/prompt-distributed-training-planner.md` — a prom
 
 **Type:** Learn
 **Languages:** Python (stdlib, schedule simulator)
-**Prerequisites:** Phase 10 · 05 (distributed training), Phase 10 · 14 (MoE architectures)
+**Prerequisites:** Part 1 (Scaling: Distributed Training, FSDP, DeepSpeed), ch052 (Complete LLM Pipeline)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -767,7 +761,7 @@ This lesson produces `outputs/skill-dualpipe-planner.md` -- recommends pipeline 
 
 **Type:** Learn
 **Languages:** Python (stdlib, parameter calculator)
-**Prerequisites:** Phase 10 · 14, 17, 18, 19
+**Prerequisites:** ch052 (Complete LLM Pipeline), ch039 (MoE, Audio Transformers & Sparse Attention), ch051 (Quantization), Part 2 (DualPipe Parallelism)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -887,7 +881,7 @@ This lesson produces `outputs/skill-deepseek-v3-reader.md` -- reads any DeepSeek
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 lessons 42 to 45
+**Prerequisites:** ch046 (Data Pipelines, Mini-GPT & Corpus Builds), ch050 (LR Schedules, AMP, Checkpoints & Eval Harness)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -961,3 +955,9 @@ python3 code/main.py
 | Unshard | Reconstruct full tensor from per-rank slices via all_gather |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/48-distributed-fsdp-ddp)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

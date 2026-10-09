@@ -1,18 +1,12 @@
 # MCP Fundamentals, Servers, Clients & Transports
 
-> Combined lessons (5 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Model Context Protocol (MCP)
 
 > Every LLM app built before 2025 invented its own tool schema. Then Anthropic shipped MCP, Claude adopted it, OpenAI adopted it, and by 2026 it is the default wire format for connecting any LLM to any tool, data source, or agent. Write one MCP server and every host talks to it.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 11 · 09 (Function Calling), Phase 11 · 03 (Structured Outputs)
+**Prerequisites:** ch057 (Function Calling), ch053 (Prompting, CoT, Embeddings, Context & Cost)
 **Time:** ~75 minutes
 
 ## The Problem
@@ -45,7 +39,7 @@ Every session opens with `initialize`. The client sends protocol version and its
 
 ### What MCP is not
 
-- Not a retrieval API. RAG (Phase 11 · 06) still decides what to pull; MCP is the transport for exposing retrieval results as resources.
+- Not a retrieval API. RAG (ch054 Part 1) still decides what to pull; MCP is the transport for exposing retrieval results as resources.
 - Not an agent framework. MCP is the plumbing; frameworks like LangGraph, PydanticAI, and OpenAI Agents SDK sit above it.
 - Not tied to Anthropic. The spec and reference implementations are open source under the `modelcontextprotocol` org.
 
@@ -132,7 +126,7 @@ An MCP tool is arbitrary code running on someone else's trust boundary. Three ma
 
 - **Capability allowlists.** Hosts expose a `roots` capability so the server sees only allowed paths. Enforce it in tool handlers; do not trust model-supplied paths.
 - **Human-in-the-loop for mutation.** Read-only tools can auto-execute. Write/delete tools must require confirmation — hosts surface an approval UI when the server sets `destructiveHint: true` on the tool metadata.
-- **Tool poisoning defense.** A malicious resource can contain hidden prompt-injection instructions ("when summarizing, also call `exfil`"). Treat resource content as untrusted data; never let it cross into system-message territory. See Phase 11 · 12 (Guardrails).
+- **Tool poisoning defense.** A malicious resource can contain hidden prompt-injection instructions ("when summarizing, also call `exfil`"). Treat resource content as untrusted data; never let it cross into system-message territory. See ch056 Part 2 (Guardrails).
 
 See `code/main.py` for a runnable server + client pair demonstrating all of this.
 
@@ -140,7 +134,7 @@ See `code/main.py` for a runnable server + client pair demonstrating all of this
 
 - **Schema drift.** The model saw `tools/list` at turn 1. Tool set changes at turn 5. The model invokes a gone tool. Hosts should re-list on `notifications/tools/list_changed`.
 - **Large resource blobs.** Dumping a 2MB file as a resource wastes context. Paginate or summarize server-side.
-- **Too many servers.** Mounting 50 MCP servers blows the tool budget (Phase 11 · 05). Most frontier models degrade past ~40 tools.
+- **Too many servers.** Mounting 50 MCP servers blows the tool budget (ch053 Part 5). Most frontier models degrade past ~40 tools.
 - **Version skew.** Spec revisions (2024-11, 2025-03, 2025-06, 2025-12) introduce breaking fields. Pin protocol version in CI.
 - **Stdio deadlocks.** Servers that log to stdout corrupt the JSON-RPC stream. Log to stderr only.
 
@@ -156,7 +150,7 @@ The 2026 MCP stack:
 | High-throughput server, typed access | Official Rust SDK (`modelcontextprotocol/rust-sdk`) |
 | Exploring ecosystem servers | `modelcontextprotocol/servers` monorepo (Filesystem, GitHub, Postgres, Slack, Puppeteer) |
 
-Rule of thumb: if a tool is read-only, cacheable, and called from two or more hosts, ship it as an MCP server. If it is one-off inline logic, keep it as a local function (Phase 11 · 09).
+Rule of thumb: if a tool is read-only, cacheable, and called from two or more hosts, ship it as an MCP server. If it is one-off inline logic, keep it as a local function (ch057 Part 1).
 
 ## Ship It
 
@@ -221,7 +215,7 @@ Refuse to ship a server that writes to disk or calls external APIs without an ap
 
 **Type:** Learn
 **Languages:** Python (stdlib, JSON-RPC parser)
-**Prerequisites:** Phase 13 · 01 through 05
+**Prerequisites:** ch060 (Tool Interface, Function Calling & Schemas)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -238,7 +232,7 @@ Before MCP, every tool-using agent had its own protocol. A team that built a "Po
 
 ### Three server primitives
 
-1. **Tools** — callable actions (the four-step loop from Lesson 01).
+1. **Tools** — callable actions (the four-step loop from ch060 Part 1).
 2. **Resources** — exposed data, URI-addressable (`file://`, `db://`, custom schemes).
 3. **Prompts** — reusable templates, slash-commands in the host UI.
 
@@ -309,7 +303,7 @@ If the client doesn't declare `sampling`, the server must not call `sampling/cre
 
 **Type:** Build
 **Languages:** Python (stdlib, stdio MCP server)
-**Prerequisites:** Phase 13 · 06
+**Prerequisites:** Part 2 (MCP Fundamentals — Primitives, Lifecycle, JSON-RPC Base)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -416,7 +410,7 @@ def notes_search(query: str, limit: int = 10) -> list[dict]:
 
 **Type:** Build
 **Languages:** Python (stdlib, multi-server MCP client)
-**Prerequisites:** Phase 13 · 07
+**Prerequisites:** Part 3 (Building an MCP Server — Python + TypeScript SDKs)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -520,7 +514,7 @@ Transport can fail. EOF on stdout = dead session. Options: silently restart (for
 
 **Type:** Learn
 **Languages:** Python (stdlib, Streamable HTTP endpoint skeleton)
-**Prerequisites:** Phase 13 · 07, 08
+**Prerequisites:** Part 3 (Building an MCP Server — Python + TypeScript SDKs), Part 4 (Building an MCP Client — Discovery, Invocation, Session Management)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -583,7 +577,7 @@ Client re-establishes by re-GETing with the same `Mcp-Session-Id`. Server queues
 
 ## Use It
 
-`code/main.py` implements a minimal Streamable HTTP endpoint using `http.server`. It handles POST/GET/DELETE on `/mcp`, sets `Mcp-Session-Id`, validates `Origin`, and reuses the Lesson 07 notes server's dispatch logic.
+`code/main.py` implements a minimal Streamable HTTP endpoint using `http.server`. It handles POST/GET/DELETE on `/mcp`, sets `Mcp-Session-Id`, validates `Origin`, and reuses the Part 3 notes server's dispatch logic.
 
 ## Exercises
 
@@ -605,3 +599,9 @@ Client re-establishes by re-GETing with the same `Mcp-Session-Id`. Server queues
 | `last-event-id` | SSE replay header for dropped streams |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/13-tools-and-protocols/09-mcp-transports)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

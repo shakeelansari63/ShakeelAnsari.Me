@@ -1,18 +1,12 @@
 # Canary, Load Testing, SRE, Chaos & Compliance
 
-> Combined lessons (7 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Shadow Traffic, Canary Rollout, and Progressive Deployment for LLMs
 
 > LLM rollouts combine the hardest parts of software deployment: no unit tests, diffuse failure modes, delayed signals. The sequence is (1) shadow mode — duplicate prod requests to candidate model, log, compare with zero user impact; catches obvious distribution issues but is not a quality guarantee; (2) canary rollout — progressive traffic shift 10% → 25% → 50% → 75% → 100% with gates at each step; track latency percentiles, cost/request, error/refusal rate, output length distribution, user-feedback rate; (3) A/B testing for distinct alternatives after stability confirmed. Non-determinism is irreducible — up to 15% accuracy variation across runs with identical inputs due to GPU FP non-associativity plus batch-size variance. Cost is a variable, not constant — a 20% better model can be 3x more expensive per call. Rollback speed is decisive: if rollback requires redeploy, you are too slow. Policy lives in config/flags; model lives in registry with pinned digests; rollback = flip policy + revert threshold + pin old model in seconds.
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy canary-progression simulator)
-**Prerequisites:** Phase 17 · 13 (Observability), Phase 17 · 21 (A/B Testing)
+**Prerequisites:** ch099 (Observability, Caching, Batch & Self-Hosted), Part 2 (A/B Testing LLM Features — GrowthBook, Statsig, and the Vibes Problem)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -147,7 +141,7 @@ This lesson produces `outputs/skill-rollout-runbook.md`. Given candidate model, 
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy sequential test simulator)
-**Prerequisites:** Phase 17 · 13 (Observability), Phase 17 · 20 (Progressive Deployment)
+**Prerequisites:** ch099 (Observability, Caching, Batch & Self-Hosted), Part 1 (Shadow Traffic, Canary Rollout, and Progressive Deployment for LLMs)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -283,7 +277,7 @@ This lesson produces `outputs/skill-ab-plan.md`. Given feature change, workload,
 
 **Type:** Build
 **Languages:** Python (stdlib, toy realistic-prompt generator + latency collector)
-**Prerequisites:** Phase 17 · 08 (Inference Metrics), Phase 17 · 03 (GPU Autoscaling)
+**Prerequisites:** ch097 (EAGLE-3, SGLang, TensorRT & Goodput Metrics), ch096 (GPU Autoscaling, vLLM & Disaggregated Serving)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -374,7 +368,7 @@ This lesson produces `outputs/skill-load-test-plan.md`. Given workload and SLA, 
 1. Run `code/main.py`. Compare uniform vs realistic distribution — where is the gap?
 2. Write the k6 script for a CI gate: TTFT P95 < 800 ms at 100 concurrent, runtime 5 minutes.
 3. Your soak test shows memory growing 50 MB/hour. Name three causes and the instrumentation to pick between them.
-4. Spike test from 10 RPS to 100 RPS. What's the expected recovery time if Karpenter + vLLM production-stack are in place (Phase 17 · 03 + 18)?
+4. Spike test from 10 RPS to 100 RPS. What's the expected recovery time if Karpenter + vLLM production-stack are in place (ch096 Part 1, ch096 Part 4)?
 5. GenAI-Perf reports TPOT=6ms; LLMPerf reports TPOT=11ms on the same server. Explain.
 
 ## Key Terms
@@ -412,7 +406,7 @@ This lesson produces `outputs/skill-load-test-plan.md`. Given workload and SLA, 
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy multi-agent incident triage simulator)
-**Prerequisites:** Phase 17 · 13 (Observability), Phase 17 · 24 (Chaos Engineering)
+**Prerequisites:** ch099 (Observability, Caching, Batch & Self-Hosted), Part 5 (Chaos Engineering for LLM Production)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -547,7 +541,7 @@ This lesson produces `outputs/skill-ai-sre-plan.md`. Given current on-call, inci
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy chaos experiment runner)
-**Prerequisites:** Phase 17 · 23 (SRE for AI), Phase 17 · 13 (Observability)
+**Prerequisites:** Part 4 (SRE for AI — Multi-Agent Incident Response, Runbooks, Predictive Detection), ch099 (Observability, Caching, Batch & Self-Hosted)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -571,8 +565,8 @@ Don't run chaos in production without:
 
 1. **SLI/SLO** — defined service-level indicators and objectives.
 2. **Observability** — traces, metrics, logs, wired to dashboards.
-3. **Automated rollback** — Phase 17 · 20 policy-flag rollback.
-4. **Runbooks** — structured, Phase 17 · 23.
+3. **Automated rollback** — Part 1 policy-flag rollback.
+4. **Runbooks** — structured, Part 4.
 5. **On-call** — someone to respond.
 
 Missing any means chaos becomes real incident.
@@ -599,9 +593,9 @@ Missing any means chaos becomes real incident.
 
 1. **Memory overload** — force a KV cache preemption storm by sending long-context requests with high concurrency. Observe: does the service gracefully shed or crash?
 
-2. **Network failure** — cut connectivity between inference gateway and provider. Observe: does fallback kick in within SLA? (Phase 17 · 19)
+2. **Network failure** — cut connectivity between inference gateway and provider. Observe: does fallback kick in within SLA? (ch095 Part 3)
 
-3. **Provider outage simulation** — 100% 429 from OpenAI. Observe: does routing failover to Anthropic? (Phase 17 · 16, 19)
+3. **Provider outage simulation** — 100% 429 from OpenAI. Observe: does routing failover to Anthropic? (ch099 Part 4, ch095 Part 3)
 
 4. **Malformed prompt** — inject tokenizer-stalling payload (e.g., deeply nested unicode, huge UTF-8 codepoint). Observe: does a single request lock up a worker?
 
@@ -683,7 +677,7 @@ This lesson produces `outputs/skill-chaos-plan.md`. Given stack and maturity, pi
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy PII-scrubber + audit-log writer)
-**Prerequisites:** Phase 17 · 19 (AI Gateways), Phase 17 · 13 (Observability)
+**Prerequisites:** ch095 (Managed Platforms, Economics & FinOps), ch099 (Observability, Caching, Batch & Self-Hosted)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -832,7 +826,7 @@ This lesson produces `outputs/skill-llm-security-plan.md`. Given regulatory scop
 
 **Type:** Learn
 **Languages:** (Python optional — compliance is policy + process, not code)
-**Prerequisites:** Phase 17 · 25 (Security), Phase 17 · 13 (Observability)
+**Prerequisites:** Part 6 (Security — Secrets, API Key Rotation, Audit Logs, Guardrails), ch099 (Observability, Caching, Batch & Self-Hosted)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -894,7 +888,7 @@ Type II: controls operate effectively over 6-12 months.
 
 B2B procurement in 2026 defaults to Type II. Type I is a starter; Type II is the gate.
 
-Common audit drivers: access logs (who saw what), change management (how was it deployed), risk assessments (quarterly), incident response (tested?). Audit log from Phase 17 · 25 is directly reusable.
+Common audit drivers: access logs (who saw what), change management (how was it deployed), risk assessments (quarterly), incident response (tested?). Audit log from Part 6 is directly reusable.
 
 ### Cross-framework mapping
 
@@ -940,7 +934,7 @@ This lesson produces `outputs/skill-compliance-matrix.md`. Given customer segmen
 2. Classify three hypothetical LLM products under EU AI Act risk tiers. What changes at high-risk?
 3. You accidentally sent PHI to a provider without BAA. Walk through the incident response.
 4. Argue whether ISO 42001 is "necessary in 2026" for a mid-market AI vendor.
-5. Map your LLM audit log fields (Phase 17 · 25) to at least three framework controls.
+5. Map your LLM audit log fields (Part 6) to at least three framework controls.
 
 ## Key Terms
 
@@ -966,3 +960,9 @@ This lesson produces `outputs/skill-compliance-matrix.md`. Given customer segmen
 - [ISO/IEC 42001:2023](https://www.iso.org/standard/81230.html) — AI management system standard.
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/17-infrastructure-and-production/26-compliance-frameworks)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

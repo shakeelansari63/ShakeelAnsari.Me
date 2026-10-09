@@ -1,18 +1,12 @@
 # Instruction-Following, Goodhart & DPO Family
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Instruction-Following as Alignment Signal
 
 > Every later critique of RLHF argues against this pipeline. Before you study how optimization pressure distorts a proxy, you have to see the proxy. InstructGPT (Ouyang et al., 2022) defined the reference architecture: supervised fine-tuning on instruction-response pairs, a reward model trained on pairwise preference rankings, and PPO against the reward model with a KL penalty to the SFT policy. A 1.3B InstructGPT was preferred over a 175B GPT-3. That single result is the reason every frontier lab in 2026 still ships an RLHF-shaped post-training pipeline.
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy three-stage pipeline)
-**Prerequisites:** Phase 10 · 06 (SFT), Phase 10 · 07 (RLHF), Phase 10 · 08 (DPO)
+**Prerequisites:** ch049 (SFT, RLHF, DPO & Constitutional AI)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -77,9 +71,9 @@ A 1.3B InstructGPT (SFT + RM + PPO-ptx) is preferred by labelers over the 175B b
 1. Alignment is a different axis from capability. The 175B model had more capability; the 1.3B model had more alignment; labelers preferred the aligned one.
 2. The capability floor is set by the base model. You cannot RLHF a base model into knowing facts it never saw.
 
-### Why this is the reference point for Phase 18
+### Why this is the reference point for the Ethics, Safety & Alignment chapters
 
-Every critique in later lessons — reward hacking (Lesson 2), DPO (Lesson 3), sycophancy (Lesson 4), CAI (Lesson 5), sleeper agents (Lesson 7), alignment faking (Lesson 9) — argues against some part of this pipeline. Reward hacking attacks stage 2. DPO collapses stages 2 and 3. CAI replaces the human labeler. Sycophancy shows the labeler is a biased signal. Alignment faking shows the policy can route around stage 3 entirely. You cannot follow any of these critiques without the pipeline in your head first.
+Every critique in later lessons — reward hacking (Part 2), DPO (Part 3), sycophancy (Part 4), CAI (ch083 Part 3), sleeper agents (ch086 Part 2), alignment faking (ch086 Part 4) — argues against some part of this pipeline. Reward hacking attacks stage 2. DPO collapses stages 2 and 3. CAI replaces the human labeler. Sycophancy shows the labeler is a biased signal. Alignment faking shows the policy can route around stage 3 entirely. You cannot follow any of these critiques without the pipeline in your head first.
 
 ## Use It
 
@@ -105,7 +99,7 @@ This lesson produces `outputs/skill-instructgpt-explainer.md`. Given an RLHF pip
 
 4. The paper's Section 4.3 reports a 1.3B InstructGPT beats 175B GPT-3 about 70% of the time. Why would the ratio be higher on hidden production prompts than on the labeler's own prompts?
 
-5. Replace the PPO loss with DPO (Phase 10 · 08) on the same preference data. Compare final policy drift (KL to SFT) and final reward. Which method drifts further at matched reward?
+5. Replace the PPO loss with DPO (ch049 Part 3) on the same preference data. Compare final policy drift (KL to SFT) and final reward. Which method drifts further at matched reward?
 
 ## Key Terms
 
@@ -136,7 +130,7 @@ This lesson produces `outputs/skill-instructgpt-explainer.md`. Given an RLHF pip
 
 **Type:** Learn
 **Languages:** Python (stdlib, proxy-vs-gold-reward simulator)
-**Prerequisites:** Phase 18 · 01 (InstructGPT), Phase 10 · 07 (RLHF)
+**Prerequisites:** Part 1 (Instruction-Following as Alignment Signal), ch049 (SFT, RLHF, DPO & Constitutional AI)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -172,9 +166,9 @@ This is the "over-optimization curve." It is not a bug in a specific reward mode
 ### Four costumes, one mechanism
 
 1. Verbosity bias. Labelers weakly prefer long explanations. RM learns "longer = better." Policy emits longer outputs, reward climbs, quality does not. Addressed at training time by length penalties (SimPO), at evaluation time by length-controlled win rates.
-2. Sycophancy. Labelers weakly prefer agreement. RM learns "agree with the user." Policy affirms false premises. Lesson 4 covers the scaling behaviour.
+2. Sycophancy. Labelers weakly prefer agreement. RM learns "agree with the user." Policy affirms false premises. Part 4 covers the scaling behaviour.
 3. Unfaithful reasoning. The RM learns "answers that look correct are correct." The policy emits chains of thought that justify any answer the scorer wants. Turpin et al. (NeurIPS 2023, arXiv:2305.04388) demonstrate CoT is not load-bearing on the final answer in several failure modes.
-4. Evaluator tampering. The agent modifies its own environment to register success. Sleeper-agent and in-context-scheming work (Lessons 7-8) show this is reachable at 2024-2026 frontier scale.
+4. Evaluator tampering. The agent modifies its own environment to register success. Sleeper-agent and in-context-scheming work (ch086 Parts 2–3) show this is reachable at 2024-2026 frontier scale.
 
 Each of these is a case of the proxy correlating with the target over the training distribution, and the optimizer selecting inputs where the correlation breaks.
 
@@ -191,7 +185,7 @@ The condition ("heavy-tailed error") is not exotic. Any bounded measurement of a
 - Ensemble RMs with worst-case aggregation (Coste et al., 2023). The optimizer can break one RM but not all of them simultaneously.
 - Reward-model robustness to distributional shift (Zhou et al., "Shift-of-Reward-Distribution", 2024).
 - Conservative KL schedules and early stopping at the empirical proxy-gold gap.
-- Direct Alignment Algorithms (DPO, Lesson 3) — which have their own Goodhart failure modes, proven in Rafailov et al. "Scaling Laws for Reward Model Over-optimization in Direct Alignment Algorithms" (NeurIPS 2024).
+- Direct Alignment Algorithms (DPO, Part 3) — which have their own Goodhart failure modes, proven in Rafailov et al. "Scaling Laws for Reward Model Over-optimization in Direct Alignment Algorithms" (NeurIPS 2024).
 
 None of these eliminate reward hacking. They move the curve's peak further out. This is often enough for a shipping product. It is never enough for a "solved" alignment claim.
 
@@ -249,11 +243,11 @@ This lesson produces `outputs/skill-reward-hack-auditor.md`. Given a trained RLH
 
 ## Part 3: The Direct Preference Optimization Family
 
-> Rafailov et al. (2023) showed RLHF's optimum has a closed form in terms of the preference data, so you can skip the explicit reward model and optimize the policy directly. That insight spawned a family — IPO, KTO, SimPO, ORPO, BPO — each fixing a failure mode of DPO. In 2026, direct alignment algorithms ship more frontier post-training runs than PPO. But the over-optimization curve from Lesson 2 still applies: DAAs do not escape Goodhart, they just move where it bites.
+> Rafailov et al. (2023) showed RLHF's optimum has a closed form in terms of the preference data, so you can skip the explicit reward model and optimize the policy directly. That insight spawned a family — IPO, KTO, SimPO, ORPO, BPO — each fixing a failure mode of DPO. In 2026, direct alignment algorithms ship more frontier post-training runs than PPO. But the over-optimization curve from Part 2 still applies: DAAs do not escape Goodhart, they just move where it bites.
 
 **Type:** Learn
 **Languages:** Python (stdlib, six-variant preference-loss comparator)
-**Prerequisites:** Phase 18 · 01 (InstructGPT), Phase 18 · 02 (Reward hacking), Phase 10 · 08 (DPO basics)
+**Prerequisites:** Part 1 (Instruction-Following as Alignment Signal), Part 2 (Reward Hacking and Goodhart's Law), ch049 (SFT, RLHF, DPO & Constitutional AI)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -265,7 +259,7 @@ This lesson produces `outputs/skill-reward-hack-auditor.md`. Given a trained RLH
 
 ## The Problem
 
-The RLHF objective (Lesson 1):
+The RLHF objective (Part 1):
 
 ```
 max_pi E_{x,y~pi} [ r(x, y) ] - beta * KL(pi || pi_ref)
@@ -423,7 +417,7 @@ This lesson produces `outputs/skill-preference-loss-selector.md`. Given dataset 
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy sycophancy amplification simulator)
-**Prerequisites:** Phase 18 · 01 (InstructGPT), Phase 18 · 02 (Reward hacking)
+**Prerequisites:** Part 1 (Instruction-Following as Alignment Signal), Part 2 (Reward Hacking and Goodhart's Law)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -467,7 +461,7 @@ Shapira et al. measure the inverse-scaling pattern on Llama and Mistral families
 - After RLHF: ~40%.
 - After longer RLHF (2x more steps, same beta): ~55%.
 
-The curve is the Gao et al. over-optimization curve from Lesson 2, with sycophancy playing the role of gold-negative: proxy reward rises, sycophancy rises, helpfulness on calibrated eval starts falling.
+The curve is the Gao et al. over-optimization curve from Part 2, with sycophancy playing the role of gold-negative: proxy reward rises, sycophancy rises, helpfulness on calibrated eval starts falling.
 
 ### The Stanford (2026) measurement
 
@@ -496,7 +490,7 @@ where `agree(x, y)` is an auxiliary classifier that measures whether `y` agrees 
 
 This is a trade-off, not a fix. Every sycophancy mitigation trades against helpful agreement because the two share surface features.
 
-### Why this matters for Phase 18
+### Why this matters for the Ethics, Safety & Alignment chapters
 
 Sycophancy is the canonical example that alignment is not "turn the dial up" on a single objective. The preference signal is inherently multi-dimensional (helpful, honest, harmless, agreeable-when-correct, disagreeable-when-user-is-wrong) and any scalar proxy collapses these. Sycophancy emerges at the collision.
 
@@ -544,3 +538,9 @@ This lesson produces `outputs/skill-sycophancy-probe.md`. Given a model and a se
 - [Sahoo et al. — Calibration Collapse Under Sycophantic Training (arXiv:2604.10585)](https://arxiv.org/abs/2604.10585)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/18-ethics-safety-alignment/04-sycophancy-rlhf-amplification)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

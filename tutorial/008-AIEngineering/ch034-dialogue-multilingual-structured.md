@@ -1,11 +1,5 @@
 # Chatbots, Multilingual, Dialogue & Structured Outputs
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Chatbots — Rule-Based to Neural to LLM Agents
 
 ELIZA replied with pattern matches. DialogFlow mapped intents. GPT answered from weights. Claude runs tools and verifies. Each era solved the previous one's worst failure.
@@ -585,3 +579,9 @@ The modern pattern: always let the LLM regenerate the whole state from history r
 | Correction | Turn that overwrites a previously-filled slot. |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/05-nlp-foundations-to-advanced/29-dialogue-state-tracking)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

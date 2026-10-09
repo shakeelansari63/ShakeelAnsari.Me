@@ -1,18 +1,12 @@
 # Image Generation: GANs to Diffusion
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Image Generation — GANs
 
 > A GAN is two neural networks in a fixed game. One draws, one critiques. They get better together until the drawings fool the critic.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 4 Lesson 03 (CNNs), Phase 3 Lesson 06 (Optimizers), Phase 3 Lesson 07 (Regularization)
+**Prerequisites:** ch017 (CNNs, Classification, Transfer & Edge Vision), ch015 (Activations)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -238,7 +232,7 @@ def build_sn_discriminator(img_channels=3, feat=64):
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 4 Lesson 07 (U-Net), Phase 1 Lesson 06 (Probability), Phase 3 Lesson 06 (Optimizers)
+**Prerequisites:** ch018 (Detection & Segmentation (YOLO, U-Net, SAM)), ch006 (Probability & Statistics), ch015 (Activations)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -484,7 +478,7 @@ scheduler = DDPMScheduler(num_train_timesteps=1000)
 
 **Type:** Learn + Use
 **Languages:** Python
-**Prerequisites:** Phase 4 Lesson 10 (Diffusion), Phase 7 Lesson 02 (Self-Attention)
+**Prerequisites:** Part 2 (Image Generation — Diffusion Models), ch037 (Self-Attention, MHA, Positions & Variants)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -668,19 +662,19 @@ Production decisions: SD 1.5 (community fine-tunes), SDXL (higher fidelity), SD3
 
 **Type:** Learn + Build
 **Languages:** Python
-**Prerequisites:** Phase 4 Lesson 10 (Diffusion DDPM), Phase 4 Lesson 14 (ViT), Phase 7 Lesson 02 (Self-Attention)
+**Prerequisites:** Part 2 (Image Generation — Diffusion Models), ch021 (Vision Transformers & Patch Tokens), ch037 (Self-Attention, MHA, Positions & Variants)
 **Time:** ~75 minutes
 
 ## Learning Objectives
 
-- Trace the evolution from U-Net DDPM (Lesson 10) to Diffusion Transformer (DiT), MMDiT (SD3), and single+double-stream DiT (FLUX)
+- Trace the evolution from U-Net DDPM (Part 2) to Diffusion Transformer (DiT), MMDiT (SD3), and single+double-stream DiT (FLUX)
 - Explain rectified flow: why a straight-line trajectory between noise and data lets models sample in 20 steps instead of 1000
 - Implement a tiny DiT block and a rectified-flow training loop, both under 100 lines
 - Distinguish model variants (SD3, FLUX.1-dev, FLUX.1-schnell, Z-Image, Qwen-Image) by architecture, parameter count, and licensing
 
 ## The Problem
 
-Lesson 10 built a DDPM with a U-Net denoiser. That recipe dominated 2020-2023: U-Net + beta schedule + noise-prediction loss. It produced Stable Diffusion 1.5 and 2.1 and DALL-E 2.
+Part 2 built a DDPM with a U-Net denoiser. That recipe dominated 2020-2023: U-Net + beta schedule + noise-prediction loss. It produced Stable Diffusion 1.5 and 2.1 and DALL-E 2.
 
 Every 2026 state-of-the-art text-to-image model has moved past it. Stable Diffusion 3, FLUX, SD4, Z-Image, Qwen-Image, Hunyuan-Image — none use a U-Net. They use Diffusion Transformers (DiT). SD3 and FLUX also swap the DDPM noise schedule for rectified flow, which straightens the path from noise to data and enables 1-4 step inference with consistency or distilled variants.
 
@@ -775,7 +769,7 @@ FLUX.1-schnell is the 2026 open-source default. Z-Image is the efficiency leader
 
 ### Why this phase shift matters
 
-DDPM + U-Net worked. DiT + rectified flow works **better, faster, and scales more cleanly**. The transition parallels the one from RNNs to transformers in NLP: both architectures solved the same problem, but transformers scaled and now dominate. Every 2026 paper on image, video, or 3D generation uses a DiT-shaped denoiser and usually a rectified flow objective. U-Net DDPM is now primarily pedagogical (Lesson 10).
+DDPM + U-Net worked. DiT + rectified flow works **better, faster, and scales more cleanly**. The transition parallels the one from RNNs to transformers in NLP: both architectures solved the same problem, but transformers scaled and now dominate. Every 2026 paper on image, video, or 3D generation uses a DiT-shaped denoiser and usually a rectified flow objective. U-Net DDPM is now primarily pedagogical (Part 2).
 
 ## Build It
 
@@ -896,7 +890,7 @@ def rectified_flow_train_step(model, x0, optimizer, device):
     return loss.item()
 ```
 
-Compare with DDPM's noise-prediction loss (Lesson 10): same structure, different target. Instead of predicting the noise `epsilon`, we predict the **velocity** `epsilon - x_0`, which points from data to noise along the straight-line interpolation.
+Compare with DDPM's noise-prediction loss (Part 2): same structure, different target. Instead of predicting the noise `epsilon`, we predict the **velocity** `epsilon - x_0`, which points from data to noise along the straight-line interpolation.
 
 ### Step 4: Euler sampler
 
@@ -1009,3 +1003,9 @@ This lesson produces:
 - [Latent Consistency Models (Luo et al., 2023)](https://arxiv.org/abs/2310.04378)
 
 > Reference: [ai-engineering/phases/04-computer-vision/23-diffusion-transformers-rectified-flow/docs/en.md](https://github.com/anomalyco/ai-engineering/blob/main/phases/04-computer-vision/23-diffusion-transformers-rectified-flow/docs/en.md)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

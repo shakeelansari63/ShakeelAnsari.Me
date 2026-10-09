@@ -1,18 +1,12 @@
 # Reviewer, Handoff & Workbench Capstone
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Reviewer Agent: Separate Builder from Marker
 
 > The agent that wrote the code cannot grade it. A reviewer is a second loop with a different system prompt, a different goal, and read-only access to everything the builder produced. The gap between builder and reviewer is where most reliability lives.
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 38 (Verification Gate)
+**Prerequisites:** ch076 (Init Scripts, Scope, Feedback & Gates)
 **Time:** ~55 minutes
 
 ## Learning Objectives
@@ -129,10 +123,10 @@ Cloudflare's April 2026 AI Code Review system ran 131,246 review runs across 48,
 - [LangChain, How to Calibrate LLM-as-a-Judge with Human Corrections](https://www.langchain.com/articles/llm-as-a-judge)
 - [Evidently AI, LLM-as-a-judge: a complete guide](https://www.evidentlyai.com/llm-guide/llm-as-a-judge)
 - [Arize, LLM as a Judge — Primer and Pre-Built Evaluators](https://arize.com/llm-as-a-judge/)
-- Phase 14 · 05 — Self-Refine and CRITIC
-- Phase 14 · 30 — Eval-driven agent development
-- Phase 14 · 38 — the verification gate the reviewer reads
-- Phase 14 · 40 — the handoff packet the reviewer report feeds
+- ch067 Part 5 — Self-Refine and CRITIC
+- ch073 Part 4 — Eval-driven agent development
+- ch076 Part 4 — the verification gate the reviewer reads
+- Part 2 — the handoff packet the reviewer report feeds
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/14-agent-engineering/39-reviewer-agent)
 
@@ -144,7 +138,7 @@ Cloudflare's April 2026 AI Code Review system ran 131,246 review runs across 48,
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 34 (Repo Memory), Phase 14 · 38 (Verification), Phase 14 · 39 (Reviewer)
+**Prerequisites:** ch075 (Why Models Fail), ch076 (Init Scripts, Scope, Feedback & Gates), Part 1 (Reviewer Agent: Separate Builder from Marker)
 **Time:** ~50 minutes
 
 ## Learning Objectives
@@ -259,9 +253,9 @@ python3 code/main.py
 - [Microsoft Agent Framework, Compaction](https://learn.microsoft.com/en-us/agent-framework/agents/conversations/compaction)
 - [OpenCode, Context Management and Compaction](https://deepwiki.com/sst/opencode/2.4-context-management-and-compaction)
 - [LangChain, Context Engineering for Agents](https://www.langchain.com/blog/context-engineering-for-agents)
-- Phase 14 · 34 — the state file the generator reads
-- Phase 14 · 38 — the verification verdict the packet points at
-- Phase 14 · 39 — the reviewer report bundled into the packet
+- ch075 Part 4 — the state file the generator reads
+- ch076 Part 4 — the verification verdict the packet points at
+- Part 1 — the reviewer report bundled into the packet
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/14-agent-engineering/40-multi-session-handoff)
 
@@ -273,7 +267,7 @@ python3 code/main.py
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phases 14 · 32 to 14 · 40
+**Prerequisites:** ch075 (Why Models Fail), ch076 (Init Scripts, Scope, Feedback & Gates), Part 1 (Reviewer Agent: Separate Builder from Marker), Part 2 (Multi-Session Handoff)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -374,9 +368,9 @@ This lesson is the case file you cite when someone asks why every PR carries an 
 - [HN: Improving 15 LLMs at Coding in One Afternoon](https://news.ycombinator.com/item?id=46988596)
 - [Cloudflare, Orchestrating AI Code Review at Scale](https://blog.cloudflare.com/ai-code-review/)
 - [Anthropic, Building Effective Agents](https://www.anthropic.com/research/building-effective-agents)
-- Phases 14 · 32 to 14 · 40 — the surfaces this lesson exercises end-to-end
-- Phase 14 · 19 — SWE-bench, GAIA, AgentBench
-- Phase 14 · 30 — eval-driven agent development
+- ch075 Parts 2–4, ch076 Parts 1–4, ch077 Parts 1–2 — the surfaces this lesson exercises end-to-end
+- ch071 Part 1 — SWE-bench, GAIA, AgentBench
+- ch073 Part 4 — eval-driven agent development
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/14-agent-engineering/41-workbench-for-real-repos)
 
@@ -388,7 +382,7 @@ This lesson is the case file you cite when someone asks why every PR carries an 
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phases 14 · 31 to 14 · 41
+**Prerequisites:** ch075 (Why Models Fail), ch076 (Init Scripts, Scope, Feedback & Gates), Part 1 (Reviewer Agent: Separate Builder from Marker), Part 2 (Multi-Session Handoff), Part 3 (The Workbench on a Real Repo)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -501,7 +495,7 @@ Three places the pack ships:
 
 ## Further Reading
 
-- Phases 14 · 31 to 14 · 41 — every surface this pack bundles
+- ch075 Parts 1–4, ch076 Parts 1–4, ch077 Parts 1–3 — every surface this pack bundles
 - [SkillKit](https://github.com/rohitg00/skillkit)
 - [Nx Blog, Teach Your AI Agent How to Work in a Monorepo](https://nx.dev/blog/nx-ai-agent-skills)
 - [agents.md — the open spec](https://agents.md/)
@@ -510,7 +504,13 @@ Three places the pack ships:
 - [Augment Code, A good AGENTS.md is a model upgrade](https://www.augmentcode.com/blog/how-to-write-good-agents-dot-md-files)
 - [Anthropic, Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)
 - [Anthropic, Harness design for long-running application development](https://www.anthropic.com/engineering/harness-design-long-running-apps)
-- Phase 14 · 30 — eval-driven agent development
-- Phase 14 · 41 — the before/after benchmark this pack improves on
+- ch073 Part 4 — eval-driven agent development
+- Part 3 — the before/after benchmark this pack improves on
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/14-agent-engineering/42-agent-workbench-capstone)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

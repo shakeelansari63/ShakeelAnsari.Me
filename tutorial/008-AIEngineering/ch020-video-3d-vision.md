@@ -1,18 +1,12 @@
 # Video, Tracking, 3D & Depth Vision
 
-> Combined lessons (6 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Video Understanding — Temporal Modeling
 
 > A video is a sequence of images plus the physics that connects them. Every video model either treats time as an extra axis (3D conv), a sequence to attend over (transformer), or a feature to extract once and pool (2D+pool).
 
 **Type:** Learn + Build
 **Languages:** Python
-**Prerequisites:** Phase 4 Lesson 03 (CNNs), Phase 4 Lesson 04 (Image Classification)
+**Prerequisites:** ch017 (CNNs, Classification, Transfer & Edge Vision)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -163,7 +157,7 @@ class Conv2Plus1D(nn.Module):
 
 **Type:** Learn + Build
 **Languages:** Python
-**Prerequisites:** Phase 4 Lesson 03 (CNNs), Phase 1 Lesson 12 (Tensor Operations)
+**Prerequisites:** ch017 (CNNs, Classification, Transfer & Edge Vision), ch007 (Tensors, Information Theory & Stability)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -363,7 +357,7 @@ print(f"rendered colour: {rendered.tolist()}")
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 4 Lesson 13 (3D Vision & NeRF), Phase 1 Lesson 12 (Tensor Operations)
+**Prerequisites:** Part 2 (3D Vision — Point Clouds & NeRFs), ch007 (Tensors, Information Theory & Stability)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -588,7 +582,7 @@ Export: `.ply`, `.splat`, glTF `KHR_gaussian_splatting`, OpenUSD.
 
 **Type:** Build + Use
 **Languages:** Python
-**Prerequisites:** Phase 4 Lesson 14 (ViT), Phase 4 Lesson 17 (Self-Supervised Vision), Phase 4 Lesson 07 (U-Net)
+**Prerequisites:** ch021 (Vision Transformers & Patch Tokens), ch022 (Self-Supervised, CLIP, OCR & Pose Vision), ch018 (Detection & Segmentation (YOLO, U-Net, SAM))
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -808,7 +802,7 @@ This lesson produces:
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 4 Lesson 06 (YOLO Detection), Phase 4 Lesson 08 (Mask R-CNN), Phase 4 Lesson 24 (SAM 3)
+**Prerequisites:** ch018 (Detection & Segmentation (YOLO, U-Net, SAM))
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -1063,7 +1057,7 @@ This lesson produces:
 
 **Type:** Learn + Build
 **Languages:** Python
-**Prerequisites:** Phase 4 Lesson 10 (Diffusion), Phase 4 Lesson 12 (Video Understanding), Phase 4 Lesson 23 (DiT + Rectified Flow)
+**Prerequisites:** ch019 (Image Generation: GANs to Diffusion), Part 1 (Video Understanding — Temporal Modeling)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -1292,3 +1286,9 @@ This lesson produces:
 - [From Video Generation to World Model — survey repo](https://github.com/ziqihuangg/Awesome-From-Video-Generation-to-World-Model/)
 
 > Reference: [ai-engineering/phases/04-computer-vision/28-world-models-video-diffusion/docs/en.md](https://github.com/anomalyco/ai-engineering/blob/main/phases/04-computer-vision/28-world-models-video-diffusion/docs/en.md)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

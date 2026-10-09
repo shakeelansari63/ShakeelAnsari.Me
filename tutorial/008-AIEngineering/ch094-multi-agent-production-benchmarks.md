@@ -1,18 +1,12 @@
 # MA Scaling, Failures, Benchmarks & SOTA
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Production Scaling — Queues, Checkpoints, Durability
 
 > Scaling multi-agent systems to thousands of concurrent runs requires **durable execution**. LangGraph's runtime writes a checkpoint after each super-step keyed by `thread_id`. **MegaAgent** ran a per-agent producer-consumer queue with three states. **Fiber/async** beats thread-per-job for LLM streaming. Counterpoint: Ashpreet Bedi's "Scaling Agentic Software" argues for **FastAPI + Postgres + nothing else** until load proves otherwise.
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib, `asyncio`, `sqlite3`)
-**Prerequisites:** Phase 16 · 09 (Parallel Swarm Networks), Phase 16 · 13 (Shared Memory)
+**Prerequisites:** ch091 (Roles, Swarms & Voting Topologies), ch092 (A2A, Blackboards, Consensus & Negotiation)
 **Time:** ~75 minutes
 
 ## Problem
@@ -126,7 +120,7 @@ Expected output: checkpoint resume succeeds after simulated crash; async handles
 
 **Type:** Learn
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 16 · 13 (Shared Memory), Phase 16 · 14 (Consensus and BFT), Phase 16 · 15 (Voting and Debate Topology)
+**Prerequisites:** ch092 (A2A, Blackboards, Consensus & Negotiation), ch091 (Roles, Swarms & Voting Topologies)
 **Time:** ~75 minutes
 
 ## Problem
@@ -265,7 +259,7 @@ Expected output: retry storm with no circuit breaker blows up; with circuit brea
 
 **Type:** Learn
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 16 · 15 (Voting and Debate Topology), Phase 16 · 23 (Failure Modes)
+**Prerequisites:** ch091 (Roles, Swarms & Voting Topologies), Part 2 (Failure Modes — MAST, Groupthink, Monoculture, Cascading Errors)
 **Time:** ~75 minutes
 
 ## Problem
@@ -388,7 +382,7 @@ python3 code/main.py
 
 **Type:** Learn (capstone)
 **Languages:** —
-**Prerequisites:** all of Phase 16 (Lessons 01-24)
+**Prerequisites:** ch090 (Why Multi-Agent), ch091 (Roles, Swarms & Voting Topologies), ch092 (A2A, Blackboards, Consensus & Negotiation), ch093 (Generative Agents, MARL & Agent Economies), Part 1 (Production Scaling — Queues, Checkpoints, Durability), Part 2 (Failure Modes — MAST, Groupthink, Monoculture, Cascading Errors), Part 3 (Evaluation and Coordination Benchmarks)
 **Time:** ~90 minutes
 
 ## Problem
@@ -529,3 +523,9 @@ Starter rules for production multi-agent in 2026:
 - [CrewAI docs](https://docs.crewai.com/en/introduction)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/16-multi-agent-and-swarms/25-case-studies-2026-sota)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

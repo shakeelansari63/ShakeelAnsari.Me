@@ -1,18 +1,12 @@
 # Harness: Planning, Sandbox, Eval & Demo
 
-> Combined lessons (6 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Plan-Execute Control Flow
 
 > A plan that cannot survive a failure is a script. A script that can replan is an agent. Build the replanner first.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 13 lessons 01-07, Phase 14 lesson 01
+**Prerequisites:** ch060 (Tool Interface, Function Calling & Schemas), ch061 (MCP Fundamentals), ch067 (Agent Loop, ReWOO, Reflexion & Tree Search)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -111,7 +105,7 @@ Two extensions: partial-plan caching (you do not want to re-run the first three 
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 19 · 20-24, Phase 14 · 33, Phase 14 · 36, Phase 14 · 38
+**Prerequisites:** ch065 (Agent Harness: Loop, Registry & Transport), Part 1 (Plan-Execute Control Flow), ch075 (Why Models Fail), ch076 (Init Scripts, Scope, Feedback & Gates)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -159,7 +153,7 @@ The implementation is a single `main.py` plus tests. `Observation` and `ToolCall
 
 ## How this composes with Track A
 
-Previous lessons gave the loop, tool registry, message store, prompt builder, and model router. This lesson adds the layer between the model and the tools. Lesson 26 ships the sandbox. Lesson 27 ships the eval harness. Lesson 28 wires gate decisions into OpenTelemetry spans. Lesson 29 stitches everything into a working coding agent.
+Previous lessons gave the loop, tool registry, message store, prompt builder, and model router. This lesson adds the layer between the model and the tools. Part 3 ships the sandbox. Part 4 ships the eval harness. Part 5 wires gate decisions into OpenTelemetry spans. Part 6 stitches everything into a working coding agent.
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/25-verification-gates-observation-budget)
 
@@ -171,7 +165,7 @@ Previous lessons gave the loop, tool registry, message store, prompt builder, an
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 19 · 25, Phase 14 · 33, Phase 14 · 38
+**Prerequisites:** Part 2 (Verification Gates and the Observation Budget), ch075 (Why Models Fail), ch076 (Init Scripts, Scope, Feedback & Gates)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -230,7 +224,7 @@ This sandbox does not use namespaces, cgroups, seccomp, gVisor, or Firecracker. 
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 19 · 25, Phase 19 · 26, Phase 14 · 30, Phase 14 · 19
+**Prerequisites:** Part 2 (Verification Gates and the Observation Budget), Part 3 (Sandbox Runner with Denylist and Path Jail), ch073 (Debate, Failure Modes & Eval-Driven Dev), ch071 (SWE-bench, WebArena & Browser Agents)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -284,7 +278,7 @@ Real LLM agents are stochastic. A pass@1 of 0.6 looks like a failure. A pass@5 o
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 19 · 25, Phase 19 · 26, Phase 19 · 27, Phase 13 · 20, Phase 14 · 23
+**Prerequisites:** Part 2 (Verification Gates and the Observation Budget), Part 3 (Sandbox Runner with Denylist and Path Jail), Part 4 (Eval Harness with Fixture Tasks), ch064 (A2A, OTel, Routing, SDKs & Tool Capstone), ch072 (Voice Agents, OTel & Observability Dashboards)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -337,7 +331,7 @@ The OTel Python SDK is a real dependency. The hand-rolled version teaches the wi
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 19 · 25, Phase 19 · 26, Phase 19 · 27, Phase 19 · 28
+**Prerequisites:** Part 2 (Verification Gates and the Observation Budget), Part 3 (Sandbox Runner with Denylist and Path Jail), Part 4 (Eval Harness with Fixture Tasks), Part 5 (Observability with OTel GenAI Spans and Prometheus Metrics)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -390,3 +384,9 @@ A real LLM requires an API key, a network call, and unverifiable stochasticity. 
 Policy solved the fixture in fewer than 12 steps. Observation budget never exceeded. Zero gate denials on legal tools. Every step has a corresponding span. Prometheus exposition contains `tools_called_total` and `tool_latency_ms`.
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/29-end-to-end-coding-task-demo)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

@@ -1,20 +1,14 @@
 # Embeddings, Chunking, Hybrid Retrieval & Reranking
 
-> Combined lessons (6 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: RAG (Retrieval-Augmented Generation)
 
 > Your LLM knows everything up to its training cutoff. It knows nothing about your company's docs, your codebase, or last week's meeting notes. RAG solves this by retrieving relevant documents and stuffing them into the prompt. It's the most deployed pattern in production AI. If you build one thing from this course, build a RAG pipeline.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 10 (LLMs from Scratch), Phase 11 Lessons 01-05
+**Prerequisites:** ch039, ch045–ch047, ch049–ch052 (LLMs from Scratch), ch053 (Prompting, CoT, Embeddings, Context & Cost)
 **Time:** ~90 minutes
-**Related:** Phase 5 · 23 (Chunking Strategies for RAG) for the six chunking algorithms and when each wins. Phase 5 · 22 (Embedding Models Deep Dive) for picking the embedder. Phase 11 · 07 (Advanced RAG) for hybrid search, reranking, and query transformation.
+**Related:** Part 3 (Chunking Strategies for RAG) for the six chunking algorithms and when each wins. Part 2 (Embedding Models Deep Dive) for picking the embedder. ch055 Part 1 (Advanced RAG) for hybrid search, reranking, and query transformation.
 
 ## Learning Objectives
 
@@ -81,7 +75,7 @@ The one case where fine-tuning wins: when you need the model to adopt a specific
 
 An embedding model converts text into a dense vector. Similar texts produce vectors that are close together in this high-dimensional space. "How do I reset my password?" and "I need to change my password" produce nearly identical vectors despite sharing few words. "The cat sat on the mat" produces a very different vector.
 
-Common embedding models (2026 lineup -- see Phase 5 · 22 for full analysis):
+Common embedding models (2026 lineup -- see Part 2 for full analysis):
 
 | Model | Dimensions | Provider | Notes |
 |-------|-----------|----------|-------|
@@ -543,7 +537,7 @@ Run candidate models on a representative subset. Leaderboard rank alone is not e
 - Same model for query and doc? Check the model card for asymmetric encoding.
 - Missing prefix? `bge-*` models need `"Represent this sentence for searching relevant passages: "` prepended to queries.
 - Over-trimming Matryoshka? Validate on your eval set.
-- Context truncation? Long docs need chunking (lesson 23).
+- Context truncation? Long docs need chunking (Part 3).
 - Ignoring latency tail? MTEB scores hide p99 latency.
 
 ## Use It
@@ -745,7 +739,7 @@ Start with recursive 512. Measure recall@5 on a 50-query eval set. Tune from the
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 11 lessons 04, 06, 07; Phase 19 Track B foundations
+**Prerequisites:** ch053 (Prompting, CoT, Embeddings, Context & Cost), Part 1 (RAG (Retrieval-Augmented Generation)), ch055 (Advanced RAG Systems, Eval & Codebase RAG), Track B foundations
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -809,7 +803,7 @@ flowchart LR
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 11 lessons 04, 06; Phase 19 Track B foundations; lesson 64
+**Prerequisites:** ch053 (Prompting, CoT, Embeddings, Context & Cost), Part 1 (RAG (Retrieval-Augmented Generation)), Track B foundations, Part 4 (Chunking Strategies, Compared)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -871,7 +865,7 @@ Default k = 60. Per-modality weights multiply the rank contribution.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 11 lessons 06, 07; Phase 19 Track B foundations; lesson 65
+**Prerequisites:** Part 1 (RAG (Retrieval-Augmented Generation)), ch055 (Advanced RAG Systems, Eval & Codebase RAG), Track B foundations, Part 5 (Hybrid Retrieval with BM25 and Dense Embeddings)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -915,3 +909,9 @@ flowchart LR
 | N (candidate budget) | Number of candidates the cross-encoder scores per query |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/66-reranker-cross-encoder)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

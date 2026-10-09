@@ -1,18 +1,12 @@
 # Activations, Losses, Optimizers & Regularization
 
-> Combined lessons (5 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Activation Functions
 
 > Without nonlinearity, your 100-layer network is a fancy matrix multiply. Activations are the gates that let neural networks think in curves.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Lesson 03.03 (Backpropagation)
+**Prerequisites:** ch014 (Perceptron & Backpropagation)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -284,7 +278,7 @@ Hidden layers in a transformer: GELU. Hidden layers in a CNN: ReLU. Output layer
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Lesson 03.04 (Activation Functions)
+**Prerequisites:** Part 1 (Activation Functions)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -537,7 +531,7 @@ Use `F.cross_entropy` (not `F.nll_loss` plus manual softmax). It combines log-so
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Lesson 03.05 (Loss Functions)
+**Prerequisites:** Part 2 (Loss Functions)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -787,7 +781,7 @@ The pattern is always: zero_grad, forward, loss, backward, (clip), step, (schedu
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Lesson 03.06 (Optimizers)
+**Prerequisites:** Part 3 (Optimizers)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -1069,7 +1063,7 @@ For transformers: LayerNorm, dropout p=0.1.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Lesson 03.04 (Activation Functions), Lesson 03.07 (Regularization)
+**Prerequisites:** Part 1 (Activation Functions), Part 4 (Regularization)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -1279,3 +1273,9 @@ PyTorch defaults to Kaiming uniform initialization, which is why most simple net
 - Mishkin & Matas, "All You Need is a Good Init" (2016)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/03-deep-learning-core/08-weight-initialization)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

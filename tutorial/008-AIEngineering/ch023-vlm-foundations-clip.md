@@ -1,18 +1,12 @@
 # VLM Foundations: CLIP, BLIP-2 & Flamingo
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Vision-Language Models — The ViT-MLP-LLM Pattern
 
 > A vision encoder converts an image into tokens. An MLP projector maps those tokens into the LLM's embedding space. A language model does the rest. That pattern — ViT-MLP-LLM — is every production VLM in 2026.
 
 **Type:** Learn + Use
 **Languages:** Python
-**Prerequisites:** Phase 4 Lesson 14 (ViT), Phase 4 Lesson 18 (CLIP), Phase 7 Lesson 02 (Self-Attention)
+**Prerequisites:** ch021 (Vision Transformers & Patch Tokens), ch022 (Self-Supervised, CLIP, OCR & Pose Vision), ch037 (Self-Attention, MHA, Positions & Variants)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -24,7 +18,7 @@
 
 ## The Problem
 
-CLIP (Phase 4 Lesson 18) gives you a shared embedding space for images and text, which is enough for zero-shot classification and retrieval. It cannot answer "how many red cars are in this image?" because CLIP does not generate text — it only scores similarities.
+CLIP (ch022 Part 2) gives you a shared embedding space for images and text, which is enough for zero-shot classification and retrieval. It cannot answer "how many red cars are in this image?" because CLIP does not generate text — it only scores similarities.
 
 Vision-Language Models (VLMs) — Qwen3-VL, InternVL3.5, LLaVA-Next, GLM-4.6V — bolt a CLIP-family image encoder to a full language model. The model sees an image plus a question and generates an answer. In 2026 open-source VLMs rival or beat GPT-5 and Gemini-2.5-Pro on multimodal benchmarks (MMMU, MMBench, DocVQA, ChartQA, MathVista, OSWorld).
 
@@ -243,7 +237,7 @@ This lesson produces:
 
 **Type:** Build
 **Languages:** Python (stdlib, InfoNCE + sigmoid loss implementations)
-**Prerequisites:** Phase 12 · 01 (ViT patches), Phase 7 (Transformers)
+**Prerequisites:** ch021 (Vision Transformers & Patch Tokens), ch037–ch040 (Transformers)
 **Time:** ~180 minutes
 
 ## Learning Objectives
@@ -408,7 +402,7 @@ This lesson produces `outputs/skill-clip-zero-shot.md`. Given a set of images (v
 
 **Type:** Build
 **Languages:** Python (stdlib, cross-attention + learnable-query demo)
-**Prerequisites:** Phase 12 · 02 (CLIP), Phase 7 (Transformers)
+**Prerequisites:** Part 2 (CLIP and Contrastive Vision-Language Pretraining), ch021, ch037–ch040 (Transformers)
 **Time:** ~180 minutes
 
 ## Learning Objectives
@@ -474,18 +468,18 @@ MiniGPT-4 kept the Q-Former but trained only the output linear projection while 
 
 ### Why LLaVA went simpler
 
-LLaVA (2023, Lesson 12.05) replaced the Q-Former with a plain 2-layer MLP that projects every ViT patch token into LLM space — 576 tokens per image for a 24×24 grid, all fed to the LLM. Worse compression but lets the LLM attend over raw patches. At the time this was controversial; by late 2023 it was dominant because visual instruction data (LLaVA-Instruct-150k) proved that the MLP could be trained to preserve enough signal. The tradeoff: LLaVA's context fills faster, but it scales naturally to multi-image and video.
+LLaVA (2023, ch024 Part 1) replaced the Q-Former with a plain 2-layer MLP that projects every ViT patch token into LLM space — 576 tokens per image for a 24×24 grid, all fed to the LLM. Worse compression but lets the LLM attend over raw patches. At the time this was controversial; by late 2023 it was dominant because visual instruction data (LLaVA-Instruct-150k) proved that the MLP could be trained to preserve enough signal. The tradeoff: LLaVA's context fills faster, but it scales naturally to multi-image and video.
 
 By 2026 the field split: Q-Former survives where token budget matters (long video, many images); MLP projector dominates where raw quality per token is the priority.
 
 ### Gated cross-attention: Flamingo, the ancestor
 
-Flamingo (Lesson 12.04) predated BLIP-2 and used the same cross-attention idea but at every frozen LLM layer, not as a single bridge. BLIP-2 showed you can compress to the input layer only and still work. Gemini and Idefics combine both: interleaved input tokens plus optional gated cross-attention for in-context few-shot.
+Flamingo (Part 4) predated BLIP-2 and used the same cross-attention idea but at every frozen LLM layer, not as a single bridge. BLIP-2 showed you can compress to the input layer only and still work. Gemini and Idefics combine both: interleaved input tokens plus optional gated cross-attention for in-context few-shot.
 
 ### The 2026 descendants
 
 - Q-Former: BLIP-2, InstructBLIP, MiniGPT-4, and most video-language models for token budget reasons.
-- Perceiver resampler: Flamingo's variant (Lesson 12.04); Idefics family, Eagle, OmniMAE.
+- Perceiver resampler: Flamingo's variant (Part 4); Idefics family, Eagle, OmniMAE.
 - MLP projector: LLaVA, LLaVA-NeXT, LLaVA-OneVision, Cambrian-1.
 - Attention pool: VILA, PaliGemma.
 
@@ -553,7 +547,7 @@ This lesson produces `outputs/skill-modality-bridge-picker.md`. Given a target V
 
 **Type:** Learn
 **Languages:** Python (stdlib, gated cross-attention + Perceiver resampler demo)
-**Prerequisites:** Phase 12 · 03 (BLIP-2 Q-Former)
+**Prerequisites:** Part 3 (From CLIP to BLIP-2 — Q-Former as Modality Bridge)
 **Time:** ~120 minutes
 
 ## Learning Objectives
@@ -639,7 +633,7 @@ Otter (2023) builds on OpenFlamingo with instruction tuning on MIMIC-IT (a datas
 ### The descendants
 
 - Idefics / Idefics2 / Idefics3: Hugging Face's gated cross-attention lineage, progressively simpler (Idefics2 dropped the resampler in favor of direct patch tokens with adaptive pooling).
-- Flamingo-to-Chameleon transition: by 2024 many teams moved to early-fusion (Lesson 12.11); Flamingo-style gated cross-attention remains in production where backbone freezing is required.
+- Flamingo-to-Chameleon transition: by 2024 many teams moved to early-fusion (ch025 Part 3); Flamingo-style gated cross-attention remains in production where backbone freezing is required.
 - Gemini's interleaved input: conceptually inherits Flamingo's interleaved-format flexibility, though the exact mechanism is proprietary.
 
 ### Comparison to BLIP-2
@@ -706,3 +700,9 @@ This lesson produces `outputs/skill-gated-bridge-diagnostic.md`. Given an open V
 - [Laurençon et al. — Idefics2 (arXiv:2405.02246)](https://arxiv.org/abs/2405.02246) — modern simplification of the Flamingo approach.
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/12-multimodal-ai/04-flamingo-gated-cross-attention)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

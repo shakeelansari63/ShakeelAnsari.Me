@@ -1,20 +1,14 @@
 # Function Calling, LangGraph & Framework Tradeoffs
 
-> Combined lessons (3 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Function Calling & Tool Use
 
 > LLMs cannot do anything. They generate text. That is the entire capability. They cannot check the weather, query a database, send an email, run code, or read a file. Every "AI agent" you have ever seen is an LLM generating JSON that says which function to call -- and then your code actually calling it. The model is the brain. Tools are the hands. Function calling is the nervous system connecting them.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 11 Lesson 03 (Structured Outputs)
+**Prerequisites:** ch053 (Prompting, CoT, Embeddings, Context & Cost)
 **Time:** ~75 minutes
-**Related:** Phase 11 · 14 (Model Context Protocol) -- when a tool is shared across hosts, graduate from inline function-calling to an MCP server. This lesson covers the inline case; MCP covers the protocol case.
+**Related:** ch061 Part 1 (Model Context Protocol) -- when a tool is shared across hosts, graduate from inline function-calling to an MCP server. This lesson covers the inline case; MCP covers the protocol case.
 
 ## Learning Objectives
 
@@ -106,7 +100,7 @@ Every major provider supports function calling, but the API surface differs.
 | Google (Gemini 3) | `function_declarations` | `functionCall` | Yes | `function_calling_config` |
 | Open-weight (Llama 4, Qwen3, DeepSeek-V3) | Native `tools` on Llama 4; Hermes or ChatML on others | Mixed | Model-dependent | Prompt-based or `tool_choice` if supported |
 
-By 2026 the three closed providers have converged on near-identical JSON-Schema-based formats. Llama 4 ships with a native `tools` field that matches OpenAI's shape. Open-weight fine-tunes still vary -- the Hermes format (NousResearch) is the most common for third-party fine-tunes. For shared tools across hosts, prefer MCP (Phase 11 · 14) over inline function-calling -- the server is the same for all of them.
+By 2026 the three closed providers have converged on near-identical JSON-Schema-based formats. Llama 4 ships with a native `tools` field that matches OpenAI's shape. Open-weight fine-tunes still vary -- the Hermes format (NousResearch) is the most common for third-party fine-tunes. For shared tools across hosts, prefer MCP (ch061 Part 1) over inline function-calling -- the server is the same for all of them.
 
 ### Tool Choice: Auto, Required, Specific
 
@@ -133,7 +127,7 @@ Your code executes both (ideally concurrently), returns both results, and the mo
 
 ### Structured Outputs vs Function Calling
 
-Lesson 03 covered structured outputs. Function calling uses the same JSON Schema machinery, but for a different purpose.
+ch053 Part 3 covered structured outputs. Function calling uses the same JSON Schema machinery, but for a different purpose.
 
 **Structured outputs**: force the model to produce data in a specific shape. The output is the final product. Example: extract product info from text as `{name, price, in_stock}`.
 
@@ -720,7 +714,7 @@ It also produces `outputs/skill-function-calling-patterns.md` -- a decision fram
 - [Schick et al., 2023 -- "Toolformer: Language Models Can Teach Themselves to Use Tools"](https://arxiv.org/abs/2302.04761) -- the foundational paper on training LLMs to decide when and how to call external tools
 - [Patil et al., 2023 -- "Gorilla: Large Language Model Connected with Massive APIs"](https://arxiv.org/abs/2305.15334) -- fine-tuning LLMs for accurate API calls across 1,645 APIs with hallucination reduction
 - [Berkeley Function Calling Leaderboard](https://gorilla.cs.berkeley.edu/leaderboard.html) -- real-time benchmark comparing function calling accuracy across GPT-4o, Claude, Gemini, and open models
-- [Yao et al., "ReAct: Synergizing Reasoning and Acting in Language Models" (ICLR 2023)](https://arxiv.org/abs/2210.03629) -- the Thought-Action-Observation loop that is the outer agent loop around every tool call; where this lesson ends, Phase 14 picks up.
+- [Yao et al., "ReAct: Synergizing Reasoning and Acting in Language Models" (ICLR 2023)](https://arxiv.org/abs/2210.03629) -- the Thought-Action-Observation loop that is the outer agent loop around every tool call; where this lesson ends, ch067–ch077 (Agent Engineering) picks up.
 - [Anthropic -- Building effective agents (Dec 2024)](https://www.anthropic.com/research/building-effective-agents) -- five composable patterns (prompt chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer) built from the single tool-use primitive.
 
 ---
@@ -731,7 +725,7 @@ It also produces `outputs/skill-function-calling-patterns.md` -- a decision fram
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 11 · 09 (Function Calling), Phase 11 · 14 (Model Context Protocol)
+**Prerequisites:** Part 1 (Function Calling & Tool Use), ch061 (MCP Fundamentals)
 **Time:** ~75 minutes
 
 ## The Problem
@@ -928,9 +922,9 @@ Refuse to ship a LangGraph agent that has no checkpointer. Refuse to ship one th
 - [LangGraph Human-in-the-loop](https://langchain-ai.github.io/langgraph/concepts/human_in_the_loop/) — `interrupt_before`, `interrupt_after`, `Command(resume=...)`, and the edit-state pattern.
 - [Yao et al., "ReAct: Synergizing Reasoning and Acting in Language Models" (ICLR 2023)](https://arxiv.org/abs/2210.03629) — the pattern every LangGraph agent implements; read it for the reasoning trace rationale.
 - [Anthropic — Building effective agents (Dec 2024)](https://www.anthropic.com/research/building-effective-agents) — which graph shapes (chain, router, orchestrator-workers, evaluator-optimizer) to prefer and when.
-- Phase 11 · 09 (Function Calling) — the tool-call primitive every LangGraph agent node reuses.
-- Phase 11 · 14 (Model Context Protocol) — external tool discovery that plugs into a LangGraph `ToolNode` via the MCP adapter.
-- Phase 11 · 17 (Agent framework tradeoffs) — when to pick LangGraph over CrewAI, AutoGen, or Agno.
+- Part 1 (Function Calling) — the tool-call primitive every LangGraph agent node reuses.
+- ch061 Part 1 (Model Context Protocol) — external tool discovery that plugs into a LangGraph `ToolNode` via the MCP adapter.
+- Part 3 (Agent framework tradeoffs) — when to pick LangGraph over CrewAI, AutoGen, or Agno.
 
 ---
 
@@ -940,7 +934,7 @@ Refuse to ship a LangGraph agent that has no checkpointer. Refuse to ship one th
 
 **Type:** Learn
 **Languages:** Python
-**Prerequisites:** Phase 11 · 09 (Function Calling), Phase 11 · 16 (LangGraph)
+**Prerequisites:** Part 1 (Function Calling & Tool Use), Part 2 (LangGraph — State Machines for Agents)
 **Time:** ~45 minutes
 
 ## The Problem
@@ -977,7 +971,7 @@ A framework's core abstraction is the thing you draw on the whiteboard when you 
 
 State is where most framework choices break down in production.
 
-- **LangGraph.** Typed state (`TypedDict` or Pydantic model), per-field reducers, first-class checkpointer (SQLite/Postgres/Redis). Resume, interrupt, and time-travel are free. *(See Phase 11 · 16.)*
+- **LangGraph.** Typed state (`TypedDict` or Pydantic model), per-field reducers, first-class checkpointer (SQLite/Postgres/Redis). Resume, interrupt, and time-travel are free. *(See Part 2.)*
 - **CrewAI.** State flows as strings between tasks via the `context` field, or structured through `output_pydantic`. No durable per-crew store out of the box; you bolt on your own if the crew must survive a restart.
 - **AutoGen.** State is the chat history and any user-defined `context`. Conversation transcripts persist; arbitrary workflow state does not unless you write adapters.
 - **Agno.** Built-in storage drivers (SQLite, Postgres, Mongo, Redis, DynamoDB) attached to an `Agent` via `storage=` — conversation sessions and user memories persist automatically. Not a full graph checkpointer; a session store.
@@ -1065,6 +1059,12 @@ Refuse to reach for a framework before you can draw the graph, the org chart, th
 - [Yao et al., "ReAct: Synergizing Reasoning and Acting" (ICLR 2023)](https://arxiv.org/abs/2210.03629) — the loop every framework dresses up.
 - [Wu et al., "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation" (2023)](https://arxiv.org/abs/2308.08155) — AutoGen's design paper.
 - [Park et al., "Generative Agents: Interactive Simulacra of Human Behavior" (UIST 2023)](https://arxiv.org/abs/2304.03442) — role-play foundation that CrewAI-style persona stacks build on.
-- Phase 11 · 16 (LangGraph) — the framework this lesson benchmarks against.
-- Phase 11 · 19 (Reflexion) — a pattern that maps cleanly to LangGraph but awkwardly to CrewAI.
-- Phase 11 · 22 (Production observability) — how to instrument whichever framework you pick.
+- Part 2 (LangGraph) — the framework this lesson benchmarks against.
+- ch067 Part 3 (Reflexion) — a pattern that maps cleanly to LangGraph but awkwardly to CrewAI.
+- ch072 Part 3 (Production observability) — how to instrument whichever framework you pick.
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

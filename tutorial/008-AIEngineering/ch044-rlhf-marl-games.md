@@ -1,18 +1,12 @@
 # Reward Modeling, RLHF, MARL & Game RL
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Reward Modeling & RLHF
 
 > Humans cannot write a reward function for "good assistant response," but they can compare two responses and pick the better one. Fit a reward model to those comparisons, then RL the language model against it. Christiano 2017. InstructGPT 2022. The recipe that turned GPT-3 into ChatGPT. In 2026 it is mostly being replaced by DPO — but the mental model stays.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 5 · 05 (Sentiment), Phase 9 · 08 (PPO)
+**Prerequisites:** ch031 (NLP Tasks, Inference & Knowledge Graphs), ch043 (MDPs, DP, Monte Carlo, TD & Deep RL)
 **Time:** ~45 minutes
 
 ## The Problem
@@ -23,7 +17,7 @@ You want a *scalar reward* that says "response A is better than response B for i
 
 RLHF (Christiano et al. 2017; Ouyang et al. 2022) converts preferences into a reward model, then optimizes the LM via PPO against that reward. In three steps: SFT → RM → PPO. It is the recipe that shipped ChatGPT, Claude, Gemini, and every other aligned-LLM in 2023–2025.
 
-In 2026 the PPO step is mostly replaced by DPO (Phase 10 · 08) because it is cheaper and nearly as good for alignment tuning. But the *reward model* piece still underlies every Best-of-N sampler, every RL-from-verifiable-rewards pipeline, and every reasoning model using a process reward model. Understand RLHF and you understand the entire alignment stack.
+In 2026 the PPO step is mostly replaced by DPO (ch049 Part 3) because it is cheaper and nearly as good for alignment tuning. But the *reward model* piece still underlies every Best-of-N sampler, every RL-from-verifiable-rewards pipeline, and every reasoning model using a process reward model. Understand RLHF and you understand the entire alignment stack.
 
 ## The Concept
 
@@ -51,14 +45,14 @@ In 2026 the PPO step is mostly replaced by DPO (Phase 10 · 08) because it is ch
   `r_total(x, y) = R_φ(x, y) - β · KL(π_θ(·|x) || π_ref(·|x))`
 
   The KL penalty prevents `π_θ` from drifting arbitrarily from `π_SFT` — it is a *regularizer*, not a hard trust region. `β` typically `0.01`-`0.05`.
-- Run PPO (Lesson 08) with this reward. Advantages are computed on the token-level trajectory, but the RM scores only the full response.
+- Run PPO (ch043 Part 8) with this reward. Advantages are computed on the token-level trajectory, but the RM scores only the full response.
 
 **Why the KL?** Without it, PPO will happily find reward-hacking strategies — the RM was only trained on in-distribution completions. An out-of-distribution response might score higher than any human-written one. The KL keeps `π_θ` near the manifold where the RM was trained. It is the single most important knob in RLHF.
 
 **2026 status:**
 
-- **DPO** (Rafailov 2023): closed-form algebra collapses Stage 2+3 into a single supervised loss over preference data. No RM, no PPO. Same quality on alignment benchmarks for a fraction of the compute. Covered in Phase 10 · 08.
-- **GRPO** (DeepSeek 2024–2025): PPO with a group-relative baseline instead of a critic, reward from a *verifier* (code runs / math answer matches) instead of a human-trained RM. Dominant for reasoning models. Covered in Phase 9 · 12.
+- **DPO** (Rafailov 2023): closed-form algebra collapses Stage 2+3 into a single supervised loss over preference data. No RM, no PPO. Same quality on alignment benchmarks for a fraction of the compute. Covered in ch049 Part 3.
+- **GRPO** (DeepSeek 2024–2025): PPO with a group-relative baseline instead of a critic, reward from a *verifier* (code runs / math answer matches) instead of a human-trained RM. Dominant for reasoning models. Covered in Part 4.
 - **Process reward models (PRMs):** score partial solutions (each reasoning step), used in both RLHF and GRPO variants for reasoning.
 - **Constitutional AI / RLAIF:** use an aligned LLM to generate preferences instead of humans. Scales the preference budget.
 
@@ -172,7 +166,7 @@ Three things the library does for you. `adap_kl_ctrl=True` implements the adapti
 - **Too-small RM.** The RM needs to be at least as large as the policy. A tiny RM cannot faithfully score the policy's outputs.
 - **KL tuning.** Too low β → drift and reward hacking. Too high β → policy barely changes. The standard trick is an *adaptive* β that targets a fixed KL per step.
 - **Preference-data noise.** ~30% of human labels are noisy or ambiguous. Calibrate by training the RM on agreement-filtered data or use a temperature on BT.
-- **Off-policy problems.** PPO data is slightly off-policy after the first epoch. Monitor clip fraction as in Lesson 08.
+- **Off-policy problems.** PPO data is slightly off-policy after the first epoch. Monitor clip fraction as in ch043 Part 8.
 
 ## Use It
 
@@ -180,8 +174,8 @@ RLHF in 2026 is layered:
 
 | Layer | Target | Method |
 |-------|--------|--------|
-| Instruction following, helpfulness, harmlessness | Alignment | DPO (Phase 10 · 08) preferred over RLHF-PPO. |
-| Reasoning correctness (math, code) | Capability | GRPO with verifier reward (Phase 9 · 12). |
+| Instruction following, helpfulness, harmlessness | Alignment | DPO (ch049 Part 3) preferred over RLHF-PPO. |
+| Reasoning correctness (math, code) | Capability | GRPO with verifier reward (Part 4). |
 | Long-horizon multi-step tasks | Agentic | PPO / GRPO with process reward models over steps. |
 | Safety / refusal behavior | Safety | RLHF-PPO with separate safety RM, or Constitutional AI. |
 | Best-of-N at inference | Fast alignment | Use RM at decode time; no policy training needed. |
@@ -250,7 +244,7 @@ Refuse to ship RLHF-PPO without a KL monitor. Refuse to use an RM smaller than t
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 9 · 04 (Q-learning), Phase 9 · 06 (REINFORCE), Phase 9 · 07 (Actor-Critic)
+**Prerequisites:** ch043 (MDPs, DP, Monte Carlo, TD & Deep RL)
 **Time:** ~45 minutes
 
 ## The Problem
@@ -261,7 +255,7 @@ In every multi-agent setting, from the perspective of any one agent, the other a
 
 This breaks tabular convergence proofs (Q-learning's guarantee assumes a stationary environment). It breaks naive deep RL too: agents chase each other in loops, never converge to a stable policy. You need multi-agent-specific techniques: centralized training / decentralized execution, counterfactual baselines, league play, self-play.
 
-2026 applications: robot swarms, traffic routing, autonomous vehicle fleets, market simulators, multi-agent LLM systems (Phase 16), and any game with more than one intelligent player.
+2026 applications: robot swarms, traffic routing, autonomous vehicle fleets, market simulators, multi-agent LLM systems (ch090–ch094 (Multi-Agent & Swarms)), and any game with more than one intelligent player.
 
 ## The Concept
 
@@ -291,7 +285,7 @@ This breaks tabular convergence proofs (Q-learning's guarantee assumes a station
 
 **4. League play.** An extension of self-play to general-sum / adversarial environments: keep a population of past and current policies, sample an opponent from the league, train against them. Adds exploiters (specialize in beating the current best) and main exploiters (specialize in beating exploiters). AlphaStar (StarCraft II). Needed when the game admits "rock-paper-scissors" strategy cycles.
 
-**Communication.** Allow agents to send learned messages `m_i` to each other. Works in cooperative settings. Foerster et al. (2016) showed that differentiable inter-agent communication can be trained end-to-end. Today's LLM-based multi-agent systems (Phase 16) essentially communicate in natural language.
+**Communication.** Allow agents to send learned messages `m_i` to each other. Works in cooperative settings. Foerster et al. (2016) showed that differentiable inter-agent communication can be trained end-to-end. Today's LLM-based multi-agent systems (ch090–ch094 (Multi-Agent & Swarms)) essentially communicate in natural language.
 
 ## Build It
 
@@ -370,9 +364,9 @@ The 2026 MARL application map:
 | Complex multiplayer (Dota, StarCraft) | League play + imitation pretraining | OpenAI Five, AlphaStar. |
 | Autonomous-vehicle fleets | CTDE MAPPO / PPO with attention | Partial obs; variable team sizes. |
 | Auction markets | Game-theoretic equilibrium + RL | Mean-field RL when `n` → ∞. |
-| LLM multi-agent systems (Phase 16) | Natural-language comm + role conditioning | RL loop at the agent-planning layer. |
+| LLM multi-agent systems (ch090–ch094 (Multi-Agent & Swarms)) | Natural-language comm + role conditioning | RL loop at the agent-planning layer. |
 
-In 2026, MARL's biggest growth area is LLM-based: swarms of language-model agents negotiating, debating, building software. The RL shows up as preference optimization on *trajectory-level* outputs, not token-level (Phase 16 · 03).
+In 2026, MARL's biggest growth area is LLM-based: swarms of language-model agents negotiating, debating, building software. The RL shows up as preference optimization on *trajectory-level* outputs, not token-level (ch090 Part 3).
 
 ## Ship It
 
@@ -433,7 +427,7 @@ Refuse independent Q-learning on tightly-coupled cooperative tasks. Refuse to re
 
 **Type:** Learn
 **Languages:** Python
-**Prerequisites:** Phase 9 · 08 (PPO), Phase 2 · 10 (Bias/Variance)
+**Prerequisites:** ch043 (MDPs, DP, Monte Carlo, TD & Deep RL), ch013 (Evaluation, Tuning, Ensembles & Special Data)
 **Time:** ~45 minutes
 
 ## The Problem
@@ -581,11 +575,11 @@ Refuse to deploy without (a) a zero-shot sim-variant test, (b) a safety shield, 
 
 ## Part 4: RL for Games — AlphaZero, MuZero, and the LLM-Reasoning Era
 
-> 1992: TD-Gammon beat human champions at backgammon with pure TD. 2016: AlphaGo beat Lee Sedol. 2017: AlphaZero dominated chess, shogi, and Go from scratch. 2024: DeepSeek-R1 proved the same recipe, with GRPO replacing PPO, works on reasoning. Games are the benchmark that drives every breakthrough in this phase.
+> 1992: TD-Gammon beat human champions at backgammon with pure TD. 2016: AlphaGo beat Lee Sedol. 2017: AlphaZero dominated chess, shogi, and Go from scratch. 2024: DeepSeek-R1 proved the same recipe, with GRPO replacing PPO, works on reasoning. Games are the benchmark that drives every breakthrough in the Reinforcement Learning chapters.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 9 · 05 (DQN), Phase 9 · 08 (PPO), Phase 9 · 09 (RLHF), Phase 9 · 10 (MARL)
+**Prerequisites:** ch043 (MDPs, DP, Monte Carlo, TD & Deep RL), Part 1 (Reward Modeling & RLHF), Part 2 (Multi-Agent RL)
 **Time:** ~120 minutes
 
 ## The Problem
@@ -723,7 +717,7 @@ Same diagnostics as RLHF: mean KL to reference, policy entropy, reward-over-time
 - **Reward hacking via verifier gaming.** GRPO inherits RLHF's risk: if the verifier is wrong or exploitable, the LLM will find the exploit. Robust verifiers (multiple test cases, formal proofs) matter.
 - **Group size too small.** Variance of the group baseline goes like `1/√G`. Below `G = 4`, the advantage signal is noisy; standard choice is `G = 8` to `64`.
 - **Length bias.** LLM completions of different lengths have different log-probabilities. Normalize by token count, or use sequence-level log-prob, or truncate to max length.
-- **Pure self-play cycles.** AlphaZero-style training can get stuck in dominance loops on general-sum games. Mitigated by diverse opponent pools (league play, Lesson 10).
+- **Pure self-play cycles.** AlphaZero-style training can get stuck in dominance loops on general-sum games. Mitigated by diverse opponent pools (league play, Part 2).
 - **Search-policy mismatch.** AlphaZero trains the policy to mimic search output. If the policy net is too small to represent the search's distribution, training stalls.
 - **Compute floor.** MuZero / AlphaZero need massive compute. A single ablation is often hundreds of GPU-hours. Miniature demos exist (e.g., AlphaZero on Connect Four) for learning.
 - **Verifier coverage.** Unit tests that pass for a buggy solution reinforce the bug. Design verifiers that catch edge cases.
@@ -799,3 +793,9 @@ Refuse AlphaZero on imperfect-info games (route to CFR). Refuse GRPO without a t
 - [Sutton & Barto (2018). Ch. 17 — Frontiers of Reinforcement Learning](http://incompleteideas.net/book/RLbook2020.pdf) — the textbook framing for self-play, search, and "designed reward" that R1 instantiates at LLM scale.
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/09-reinforcement-learning/12-rl-for-games)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

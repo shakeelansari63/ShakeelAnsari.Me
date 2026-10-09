@@ -1,18 +1,12 @@
 # Why Models Fail, Minimal Workbench & Repo Memory
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Agent Workbench Engineering: Why Capable Models Still Fail
 
 > A capable model is not enough. Reliable agents need a workbench: instructions, state, scope, feedback, verification, review, and handoff. Strip those away and even a frontier model produces work that is unsafe to ship.
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 01 (Agent Loop), Phase 14 · 26 (Failure Modes)
+**Prerequisites:** ch067 (Agent Loop, ReWOO, Reflexion & Tree Search), ch073 (Debate, Failure Modes & Eval-Driven Dev)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -101,7 +95,7 @@ Three places workbench surfaces already exist in the wild:
 2. Extend `main.py` so the prompt-only run also produces a fake "success" claim. Verify the verification gate would have caught it.
 3. Add an eighth surface for your own product. Justify why it does not collapse into one of the existing seven.
 4. Re-run the script with a different stub agent that hallucinates an extra file write. Which surface catches it first?
-5. Map the five industry-recurring failure modes from Phase 14 · 26 onto the seven surfaces. Which mode is each surface designed to absorb?
+5. Map the five industry-recurring failure modes from ch073 Part 2 onto the seven surfaces. Which mode is each surface designed to absorb?
 
 ## Key Terms
 
@@ -131,7 +125,7 @@ Three places workbench surfaces already exist in the wild:
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 31 (Why Capable Models Still Fail)
+**Prerequisites:** Part 1 (Agent Workbench Engineering: Why Capable Models Still Fail)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -238,7 +232,7 @@ The script creates `workdir/` next to itself, lays down the three files, runs on
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 32 (Minimal Workbench)
+**Prerequisites:** Part 2 (The Minimal Agent Workbench)
 **Time:** ~50 minutes
 
 ## Learning Objectives
@@ -364,9 +358,9 @@ python3 code/main.py
 - [microservices.io, GenAI development platform — part 1: guardrails](https://microservices.io/post/architecture/2026/03/09/genai-development-platform-part-1-development-guardrails.html)
 - [Type-Checked Compliance: Deterministic Guardrails (arXiv 2604.01483)](https://arxiv.org/pdf/2604.01483)
 - [logi-cmd/agent-guardrails](https://github.com/logi-cmd/agent-guardrails)
-- Phase 14 · 32 — the minimal workbench this rule set drops into
-- Phase 14 · 38 — the verification gate that consumes the rule report
-- Phase 14 · 39 — the reviewer agent that scores rule compliance
+- Part 2 — the minimal workbench this rule set drops into
+- ch076 Part 4 — the verification gate that consumes the rule report
+- ch077 Part 1 — the reviewer agent that scores rule compliance
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/14-agent-engineering/33-instructions-as-executable-constraints)
 
@@ -378,7 +372,7 @@ python3 code/main.py
 
 **Type:** Build
 **Languages:** Python (stdlib + `jsonschema` optional)
-**Prerequisites:** Phase 14 · 32 (Minimal Workbench)
+**Prerequisites:** Part 2 (The Minimal Agent Workbench)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -491,8 +485,14 @@ python3 code/main.py
 - [eunomia, Checkpoint/Restore Systems: Evolution, Techniques, Applications](https://eunomia.dev/blog/2025/05/11/checkpointrestore-systems-evolution-techniques-and-applications-in-ai-agents/)
 - [Indium, 7 State Persistence Strategies for Long-Running AI Agents in 2026](https://www.indium.tech/blog/7-state-persistence-strategies-ai-agents-2026/)
 - [Microsoft Agent Framework, Compaction](https://learn.microsoft.com/en-us/agent-framework/agents/conversations/compaction)
-- Phase 14 · 08 — memory blocks and sleep-time compute
-- Phase 14 · 32 — the three-file minimum this lesson schematizes
-- Phase 14 · 40 — handoff packets read from the same schema
+- ch068 Part 3 — memory blocks and sleep-time compute
+- Part 2 — the three-file minimum this lesson schematizes
+- ch077 Part 2 — handoff packets read from the same schema
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/14-agent-engineering/34-repo-memory-and-state)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

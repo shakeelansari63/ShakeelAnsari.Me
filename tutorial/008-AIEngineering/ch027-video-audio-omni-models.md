@@ -1,18 +1,12 @@
 # Video, Audio-Language & Omni Models
 
-> Combined lessons (5 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Video-Language Models: Temporal Tokens and Grounding
 
 > Video is not a stack of photos. A 5-second clip has causal ordering, action verbs, and event timing that an image model cannot represent. Video-LLaMA (Zhang et al., June 2023) shipped the first open video-LLM with audio-visual grounding. VideoChat and Video-LLaVA scaled the pattern. By 2025 Qwen2.5-VL's TMRoPE closed the gap with frontier proprietary models. Each system solved temporal tokens differently — Q-former per clip, concat-pool per frame, TMRoPE per token. This lesson reads the patterns, builds a uniform-vs-dynamic frame sampler, and evaluates on temporal grounding tasks.
 
 **Type:** Build
 **Languages:** Python (stdlib, frame sampler + temporal-grounding evaluator)
-**Prerequisites:** Phase 12 · 08 (LLaVA-OneVision)
+**Prerequisites:** ch024 (LLaVA, Any-Resolution & Open-Weight Recipes)
 **Time:** ~180 minutes
 
 ## Learning Objectives
@@ -166,7 +160,7 @@ This lesson produces `outputs/skill-video-vlm-frame-planner.md`. Given a video t
 
 **Type:** Build
 **Languages:** Python (stdlib, needle-in-haystack simulator + agentic-retrieval router)
-**Prerequisites:** Phase 12 · 17 (video temporal tokens)
+**Prerequisites:** Part 1 (Video-Language Models: Temporal Tokens and Grounding)
 **Time:** ~180 minutes
 
 ## Learning Objectives
@@ -309,7 +303,7 @@ This lesson produces `outputs/skill-long-video-strategy-planner.md`. Given a vid
 
 **Type:** Build
 **Languages:** Python (stdlib, log-Mel spectrogram + audio Q-former skeleton)
-**Prerequisites:** Phase 6 (Speech and Audio), Phase 12 · 03 (Q-Former)
+**Prerequisites:** ch035–ch036 (Speech & Audio), ch023 (VLM Foundations: CLIP, BLIP-2 & Flamingo)
 **Time:** ~180 minutes
 
 ## Learning Objectives
@@ -467,7 +461,7 @@ This lesson produces `outputs/skill-audio-llm-pipeline-picker.md`. Given an audi
 
 **Type:** Build
 **Languages:** Python (stdlib, streaming pipeline latency simulator + VAD loop)
-**Prerequisites:** Phase 12 · 19 (audio-LLMs), Phase 12 · 16 (any-to-any)
+**Prerequisites:** Part 3 (Audio-Language Models: the Whisper to Audio Flamingo 3 Arc), ch026 (Transfusion)
 **Time:** ~180 minutes
 
 ## Learning Objectives
@@ -610,7 +604,7 @@ This lesson produces `outputs/skill-omni-streaming-budget.md`. Given a real-time
 
 **Type:** Capstone
 **Languages:** Python (pipeline), TypeScript (UI)
-**Prerequisites:** Phase 4 (CV), Phase 6 (speech), Phase 7 (transformers), Phase 11 (LLM engineering), Phase 12 (multimodal), Phase 17 (infrastructure)
+**Prerequisites:** ch017–ch023 (Computer Vision), ch035–ch036 (Speech & Audio), ch037–ch040 (Transformers), ch053–ch058, ch061 (LLM Engineering), ch024–ch026, ch028 (Multimodal AI), ch095–ch100 (Infrastructure & Production)
 **Time:** 30 hours
 
 ## Problem
@@ -738,3 +732,9 @@ citations: [scene 3: 00:12-00:58]
 - [ActivityNet-QA](https://arxiv.org/abs/1906.02467)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/12-video-understanding-pipeline)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

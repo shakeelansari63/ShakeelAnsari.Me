@@ -1,20 +1,14 @@
 # Prompting, CoT, Embeddings, Context & Cost
 
-> Combined lessons (7 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Prompt Engineering: Techniques & Patterns
 
 > Most people write prompts like they are texting a friend. Then they wonder why a 200-billion parameter model gives mediocre answers. Prompt engineering is not about tricks. It is about understanding that every token you send is an instruction, and the model follows instructions literally. Write better instructions, get better outputs. It is that simple and that hard.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 10, Lessons 01-05 (LLMs from Scratch)
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build), ch046 (Data Pipelines, Mini-GPT & Corpus Builds), ch047 (Distributed Training, DualPipe & DeepSeek-V3)
 **Time:** ~90 minutes
-**Related:** Phase 11 · 05 (Context Engineering) for what else goes in the window; Phase 5 · 20 (Structured Outputs) for token-level format control.
+**Related:** Part 5 (Context Engineering) for what else goes in the window; ch034 Part 3 (Structured Outputs) for token-level format control.
 
 ## Learning Objectives
 
@@ -41,7 +35,7 @@ You are a senior copywriter at a B2B SaaS company. Write a product launch email 
 
 The first prompt activates a generic distribution of marketing emails in the model's training data. The second activates a narrow, high-quality slice. Same model. Same parameters. Wildly different outputs.
 
-This gap between what you ask and what you get is the entire discipline of prompt engineering. It is not a hack or a workaround. It is the primary interface between human intent and machine capability. And it is a subset of a larger discipline -- context engineering (covered in Lesson 05) -- that deals with everything that goes into the model's context window, not just the prompt itself.
+This gap between what you ask and what you get is the entire discipline of prompt engineering. It is not a hack or a workaround. It is the primary interface between human intent and machine capability. And it is a subset of a larger discipline -- context engineering (covered in Part 5) -- that deals with everything that goes into the model's context window, not just the prompt itself.
 
 Prompt engineering is not dead. The people who say it is are the same people who said CSS was dead in 2015. What changed is that it became table stakes. Every serious AI engineer needs it. The question is not whether to learn it but how deep to go.
 
@@ -192,7 +186,7 @@ Every model has a maximum context length. This is the total number of tokens for
 | Qwen3 Max | 256K tokens | 32K tokens | Alibaba (open) |
 | DeepSeek-V3.1 | 128K tokens | 32K tokens | DeepSeek (open) |
 
-Context window size matters less than context window usage. A 10K token prompt that is 90% signal outperforms a 100K token prompt that is 10% signal. More context means more noise for the attention mechanism to filter through. This is why context engineering (Lesson 05) is the bigger discipline -- it decides what goes in the window, not just how the prompt is worded.
+Context window size matters less than context window usage. A 10K token prompt that is 90% signal outperforms a 100K token prompt that is 10% signal. More context means more noise for the attention mechanism to filter through. This is why context engineering (Part 5) is the bigger discipline -- it decides what goes in the window, not just how the prompt is worded.
 
 ### Prompt Patterns
 
@@ -1041,7 +1035,7 @@ The Python code (`code/prompt_engineering.py`) is a standalone testing harness. 
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Lesson 11.01 (Prompt Engineering)
+**Prerequisites:** Part 1 (Prompt Engineering: Techniques & Patterns)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -1261,7 +1255,7 @@ graph LR
 
 ReAct outperforms pure CoT on knowledge-intensive tasks because it can ground its reasoning in real data. On HotpotQA (multi-hop question answering), ReAct with GPT-4 achieves 35.1% exact match vs 29.4% for CoT alone. The real power is that reasoning errors get corrected by observations -- the model can update its plan mid-execution.
 
-ReAct is the foundation of modern AI agents. Every agent framework (LangChain, CrewAI, AutoGen) implements some variant of the Thought-Action-Observation loop. You will build full agents in Phase 14. This lesson covers the prompting pattern.
+ReAct is the foundation of modern AI agents. Every agent framework (LangChain, CrewAI, AutoGen) implements some variant of the Thought-Action-Observation loop. You will build full agents in ch067–ch077 (Agent Engineering). This lesson covers the prompting pattern.
 
 ### Structured Prompting: XML Tags, Delimiters, Headers
 
@@ -1622,9 +1616,9 @@ This lesson produces two artifacts.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 10, Lessons 01-05 (LLMs from Scratch)
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build), ch046 (Data Pipelines, Mini-GPT & Corpus Builds), ch047 (Distributed Training, DualPipe & DeepSeek-V3)
 **Time:** ~90 minutes
-**Related:** Phase 5 · 20 (Structured Outputs & Constrained Decoding) covers the decoder-level theory (FSM/CFG logit processors, Outlines, XGrammar). This lesson focuses on the production SDK surface (OpenAI `response_format`, Anthropic tool use, Instructor) -- read Phase 5 · 20 first if you want to understand what is happening below the API.
+**Related:** ch034 Part 3 (Structured Outputs & Constrained Decoding) covers the decoder-level theory (FSM/CFG logit processors, Outlines, XGrammar). This lesson focuses on the production SDK surface (OpenAI `response_format`, Anthropic tool use, Instructor) -- read ch034 Part 3 first if you want to understand what is happening below the API.
 
 ## Learning Objectives
 
@@ -2175,9 +2169,9 @@ It also produces `outputs/skill-structured-outputs.md` -- a decision framework f
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 11, Lesson 01 (Prompt Engineering)
+**Prerequisites:** Part 1 (Prompt Engineering: Techniques & Patterns)
 **Time:** ~75 minutes
-**Related:** Phase 5 · 22 (Embedding Models Deep Dive) covers dense vs sparse vs multi-vector, Matryoshka truncation, and per-axis model selection. This lesson focuses on the production pipeline (vector DBs, HNSW, similarity math). Read Phase 5 · 22 before picking a model.
+**Related:** ch054 Part 2 (Embedding Models Deep Dive) covers dense vs sparse vs multi-vector, Matryoshka truncation, and per-axis model selection. This lesson focuses on the production pipeline (vector DBs, HNSW, similarity math). Read ch054 Part 2 before picking a model.
 
 ## Learning Objectives
 
@@ -2689,9 +2683,9 @@ This lesson produces:
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 10 (LLMs from Scratch), Phase 11 Lesson 01-02
+**Prerequisites:** ch039, ch045–ch047, ch049–ch052 (LLMs from Scratch), Part 1 (Prompt Engineering: Techniques & Patterns), Part 2 (Few-Shot, Chain-of-Thought, Tree-of-Thought)
 **Time:** ~90 minutes
-**Related:** Phase 11 · 15 (Prompt Caching) — the cache-friendly layout is an extension of context engineering. Phase 5 · 28 (Long-Context Evaluation) for how to measure lost-in-the-middle with NIAH/RULER.
+**Related:** Part 7 (Prompt Caching) — the cache-friendly layout is an extension of context engineering. ch058 Part 2 (Long-Context Evaluation) for how to measure lost-in-the-middle with NIAH/RULER.
 
 ## Learning Objectives
 
@@ -3282,9 +3276,9 @@ It also produces `outputs/skill-context-engineering.md` -- a decision framework 
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 11 Lesson 09 (Function Calling)
+**Prerequisites:** ch057 (Function Calling)
 **Time:** ~45 minutes
-**Related:** Phase 11 · 15 (Prompt Caching) — this lesson covers application-layer caching (semantic cache, exact hash cache, model routing). Lesson 15 covers provider-layer prompt caching (Anthropic cache_control, OpenAI automatic, Gemini CachedContent). Combine both for 50-95% cost reduction.
+**Related:** Part 7 (Prompt Caching) — this lesson covers application-layer caching (semantic cache, exact hash cache, model routing). Part 7 covers provider-layer prompt caching (Anthropic cache_control, OpenAI automatic, Gemini CachedContent). Combine both for 50-95% cost reduction.
 
 ## Learning Objectives
 
@@ -3340,7 +3334,7 @@ System prompts are the silent killer. A 1,500-token system prompt sent with ever
 
 ### Provider Caching: Built-in Discounts
 
-All three major providers offer provider-side prompt caching in 2026, but the mechanics differ. See Phase 11 · 15 for the deep dive.
+All three major providers offer provider-side prompt caching in 2026, but the mechanics differ. See Part 7 for the deep dive.
 
 | Provider | Mechanism | Discount | Minimum | Cache Duration |
 |----------|-----------|----------|---------|----------------|
@@ -4193,7 +4187,7 @@ It also produces `outputs/skill-cost-patterns.md` -- a decision framework for ch
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 11 · 01 (Prompt Engineering), Phase 11 · 05 (Context Engineering), Phase 11 · 11 (Caching and Cost)
+**Prerequisites:** Part 1 (Prompt Engineering: Techniques & Patterns), Part 5 (Context Engineering: Windows, Budgets, Memory, and Retrieval), Part 6 (Caching, Rate Limiting & Cost Optimization)
 **Time:** ~60 minutes
 
 ## The Problem
@@ -4368,7 +4362,7 @@ The 2026 caching stack:
 | Multi-day reuse of a giant code/doc corpus | Gemini explicit `CachedContent` |
 | Cross-provider fallback | Keep the cacheable prefix layout identical across providers so any hit works |
 
-Combine with semantic caching (Phase 11 · 11) for the user-message layer: prompt caching handles *token-identical* reuse, semantic caching handles *meaning-identical* reuse.
+Combine with semantic caching (Part 6) for the user-message layer: prompt caching handles *token-identical* reuse, semantic caching handles *meaning-identical* reuse.
 
 ## Ship It
 
@@ -4420,8 +4414,14 @@ Refuse to ship a cache plan that places a dynamic field above the breakpoint. Re
 - [OpenAI — Prompt caching](https://platform.openai.com/docs/guides/prompt-caching) — automatic prefix matching.
 - [Google — Context caching](https://ai.google.dev/gemini-api/docs/caching) — `CachedContent` API and storage pricing.
 - [Anthropic engineering — Prompt caching for long-context workloads](https://www.anthropic.com/news/prompt-caching) — original launch post with latency numbers.
-- Phase 11 · 05 (Context Engineering) — where to slice the prompt so the cache can land.
-- Phase 11 · 11 (Caching and Cost) — pair prompt caching with a semantic cache on user messages.
+- Part 5 (Context Engineering) — where to slice the prompt so the cache can land.
+- Part 6 (Caching and Cost) — pair prompt caching with a semantic cache on user messages.
 - [Pope et al., "Efficiently Scaling Transformer Inference" (2022)](https://arxiv.org/abs/2211.05102) — the KV-cache memory model that prompt caching exposes to users; explains why a cached prefix is ~10× cheaper to reread than to recompute.
 - [Agrawal et al., "SARATHI: Efficient LLM Inference by Piggybacking Decodes with Chunked Prefills" (2023)](https://arxiv.org/abs/2308.16369) — prefill is the phase prompt caching shortcuts; this paper explains why TTFT drops dramatically on cache hit while TPOT is unaffected.
 - [Leviathan et al., "Fast Inference from Transformers via Speculative Decoding" (2023)](https://arxiv.org/abs/2211.17192) — prompt caching sits alongside speculative decoding, Flash Attention, and MQA/GQA as levers that bend the inference cost curve; read this for the other three.
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

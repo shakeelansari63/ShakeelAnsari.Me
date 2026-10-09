@@ -1,18 +1,12 @@
 # Linear Algebra
 
-> Combined lessons (3 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Linear Algebra Intuition
 
 > Every AI model is just matrix math wearing a fancy hat.
 
 **Type:** Learn
 **Languages:** Python, Julia
-**Prerequisites:** Phase 0
+**Prerequisites:** ch001–ch003 (Setup & Tooling)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -480,7 +474,7 @@ LoRA deserves special mention. It fine-tunes large language models by decomposin
 
 **Type:** Build
 **Languages:** Python, Julia
-**Prerequisites:** Phase 1, Lesson 01 (Linear Algebra Intuition)
+**Prerequisites:** Part 1 (Linear Algebra Intuition)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -791,7 +785,7 @@ NumPy automatically broadcasts the 1D bias across both rows. This is how bias ad
 
 This lesson produces a prompt for teaching matrix operations through geometric intuition. See `outputs/prompt-matrix-operations.md`.
 
-The Matrix class built here is the foundation for the mini neural network framework we build in Phase 3, Lesson 10.
+The Matrix class built here is the foundation for the mini neural network framework we build in ch016 Part 2.
 
 ## Exercises
 
@@ -831,7 +825,7 @@ The Matrix class built here is the foundation for the mini neural network framew
 
 **Type:** Build
 **Languages:** Python, Julia
-**Prerequisites:** Phase 1, Lessons 01-02 (Linear Algebra Intuition, Vectors & Matrices Operations)
+**Prerequisites:** Part 1 (Linear Algebra Intuition), Part 2 (Vectors, Matrices & Operations)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -1260,7 +1254,7 @@ print(f"Rotate 90 around x: {np.round(rotated_x, 4)}")
 
 ## Ship It
 
-This lesson builds the geometric foundation for PCA (Phase 2) and neural network weight analysis. The eigenvalue/eigenvector code built here is the same algorithm that powers dimensionality reduction, spectral clustering, and stability analysis in production ML systems.
+This lesson builds the geometric foundation for PCA (ch010–ch013 (ML Fundamentals)) and neural network weight analysis. The eigenvalue/eigenvector code built here is the same algorithm that powers dimensionality reduction, spectral clustering, and stability analysis in production ML systems.
 
 ## Exercises
 
@@ -1292,3 +1286,9 @@ This lesson builds the geometric foundation for PCA (Phase 2) and neural network
 - [MIT 18.06 Lecture 21: Eigenvalues and Eigenvectors](https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/) -- Gilbert Strang's classic treatment
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/01-math-foundations/03-matrix-transformations)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

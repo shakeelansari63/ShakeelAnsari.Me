@@ -1,20 +1,14 @@
 # Advanced RAG Systems, Eval & Codebase RAG
 
-> Combined lessons (6 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Advanced RAG (Chunking, Reranking, Hybrid Search)
 
 > Basic RAG retrieves the top-k most similar chunks. That works for simple questions. It falls apart for multi-hop reasoning, ambiguous queries, and large corpora. Advanced RAG is the difference between a demo that works on 10 documents and a system that works on 10 million.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 11, Lesson 06 (RAG)
+**Prerequisites:** ch054 (Embeddings)
 **Time:** ~90 minutes
-**Related:** Phase 5 · 23 (Chunking Strategies for RAG) covers all six chunking algorithms -- recursive, semantic, sentence, parent-document, late chunking, contextual retrieval -- with Vectara/Anthropic benchmarks. This lesson builds on top: hybrid search, reranking, query transformation.
+**Related:** ch054 Part 3 (Chunking Strategies for RAG) covers all six chunking algorithms -- recursive, semantic, sentence, parent-document, late chunking, contextual retrieval -- with Vectara/Anthropic benchmarks. This lesson builds on top: hybrid search, reranking, query transformation.
 
 ## Learning Objectives
 
@@ -25,7 +19,7 @@
 
 ## The Problem
 
-You built a basic RAG pipeline in Lesson 06. It works for straightforward questions on a small corpus. Now try these:
+You built a basic RAG pipeline in ch054 Part 1. It works for straightforward questions on a small corpus. Now try these:
 
 **Ambiguous query**: "What was revenue last quarter?" Semantic search returns chunks about revenue strategy, revenue projections, and the CFO's thoughts on revenue growth. All semantically similar to the word "revenue." None containing the actual number. The correct chunk says "$47.2M in Q3 2025" but uses the word "earnings" instead of "revenue." The embedding model thinks "revenue strategy" is closer to the query than "Q3 earnings were $47.2M."
 
@@ -506,7 +500,7 @@ This lesson produces:
 
 2. Implement a metadata filter. Add a "category" field to each document (security, billing, api, product). Before running vector search, filter chunks to only the relevant category. Test with "What encryption is used?" and verify it only searches security-category chunks.
 
-3. Build a full HyDE pipeline using the simple generate function from Lesson 06. Compare retrieval quality (top-3 relevance) between direct query search and HyDE search on all 5 test queries. HyDE should improve results for vague queries.
+3. Build a full HyDE pipeline using the simple generate function from ch054 Part 1. Compare retrieval quality (top-3 relevance) between direct query search and HyDE search on all 5 test queries. HyDE should improve results for vague queries.
 
 4. Implement the parent-child chunking strategy on the sample documents. Use child_size=30 and parent_size=100. Search with child chunks but return parent chunks in the prompt. Compare the generated answers to standard chunking with chunk_size=50.
 
@@ -546,7 +540,7 @@ This lesson produces:
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 11 lessons 04, 06; Phase 19 Track B foundations; lessons 64, 65
+**Prerequisites:** ch053 (Prompting, CoT, Embeddings, Context & Cost), ch054 (Embeddings), Track B foundations
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -596,7 +590,7 @@ flowchart LR
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 11 lessons 06, 10; Phase 19 Track B foundations; lessons 64-67
+**Prerequisites:** ch054 (Embeddings), ch058 (LLM Evaluation & Red-Team Attacks), Track B foundations, Part 2 (Query Rewriting: HyDE, Multi-Query, and Decomposition)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -656,14 +650,14 @@ flowchart LR
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 11 lessons 06, 10; Phase 19 Track B foundations; lessons 64-68
+**Prerequisites:** ch054 (Embeddings), ch058 (LLM Evaluation & Red-Team Attacks), Track B foundations, Part 2 (Query Rewriting: HyDE, Multi-Query, and Decomposition), Part 3 (RAG Evaluation: Precision, Recall, MRR, nDCG, Faithfulness, Answer Relevance)
 **Time:** ~90 minutes
 
 ## Learning Objectives
 
 - Compose chunker, hybrid retriever, query rewriter, cross-encoder reranker, and answer generator.
 - Implement an answer generator that cites claims by chunk anchor.
-- Run the lesson 68 eval against the assembled pipeline.
+- Run the Part 3 eval against the assembled pipeline.
 - Build a self-terminating CLI demo.
 
 ## The Concept
@@ -716,7 +710,7 @@ flowchart LR
 
 **Type:** Capstone
 **Languages:** Python (ingestion), TypeScript (API + UI)
-**Prerequisites:** Phase 5 (NLP foundations), Phase 7 (transformers), Phase 11 (LLM engineering), Phase 13 (tools), Phase 17 (infrastructure)
+**Prerequisites:** ch030–ch034, ch054, ch058 (NLP), ch021, ch037–ch040 (Transformers), ch053, ch056–ch057, ch061 (LLM Engineering), ch060, ch062–ch064 (Tools & Protocols), ch095–ch100 (Infrastructure & Production)
 **Time:** 30 hours
 
 ## Problem
@@ -860,7 +854,7 @@ Deliverable skill `outputs/skill-codebase-rag.md`. Given a corpus of repos, it s
 
 **Type:** Capstone
 **Languages:** Python (pipeline + API), TypeScript (chat UI)
-**Prerequisites:** Phase 5 (NLP), Phase 7 (transformers), Phase 11 (LLM engineering), Phase 12 (multimodal), Phase 17 (infrastructure), Phase 18 (safety)
+**Prerequisites:** ch030–ch034, ch054, ch058 (NLP), ch021, ch037–ch040 (Transformers), ch053, ch056–ch057, ch061 (LLM Engineering), ch023–ch028 (Multimodal AI), ch095–ch100 (Infrastructure & Production), ch083–ch088 (Ethics, Safety & Alignment)
 **Time:** 30 hours
 
 ## Problem
@@ -994,3 +988,9 @@ answer:
 - [NeMo Guardrails v0.12](https://docs.nvidia.com/nemo-guardrails/)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/08-production-rag-chatbot)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

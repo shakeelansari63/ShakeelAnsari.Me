@@ -1,18 +1,12 @@
 # ML Intro & Regression
 
-> Combined lessons (3 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: What Is Machine Learning
 
 > Machine learning is teaching computers to find patterns in data instead of writing rules by hand.
 
 **Type:** Learn
 **Languages:** Python
-**Prerequisites:** Phase 1 (Math Foundations)
+**Prerequisites:** ch004–ch009 (Math Foundations)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -428,7 +422,7 @@ This lesson produces `outputs/prompt-ml-problem-framer.md` -- a prompt that turn
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 1 (Linear Algebra, Calculus, Optimization), Phase 2 Lesson 1
+**Prerequisites:** ch004–ch009 (Math Foundations), Part 1 (What Is Machine Learning)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -981,7 +975,7 @@ This lesson produces:
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 2 Lesson 1-2 (What Is ML, Linear Regression)
+**Prerequisites:** Part 1 (What Is Machine Learning), Part 2 (Linear Regression)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -1503,3 +1497,9 @@ This lesson produces:
 | Categorical cross-entropy | "Multi-class log loss" | The extension of binary cross-entropy to k classes using one-hot encoded labels |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/02-ml-fundamentals/03-logistic-regression)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

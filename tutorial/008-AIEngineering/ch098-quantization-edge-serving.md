@@ -1,18 +1,12 @@
 # Production Quantization, Cold Start & Edge
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Production Quantization — AWQ, GPTQ, GGUF K-quants, FP8, MXFP4/NVFP4
 
 > Quantization format is not a universal choice — it is a function of hardware, serving engine, and workload. GGUF Q4_K_M or Q5_K_M owns CPU and edge. GPTQ wins inside vLLM when you need multi-LoRA on the same base. AWQ with Marlin-AWQ kernels delivers ~741 tok/s on a 7B class model with the best Pass@1 at INT4 — the 2026 default for datacenter production. FP8 stays the middle ground on Hopper, Ada, and Blackwell. NVFP4 and MXFP4 are aggressive and require per-block validation.
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy memory and throughput comparison across formats)
-**Prerequisites:** Phase 10 · 13 (Quantization foundations), Phase 17 · 04 (vLLM Serving Internals)
+**Prerequisites:** ch051 (Quantization), ch096 (GPU Autoscaling, vLLM & Disaggregated Serving)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -164,7 +158,7 @@ This lesson produces `outputs/skill-quantization-picker.md`. Given hardware, mod
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy cold-start path simulator)
-**Prerequisites:** Phase 17 · 02 (Inference Platform Economics), Phase 17 · 03 (GPU Autoscaling)
+**Prerequisites:** ch095 (Managed Platforms, Economics & FinOps), ch096 (GPU Autoscaling, vLLM & Disaggregated Serving)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -319,7 +313,7 @@ This lesson produces `outputs/skill-cold-start-planner.md`. Given SLA, model siz
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy prefix-cache-aware router simulator)
-**Prerequisites:** Phase 17 · 04 (vLLM Serving), Phase 17 · 06 (SGLang RadixAttention)
+**Prerequisites:** ch096 (GPU Autoscaling, vLLM & Disaggregated Serving), ch097 (EAGLE-3, SGLang, TensorRT & Goodput Metrics)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -509,7 +503,7 @@ This lesson produces `outputs/skill-multi-region-router.md`. Given regions, resi
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy bandwidth-bound decode simulator)
-**Prerequisites:** Phase 17 · 04 (vLLM Serving Internals), Phase 17 · 09 (Production Quantization)
+**Prerequisites:** ch096 (GPU Autoscaling, vLLM & Disaggregated Serving), Part 1 (Production Quantization — AWQ, GPTQ, GGUF K-quants, FP8, MXFP4/NVFP4)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -640,3 +634,9 @@ This lesson produces `outputs/skill-edge-target-picker.md`. Given platform, mode
 - [Qualcomm AI Hub](https://aihub.qualcomm.com/)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/17-infrastructure-and-production/12-edge-inference)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

@@ -1,18 +1,12 @@
 # Unsupervised Learning & Features
 
-> Combined lessons (3 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Unsupervised Learning
 
 > No labels, no teacher. The algorithm finds structure on its own.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 1 (Norms & Distances, Probability & Distributions), Phase 2 Lessons 1-6
+**Prerequisites:** ch004–ch009 (Math Foundations), ch010 (ML Intro & Regression), ch011 (Trees, SVMs, KNN & Naive Bayes)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -518,7 +512,7 @@ This lesson produces working implementations of K-Means, DBSCAN, and GMM from sc
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 1 (Statistics for ML, Linear Algebra), Phase 2 Lessons 1-7
+**Prerequisites:** ch004–ch009 (Math Foundations), ch010 (ML Intro & Regression), ch011 (Trees, SVMs, KNN & Naive Bayes), Part 1 (Unsupervised Learning)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -1107,7 +1101,7 @@ This lesson produces:
 
 **Type:** Build
 **Language:** Python
-**Prerequisites:** Phase 2, Lessons 01-09, 08 (feature engineering)
+**Prerequisites:** ch010 (ML Intro & Regression), ch011 (Trees, SVMs, KNN & Naive Bayes), Part 1 (Unsupervised Learning), Part 2 (Feature Engineering & Selection), ch013 (Evaluation, Tuning, Ensembles & Special Data)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -1376,3 +1370,9 @@ This lesson produces `outputs/skill-feature-selector.md`.
 - [Beware Default Random Forest Importances (Strobl et al., 2007)](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-8-25)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/02-ml-fundamentals/18-feature-selection)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

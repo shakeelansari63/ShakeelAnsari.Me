@@ -1,18 +1,12 @@
 # BERT, GPT, T5 & Building GPT from Scratch
 
-> Combined lessons (8 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: The Full Transformer — Encoder + Decoder
 
 > Attention is the star. Everything else — residuals, normalization, feed-forward, cross-attention — is the scaffolding that lets you stack it deep.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 7 · 02 (Self-Attention), Phase 7 · 03 (Multi-Head Attention), Phase 7 · 04 (Positional Encoding)
+**Prerequisites:** ch037 (Self-Attention, MHA, Positions & Variants)
 **Time:** ~75 minutes
 
 ## The Problem
@@ -199,7 +193,7 @@ See `outputs/skill-transformer-block-reviewer.md`. The skill reviews a transform
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 7 · 05 (Full Transformer), Phase 5 · 02 (Text Representation)
+**Prerequisites:** Part 1 (The Full Transformer — Encoder + Decoder), ch030 (Text Representation & Subword Tokenization)
 **Time:** ~45 minutes
 
 ## The Problem
@@ -361,7 +355,7 @@ See `outputs/skill-bert-finetuner.md`. The skill scopes a BERT fine-tune for a n
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 7 · 02 (Self-Attention), Phase 7 · 05 (Full Transformer), Phase 7 · 06 (BERT)
+**Prerequisites:** ch037 (Self-Attention, MHA, Positions & Variants), Part 1 (The Full Transformer — Encoder + Decoder), Part 2 (BERT — Masked Language Modeling)
 **Time:** ~75 minutes
 
 ## The Problem
@@ -550,7 +544,7 @@ See `outputs/skill-sampling-tuner.md`. The skill picks sampling parameters for a
 
 **Type:** Learn
 **Languages:** Python
-**Prerequisites:** Phase 7 · 05 (Full Transformer), Phase 7 · 06 (BERT), Phase 7 · 07 (GPT)
+**Prerequisites:** Part 1 (The Full Transformer — Encoder + Decoder), Part 2 (BERT — Masked Language Modeling), Part 3 (GPT — Causal Language Modeling)
 **Time:** ~45 minutes
 
 ## The Problem
@@ -785,7 +779,7 @@ See `outputs/skill-seq2seq-picker.md`. The skill picks between encoder-decoder a
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 04 lessons, Phase 07 transformer lessons, Lessons 30 and 31 of this phase
+**Prerequisites:** ch017–ch023 (Computer Vision), ch037, ch039–ch040 (Transformers), ch045 (Tokenizers: Theory & BPE Build)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -854,7 +848,7 @@ The learned variant adds `max_context_length * D` parameters. The sinusoidal var
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 04 lessons, Phase 07 transformer lessons, Lessons 30 through 32 of this phase
+**Prerequisites:** ch017–ch023 (Computer Vision), ch037, ch039–ch040 (Transformers), ch045 (Tokenizers: Theory & BPE Build), Part 5 (Token and Positional Embeddings)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -926,7 +920,7 @@ The block exposes a `return_weights=True` flag. The demo prints a heatmap of one
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 lessons 30 to 33
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build), Part 5 (Token and Positional Embeddings), Part 6 (Multi-Head Self-Attention)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -999,7 +993,7 @@ Pre-LN leaves the residual path unnormalized, so gradients propagate cleanly to 
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 lessons 30 to 34
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build), Part 5 (Token and Positional Embeddings), Part 6 (Multi-Head Self-Attention), Part 7 (Transformer Block from Scratch)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -1063,3 +1057,9 @@ flowchart LR
 | Temperature | "Sampling temperature" | Divide logits by T before softmax |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/35-gpt-model-assembly)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

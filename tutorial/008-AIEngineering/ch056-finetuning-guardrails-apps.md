@@ -1,20 +1,14 @@
 # LoRA, Guardrails, Production Apps & AI Tutor
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Fine-Tuning with LoRA & QLoRA
 
 > Full fine-tuning a 7B model requires 56GB of VRAM. You don't have that. Neither do most companies. LoRA lets you fine-tune the same model in 6GB by training less than 1% of the parameters. This isn't a compromise -- it matches full fine-tuning quality on most tasks. The entire open-source fine-tuning ecosystem runs on this one trick.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 10, Lesson 06 (Instruction Tuning / SFT)
+**Prerequisites:** ch049 (SFT, RLHF, DPO & Constitutional AI)
 **Time:** ~75 minutes
-**Related:** Phase 10 covers the SFT/DPO loops from scratch. This lesson plugs those into the 2026 PEFT toolkits (PEFT, TRL, Unsloth, Axolotl, LLaMA-Factory).
+**Related:** ch039, ch045–ch047, ch049–ch052 (LLMs from Scratch) covers the SFT/DPO loops from scratch. This lesson plugs those into the 2026 PEFT toolkits (PEFT, TRL, Unsloth, Axolotl, LLaMA-Factory).
 
 ## Learning Objectives
 
@@ -207,7 +201,7 @@ Fine-tuning is the third option, not the first.
 
 **First: prompt engineering.** Write a better system prompt. Add few-shot examples. Use chain-of-thought. This costs nothing and takes minutes. If prompting gets you 80% of the way there, you probably don't need to fine-tune.
 
-**Second: RAG.** If the model needs to know about your specific data (documents, knowledge base, product catalog), retrieval is cheaper and more maintainable than baking it into weights. See Lesson 06.
+**Second: RAG.** If the model needs to know about your specific data (documents, knowledge base, product catalog), retrieval is cheaper and more maintainable than baking it into weights. See ch054 Part 1.
 
 **Third: fine-tuning.** Use this when you need the model to adopt a specific style, format, or reasoning pattern that cannot be achieved through prompting. When you need consistent structured output. When you need to distill a larger model into a smaller one. When latency matters and you can't afford the extra tokens from few-shot prompting.
 
@@ -562,9 +556,9 @@ This lesson produces:
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 11 Lesson 01 (Prompt Engineering), Phase 11 Lesson 09 (Function Calling)
+**Prerequisites:** ch053 (Prompting, CoT, Embeddings, Context & Cost), ch057 (Function Calling)
 **Time:** ~45 minutes
-**Related:** Phase 11 · 14 (Model Context Protocol) — MCP's resource/tool boundaries interact with guardrails; untrusted resource content must be treated as data, not instructions. Phase 18 (Ethics, Safety, Alignment) goes deeper on policy and red-teaming.
+**Related:** ch061 Part 1 (Model Context Protocol) — MCP's resource/tool boundaries interact with guardrails; untrusted resource content must be treated as data, not instructions. ch058, ch083–ch088 (Ethics, Safety, Alignment) goes deeper on policy and red-teaming.
 
 ## Learning Objectives
 
@@ -1462,17 +1456,17 @@ It also produces `outputs/skill-guardrail-patterns.md` -- a decision framework f
 
 ## Part 3: Building a Production LLM Application
 
-> You have built prompts, embeddings, RAG pipelines, function calling, caching layers, and guardrails. Separately. In isolation. Like practicing guitar scales without ever playing a song. This lesson is the song. You will wire every component from Lessons 01-12 into a single production-ready service. Not a toy. Not a demo. A system that handles real traffic, fails gracefully, streams tokens, tracks costs, and survives its first 10,000 users.
+> You have built prompts, embeddings, RAG pipelines, function calling, caching layers, and guardrails. Separately. In isolation. Like practicing guitar scales without ever playing a song. This lesson is the song. You will wire every component from ch053 Parts 1–6, ch054 Part 1, ch055 Part 1, ch056 Parts 1–2, ch057 Part 1, ch058 Part 3 into a single production-ready service. Not a toy. Not a demo. A system that handles real traffic, fails gracefully, streams tokens, tracks costs, and survives its first 10,000 users.
 
 **Type:** Build (Capstone)
 **Languages:** Python
-**Prerequisites:** Phase 11 Lessons 01-15
+**Prerequisites:** ch053 (Prompting, CoT, Embeddings, Context & Cost), ch054 (Embeddings), ch055 (Advanced RAG Systems, Eval & Codebase RAG), Part 1 (Fine-Tuning with LoRA & QLoRA), ch057 (Function Calling), ch058 (LLM Evaluation & Red-Team Attacks), Part 2 (Guardrails, Safety & Content Filtering), Part 3 (Building a Production LLM Application), ch061 (MCP Fundamentals)
 **Time:** ~120 minutes
-**Related:** Phase 11 · 14 (MCP) for replacing bespoke tool schemas with a shared protocol; Phase 11 · 15 (Prompt Caching) for 50-90% cost reduction on stable prefixes. Both are expected in every serious 2026 production stack.
+**Related:** ch061 Part 1 (MCP) for replacing bespoke tool schemas with a shared protocol; ch053 Part 7 (Prompt Caching) for 50-90% cost reduction on stable prefixes. Both are expected in every serious 2026 production stack.
 
 ## Learning Objectives
 
-- Wire all Phase 11 components (prompts, RAG, function calling, caching, guardrails) into a single production-ready service
+- Wire all the LLM Engineering components (prompts, RAG, function calling, caching, guardrails) into a single production-ready service
 - Implement streaming token delivery, graceful error handling, and request timeout management
 - Build observability into the application: request logging, cost tracking, latency percentiles, and error rate dashboards
 - Deploy the application with health checks, rate limiting, and a fallback strategy for provider outages
@@ -1492,7 +1486,7 @@ The gap is not intelligence. It is infrastructure. Your prototype calls OpenAI, 
 
 Every LLM application in production today -- Perplexity, Cursor, ChatGPT, Notion AI -- solved these problems. Not by being smarter about prompts. By being rigorous about engineering.
 
-This is the capstone. You will build a complete production LLM service that integrates prompt management (L01-02), embeddings and vector search (L04-07), function calling (L09), evaluation (L10), caching (L11), guardrails (L12), streaming, error handling, observability, and cost tracking. One service. Every component wired together.
+This is the capstone. You will build a complete production LLM service that integrates prompt management (ch053 Parts 1–2), embeddings and vector search (ch053 Parts 4–5, ch054 Part 1, ch055 Part 1), function calling (ch057 Part 1), evaluation (ch058 Part 3), caching (ch053 Part 6), guardrails (Part 2), streaming, error handling, observability, and cost tracking. One service. Every component wired together.
 
 ## The Concept
 
@@ -1528,17 +1522,17 @@ Seven components. Each one is a lesson you already completed. The engineering is
 
 ### The Stack
 
-| Component | Lesson | Technology | Purpose |
+| Component | Ref | Technology | Purpose |
 |-----------|--------|------------|---------|
 | API Server | -- | FastAPI + Uvicorn | HTTP endpoints, SSE streaming, health checks |
-| Prompt Templates | L01-02 | Jinja2 / string templates | Versioned prompt management with variable injection |
-| Embeddings | L04 | text-embedding-3-small | Semantic similarity for cache and RAG |
-| Vector Store | L06-07 | In-memory (prod: Pinecone/Qdrant) | Nearest neighbor search for context retrieval |
-| Function Calling | L09 | Tool registry + JSON Schema | External data access, structured actions |
-| Evaluation | L10 | Custom metrics + logging | Response quality, latency, accuracy tracking |
-| Caching | L11 | Semantic cache (embedding-based) | Avoid redundant LLM calls, reduce cost and latency |
-| Guardrails | L12 | Regex + classifier rules | Block prompt injection, PII, unsafe content |
-| Cost Tracker | L11 | Token counter + pricing table | Per-request and aggregate cost accounting |
+| Prompt Templates | ch053 Parts 1–2 | Jinja2 / string templates | Versioned prompt management with variable injection |
+| Embeddings | ch053 Part 4 | text-embedding-3-small | Semantic similarity for cache and RAG |
+| Vector Store | ch054 Part 1, ch055 Part 1 | In-memory (prod: Pinecone/Qdrant) | Nearest neighbor search for context retrieval |
+| Function Calling | ch057 Part 1 | Tool registry + JSON Schema | External data access, structured actions |
+| Evaluation | ch058 Part 3 | Custom metrics + logging | Response quality, latency, accuracy tracking |
+| Caching | ch053 Part 6 | Semantic cache (embedding-based) | Avoid redundant LLM calls, reduce cost and latency |
+| Guardrails | ch056 Part 2 | Regex + classifier rules | Block prompt injection, PII, unsafe content |
+| Cost Tracker | ch053 Part 6 | Token counter + pricing table | Per-request and aggregate cost accounting |
 | Streaming | -- | Server-Sent Events (SSE) | Token-by-token delivery, sub-second first token |
 
 ### Streaming: Why It Matters
@@ -1697,7 +1691,7 @@ Before you ship, estimate your monthly cost. This spreadsheet decides if your bu
 - Output: 32,500 queries/day x 400 tokens x 30 days / 1M x $10.00 = **$3,900**
 - **Total: $7,556/month** (with caching saving ~$4,070/month)
 
-Without caching, the same traffic costs $11,625/month. A 35% cache hit rate saves 35% on LLM costs. This is why Lesson 11 exists.
+Without caching, the same traffic costs $11,625/month. A 35% cache hit rate saves 35% on LLM costs. This is why ch053 Part 6 exists.
 
 ### The Deployment Checklist
 
@@ -2575,7 +2569,7 @@ It also produces `outputs/skill-production-checklist.md` -- a decision framework
 
 1. **Add RAG integration.** Build a simple in-memory vector store with 20 documents. When the template is `rag_answer`, embed the query, find the 3 most similar documents, and inject them as context. Measure how response quality changes with and without RAG context. Track retrieval latency separately from LLM latency.
 
-2. **Implement real function calling.** Add a tool registry (from Lesson 09) to the service. When a user asks a question that requires external data (weather, calculation, search), the pipeline should detect this, execute the tool, and include the result in the prompt. Add a `tools_used` field to the response.
+2. **Implement real function calling.** Add a tool registry (from ch057 Part 1) to the service. When a user asks a question that requires external data (weather, calculation, search), the pipeline should detect this, execute the tool, and include the result in the prompt. Add a `tools_used` field to the response.
 
 3. **Build a cost alerting system.** Track cost per user per day. When a user exceeds $0.50/day, switch them to `gpt-4o-mini`. When total daily cost exceeds $100, activate emergency mode: cache-only responses for repeated queries, `gpt-4o-mini` for everything else, reject requests over 2,000 input tokens. Test with a simulated traffic spike.
 
@@ -2620,7 +2614,7 @@ It also produces `outputs/skill-production-checklist.md` -- a decision framework
 
 **Type:** Capstone
 **Languages:** Python (backend, learner model), TypeScript (web app), SQL (curriculum graph via Postgres + Neo4j)
-**Prerequisites:** Phase 5 (NLP), Phase 6 (speech), Phase 11 (LLM engineering), Phase 12 (multimodal), Phase 14 (agents), Phase 17 (infrastructure), Phase 18 (safety)
+**Prerequisites:** ch030–ch034, ch054, ch058 (NLP), ch035–ch036 (Speech & Audio), ch053, ch055, ch057, ch061 (LLM Engineering), ch021, ch023–ch028 (Multimodal AI), ch067–ch077 (Agent Engineering), ch095–ch100 (Infrastructure & Production), ch083–ch088 (Ethics, Safety & Alignment)
 **Time:** 30 hours
 
 ## Problem
@@ -2748,3 +2742,9 @@ learner: "6"
 - [LiveKit Agents](https://github.com/livekit/agents)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/17-personal-ai-tutor)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

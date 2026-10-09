@@ -1,18 +1,12 @@
 # RSP, Preparedness, METR & Frontier Frameworks
 
-> Combined lessons (5 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Anthropic Responsible Scaling Policy v3.0
 
 > RSP v3.0 went into effect February 24, 2026, replacing the 2023 policy. Two-tier mitigation: what Anthropic will do unilaterally vs what is framed as an industry-wide recommendation (including RAND SL-4 security standards). Adds Frontier Safety Roadmaps and Risk Reports as standing documents rather than one-off deliverables. Drops the 2023 pause commitment. Introduces the AI R&D-4 threshold: once crossed, Anthropic must publish an affirmative case identifying misalignment risks and mitigations. Claude Opus 4.6 does not cross it. Anthropic states in the v3.0 announcement that "confidently ruling this out is becoming difficult." SaferAI rated the 2023 RSP at 2.2; they downgraded v3.0 to 1.9, putting Anthropic in the "weak" RSP category alongside OpenAI and DeepMind. Qualitative thresholds replaced the 2023 quantitative commitments; removing the pause clause is the sharpest regression.
 
 **Type:** Learn
 **Languages:** Python (stdlib, RSP threshold decision engine)
-**Prerequisites:** Phase 15 · 06 (AAR), Phase 15 · 07 (RSI)
+**Prerequisites:** ch080 (Long-Horizon Agents, RSI & Alignment Research)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -145,7 +139,7 @@ This is not a lesson in compliance. RSP v3.0 is not a regulation; nothing forces
 
 **Type:** Learn
 **Languages:** Python (stdlib, three-framework decision-table diff tool)
-**Prerequisites:** Phase 15 · 19 (Anthropic RSP)
+**Prerequisites:** Part 1 (Anthropic Responsible Scaling Policy v3.0)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -157,7 +151,7 @@ This is not a lesson in compliance. RSP v3.0 is not a regulation; nothing forces
 
 ## The Problem
 
-Anthropic's scaling policy read closely in Lesson 19. This lesson completes the picture by reading OpenAI's and DeepMind's. The three documents are cousin artifacts addressing the same question — when should a frontier lab pause or gate a model — and they converge on a small set of categories and diverge in specific places that matter.
+Anthropic's scaling policy read closely in Part 1. This lesson completes the picture by reading OpenAI's and DeepMind's. The three documents are cousin artifacts addressing the same question — when should a frontier lab pause or gate a model — and they converge on a small set of categories and diverge in specific places that matter.
 
 The convergence: all three label long-range autonomy as a capability class worth tracking. All three acknowledge deceptive behavior (alignment faking, sandbagging) as a specific class of risk. All three have an internal review body. The divergence: OpenAI splits categories into "Tracked" (mandatory mitigation) and "Research" (no automatic trigger). DeepMind folds autonomy into two domains rather than naming it separately. The lab names Tracked vs Research, or Critical vs Moderate, or Tier-1 vs Tier-2; the operational consequence of which bucket a capability lives in is different across labs.
 
@@ -282,7 +276,7 @@ If a model sandbags on evaluations, every framework's capability thresholds are 
 
 **Type:** Learn
 **Languages:** Python (stdlib, logistic-fit horizon estimator)
-**Prerequisites:** Phase 15 · 01 (Long-horizon agents), Phase 15 · 19 (RSP)
+**Prerequisites:** ch080 (Long-Horizon Agents, RSI & Alignment Research), Part 1 (Anthropic Responsible Scaling Policy v3.0)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -346,7 +340,7 @@ graph LR
 - Claude Opus 4.6: ~14 hours at 50% reliability, as of Time Horizon 1.1 (January 2026).
 - Doubling time on HCAST-style tasks: ~4.3 months (130.8 days) on the post-2023 fit reported by Time Horizon 1.1; the ~7-month figure is the full 2019–2025 fit from Time Horizon 1.0.
 
-Those are the specific numbers the rest of Phase 15 references. They are cited in Anthropic's RSP v3.0 and DeepMind's FSF v3 as one of the measurements feeding threshold assessments.
+Those are the specific numbers the rest of ch071, ch074, ch078, ch080–ch084 (Autonomous Systems) references. They are cited in Anthropic's RSP v3.0 and DeepMind's FSF v3 as one of the measurements feeding threshold assessments.
 
 ### Benchmark suites
 
@@ -428,7 +422,7 @@ External evaluation matters because internal labs have incentives to optimize me
 
 **Type:** Learn
 **Languages:** Python (stdlib, four-risk inventory and mitigation matcher)
-**Prerequisites:** Phase 15 · 19 (RSP), Phase 15 · 20 (PF + FSF)
+**Prerequisites:** Part 1 (Anthropic Responsible Scaling Policy v3.0), Part 2 (OpenAI Preparedness Framework and DeepMind Frontier Safety Framework)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -436,11 +430,11 @@ External evaluation matters because internal labs have incentives to optimize me
 - Map a deployment against the CAIS four-risk framework
 - Analyze organizational risk as the most actionable lever
 - Understand California SB-53's framing for state-level regulation
-- Synthesize all Phase 15 layers into a defense-in-depth posture
+- Synthesize all ch071, ch074, ch078, ch080–ch084 (Autonomous Systems) layers into a defense-in-depth posture
 
 ## The Problem
 
-Lessons 19 and 20 covered lab-internal scaling policies. Lesson 21 covered independent capability evaluation. This lesson covers the third perspective: civil society and government organizations who shape public discussion and regulatory baseline for catastrophic AI risk.
+Parts 1–2 covered lab-internal scaling policies. Part 3 covered independent capability evaluation. This lesson covers the third perspective: civil society and government organizations who shape public discussion and regulatory baseline for catastrophic AI risk.
 
 Two distinct entities matter. CAIS is a non-profit research org that publishes frameworks for thinking about AI risk and coordinates public statements. CAISI is a US-government center within NIST that runs voluntary agreements with labs and unclassified capability evaluations. The names rhyme; the missions do not overlap. A practitioner should know both.
 
@@ -493,13 +487,13 @@ graph TD
 
 ### Where organizational risk lives
 
-Of the four categories, organizational risk is the most actionable for practitioners. A lab's safety culture, audit rigor, defense layering, and information security decide whether their model ships with the controls of Lessons 10–18 actually in place, or whether those controls are checklist items nobody verified.
+Of the four categories, organizational risk is the most actionable for practitioners. A lab's safety culture, audit rigor, defense layering, and information security decide whether their model ships with the controls of ch081 Part 2, ch071 Part 4, ch074 Parts 2–3, ch082 Parts 1–3, ch083 Parts 1–2 actually in place, or whether those controls are checklist items nobody verified.
 
 The concrete organizational-risk levers:
 
 - **Safety culture**: do team members feel able to escalate a concern without career cost? CAIS surveys find this is a strong predictor of the other levers.
 - **Rigorous audits**: external and internal. Internal-only audits produce optimistic reports.
-- **Multi-layered defenses**: no single layer is sufficient (the running theme of Phase 15).
+- **Multi-layered defenses**: no single layer is sufficient (the running theme of ch071, ch074, ch078, ch080–ch084 (Autonomous Systems)).
 - **Information security**: model weights leaking, eval data leaking, monitor-bypass techniques leaking. RAND SL-4 is a specific standard.
 
 ### CAISI — Center for AI Standards and Innovation
@@ -523,15 +517,15 @@ If signed, it would be the first US state-level catastrophic-risk regulation. Re
 
 ### Societal-scale risk is not a single-layer problem
 
-The running theme of Phase 15 — defense in depth — applies at the societal layer too. No single organization, regulation, or framework closes catastrophic risk. The ecosystem functions only when:
+The running theme of ch071, ch074, ch078, ch080–ch084 (Autonomous Systems) — defense in depth — applies at the societal layer too. No single organization, regulation, or framework closes catastrophic risk. The ecosystem functions only when:
 
-- Labs ship scaling policies (Lessons 19, 20).
-- External evaluators produce measurements (Lesson 21).
+- Labs ship scaling policies (Parts 1–2).
+- External evaluators produce measurements (Part 3).
 - Civil society tracks and publicizes (CAIS).
 - Government runs voluntary programs and baseline regulation (CAISI, SB-53).
-- Practitioners build multi-layered controls (Lessons 10–18).
+- Practitioners build multi-layered controls (ch081 Part 2, ch071 Part 4, ch074 Parts 2–3, ch082 Parts 1–3, ch083 Parts 1–2).
 
-This is the final synthesis for the phase: every previous lesson is one layer in a stack whose completeness matters more than any single layer's strength.
+This is the final synthesis for the Autonomous Systems chapters: every previous lesson is one layer in a stack whose completeness matters more than any single layer's strength.
 
 ## Use It
 
@@ -584,7 +578,7 @@ This is the final synthesis for the phase: every previous lesson is one layer in
 
 **Type:** Learn
 **Languages:** none
-**Prerequisites:** Phase 18 · 17 (WMDP), Phase 18 · 07-09 (deception failures)
+**Prerequisites:** ch087 (Dual-Use Eval, Bias, Fairness & Ecosystem), ch086 (Deception, Scheming & Scalable Oversight)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -597,7 +591,7 @@ This is the final synthesis for the phase: every previous lesson is one layer in
 
 ## The Problem
 
-Lessons 7-17 establish that deception is possible, dual-use capability exists, and evaluation has limits. A lab with a frontier-capable model needs an internal governance structure that:
+ch086 Parts 2–6, ch058 Parts 4–8, ch087 Part 1 establish that deception is possible, dual-use capability exists, and evaluation has limits. A lab with a frontier-capable model needs an internal governance structure that:
 - Defines thresholds for when new safeguards are required.
 - Defines required evaluations before scaling.
 - Describes what a safety case looks like.
@@ -671,11 +665,11 @@ Different safety cases target different pillars. For a ASL-3 CBRN case, incapabi
 
 Competitor-adjustment clauses are controversial. Critics argue they create a race to the bottom: if all three labs will reduce requirements when a competitor defects, the equilibrium shifts toward defection. Defenders argue the alternative (unilateral safeguards) produces worse outcomes if the defecting lab is less safety-conscious.
 
-UK AISI, US CAISI, and EU AI Office (Lesson 24) are the external governance counterparts. The lab frameworks are voluntary; the regulatory frameworks are emerging.
+UK AISI, US CAISI, and EU AI Office (ch088 Part 3) are the external governance counterparts. The lab frameworks are voluntary; the regulatory frameworks are emerging.
 
-### Where this fits in Phase 18
+### Where this fits in the Ethics, Safety & Alignment chapters
 
-Lessons 17-18 are the measurement-and-governance layer on top of the deception and red-team analyses. Lessons 19-24 cover welfare, bias, privacy, watermarking, and regulatory structure. Lesson 28 maps the research ecosystem (MATS, Redwood, Apollo, METR) that operationalizes the evaluations.
+ch087 Part 1, ch084 Part 5 are the measurement-and-governance layer on top of the deception and red-team analyses. ch087 Parts 2–4, ch088 Parts 1–3 cover welfare, bias, privacy, watermarking, and regulatory structure. ch087 Part 5 maps the research ecosystem (MATS, Redwood, Apollo, METR) that operationalizes the evaluations.
 
 ## Use It
 
@@ -717,3 +711,9 @@ This lesson produces `outputs/skill-framework-diff.md`. Given a safety framework
 - [METR — Common Elements of Frontier AI Safety Policies (2025)](https://metr.org/blog/2025-03-26-common-elements-of-frontier-ai-safety-policies/)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/18-ethics-safety-alignment/18-frontier-safety-frameworks-rsp-pf-fsf)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

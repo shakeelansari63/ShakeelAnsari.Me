@@ -1,18 +1,12 @@
 # Dimensionality Reduction, SVD & Linear Systems
 
-> Combined lessons (3 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Dimensionality Reduction
 
 > High-dimensional data has structure. You find it by looking from the right angle.
 
 **Type:** Build
 **Language:** Python
-**Prerequisites:** Phase 1, Lessons 01 (Linear Algebra Intuition), 02 (Vectors, Matrices & Operations), 03 (Eigenvalues & Eigenvectors), 06 (Probability & Distributions)
+**Prerequisites:** ch004 (Linear Algebra), ch006 (Probability & Statistics)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -387,7 +381,7 @@ This lesson produces:
 
 **Type:** Build
 **Languages:** Python, Julia
-**Prerequisites:** Phase 1, Lessons 01 (Linear Algebra Intuition), 02 (Vectors & Matrices Operations), 03 (Matrix Transformations)
+**Prerequisites:** ch004 (Linear Algebra)
 **Time:** ~120 minutes
 
 ## Learning Objectives
@@ -727,7 +721,7 @@ In sklearn, PCA is implemented using SVD, not eigendecomposition.
 It is faster and more numerically stable.
 ```
 
-This means everything you learned about dimensionality reduction in Lesson 10 is SVD under the hood. PCA is the most common application of SVD in machine learning.
+This means everything you learned about dimensionality reduction in Part 1 is SVD under the hood. PCA is the most common application of SVD in machine learning.
 
 ## Build It
 
@@ -924,7 +918,7 @@ This lesson produces:
 
 **Type:** Build  
 **Languages:** Python  
-**Prerequisites:** Phase 1, Lessons 01-04, 06  
+**Prerequisites:** ch004 (Linear Algebra), ch005 (Calculus & Optimization), ch006 (Probability & Statistics)
 **Time:** ~120 minutes  
 
 ## Learning Objectives
@@ -1330,7 +1324,7 @@ def condition_number_estimate(A):
 
 ## Ship It
 
-This lesson produces `code/linear_systems.py` with Gaussian elimination, LU decomposition, forward/backward substitution, tridiagonal/pentadiagonal solvers, and iterative methods. These reappear in Phase 2 for linear regression, Phase 3 for optimization, and Phase 4 for spectral methods.
+This lesson produces `code/linear_systems.py` with Gaussian elimination, LU decomposition, forward/backward substitution, tridiagonal/pentadiagonal solvers, and iterative methods. These reappear in ch010–ch013 (ML Fundamentals) for linear regression, ch014–ch016 (Deep Learning Core) for optimization, and ch017–ch023 (Computer Vision) for spectral methods.
 
 ## Exercises
 
@@ -1360,3 +1354,9 @@ This lesson produces `code/linear_systems.py` with Gaussian elimination, LU deco
 | Sparse matrix | "Mostly zeros" | Matrix where most entries are zero. Stored in special formats (CSR, CSC, COO). Requires specialized solvers. |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/01-math-foundations/17-linear-systems)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

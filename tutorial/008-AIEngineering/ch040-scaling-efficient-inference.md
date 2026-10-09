@@ -1,18 +1,12 @@
 # Scaling Laws, KV Cache & Speculative Decoding
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: KV Cache, Flash Attention & Inference Optimization
 
 > Training is parallel and FLOP-bound. Inference is serial and memory-bound. Different bottleneck, different tricks.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 7 · 02 (Self-Attention), Phase 7 · 05 (Full Transformer), Phase 7 · 07 (GPT)
+**Prerequisites:** ch037 (Self-Attention, MHA, Positions & Variants), ch038 (BERT, GPT, T5 & Building GPT from Scratch)
 **Time:** ~75 minutes
 
 ## The Problem
@@ -223,7 +217,7 @@ See `outputs/skill-inference-optimizer.md`. The skill picks attention implementa
 
 **Type:** Learn
 **Languages:** Python
-**Prerequisites:** Phase 7 · 05 (Full Transformer), Phase 7 · 07 (GPT)
+**Prerequisites:** ch038 (BERT, GPT, T5 & Building GPT from Scratch)
 **Time:** ~45 minutes
 
 ## The Problem
@@ -399,7 +393,7 @@ See `outputs/skill-training-budget-estimator.md`. The skill picks `(N, D, hours,
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 7 · 01 through 13. Don't skip.
+**Prerequisites:** ch037 (Self-Attention, MHA, Positions & Variants), ch038 (BERT, GPT, T5 & Building GPT from Scratch), ch021 (Vision Transformers & Patch Tokens), ch039 (MoE, Audio Transformers & Sparse Attention), Part 1 (KV Cache, Flash Attention & Inference Optimization), Part 2 (Scaling Laws), Don't skip.
 **Time:** ~120 minutes
 
 ## The Problem
@@ -668,7 +662,7 @@ See `outputs/skill-transformer-review.md`. The skill reviews a transformer-from-
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 7 · 07 (GPT Causal LM), Phase 7 · 12 (KV Cache & Flash Attention)
+**Prerequisites:** ch038 (BERT, GPT, T5 & Building GPT from Scratch), Part 1 (KV Cache, Flash Attention & Inference Optimization)
 **Time:** ~60 minutes
 
 ## The Problem
@@ -860,3 +854,9 @@ See `outputs/skill-spec-decode-picker.md`. The skill picks a speculative decodin
 ---
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/07-transformers-deep-dive/16-speculative-decoding)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

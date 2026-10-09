@@ -1,18 +1,12 @@
 # Evaluation, Tuning, Ensembles & Special Data
 
-> Combined lessons (8 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Model Evaluation
 
 > A model is only as good as the way you measure it.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 1 (Probability & Distributions, Statistics for ML), Phase 2 Lessons 1-8
+**Prerequisites:** ch004–ch009 (Math Foundations), ch010 (ML Intro & Regression), ch011 (Trees, SVMs, KNN & Naive Bayes), ch012 (Unsupervised Learning & Features)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -392,7 +386,7 @@ This lesson produces `outputs/skill-evaluation.md` -- a skill covering evaluatio
 
 **Type:** Learn
 **Language:** Python
-**Prerequisites:** Phase 2, Lessons 01-09 (ML basics, regression, classification, evaluation)
+**Prerequisites:** ch010 (ML Intro & Regression), ch011 (Trees, SVMs, KNN & Naive Bayes), ch012 (Unsupervised Learning & Features), Part 1 (Model Evaluation)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -634,7 +628,7 @@ This lesson produces `outputs/prompt-model-diagnostics.md`.
 
 **Type:** Build
 **Language:** Python
-**Prerequisites:** Phase 2, Lesson 10 (Bias-Variance Tradeoff)
+**Prerequisites:** Part 2 (Bias-Variance Tradeoff)
 **Time:** ~120 minutes
 
 ## Learning Objectives
@@ -892,7 +886,7 @@ This lesson produces `outputs/prompt-ensemble-selector.md` and `outputs/skill-en
 
 **Type:** Build
 **Language:** Python
-**Prerequisites:** Phase 2, Lesson 11 (Ensemble Methods)
+**Prerequisites:** Part 3 (Ensemble Methods)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -1113,7 +1107,7 @@ This lesson produces `outputs/skill-hyperparameter-tuner.md`.
 
 1. Run grid search and random search with the same total budget (e.g., 50 evaluations). Compare the best scores found. How often does random search win?
 2. Implement Hyperband from scratch. Start with 81 configurations, each trained for 1 epoch. Keep the top 1/3 at each round and triple their budget.
-3. Add a learning rate scheduler (cosine annealing) to the gradient boosting implementation from Lesson 11. Does it help compared to a fixed learning rate?
+3. Add a learning rate scheduler (cosine annealing) to the gradient boosting implementation from Part 3. Does it help compared to a fixed learning rate?
 4. Use Optuna to tune a RandomForestClassifier on a real dataset. Use `optuna.visualization.plot_param_importances(study)` to see which hyperparameters matter most.
 5. Implement a simple acquisition function (Expected Improvement) and demonstrate exploration vs exploitation.
 
@@ -1147,7 +1141,7 @@ This lesson produces `outputs/skill-hyperparameter-tuner.md`.
 
 **Type:** Build
 **Language:** Python
-**Prerequisites:** Phase 2, Lesson 12 (Hyperparameter Tuning)
+**Prerequisites:** Part 4 (Hyperparameter Tuning)
 **Time:** ~120 minutes
 
 ## Learning Objectives
@@ -1399,7 +1393,7 @@ This lesson produces `outputs/prompt-ml-pipeline.md`.
 
 **Type:** Build
 **Language:** Python
-**Prerequisites:** Phase 2, Lessons 01-09
+**Prerequisites:** ch010 (ML Intro & Regression), ch011 (Trees, SVMs, KNN & Naive Bayes), ch012 (Unsupervised Learning & Features), Part 1 (Model Evaluation)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -1657,7 +1651,7 @@ This lesson produces `outputs/prompt-time-series-advisor.md`.
 
 **Type:** Build
 **Language:** Python
-**Prerequisites:** Phase 2, Lessons 01-09
+**Prerequisites:** ch010 (ML Intro & Regression), ch011 (Trees, SVMs, KNN & Naive Bayes), ch012 (Unsupervised Learning & Features), Part 1 (Model Evaluation)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -1894,7 +1888,7 @@ This lesson produces `outputs/skill-anomaly-detector.md`.
 
 **Type:** Build
 **Language:** Python
-**Prerequisites:** Phase 2, Lessons 01-09 (especially evaluation metrics)
+**Prerequisites:** ch010 (ML Intro & Regression), ch011 (Trees, SVMs, KNN & Naive Bayes), ch012 (Unsupervised Learning & Features), Part 1 (Model Evaluation)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -2132,3 +2126,9 @@ This lesson produces `outputs/skill-imbalanced-data.md`.
 - [The Precision-Recall Plot Is More Informative than the ROC Plot (Saito & Rehmsmeier, 2015)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0118432)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/02-ml-fundamentals/17-imbalanced-data)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

@@ -1,18 +1,12 @@
 # Metrics, Leaderboards & Eval Runner Build
 
-> Combined lessons (6 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Task Spec Format
 
 > An eval harness is only as good as the contract its tasks honour. Freeze the JSONL shape and metric vocabulary before you write a single scoring function.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 Track B foundations
+**Prerequisites:** Track B foundations
 **Time:** ~90 min
 
 ## Learning Objectives
@@ -84,7 +78,7 @@ flowchart TD
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 Track B foundations, lesson 70
+**Prerequisites:** Track B foundations, Part 1 (Task Spec Format)
 **Time:** ~90 min
 
 ## Learning Objectives
@@ -92,7 +86,7 @@ flowchart TD
 - Implement exact-match, F1, and accuracy with explicit tokenisation.
 - Implement BLEU-4 from the ground up.
 - Implement ROUGE-L using longest common subsequence.
-- Dispatch on metric_name from lesson 70.
+- Dispatch on metric_name from Part 1.
 - Pin behaviour with reference vectors.
 
 ## Tokenisation
@@ -159,7 +153,7 @@ def score(metric_name, pred, targets):
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 Track B foundations, lessons 70, 71
+**Prerequisites:** Track B foundations, Part 1 (Task Spec Format), Part 2 (Classical Metrics)
 **Time:** ~90 min
 
 ## Learning Objectives
@@ -223,7 +217,7 @@ pass_at_k(n, c, k) = 1 - C(n - c, k) / C(n, k)
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 Track B foundations, lessons 70, 71
+**Prerequisites:** Track B foundations, Part 1 (Task Spec Format), Part 2 (Classical Metrics)
 **Time:** ~90 min
 
 ## Learning Objectives
@@ -284,7 +278,7 @@ def brier(p, y):
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 Track B foundations, lessons 70, 71, 73
+**Prerequisites:** Track B foundations, Part 1 (Task Spec Format), Part 2 (Classical Metrics), Part 4 (Perplexity and Calibration)
 **Time:** ~90 min
 
 ## Learning Objectives
@@ -348,7 +342,7 @@ Resample tasks with replacement B times, compute mean each time, take alpha/2 an
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 Track B foundations, lessons 70-74
+**Prerequisites:** Track B foundations, Part 1 (Task Spec Format), Part 2 (Classical Metrics), Part 3 (Code Exec Metric), Part 4 (Perplexity and Calibration), Part 5 (Leaderboard Aggregation)
 **Time:** ~90 min
 
 ## Learning Objectives
@@ -382,7 +376,7 @@ flowchart TD
 
 ## Build It
 
-`main.py` is the integration. Imports from lessons 70-74. Mock adapters: `RuleBasedAdapter`, `NoisyAdapter`, `BiasedAdapter`.
+`main.py` is the integration. Imports from Parts 1–5. Mock adapters: `RuleBasedAdapter`, `NoisyAdapter`, `BiasedAdapter`.
 
 ## Key Terms
 
@@ -393,3 +387,9 @@ flowchart TD
 | Calibration buffer | Accumulates (confidence, correct) pairs across tasks |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/75-end-to-end-eval-runner)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

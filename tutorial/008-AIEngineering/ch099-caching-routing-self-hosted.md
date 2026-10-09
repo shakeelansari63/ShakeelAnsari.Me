@@ -1,18 +1,12 @@
 # Observability, Caching, Batch & Self-Hosted
 
-> Combined lessons (5 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: LLM Observability Stack Selection
 
 > The 2026 observability market splits into two categories. Development platforms (LangSmith, Langfuse, Comet Opik) bundle monitoring with evals, prompt management, session replays. Gateway/instrumentation tools (Helicone, SigNoz, OpenLLMetry, Phoenix) focus on telemetry. Common production pattern: Gateway (Helicone/Portkey) + eval platform (Phoenix/TruLens) glued by OpenTelemetry.
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy trace-sampling simulator)
-**Prerequisites:** Phase 17 · 08 (Inference Metrics), Phase 14 (Agent Engineering)
+**Prerequisites:** ch097 (EAGLE-3, SGLang, TensorRT & Goodput Metrics), ch067–ch077 (Agent Engineering)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -163,7 +157,7 @@ This lesson produces `outputs/skill-observability-stack.md`. Given stack, scale,
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy two-layer cache simulator)
-**Prerequisites:** Phase 17 · 04 (vLLM Serving Internals), Phase 17 · 06 (SGLang RadixAttention)
+**Prerequisites:** ch096 (GPU Autoscaling, vLLM & Disaggregated Serving), ch097 (EAGLE-3, SGLang, TensorRT & Goodput Metrics)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -329,7 +323,7 @@ This lesson produces `outputs/skill-cache-auditor.md`. Given prompt template and
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy batch-vs-sync cost simulator)
-**Prerequisites:** Phase 17 · 14 (Prompt & Semantic Caching)
+**Prerequisites:** Part 2 (Prompt Caching and Semantic Caching Economics)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -447,11 +441,11 @@ This lesson produces `outputs/skill-batch-triager.md`. Given workload characteri
 
 ## Part 4: Model Routing as a Cost-Reduction Primitive
 
-> A dynamic broker evaluates every request (task type, token length, embedding similarity, confidence) and sends simple queries to a cheap model, escalating complex ones to a frontier model. Also called model cascading. Production case studies show 20-60% cost reduction at iso-quality across US/UK/EU deployments; a 30% routing efficiency improvement on high-volume SaaS turns into six-figure annual savings. The 2026 context is that LLM inference prices dropped ~10x per year — a GPT-4-class token went from $20/M to ~$0.40/M from late 2022 to 2026. Most of the drop is better serving stacks (Phase 17 · 04-09), not hardware. Routing is how you convert that price drop into margin without product regression. The failure mode is cheap-model drift: the route pushes 40% to a weaker model, quality drops 3-5% on reasoning tasks, no one notices for a quarter. Gate routes by online quality metrics, not just offline eval sets.
+> A dynamic broker evaluates every request (task type, token length, embedding similarity, confidence) and sends simple queries to a cheap model, escalating complex ones to a frontier model. Also called model cascading. Production case studies show 20-60% cost reduction at iso-quality across US/UK/EU deployments; a 30% routing efficiency improvement on high-volume SaaS turns into six-figure annual savings. The 2026 context is that LLM inference prices dropped ~10x per year — a GPT-4-class token went from $20/M to ~$0.40/M from late 2022 to 2026. Most of the drop is better serving stacks (ch096 Part 2, ch097 Parts 1–4, ch098 Part 1), not hardware. Routing is how you convert that price drop into margin without product regression. The failure mode is cheap-model drift: the route pushes 40% to a weaker model, quality drops 3-5% on reasoning tasks, no one notices for a quarter. Gate routes by online quality metrics, not just offline eval sets.
 
 **Type:** Learn
 **Languages:** Python (stdlib, toy cascading router simulator)
-**Prerequisites:** Phase 17 · 01 (Managed LLM Platforms), Phase 17 · 19 (AI Gateways)
+**Prerequisites:** ch095 (Managed Platforms, Economics & FinOps)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -489,7 +483,7 @@ If you route the 70% to cheap and 30% to expensive, your bill drops ~65% at the 
 
 ### Implementation
 
-AI gateways (Phase 17 · 19) expose routing. LiteLLM has `router` config with fallback and cost-routing. Portkey has guards + routing. Kong AI Gateway has plugin-based routing. OpenRouter's model marketplace exposes a recommendation API.
+AI gateways (ch095 Part 3) expose routing. LiteLLM has `router` config with fallback and cost-routing. Portkey has guards + routing. Kong AI Gateway has plugin-based routing. OpenRouter's model marketplace exposes a recommendation API.
 
 Open-source: RouteLLM (LMSYS), Not Diamond (commercial), Prompt Mule.
 
@@ -500,7 +494,7 @@ Open-source: RouteLLM (LMSYS), Not Diamond (commercial), Prompt Mule.
 | GPT-4-level quality | ~$20/M | ~$0.40/M | 50x cheaper |
 | Frontier (GPT-5, Claude 4) | — | ~$3-10/M | new tier |
 
-Most of the improvement is serving efficiency — the core lessons in Phase 17 · 04-09 turned into provider-side cost drops. Routing lets you capture those gains at the app layer instead of waiting for all your users to migrate to the cheap tier.
+Most of the improvement is serving efficiency — the core lessons in ch096 Part 2, ch097 Parts 1–4, ch098 Part 1 turned into provider-side cost drops. Routing lets you capture those gains at the app layer instead of waiting for all your users to migrate to the cheap tier.
 
 ### Drift is the real risk
 
@@ -568,7 +562,7 @@ This lesson produces `outputs/skill-router-plan.md`. Given workload and quality 
 
 **Type:** Learn
 **Languages:** Python (stdlib, engine-decision tree walker)
-**Prerequisites:** All Phase 17 lessons covering engines (04, 06, 07, 09, 18)
+**Prerequisites:** ch096 (GPU Autoscaling, vLLM & Disaggregated Serving), ch097 (EAGLE-3, SGLang, TensorRT & Goodput Metrics), ch098 (Production Quantization, Cold Start & Edge)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -604,7 +598,7 @@ In 2026 the choice tree matters: hardware first, scale second, workload third. A
 
 **NVIDIA Hopper (H100 / H200)** → vLLM or SGLang or TRT-LLM. All three top-tier.
 
-**NVIDIA Blackwell (B200 / GB200)** → TRT-LLM is the throughput leader (Phase 17 · 07). vLLM and SGLang follow close.
+**NVIDIA Blackwell (B200 / GB200)** → TRT-LLM is the throughput leader (ch097 Part 3). vLLM and SGLang follow close.
 
 **Apple Silicon (M-series)** → llama.cpp (Metal). Ollama wraps this.
 
@@ -614,15 +608,15 @@ In 2026 the choice tree matters: hardware first, scale second, workload third. A
 
 **10-100 users / small team** → vLLM single-GPU.
 
-**100-10k users / production** → vLLM production-stack (Phase 17 · 18) or SGLang.
+**100-10k users / production** → vLLM production-stack (ch096 Part 4) or SGLang.
 
-**10k+ users / enterprise** → vLLM production-stack + disaggregated (Phase 17 · 17) + LMCache (Phase 17 · 18).
+**10k+ users / enterprise** → vLLM production-stack + disaggregated (ch096 Part 3) + LMCache (ch096 Part 4).
 
 ### Workload-third decision
 
 **General chat / Q&A** → vLLM wins on broad default.
 
-**Agentic multi-turn (tools, planning, memory)** → SGLang's RadixAttention (Phase 17 · 06) dominates.
+**Agentic multi-turn (tools, planning, memory)** → SGLang's RadixAttention (ch097 Part 2) dominates.
 
 **RAG with heavy prefix reuse** → SGLang.
 
@@ -646,7 +640,7 @@ Ollama is great for dev. It is not great for shared production: Go HTTP serializ
 
 ### Self-hosted vs managed is a separate decision
 
-Phase 17 · 01 (managed hyperscalers), · 02 (inference platforms) cover managed. This lesson assumes you've already decided to self-host. Reasons to self-host: data residency, custom fine-tune, total cost ownership at scale, domain model not available on hosted.
+ch095 Part 1 (managed hyperscalers), ch095 Part 2 (inference platforms) cover managed. This lesson assumes you've already decided to self-host. Reasons to self-host: data residency, custom fine-tune, total cost ownership at scale, domain model not available on hosted.
 
 ### Numbers you should remember
 
@@ -669,7 +663,7 @@ This lesson produces `outputs/skill-engine-picker.md`. Given constraints, picks 
 2. Your infra is 12 H100s and 8 MI300X AMD. What engine? Why is TRT-LLM off the table?
 3. A team wants to use TGI in 2026 because "it's what we know." Argue the migration case.
 4. Ollama dev to vLLM prod: what changes in quantization, configuration, and observability?
-5. RAG product with P99 prefix length 8K and high reuse across tenants. Pick an engine and stack it with Phase 17 · 11 + 18.
+5. RAG product with P99 prefix length 8K and high reuse across tenants. Pick an engine and stack it with ch098 Part 3, ch096 Part 4.
 
 ## Key Terms
 
@@ -682,7 +676,7 @@ This lesson produces `outputs/skill-engine-picker.md`. Given constraints, picks 
 | SGLang | "the agentic one" | Prefix-heavy, RadixAttention |
 | TRT-LLM | "NVIDIA-locked" | Blackwell throughput leader, NVIDIA only |
 | GGUF | "llama.cpp format" | Bundled K-quant variants |
-| Production-stack | "vLLM K8s" | Phase 17 · 18 reference deployment |
+| Production-stack | "vLLM K8s" | ch096 Part 4 reference deployment |
 | Pipeline pattern | "dev→stage→prod" | Ollama → llama.cpp → vLLM on same weights |
 
 ## Further Reading
@@ -695,3 +689,9 @@ This lesson produces `outputs/skill-engine-picker.md`. Given constraints, picks 
 - [vLLM v0.15.1 release notes](https://github.com/vllm-project/vllm/releases)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/17-infrastructure-and-production/28-self-hosted-serving-selection)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

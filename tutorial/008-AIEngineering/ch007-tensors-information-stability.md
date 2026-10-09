@@ -1,18 +1,12 @@
 # Tensors, Information Theory & Stability
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Information Theory
 
 > Information theory measures surprise. Loss functions are built on it.
 
 **Type:** Learn
 **Language:** Python
-**Prerequisites:** Phase 1, Lesson 06 (Probability)
+**Prerequisites:** ch006 (Probability & Statistics)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -484,7 +478,7 @@ You built from scratch what `torch.nn.CrossEntropyLoss()` does internally. Now y
 
 **Type:** Build
 **Language:** Python
-**Prerequisites:** Phase 1, Lessons 01 (Linear Algebra Intuition), 02 (Vectors, Matrices & Operations)
+**Prerequisites:** ch004 (Linear Algebra)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -829,7 +823,7 @@ This lesson produces two reusable prompts:
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 1, Lessons 01-04
+**Prerequisites:** ch004 (Linear Algebra), ch005 (Calculus & Optimization)
 **Time:** ~120 minutes
 
 ## Learning Objectives
@@ -1508,7 +1502,7 @@ This lesson produces:
 - `code/numerical.py` with stable softmax, log-sum-exp, cross-entropy, gradient checking, and mixed precision simulation
 - `outputs/prompt-numerical-debugger.md` for diagnosing NaN/Inf and numerical issues in training
 
-These stable implementations reappear in Phase 3 when building the training loop and in Phase 4 when implementing attention mechanisms.
+These stable implementations reappear in ch014–ch016 (Deep Learning Core) when building the training loop and in ch017–ch023 (Computer Vision) when implementing attention mechanisms.
 
 ## Exercises
 
@@ -1552,7 +1546,7 @@ These stable implementations reappear in Phase 3 when building the training loop
 
 **Type:** Build  
 **Languages:** Python  
-**Prerequisites:** Phase 1, Lessons 01-04  
+**Prerequisites:** ch004 (Linear Algebra), ch005 (Calculus & Optimization)
 **Time:** ~120 minutes  
 
 ## Learning Objectives
@@ -1925,7 +1919,7 @@ def verify_holder(x, y, p, q):
 
 ## Ship It
 
-This lesson produces `code/distances.py` with all norm, distance, and inequality verification functions. These are used directly in Phase 3 for k-NN classification, Phase 4 for attention mechanisms (dot product as similarity), and throughout the ML curriculum whenever distance or similarity is needed.
+This lesson produces `code/distances.py` with all norm, distance, and inequality verification functions. These are used directly in ch014–ch016 (Deep Learning Core) for k-NN classification, ch017–ch023 (Computer Vision) for attention mechanisms (dot product as similarity), and throughout the ML curriculum whenever distance or similarity is needed.
 
 ## Exercises
 
@@ -1955,3 +1949,9 @@ This lesson produces `code/distances.py` with all norm, distance, and inequality
 | Norm equivalence | "All norms are similar" | In finite dimensions, c*||x||_a <= ||x||_b <= C*||x||_a. Convergence in one implies convergence in all. |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/01-math-foundations/14-norms-and-distances)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

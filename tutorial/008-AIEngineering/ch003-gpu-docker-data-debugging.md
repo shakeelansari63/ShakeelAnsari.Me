@@ -1,18 +1,12 @@
 # GPU, Docker, Data & Debugging
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: GPU Setup & Cloud
 
 > Training on CPU is fine for learning. Training for real needs a GPU.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 0, Lesson 01
+**Prerequisites:** ch001 (Dev Environment Setup)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -24,7 +18,7 @@
 
 ## The Problem
 
-Most lessons in phases 1-3 run fine on CPU. But once you start training CNNs, transformers, or LLMs (phases 4+), you need GPU acceleration. A training run that takes 8 hours on CPU takes 10 minutes on GPU.
+Most lessons in ch004–ch016 (Math Foundations, ML Fundamentals, Deep Learning Core) run fine on CPU. But once you start training CNNs, transformers, or LLMs (ch017 onward), you need GPU acceleration. A training run that takes 8 hours on CPU takes 10 minutes on GPU.
 
 You have three options: local GPU, cloud GPU, or Google Colab (free).
 
@@ -153,7 +147,7 @@ if torch.cuda.is_available():
 
 **Type:** Build
 **Languages:** Docker
-**Prerequisites:** Phase 0, Lessons 01 and 03
+**Prerequisites:** ch001 (Dev Environment Setup), Part 1 (GPU Setup & Cloud)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -530,7 +524,7 @@ Remove the `--gpus all` flag and the NVIDIA deploy block. The container still wo
 
 **Type:** Build
 **Language:** Python
-**Prerequisites:** Phase 0, Lesson 01
+**Prerequisites:** ch001 (Dev Environment Setup)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -789,7 +783,7 @@ This lesson produces:
 
 **Type:** Build
 **Language:** Python
-**Prerequisites:** Lesson 1 (Dev Environment), basic PyTorch familiarity
+**Prerequisites:** ch001 (Dev Environment Setup), basic PyTorch familiarity
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -1178,3 +1172,9 @@ See `outputs/prompt-debug-ai-code.md` for a prompt that helps diagnose AI-specif
 5. Use `breakpoint()` inside a training loop. Practice inspecting tensor shapes, devices, and gradient values from the debugger prompt.
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/00-setup-and-tooling/12-debugging-and-profiling)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

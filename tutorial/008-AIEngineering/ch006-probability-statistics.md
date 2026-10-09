@@ -1,18 +1,12 @@
 # Probability & Statistics
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Probability and Distributions
 
 > Probability is the language AI uses to express uncertainty.
 
 **Type:** Learn
 **Language:** Python
-**Prerequisites:** Phase 1, Lessons 01-04
+**Prerequisites:** ch004 (Linear Algebra), ch005 (Calculus & Optimization)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -471,7 +465,7 @@ You built these from scratch. Now you know what the library calls are doing.
 
 **Type:** Build
 **Language:** Python
-**Prerequisites:** Phase 1, Lesson 06 (Probability Fundamentals)
+**Prerequisites:** Part 1 (Probability and Distributions)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -495,7 +489,7 @@ If you build ML systems without understanding this, you will misinterpret model 
 
 ### From joint probability to Bayes
 
-You already know from Lesson 06 that conditional probability is:
+You already know from Part 1 that conditional probability is:
 
 ```
 P(A|B) = P(A and B) / P(B)
@@ -946,7 +940,7 @@ Advantages over frequentist A/B testing:
 
 **Type:** Build  
 **Languages:** Python  
-**Prerequisites:** Phase 1, Lessons 01-04  
+**Prerequisites:** ch004 (Linear Algebra), ch005 (Calculus & Optimization)
 **Time:** ~120 minutes  
 
 ## Learning Objectives
@@ -1005,7 +999,7 @@ The mean minimizes the sum of squared deviations. It is the value that minimizes
 Var(X) = E[(X - mu)^2] = E[X^2] - E[X]^2
 ```
 
-There are two formulas. The first is the definition. The second is computationally convenient but numerically unstable (see Lesson 13).
+There are two formulas. The first is the definition. The second is computationally convenient but numerically unstable (see ch007 Part 3).
 
 **Standard Deviation:** `sigma = sqrt(Var(X))`. Variance in the original units (dollars squared -> dollars).
 
@@ -1330,7 +1324,7 @@ def mse(estimates, true_value):
 
 ## Ship It
 
-This lesson produces `code/statistics.py` with all summary statistics, distribution functions, MLE estimators, and Bayesian update utilities. These are used in Phase 3 for evaluating model performance, Phase 4 for attention variance analysis, and throughout the curriculum for data analysis.
+This lesson produces `code/statistics.py` with all summary statistics, distribution functions, MLE estimators, and Bayesian update utilities. These are used in ch014–ch016 (Deep Learning Core) for evaluating model performance, ch017–ch023 (Computer Vision) for attention variance analysis, and throughout the curriculum for data analysis.
 
 ## Exercises
 
@@ -1372,7 +1366,7 @@ This lesson produces `code/statistics.py` with all summary statistics, distribut
 
 **Type:** Build  
 **Languages:** Python  
-**Prerequisites:** Phase 1, Lessons 01-04, 07, 15  
+**Prerequisites:** ch004 (Linear Algebra), ch005 (Calculus & Optimization), Part 2 (Bayes' Theorem), Part 3 (Statistics for Machine Learning)
 **Time:** ~120 minutes  
 
 ## Learning Objectives
@@ -1737,7 +1731,7 @@ def metropolis(log_target, step_size, x0, n_iter=1000):
 
 ## Ship It
 
-This lesson produces `code/sampling.py` with all sampling methods, Monte Carlo estimation, and MCMC. These reappear in Phase 3 for Bayesian linear regression, Phase 4 for variational autoencoders, and Phase 5 for Bayesian deep learning.
+This lesson produces `code/sampling.py` with all sampling methods, Monte Carlo estimation, and MCMC. These reappear in ch014–ch016 (Deep Learning Core) for Bayesian linear regression, ch017–ch023 (Computer Vision) for variational autoencoders, and ch030–ch034, ch054, ch058 (NLP) for Bayesian deep learning.
 
 ## Exercises
 
@@ -1765,3 +1759,9 @@ This lesson produces `code/sampling.py` with all sampling methods, Monte Carlo e
 | Bootstrap | "Resample the data" | Non-parametric uncertainty estimation by sampling with replacement from observed data. Works for any statistic. |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/01-math-foundations/16-sampling-methods)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

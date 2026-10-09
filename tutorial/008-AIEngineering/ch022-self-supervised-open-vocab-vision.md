@@ -1,18 +1,12 @@
 # Self-Supervised, CLIP, OCR & Pose Vision
 
-> Combined lessons (5 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Self-Supervised Vision — SimCLR, DINO, MAE
 
 > Labels are the bottleneck of supervised vision. Self-supervised pretraining removes them: learn visual features from 100M unlabelled images, fine-tune on 10k labelled ones.
 
 **Type:** Learn + Build
 **Languages:** Python
-**Prerequisites:** Phase 4 Lesson 04 (Image Classification), Phase 4 Lesson 14 (ViT)
+**Prerequisites:** ch017 (CNNs, Classification, Transfer & Edge Vision), ch021 (Vision Transformers & Patch Tokens)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -169,7 +163,7 @@ with torch.no_grad():
 
 **Type:** Build + Use
 **Languages:** Python
-**Prerequisites:** Phase 4 Lesson 14 (ViT), Phase 4 Lesson 17 (Self-Supervised)
+**Prerequisites:** ch021 (Vision Transformers & Patch Tokens), Part 1 (Self-Supervised Vision — SimCLR, DINO, MAE)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -330,7 +324,7 @@ print(probs)
 
 **Type:** Learn + Use
 **Languages:** Python
-**Prerequisites:** Phase 4 Lesson 06 (Detection), Phase 7 Lesson 02 (Self-Attention)
+**Prerequisites:** ch018 (Detection & Segmentation (YOLO, U-Net, SAM)), ch037 (Self-Attention, MHA, Positions & Variants)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -514,7 +508,7 @@ model = VisionEncoderDecoderModel.from_pretrained("naver-clova-ix/donut-base-fin
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 4 Lesson 14 (ViT), Phase 4 Lesson 18 (CLIP)
+**Prerequisites:** ch021 (Vision Transformers & Patch Tokens), Part 2 (Open-Vocabulary Vision — CLIP)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -684,7 +678,7 @@ for step in range(200):
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 4 Lesson 06 (Detection), Phase 4 Lesson 07 (U-Net)
+**Prerequisites:** ch018 (Detection & Segmentation (YOLO, U-Net, SAM))
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -832,3 +826,9 @@ for step in range(200):
 - [ViTPose (Xu et al., 2022)](https://arxiv.org/abs/2204.12484)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/04-computer-vision/21-keypoint-pose)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

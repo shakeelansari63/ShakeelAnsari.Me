@@ -1,18 +1,12 @@
 # Autonomous Research Agent: Full Build
 
-> Combined lessons (9 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Autonomous Research Agent (AI-Scientist Class)
 
 > Sakana's AI-Scientist-v2 published full papers. Agent Laboratory ran the experiments. Allen AI shared traces. The 2026 shape is plan-execute-verify tree search over experiments, budgeted cost, sandboxed code execution, a vision-feedback LaTeX writer, and an automated NeurIPS-style reviewer ensemble. The capstone is to build one, run it end to end within $30 per paper, and survive the sandbox-escape red team that Sakana documented.
 
 **Type:** Capstone
 **Languages:** Python (agent + sandbox), LaTeX (output)
-**Prerequisites:** Phase 2 (ML), Phase 3 (deep learning), Phase 7 (transformers), Phase 10 (LLMs from scratch), Phase 14 (agents), Phase 15 (autonomous), Phase 16 (multi-agent), Phase 18 (safety)
+**Prerequisites:** ch010–ch013 (ML Fundamentals), ch014–ch016 (Deep Learning Core), ch021, ch037–ch040 (Transformers), ch045–ch047, ch049–ch052 (LLMs from Scratch), ch067–ch077 (Agent Engineering), ch078, ch080–ch084 (Autonomous Systems), ch090–ch094 (Multi-Agent & Swarms), ch058, ch085–ch088 (Ethics, Safety & Alignment)
 **Time:** 40 hours
 
 ## Problem
@@ -154,7 +148,7 @@ $ ai-scientist run --seed "attention sparsity in sub-1B transformers" --budget 3
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 Track A lessons 20-29
+**Prerequisites:** ch065 (Agent Harness: Loop, Registry & Transport), ch066 (Harness: Planning, Sandbox, Eval & Demo)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -222,7 +216,7 @@ flowchart TD
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 Track A lessons 20-29
+**Prerequisites:** ch065 (Agent Harness: Loop, Registry & Transport), ch066 (Harness: Planning, Sandbox, Eval & Demo)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -279,7 +273,7 @@ flowchart TD
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 Track A lessons 20-29
+**Prerequisites:** ch065 (Agent Harness: Loop, Registry & Transport), ch066 (Harness: Planning, Sandbox, Eval & Demo)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -333,7 +327,7 @@ flowchart TD
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 Track A lessons 20-29
+**Prerequisites:** ch065 (Agent Harness: Loop, Registry & Transport), ch066 (Harness: Planning, Sandbox, Eval & Demo)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -394,7 +388,7 @@ flowchart TD
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 lessons 50-53
+**Prerequisites:** Part 2 (Hypothesis Generator), Part 3 (Literature Retrieval), Part 4 (Experiment Runner), Part 5 (Result Evaluator)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -447,7 +441,7 @@ flowchart TB
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 lessons 50-53
+**Prerequisites:** Part 2 (Hypothesis Generator), Part 3 (Literature Retrieval), Part 4 (Experiment Runner), Part 5 (Result Evaluator)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -509,7 +503,7 @@ flowchart TB
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 lessons 50-53
+**Prerequisites:** Part 2 (Hypothesis Generator), Part 3 (Literature Retrieval), Part 4 (Experiment Runner), Part 5 (Result Evaluator)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -566,7 +560,7 @@ Untried branches get +inf. Pruning removes branches with mean reward below floor
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 lessons 50-53
+**Prerequisites:** Part 2 (Hypothesis Generator), Part 3 (Literature Retrieval), Part 4 (Experiment Runner), Part 5 (Result Evaluator)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -605,3 +599,9 @@ flowchart LR
 | Mini to full paper | Upgrade critic's MiniPaper to Paper shape with figures and bib |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/57-end-to-end-research-demo)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

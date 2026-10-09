@@ -1,18 +1,12 @@
 # Complete LLM Pipeline, Open Models & Fine-Tuning
 
-> Combined lessons (5 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Building a Complete LLM Pipeline
 
-> Everything from Lessons 01 to 12 is one stage of one pipeline. This lesson is the scaffold that turns those stages into a single end-to-end run: tokenize, pre-train, scale, SFT, align, evaluate, quantize, serve.
+> Everything from ch045 Parts 1–2, ch046 Parts 1–2, ch047 Part 1, ch049 Parts 1–4, ch050 Part 1, ch051 Parts 1–2 is one stage of one pipeline. This lesson is the scaffold that turns those stages into a single end-to-end run: tokenize, pre-train, scale, SFT, align, evaluate, quantize, serve.
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** All Phase 10 lessons 01-12
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build), ch046 (Data Pipelines, Mini-GPT & Corpus Builds), ch047 (Distributed Training, DualPipe & DeepSeek-V3), ch049 (SFT, RLHF, DPO & Constitutional AI), ch050 (LR Schedules, AMP, Checkpoints & Eval Harness), ch051 (Quantization)
 **Time:** ~120 minutes
 
 ## Learning Objectives
@@ -166,7 +160,7 @@ This lesson produces `outputs/skill-llm-pipeline-reviewer.md` -- checks pipeline
 
 **Type:** Learn
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 10, Lessons 04, 05, 12
+**Prerequisites:** ch046 (Data Pipelines, Mini-GPT & Corpus Builds), ch047 (Distributed Training, DualPipe & DeepSeek-V3), ch051 (Quantization)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -272,17 +266,17 @@ This lesson produces `outputs/skill-open-model-picker.md` -- recommends model + 
 
 ## Part 3: Loading Pretrained Weights
 
-> Training a 124M parameter model from scratch is a budget decision; loading a published checkpoint is a Tuesday. This lesson loads pretrained GPT-2 style weights from a safetensors file into the exact architecture from lesson 35, walks the parameter name mapping, and sanity generates a continuation to prove the load worked.
+> Training a 124M parameter model from scratch is a budget decision; loading a published checkpoint is a Tuesday. This lesson loads pretrained GPT-2 style weights from a safetensors file into the exact architecture from ch038 Part 8, walks the parameter name mapping, and sanity generates a continuation to prove the load worked.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 lessons 30 to 36
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build), ch038 (BERT, GPT, T5 & Building GPT from Scratch), ch050 (LR Schedules, AMP, Checkpoints & Eval Harness)
 **Time:** ~90 minutes
 
 ## Learning Objectives
 
 - Read a safetensors file with the `safetensors` Python library.
-- Map each pretrained parameter name onto a parameter inside the lesson 35 GPT model.
+- Map each pretrained parameter name onto a parameter inside the ch038 Part 8 GPT model.
 - Handle name conventions that differ between published GPT-2 weights and the local model.
 - Detect and refuse a shape mismatch before any weight assignment.
 - Generate a continuation with loaded weights and confirm the tokens come from the loaded distribution.
@@ -332,7 +326,7 @@ The `c_attn`/`c_proj`/`c_fc` linears are stored with the matrix transposed relat
 
 **Type:** Build
 **Languages:** Python (torch, numpy)
-**Prerequisites:** Phase 19 lessons 30-37
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build), ch038 (BERT, GPT, T5 & Building GPT from Scratch), ch050 (LR Schedules, AMP, Checkpoints & Eval Harness), Part 3 (Loading Pretrained Weights)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -383,7 +377,7 @@ flowchart LR
 
 **Type:** Capstone
 **Languages:** Python (pipeline), YAML (configs), Bash (scripts)
-**Prerequisites:** Phase 2 (ML), Phase 3 (DL), Phase 7 (transformers), Phase 10 (LLMs from scratch), Phase 11 (LLM engineering), Phase 17 (infrastructure), Phase 18 (safety)
+**Prerequisites:** ch010–ch013 (ML Fundamentals), ch014–ch016 (Deep Learning Core), ch021, ch037–ch040 (Transformers), ch045–ch047, ch049–ch051 (LLMs from Scratch), ch053–ch058, ch061 (LLM Engineering), ch095–ch100 (Infrastructure & Production), ch083–ch088 (Ethics, Safety & Alignment)
 **Time:** 35 hours
 
 ## Problem
@@ -508,3 +502,9 @@ $ ./pipeline.sh config/llama3.3-8b-domainX.yaml
 - [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/07-end-to-end-fine-tuning-pipeline)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

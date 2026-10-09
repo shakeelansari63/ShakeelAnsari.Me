@@ -1,18 +1,12 @@
 # Building a VLM from Scratch
 
-> Combined lessons (6 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Vision Encoder Patches
 
 > A vision model that reads pixels needs a tokenizer for pixels. Patch embedding is that tokenizer.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 lessons 30-37
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build), ch038 (BERT, GPT, T5 & Building GPT from Scratch), ch050 (LR Schedules, AMP, Checkpoints & Eval Harness), ch052 (Complete LLM Pipeline)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -75,14 +69,14 @@ Half the embedding dimension encodes row position with sin/cos; the other half e
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 lessons 30-37
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build), ch038 (BERT, GPT, T5 & Building GPT from Scratch), ch050 (LR Schedules, AMP, Checkpoints & Eval Harness), ch052 (Complete LLM Pipeline)
 **Time:** ~90 minutes
 
 ## Learning Objectives
 
 - Implement a pre-LN transformer block with multi-head self-attention and feed-forward sub-layer.
 - Stack 12 blocks with 12 heads to form a ViT-Base encoder.
-- Wire the patch front end from lesson 58 into the encoder.
+- Wire the patch front end from Part 1 into the encoder.
 - Verify that the CLS token aggregates information from every patch.
 
 ## The Concept
@@ -141,7 +135,7 @@ flowchart LR
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 lessons 30-37
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build), ch038 (BERT, GPT, T5 & Building GPT from Scratch), ch050 (LR Schedules, AMP, Checkpoints & Eval Harness), ch052 (Complete LLM Pipeline)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -199,7 +193,7 @@ A single linear layer can rotate and rescale but cannot fix basis curvature mism
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 lessons 30-37
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build), ch038 (BERT, GPT, T5 & Building GPT from Scratch), ch050 (LR Schedules, AMP, Checkpoints & Eval Harness), ch052 (Complete LLM Pipeline)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -254,7 +248,7 @@ flowchart TB
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 lessons 30-37
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build), ch038 (BERT, GPT, T5 & Building GPT from Scratch), ch050 (LR Schedules, AMP, Checkpoints & Eval Harness), ch052 (Complete LLM Pipeline)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -320,7 +314,7 @@ L2-normalize image and text embeddings. Compute N x N similarity matrix `S = I T
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 19 lessons 58-62
+**Prerequisites:** Part 1 (Vision Encoder Patches), Part 2 (Vision Transformer Encoder), Part 3 (Projection Layer for Modality Alignment), Part 4 (Cross-Attention Fusion), Part 5 (Vision-Language Pretraining)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -369,3 +363,9 @@ flowchart TB
 | Multi-reference | Several reference captions per image |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/63-multimodal-eval)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

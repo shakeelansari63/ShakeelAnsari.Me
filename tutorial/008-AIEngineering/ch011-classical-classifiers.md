@@ -1,18 +1,12 @@
 # Trees, SVMs, KNN & Naive Bayes
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Decision Trees and Random Forests
 
 > A decision tree is just a flowchart. But a forest of them is one of the most powerful tools in ML.
 
 **Type:** Build
 **Language:** Python
-**Prerequisites:** Phase 1 (Lessons 09 Information Theory, 06 Probability)
+**Prerequisites:** ch007 (Tensors, Information Theory & Stability), ch006 (Probability & Statistics)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -70,7 +64,7 @@ Example: 6 cats, 4 dogs
 Gini = 1 - (0.6^2 + 0.4^2) = 1 - (0.36 + 0.16) = 0.48
 ```
 
-**Entropy** measures the information content (disorder) in a node. Covered in Phase 1 Lesson 09.
+**Entropy** measures the information content (disorder) in a node. Covered in ch007 Part 1.
 
 ```
 Entropy(S) = -sum(p_k * log2(p_k))
@@ -398,7 +392,7 @@ This lesson produces `outputs/prompt-tree-interpreter.md` -- a prompt that inter
 
 **Type:** Build
 **Language:** Python
-**Prerequisites:** Phase 1 (Lessons 08 Optimization, 14 Norms and Distances, 18 Convex Optimization)
+**Prerequisites:** ch005 (Calculus & Optimization), ch007 (Tensors, Information Theory & Stability)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -416,7 +410,7 @@ The one with the biggest margin. The margin is the distance between the decision
 
 This intuition leads to Support Vector Machines, one of the most mathematically elegant algorithms in ML. SVMs were the dominant classification method before deep learning and remain the best choice for small datasets, high-dimensional data, and problems where you need a principled, well-understood model with theoretical guarantees.
 
-SVMs connect directly to Phase 1: the optimization is convex (Lesson 18), the margin is measured with norms (Lesson 14), and the kernel trick exploits dot products to handle nonlinear boundaries without ever computing in the high-dimensional space.
+SVMs connect directly to ch004–ch009 (Math Foundations): the optimization is convex (ch005 Part 4), the margin is measured with norms (ch007 Part 4), and the kernel trick exploits dot products to handle nonlinear boundaries without ever computing in the high-dimensional space.
 
 ## The Concept
 
@@ -551,7 +545,7 @@ This is called the primal formulation. It runs in O(n * d) per epoch, where n is
 
 ### The dual formulation and the kernel trick
 
-The Lagrangian dual of the SVM problem (from Phase 1 Lesson 18, KKT conditions) is:
+The Lagrangian dual of the SVM problem (from ch005 Part 4, KKT conditions) is:
 
 ```
 maximize    sum(alpha_i) - (1/2) * sum_ij(alpha_i * alpha_j * y_i * y_j * (x_i . x_j))
@@ -779,7 +773,7 @@ clf = Pipeline([
 
 **Type:** Build
 **Language:** Python
-**Prerequisites:** Phase 1 (Lesson 14 Norms and Distances)
+**Prerequisites:** ch007 (Tensors, Information Theory & Stability)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -795,7 +789,7 @@ You have a dataset. A new data point arrives. You need to classify it or predict
 
 This is K-nearest neighbors. There is no training phase. No parameters to learn. No loss function to minimize. You store the entire training set and compute distances at prediction time.
 
-It sounds too simple to work. But KNN is surprisingly competitive for many problems, especially with small to medium datasets, and understanding it deeply reveals fundamental concepts: the choice of distance metric (connecting to Phase 1 Lesson 14), the curse of dimensionality, and the difference between lazy and eager learning.
+It sounds too simple to work. But KNN is surprisingly competitive for many problems, especially with small to medium datasets, and understanding it deeply reveals fundamental concepts: the choice of distance metric (connecting to ch007 Part 4), the curse of dimensionality, and the difference between lazy and eager learning.
 
 KNN also shows up everywhere in modern AI, just under different names. Vector databases do KNN search over embeddings. Retrieval-augmented generation (RAG) finds the K nearest document chunks. Recommendation systems find similar users or items. The algorithm is the same. The scale and the data structures are different.
 
@@ -964,7 +958,7 @@ Advantages over KD-trees:
 - Handle non-axis-aligned structure
 - Tighter bounding volumes mean more branches are pruned during search
 
-Both KD-trees and ball trees are exact algorithms. For truly large-scale search (millions of points, hundreds of dimensions), approximate nearest neighbor methods (HNSW, IVF, product quantization) are used instead. These are covered in Phase 1 Lesson 14.
+Both KD-trees and ball trees are exact algorithms. For truly large-scale search (millions of points, hundreds of dimensions), approximate nearest neighbor methods (HNSW, IVF, product quantization) are used instead. These are covered in ch007 Part 4.
 
 ### Lazy learning vs eager learning
 
@@ -1006,7 +1000,7 @@ knn-smoothness
 
 ### Step 1: Distance functions
 
-Implement L1, L2, cosine, and Minkowski distances. These connect directly to Phase 1 Lesson 14.
+Implement L1, L2, cosine, and Minkowski distances. These connect directly to ch007 Part 4.
 
 ```python
 import math
@@ -1165,7 +1159,7 @@ distances, indices = index.search(query_vectors, k=5)
 
 **Type:** Build
 **Language:** Python
-**Prerequisites:** Phase 2, Lessons 01-07 (classification, Bayes' theorem)
+**Prerequisites:** ch010 (ML Intro & Regression), Part 1 (Decision Trees and Random Forests), Part 2 (Support Vector Machines), Part 3 (K-Nearest Neighbors and Distances), ch012 (Unsupervised Learning & Features)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -1380,3 +1374,9 @@ This lesson produces `outputs/skill-naive-bayes-chooser.md`.
 - [Ng and Jordan, On Discriminative vs. Generative Classifiers (2001)](https://ai.stanford.edu/~ang/papers/nips01-discriminativegenerative.pdf)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/02-ml-fundamentals/14-naive-bayes)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

@@ -1,18 +1,12 @@
 # Self-Attention, MHA, Positions & Variants
 
-> Combined lessons (5 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Why Transformers — The Problems with RNNs
 
 > RNNs process tokens one at a time. Transformers process all tokens at once. That single architectural bet changed every scaling curve in deep learning after 2017.
 
 **Type:** Learn
 **Languages:** Python
-**Prerequisites:** Phase 3 (Deep Learning Core), Phase 5 · 09 (Sequence-to-Sequence), Phase 5 · 10 (Attention Mechanism)
+**Prerequisites:** ch014–ch016 (Deep Learning Core), ch032 (RNNs, Seq2Seq & the Attention Breakthrough)
 **Time:** ~45 minutes
 
 ## The Problem
@@ -153,7 +147,7 @@ See `outputs/skill-architecture-picker.md`. The skill picks an architecture for 
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 3 (Deep Learning Core), Phase 5 Lesson 10 (Sequence-to-Sequence)
+**Prerequisites:** ch014–ch016 (Deep Learning Core), ch032 (RNNs, Seq2Seq & the Attention Breakthrough)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -425,7 +419,7 @@ This lesson produces `outputs/prompt-attention-explainer.md` — a prompt for ex
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 7 · 02 (Self-Attention from Scratch)
+**Prerequisites:** Part 2 (Self-Attention from Scratch)
 **Time:** ~75 minutes
 
 ## The Problem
@@ -574,7 +568,7 @@ See `outputs/skill-mha-configurator.md`. The skill recommends head count, kv-hea
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 7 · 02 (Self-Attention), Phase 7 · 03 (Multi-Head Attention)
+**Prerequisites:** Part 2 (Self-Attention from Scratch), Part 3 (Multi-Head Attention)
 **Time:** ~45 minutes
 
 ## The Problem
@@ -773,7 +767,7 @@ See `outputs/skill-positional-encoding-picker.md`. The skill picks an encoding s
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 7 · 02 (Self-Attention), Phase 7 · 03 (Multi-Head), Phase 7 · 12 (KV Cache / Flash Attention)
+**Prerequisites:** Part 2 (Self-Attention from Scratch), Part 3 (Multi-Head Attention), ch040 (Scaling Laws, KV Cache & Speculative Decoding)
 **Time:** ~60 minutes
 
 ## The Problem
@@ -973,3 +967,9 @@ See `outputs/skill-attention-variant-picker.md`. The skill picks an attention to
 ---
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/07-transformers-deep-dive/15-attention-variants)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

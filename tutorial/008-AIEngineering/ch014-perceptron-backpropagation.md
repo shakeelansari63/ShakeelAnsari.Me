@@ -1,18 +1,12 @@
 # Perceptron & Backpropagation
 
-> Combined lessons (3 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: The Perceptron
 
 > The perceptron is the atom of neural networks. Split it open and you find weights, a bias, and a decision.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 1 (Linear Algebra Intuition)
+**Prerequisites:** ch004–ch009 (Math Foundations)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -286,7 +280,7 @@ What changes in production networks: the step function becomes sigmoid, ReLU, or
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 01 (Math Foundations), Lesson 03.01 (The Perceptron)
+**Prerequisites:** ch004–ch009 (Math Foundations), Part 1 (The Perceptron)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -507,7 +501,7 @@ circle_net = Network([
 ])
 ```
 
-With random weights, accuracy will be poor. After training via backpropagation (Lesson 03), this same architecture will draw a curved boundary that separates inside from outside.
+With random weights, accuracy will be poor. After training via backpropagation (Part 3), this same architecture will draw a curved boundary that separates inside from outside.
 
 ## Use It
 
@@ -570,7 +564,7 @@ output = model(x)
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Lesson 03.02 (Multi-Layer Networks)
+**Prerequisites:** Part 2 (Multi-Layer Networks and Forward Pass)
 **Time:** ~120 minutes
 
 ## Learning Objectives
@@ -640,7 +634,7 @@ After 5 layers:   gradient * 0.25^5 = 0.001x original
 After 10 layers:  gradient * 0.25^10 = 0.000001x original
 ```
 
-This is why deep sigmoid networks are nearly impossible to train. The fix -- ReLU and its variants -- is in Lesson 04.
+This is why deep sigmoid networks are nearly impossible to train. The fix -- ReLU and its variants -- is in ch015 Part 1.
 
 ### Deriving Gradients for a 2-Layer Network
 
@@ -899,3 +893,9 @@ for epoch in range(1000):
 - 3Blue1Brown, "Neural Networks" series (https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/03-deep-learning-core/03-backpropagation)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

@@ -1,18 +1,12 @@
 # Video/Audio/3D Generation, Flows & Eval
 
-> Combined lessons (6 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Video Generation
 
 > An image is a 2-D tensor. A video is a 3-D one. The theory is the same; the compute is 10-100x harder. OpenAI's Sora (Feb 2024) proved it was possible. By 2026 Veo 2, Kling 1.5, Runway Gen-3, Pika 2.0, and WAN 2.2 ship production video from text at 1080p — and the open-weights stack (CogVideoX, HunyuanVideo, Mochi-1, WAN 2.2) is 12 months behind.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 8 · 07 (Latent Diffusion), Phase 7 · 09 (ViT), Phase 8 · 06 (DDPM)
+**Prerequisites:** ch041 (Autoencoders, GANs & Diffusion Models), ch021 (Vision Transformers & Patch Tokens)
 **Time:** ~45 minutes
 
 ## The Problem
@@ -172,7 +166,7 @@ A 10-second 1080p clip at 24 fps is 240 frames × 1920 × 1080 × 3 ≈ 1.5 GB o
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 6 · 02 (Audio Features), Phase 6 · 04 (ASR), Phase 8 · 06 (DDPM)
+**Prerequisites:** ch035 (Audio Features, Classification, ASR & Whisper), ch041 (Autoencoders, GANs & Diffusion Models)
 **Time:** ~45 minutes
 
 ## The Problem
@@ -344,7 +338,7 @@ Audio is the one output modality users expect to arrive *as it is generated*, no
 
 **Type:** Learn
 **Languages:** Python
-**Prerequisites:** Phase 4 (Vision), Phase 8 · 07 (Latent Diffusion)
+**Prerequisites:** ch017–ch023 (Computer Vision), ch041 (Autoencoders, GANs & Diffusion Models)
 **Time:** ~45 minutes
 
 ## The Problem
@@ -501,7 +495,7 @@ For most 2026 products, the right answer is "run a multi-view diffusion model on
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 8 · 06 (DDPM), Phase 1 · Calculus
+**Prerequisites:** ch041 (Autoencoders, GANs & Diffusion Models), ch004–ch009 (Math Foundations)
 **Time:** ~45 minutes
 
 ## The Problem
@@ -679,7 +673,7 @@ The production rule: **flow-matched base + distillation = the 2026 default for f
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 8 · 01 (Taxonomy), Phase 2 · 04 (Evaluation Metrics)
+**Prerequisites:** ch041 (Autoencoders, GANs & Diffusion Models), ch013 (Evaluation, Tuning, Ensembles & Special Data)
 **Time:** ~45 minutes
 
 ## The Problem
@@ -844,7 +838,7 @@ For CI / regression gates: run FID + CLIP score on a 500-sample subset per PR (~
 
 **Type:** Build
 **Languages:** Python (with numpy)
-**Prerequisites:** Phase 7 Lesson 03 (Multi-Head Attention), Phase 8 Lesson 06 (DDPM)
+**Prerequisites:** ch037 (Self-Attention, MHA, Positions & Variants), ch041 (Autoencoders, GANs & Diffusion Models)
 **Time:** ~90 minutes
 
 ## The Problem
@@ -1042,3 +1036,9 @@ def generate(predictors, codebooks, rng):
 - [Tang et al., 2024 - "HART: Efficient Visual Generation with Hybrid Autoregressive Transformer"](https://arxiv.org/abs/2410.10812)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/08-generative-ai/19-visual-autoregressive-var)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

@@ -1,11 +1,5 @@
 # Dev Environment Setup
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Dev Environment
 
 > Your tools shape your thinking. Set them up once, set them up right.
@@ -154,10 +148,10 @@ Your environment is now ready for every lesson in this course. Here's what you'l
 
 | Language | Used In | Package Manager |
 |----------|---------|-----------------|
-| Python | Phases 1-12 (ML, DL, NLP, Vision, Audio, LLMs) | uv |
-| TypeScript | Phases 13-17 (Tools, Agents, Swarms, Infra) | pnpm |
-| Rust | Phases 12, 15-17 (Performance-critical systems) | cargo |
-| Julia | Phase 1 (Math foundations) | Pkg |
+| Python | ch004–ch028, ch030–ch047, ch049–ch058, ch061 (ML, DL, NLP, Vision, Audio, LLMs) | uv |
+| TypeScript | ch060–ch064, ch067–ch078, ch080–ch084, ch090–ch100 (Tools, Agents, Swarms, Infra) | pnpm |
+| Rust | the Multimodal AI, Autonomous Systems, Multi-Agent & Swarms, Infrastructure & Production chapters (Performance-critical systems) | cargo |
+| Julia | ch004–ch009 (Math foundations) | Pkg |
 
 ## Ship It
 
@@ -181,7 +175,7 @@ See `outputs/prompt-env-check.md` for a prompt that helps AI assistants diagnose
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 0, Lesson 01
+**Prerequisites:** Part 1 (Dev Environment)
 **Time:** ~30 minutes
 
 ## Learning Objectives
@@ -437,7 +431,7 @@ This lesson produces:
 
 **Type:** Build
 **Languages:** Shell
-**Prerequisites:** Phase 0, Lesson 01
+**Prerequisites:** Part 1 (Dev Environment)
 **Time:** ~30 minutes
 
 ## Learning Objectives
@@ -708,7 +702,7 @@ This creates a `.venv` at the repo root with core dependencies installed and ver
 
 **Type:** Build
 **Languages:** --
-**Prerequisites:** Phase 0, Lesson 01
+**Prerequisites:** Part 1 (Dev Environment)
 **Time:** ~20 minutes
 
 ## Learning Objectives
@@ -911,3 +905,9 @@ With this setup, your daily workflow looks like:
 | Format on save | "Auto-prettier" | The editor runs a formatter (Black, Ruff) every time you save, so code style is always consistent |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/00-setup-and-tooling/08-editor-setup)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

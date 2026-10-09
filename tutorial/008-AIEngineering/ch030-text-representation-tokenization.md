@@ -1,11 +1,5 @@
 # Text Representation & Subword Tokenization
 
-> Combined lessons (5 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Text Processing — Tokenization, Stemming, Lemmatization
 
 Language is continuous. Models are discrete. Preprocessing is the bridge.
@@ -867,3 +861,9 @@ Vocabulary size heuristic: 32k for <1B params, 50-100k for 1-10B, 200k+ for mult
 | Merge list | Ordered list of `(a, b) → ab` merges. |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/05-nlp-foundations-to-advanced/19-subword-tokenization)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

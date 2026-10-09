@@ -1,18 +1,12 @@
 # MoE, Audio Transformers & Sparse Attention
 
-> Combined lessons (5 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Audio Transformers — Whisper Architecture
 
 > Audio is an image of frequency over time. Whisper is a ViT that eats mel spectrograms and speaks back.
 
 **Type:** Learn
 **Languages:** Python
-**Prerequisites:** Phase 7 · 05 (Full Transformer), Phase 7 · 08 (Encoder-Decoder), Phase 7 · 09 (ViT)
+**Prerequisites:** ch038 (BERT, GPT, T5 & Building GPT from Scratch), ch021 (Vision Transformers & Patch Tokens)
 **Time:** ~45 minutes
 
 ## The Problem
@@ -183,7 +177,7 @@ See `outputs/skill-asr-configurator.md`. The skill picks an ASR model, decoding 
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 7 · 05 (Full Transformer), Phase 7 · 07 (GPT)
+**Prerequisites:** ch038 (BERT, GPT, T5 & Building GPT from Scratch)
 **Time:** ~45 minutes
 
 ## The Problem
@@ -350,7 +344,7 @@ See `outputs/skill-moe-configurator.md`. The skill picks E, k, and shared-expert
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 7 · 02 (self-attention), Phase 10 · 14 (architecture walkthroughs)
+**Prerequisites:** ch037 (Self-Attention, MHA, Positions & Variants), ch052 (Complete LLM Pipeline)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -478,7 +472,7 @@ This lesson produces `outputs/skill-diff-attention-integrator.md` -- integration
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 10 · 12 (inference optimization), Phase 10 · 14 (architecture walkthroughs)
+**Prerequisites:** ch051 (Quantization), ch052 (Complete LLM Pipeline)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -601,7 +595,7 @@ This lesson produces `outputs/skill-nsa-integrator.md` -- NSA integration plan f
 
 **Type:** Learn
 **Languages:** Python (stdlib, layer-mix calculator)
-**Prerequisites:** Phase 10 · 14 (open-model architectures), Phase 10 · 17 (NSA)
+**Prerequisites:** ch052 (Complete LLM Pipeline), Part 4 (Native Sparse Attention (DeepSeek NSA))
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -701,3 +695,9 @@ This lesson produces `outputs/skill-hybrid-picker.md` -- recommends between pure
 - Gu, Dao, "Mamba: Linear-Time Sequence Modeling" (arXiv:2312.00752)
 - Gu, Dao, "Mamba-2" (arXiv:2405.21060)
 - Lahoti et al., "Mamba-3" (arXiv:2603.15569, ICLR 2026)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

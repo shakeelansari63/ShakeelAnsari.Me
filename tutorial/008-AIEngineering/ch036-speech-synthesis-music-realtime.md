@@ -1,18 +1,12 @@
 # TTS, Voice Cloning, Music & Real-Time Audio
 
-> Combined lessons (9 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Text-to-Speech (TTS) — From Tacotron to F5 and Kokoro
 
 > ASR inverts speech to text; TTS inverts text to speech. The 2026 stack is three parts: text → tokens, tokens → mel, mel → waveform. Each part has a default model that fits in a laptop.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 6 · 02 (Spectrograms & Mel), Phase 5 · 09 (Seq2Seq), Phase 7 · 05 (Full Transformer)
+**Prerequisites:** ch035 (Audio Features, Classification, ASR & Whisper), ch032 (RNNs, Seq2Seq & the Attention Breakthrough), ch038 (BERT, GPT, T5 & Building GPT from Scratch)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -162,7 +156,7 @@ Save as `outputs/skill-tts-designer.md`. Design a TTS pipeline for a given voice
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 6 · 06 (Speaker Recognition), Phase 6 · 07 (TTS)
+**Prerequisites:** ch035 (Audio Features, Classification, ASR & Whisper), Part 1 (Text-to-Speech (TTS) — From Tacotron to F5 and Kokoro)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -312,7 +306,7 @@ Save as `outputs/skill-voice-cloner.md`. Design a cloning or conversion pipeline
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 6 · 02 (Spectrograms), Phase 4 · 10 (Diffusion Models)
+**Prerequisites:** ch035 (Audio Features, Classification, ASR & Whisper), ch019 (Image Generation: GANs to Diffusion)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -467,7 +461,7 @@ Save as `outputs/skill-music-designer.md`. Pick model, license strategy, length 
 
 **Type:** Learn
 **Languages:** Python
-**Prerequisites:** Phase 6 · 04 (ASR), Phase 12 · 03 (Vision-Language Models), Phase 7 · 10 (Audio Transformers)
+**Prerequisites:** ch035 (Audio Features, Classification, ASR & Whisper), ch023 (VLM Foundations: CLIP, BLIP-2 & Flamingo), ch039 (MoE, Audio Transformers & Sparse Attention)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -622,7 +616,7 @@ Save as `outputs/skill-alm-picker.md`. Pick LALM + benchmark subset + output-mod
 
 **Type:** Build
 **Languages:** Python, Rust
-**Prerequisites:** Phase 6 · 02 (Spectrograms), Phase 6 · 04 (ASR), Phase 6 · 07 (TTS)
+**Prerequisites:** ch035 (Audio Features, Classification, ASR & Whisper), Part 1 (Text-to-Speech (TTS) — From Tacotron to F5 and Kokoro)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -775,13 +769,13 @@ Save as `outputs/skill-realtime-designer.md`. Design a real-time audio pipeline 
 
 ---
 
-## Part 6: Build a Voice Assistant Pipeline — The Phase 6 Capstone
+## Part 6: Build a Voice Assistant Pipeline — The Speech & Audio Capstone
 
-> Everything from lessons 01-11, stitched together. Build a voice assistant that listens, reasons, and talks back. In 2026 that is a solved engineering problem, not a research problem — but the integration details decide whether it ships.
+> Everything from ch035 Parts 1–6, ch036 Parts 1–5, stitched together. Build a voice assistant that listens, reasons, and talks back. In 2026 that is a solved engineering problem, not a research problem — but the integration details decide whether it ships.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 6 · 04, 05, 06, 07, 11; Phase 11 · 09 (Function Calling); Phase 14 · 01 (Agent Loop)
+**Prerequisites:** ch035 (Audio Features, Classification, ASR & Whisper), Part 1 (Text-to-Speech (TTS) — From Tacotron to F5 and Kokoro), Part 5 (Real-Time Audio Processing), ch057 (Function Calling), ch067 (Agent Loop, ReWOO, Reflexion & Tree Search)
 **Time:** ~120 minutes
 
 ## Learning Objectives
@@ -831,7 +825,7 @@ Latency target: first TTS audio byte within 800 ms of the user finishing their u
 |-------|---------|---------|-------|
 | LiveKit + Deepgram + GPT-4o + Cartesia | 350-500 ms | commercial API | Industry default |
 | Pipecat + Whisper-streaming + GPT-4o + Kokoro | 500-800 ms | mostly open | DIY-friendly |
-| Moshi (full-duplex) | 200-300 ms | CC-BY 4.0 | Single-model; lesson 15 |
+| Moshi (full-duplex) | 200-300 ms | CC-BY 4.0 | Single-model; Part 8 |
 | Whisper.cpp + llama.cpp + Kokoro-ONNX | offline | open | Privacy / edge |
 
 ## Build It
@@ -962,7 +956,7 @@ Save as `outputs/skill-voice-assistant-architect.md`. Given budget + scale + lan
 
 **Type:** Learn
 **Languages:** Python
-**Prerequisites:** Phase 6 · 02 (Spectrograms), Phase 10 · 11 (Quantization), Phase 5 · 19 (Subword Tokenization)
+**Prerequisites:** ch035 (Audio Features, Classification, ASR & Whisper), ch051 (Quantization), ch030 (Text Representation & Subword Tokenization)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -1155,7 +1149,7 @@ Save as `outputs/skill-codec-picker.md`. Pick a codec for a given generative or 
 
 **Type:** Learn
 **Languages:** Python
-**Prerequisites:** Phase 6 · 13 (Neural Audio Codecs), Phase 6 · 11 (Real-Time Audio), Phase 7 · 05 (Full Transformer)
+**Prerequisites:** Part 7 (Neural Audio Codecs — EnCodec, SNAC, Mimi, DAC and the Semantic-Acoustic Split), Part 5 (Real-Time Audio Processing), ch038 (BERT, GPT, T5 & Building GPT from Scratch)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -1167,7 +1161,7 @@ Save as `outputs/skill-codec-picker.md`. Pick a codec for a given generative or 
 
 ## The Problem
 
-Every voice agent built from Lessons 11 + 12 has a fundamental latency floor around 300-500 ms. Moshi asks a different question: what if there is no pipeline? What if one model takes audio in and emits audio out directly, continuously?
+Every voice agent built from Parts 5–6 has a fundamental latency floor around 300-500 ms. Moshi asks a different question: what if there is no pipeline? What if one model takes audio in and emits audio out directly, continuously?
 
 The answer is **full-duplex speech-to-speech**. Theoretical latency 160 ms. Practical latency 200 ms on a single L4 GPU.
 
@@ -1267,7 +1261,7 @@ Moshi does not win: tool calling, long reasoning, factual accuracy on niche topi
 | Lowest-latency voice companion | Moshi |
 | Live translation call | Hibiki |
 | Voice demo / research | Moshi, CSM |
-| Enterprise agent with tools | Pipeline (Lesson 12), not Moshi |
+| Enterprise agent with tools | Pipeline (Part 6), not Moshi |
 | Custom-voice TTS in context | Sesame CSM |
 
 ## Pitfalls
@@ -1285,7 +1279,7 @@ Save as `outputs/skill-duplex-pipeline.md`. Pick pipeline vs full-duplex archite
 
 1. **Easy.** Run `code/main.py`. It simulates the two-stream + inner-monologue architecture symbolically.
 2. **Medium.** Pull Moshi from HuggingFace, run the server, test one conversation. Measure wall-clock latency.
-3. **Hard.** Take your Lesson 12 pipeline agent and compare P50 latency vs Moshi on 20 matched test utterances.
+3. **Hard.** Take your Part 6 pipeline agent and compare P50 latency vs Moshi on 20 matched test utterances.
 
 ## Key Terms
 
@@ -1308,7 +1302,7 @@ Save as `outputs/skill-duplex-pipeline.md`. Pick pipeline vs full-duplex archite
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 6 · 06 (Speaker Recognition), Phase 6 · 08 (Voice Cloning)
+**Prerequisites:** ch035 (Audio Features, Classification, ASR & Whisper), Part 2 (Voice Cloning & Voice Conversion)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -1465,3 +1459,9 @@ Save as `outputs/skill-spoof-defender.md`. Pick detection model, watermark, prov
 | AASIST | Detector family | Graph-attention-based anti-spoofing SOTA. |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/06-speech-and-audio/16-anti-spoofing-audio-watermarking)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

@@ -1,18 +1,12 @@
 # SFT, RLHF, DPO & Constitutional AI
 
-> Combined lessons (6 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Instruction Tuning (SFT)
 
 > A base model predicts the next token. That's it. It doesn't follow instructions, answer questions, or refuse harmful requests. SFT is the bridge between a token predictor and a useful assistant. Every model you've ever talked to -- Claude, GPT, Llama Chat -- went through this step.
 
 **Type:** Build
 **Languages:** Python (with numpy)
-**Prerequisites:** Phase 10, Lesson 04 (Pre-Training a Mini GPT)
+**Prerequisites:** ch046 (Data Pipelines, Mini-GPT & Corpus Builds)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -24,7 +18,7 @@
 
 ## The Problem
 
-You trained a model in Lesson 04. It can predict the next token given a sequence. Feed it "The transformer architecture" and it might continue with "has revolutionized natural language processing." That's impressive for a next-token predictor.
+You trained a model in ch046 Part 2. It can predict the next token given a sequence. Feed it "The transformer architecture" and it might continue with "has revolutionized natural language processing." That's impressive for a next-token predictor.
 
 Now try this: feed it "What is the capital of France?" A base model doesn't answer "Paris." It continues the pattern. It might produce "What is the capital of Germany? What is the capital of Spain?" because it learned from documents that contain lists of questions. Or it might produce "is a question that many people ask" because that's a plausible next-token continuation. The model has no concept of *answering*. It only knows *continuing*.
 
@@ -316,7 +310,7 @@ The denominator is `num_response_tokens`, not `seq_len`. If you divide by the to
 
 ### Step 4: SFT Training Loop
 
-Reuse the MiniGPT from Lesson 04. The training loop looks almost identical to pre-training, but with instruction formatting and masked loss.
+Reuse the MiniGPT from ch046 Part 2. The training loop looks almost identical to pre-training, but with instruction formatting and masked loss.
 
 ```python
 def sft_train(model, dataset, num_epochs=2, lr=2e-5, seq_len=64):
@@ -552,7 +546,7 @@ This lesson produces `outputs/prompt-sft-data-curator.md` -- a prompt that helps
 
 **Type:** Build
 **Languages:** Python (with numpy)
-**Prerequisites:** Phase 10, Lesson 06 (Instruction Tuning / SFT)
+**Prerequisites:** Part 1 (Instruction Tuning (SFT))
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -580,7 +574,7 @@ SFT can't capture this distinction. It trains the model on "correct" responses, 
 
 RLHF is not a single training run. It's a pipeline of three sequential stages.
 
-**Stage 1: SFT.** Train a base model on instruction-response pairs (Lesson 06). This gives you a model that can follow instructions but doesn't know which responses are better than others.
+**Stage 1: SFT.** Train a base model on instruction-response pairs (Part 1). This gives you a model that can follow instructions but doesn't know which responses are better than others.
 
 **Stage 2: Reward Model.** Collect human preference data: show annotators two responses to the same prompt and ask "which is better?" Train a model to predict these preferences.
 
@@ -973,7 +967,7 @@ This lesson produces `outputs/prompt-reward-model-designer.md` -- a prompt for d
 
 **Type:** Build
 **Languages:** Python (with numpy)
-**Prerequisites:** Phase 10, Lesson 07 (RLHF)
+**Prerequisites:** Part 2 (RLHF: Reward Model + PPO)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -985,7 +979,7 @@ This lesson produces `outputs/prompt-reward-model-designer.md` -- a prompt for d
 
 ## The Problem
 
-You built an RLHF pipeline in Lesson 07. Three stages. Three models. The SFT model, the reward model, and the policy model optimized with PPO. PPO training is notoriously unstable. Small hyperparameter changes cause divergence. The reward model is an imperfect proxy for human preferences.
+You built an RLHF pipeline in Part 2. Three stages. Three models. The SFT model, the reward model, and the policy model optimized with PPO. PPO training is notoriously unstable. Small hyperparameter changes cause divergence. The reward model is an imperfect proxy for human preferences.
 
 In May 2023, Rafailov, Sharma, and colleagues at Stanford published "Direct Preference Optimization: Your Language Model is Secretly a Reward Model." The key insight: you don't need a separate reward model. The optimal reward function is mathematically determined by the language model's own token probabilities. You can skip the reward model entirely and optimize the language model directly on preference pairs.
 
@@ -1410,7 +1404,7 @@ This lesson produces `outputs/prompt-alignment-method-selector.md` -- a prompt t
 
 **Type:** Build
 **Languages:** Python (stdlib + numpy)
-**Prerequisites:** Phase 10, Lessons 06-08 (SFT, RLHF, DPO)
+**Prerequisites:** Part 1 (Instruction Tuning (SFT)), Part 2 (RLHF: Reward Model + PPO), Part 3 (DPO: Direct Preference Optimization)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -1422,7 +1416,7 @@ This lesson produces `outputs/prompt-alignment-method-selector.md` -- a prompt t
 
 ## The Problem
 
-You built RLHF in Lesson 07 and DPO in Lesson 08. Both depend on the same expensive input: human preference pairs. Llama 2 Chat used over 1.5 million comparisons. Claude 3 used more. This data is slow, expensive, and biased.
+You built RLHF in Part 2 and DPO in Part 3. Both depend on the same expensive input: human preference pairs. Llama 2 Chat used over 1.5 million comparisons. Claude 3 used more. This data is slow, expensive, and biased.
 
 The 2022 Constitutional AI paper asked: what if the model generates the preference labels itself? Give it a written constitution -- a list of principles -- and have it critique its own responses. The critiques become the training signal.
 
@@ -1662,7 +1656,7 @@ This lesson produces `outputs/skill-self-improvement-auditor.md` -- enforces the
 
 **Type:** Build
 **Languages:** Python (torch, numpy)
-**Prerequisites:** Phase 19 lessons 30-37
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build), ch038 (BERT, GPT, T5 & Building GPT from Scratch), ch050 (LR Schedules, AMP, Checkpoints & Eval Harness), ch052 (Complete LLM Pipeline)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -1714,7 +1708,7 @@ flowchart TD
 
 **Type:** Build
 **Languages:** Python (torch, numpy)
-**Prerequisites:** Phase 19 lessons 30-37
+**Prerequisites:** ch045 (Tokenizers: Theory & BPE Build), ch038 (BERT, GPT, T5 & Building GPT from Scratch), ch050 (LR Schedules, AMP, Checkpoints & Eval Harness), ch052 (Complete LLM Pipeline)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -1765,3 +1759,9 @@ Reference is frozen with `torch.no_grad()` and `requires_grad=False`. Policy sta
 `InstructionTokenizer`, `TinyGPT`, `make_preferences` (12 triples), `sequence_log_prob`, `dpo_loss`, `train_dpo`, `evaluate_margins`, `run_demo`.
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/40-dpo-from-scratch)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

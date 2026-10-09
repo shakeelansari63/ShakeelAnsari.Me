@@ -1,18 +1,12 @@
 # Calculus & Optimization
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Calculus for Machine Learning
 
 > Derivatives tell you which way is downhill. That is all a neural network needs to learn.
 
 **Type:** Learn
 **Language:** Python
-**Prerequisites:** Phase 1, Lessons 01-03
+**Prerequisites:** ch004 (Linear Algebra)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -138,7 +132,7 @@ f'(x) ~= f(x + h) - f(x - h)
 h = 0.0001 works well in practice
 ```
 
-Numerical derivatives are slower but work for any function. Analytical derivatives are fast but require you to derive the formula. Neural network frameworks use a third approach: automatic differentiation, which computes exact derivatives mechanically. You will see that in Phase 3.
+Numerical derivatives are slower but work for any function. Analytical derivatives are fast but require you to derive the formula. Neural network frameworks use a third approach: automatic differentiation, which computes exact derivatives mechanically. You will see that in ch014–ch016 (Deep Learning Core).
 
 ### Derivatives by hand for simple functions
 
@@ -644,7 +638,7 @@ You just built gradient descent from scratch. PyTorch automates the gradient com
 
 **Type:** Build
 **Language:** Python
-**Prerequisites:** Phase 1, Lesson 04 (Derivatives & Gradients)
+**Prerequisites:** Part 1 (Calculus for Machine Learning)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -1125,7 +1119,7 @@ This lesson produces:
 - `outputs/skill-autodiff.md` -- a skill for building and debugging autograd systems
 - `code/autodiff.py` -- a minimal autograd engine you can extend
 
-The Value class built here is the foundation for the neural network training loop in Phase 3.
+The Value class built here is the foundation for the neural network training loop in ch014–ch016 (Deep Learning Core).
 
 ## Exercises
 
@@ -1170,7 +1164,7 @@ The Value class built here is the foundation for the neural network training loo
 
 **Type:** Build
 **Language:** Python
-**Prerequisites:** Phase 1, Lessons 04-05 (Derivatives, Gradients)
+**Prerequisites:** Part 1 (Calculus for Machine Learning), Part 2 (Chain Rule & Automatic Differentiation)
 **Time:** ~75 minutes
 
 ## Learning Objectives
@@ -1477,7 +1471,7 @@ Rules of thumb:
 
 This lesson produces a prompt for choosing the right optimizer. See `outputs/prompt-optimizer-guide.md`.
 
-The optimizer classes built here reappear in Phase 3 when we train a neural network from scratch.
+The optimizer classes built here reappear in ch014–ch016 (Deep Learning Core) when we train a neural network from scratch.
 
 ## Exercises
 
@@ -1523,7 +1517,7 @@ The optimizer classes built here reappear in Phase 3 when we train a neural netw
 
 **Type:** Build  
 **Languages:** Python  
-**Prerequisites:** Phase 1, Lessons 01-08, 17  
+**Prerequisites:** ch004 (Linear Algebra), Part 1 (Calculus for Machine Learning), Part 2 (Chain Rule & Automatic Differentiation), ch006 (Probability & Statistics), Part 3 (Optimization), ch008 (Dimensionality Reduction)
 **Time:** ~120 minutes  
 
 ## Learning Objectives
@@ -2078,7 +2072,7 @@ def fista(A, b, lam, x0, alpha=0.01, max_iter=1000, tol=1e-6):
 
 ## Ship It
 
-This lesson produces `code/convex.py` with gradient descent, Newton, coordinate descent, ISTA, and FISTA implementations. These reappear in Phase 2 for linear regression fitting, Phase 3 for SVMs, and Phase 4 for training neural networks.
+This lesson produces `code/convex.py` with gradient descent, Newton, coordinate descent, ISTA, and FISTA implementations. These reappear in ch010–ch013 (ML Fundamentals) for linear regression fitting, ch014–ch016 (Deep Learning Core) for SVMs, and ch017–ch023 (Computer Vision) for training neural networks.
 
 ## Exercises
 
@@ -2109,3 +2103,9 @@ This lesson produces `code/convex.py` with gradient descent, Newton, coordinate 
 | FISTA | "Fast ISTA" | Accelerated ISTA with momentum. O(1/k^2) convergence instead of O(1/k). |
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/01-math-foundations/18-convex-optimization)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

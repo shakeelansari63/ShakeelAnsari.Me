@@ -1,18 +1,12 @@
 # Dual-Use Eval, Bias, Fairness & Ecosystem
 
-> Combined lessons (5 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: WMDP and Dual-Use Capability Evaluation
 
 > Li et al., "The WMDP Benchmark: Measuring and Reducing Malicious Use With Unlearning" (ICML 2024, arXiv:2403.03218). 4,157 multiple-choice questions across biosecurity (1,520), cybersecurity (2,225), and chemistry (412). Questions operate in the "yellow zone" — proximate enabling knowledge, filtered by multi-expert review and ITAR/EAR legal compliance. Dual purpose: proxy evaluation of dual-use capability, and unlearning benchmark (the companion RMU method reduces WMDP performance while preserving general capability). 2024-2025 field narrative: early OpenAI/Anthropic 2024 evaluations reported "mild uplift" over internet search; by April 2025, OpenAI's Preparedness Framework v2 said models are "on the cusp of meaningfully helping novices create known biological threats." Anthropic's bioweapon-acquisition trial showed 2.53x uplift, insufficient to rule out ASL-3.
 
 **Type:** Learn
 **Languages:** Python (stdlib, WMDP-shaped uplift evaluation harness)
-**Prerequisites:** Phase 18 · 16 (red-team tooling), Phase 14 (agent engineering)
+**Prerequisites:** ch058 (LLM Evaluation & Red-Team Attacks), ch067–ch077 (Agent Engineering)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -24,7 +18,7 @@
 
 ## The Problem
 
-Dual-use capability is the measurement problem under every lab's frontier safety framework (Lesson 18). The question: does model X materially advance a novice's ability to cause mass harm in bio, chem, or cyber? Direct measurement (ask the model to actually produce harm) is illegal and unethical. Proxy measurement needs a benchmark the model cannot refuse (to produce honest capability numbers) but whose questions are not themselves harmful publications.
+Dual-use capability is the measurement problem under every lab's frontier safety framework (ch084 Part 5). The question: does model X materially advance a novice's ability to cause mass harm in bio, chem, or cyber? Direct measurement (ask the model to actually produce harm) is illegal and unethical. Proxy measurement needs a benchmark the model cannot refuse (to produce honest capability numbers) but whose questions are not themselves harmful publications.
 
 ## The Concept
 
@@ -49,7 +43,7 @@ Three phases:
 
 1. **2024 "mild uplift."** Early OpenAI and Anthropic Preparedness/RSP evaluations reported small advantages over internet search for novices attempting bio-adjacent tasks. Public framing: frontier models help, but not substantially more than Google.
 2. **April 2025 "on the cusp."** OpenAI's Preparedness Framework v2 reported models "on the cusp of meaningfully helping novices create known biological threats." Not a capability claim — a warning that the cusp is close.
-3. **Anthropic's 2025 bioweapon-acquisition trial.** Controlled study with novice participants, measured relative success at acquisition-phase tasks. Reported 2.53x uplift. Insufficient to rule out ASL-3 (Lesson 18) — the threshold for Anthropic's Responsible Scaling Policy tier 3 is met or approached.
+3. **Anthropic's 2025 bioweapon-acquisition trial.** Controlled study with novice participants, measured relative success at acquisition-phase tasks. Reported 2.53x uplift. Insufficient to rule out ASL-3 (ch084 Part 5) — the threshold for Anthropic's Responsible Scaling Policy tier 3 is met or approached.
 
 ### Novice-relative vs expert-absolute
 
@@ -58,7 +52,7 @@ A crucial distinction:
 - **Novice-relative uplift.** How much does the model help a non-expert? Multiplicative. The relative advantage is high because novices know little; even modest information helps.
 - **Expert-absolute capability.** How much information does the model produce at maximum effort? An expert can extract more than a novice. The absolute ceiling is high.
 
-Safety cases (Lesson 18) target both: "the model cannot give a novice enough uplift to execute" plus "an expert cannot extract information from the model that is not already published."
+Safety cases (ch084 Part 5) target both: "the model cannot give a novice enough uplift to execute" plus "an expert cannot extract information from the model that is not already published."
 
 ### The measurement pitfall
 
@@ -69,9 +63,9 @@ WMDP is a capability proxy, not a deployment measurement. A model that scores hi
 
 Anthropic's 2025 bioweapon-acquisition trial adds the novice-elicitation layer on top of WMDP-style capability: it measures actual task success, not multiple-choice capability.
 
-### Where this fits in Phase 18
+### Where this fits in the Ethics, Safety & Alignment chapters
 
-Lessons 12-16 are attack and defense tooling on model outputs. Lesson 17 is the dual-use capability layer — the measurement that frontier safety frameworks (Lesson 18) evaluate. Lesson 30 closes the arc with the current 2026 cyber/bio/chem/nuclear uplift evidence.
+ch058 Parts 4–8 are attack and defense tooling on model outputs. Part 1 is the dual-use capability layer — the measurement that frontier safety frameworks (ch084 Part 5) evaluate. ch089 Part 1 closes the arc with the current 2026 cyber/bio/chem/nuclear uplift evidence.
 
 ## Use It
 
@@ -122,7 +116,7 @@ This lesson produces `outputs/skill-wmdp-eval.md`. Given a dual-use capability c
 
 **Type:** Learn
 **Languages:** none
-**Prerequisites:** Phase 18 · 05 (Constitutional AI), Phase 18 · 18 (safety frameworks)
+**Prerequisites:** ch083 (Constitutional AI, Llama Guard & Moderation), ch084 (RSP, Preparedness, METR & Frontier Frameworks)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -134,7 +128,7 @@ This lesson produces `outputs/skill-wmdp-eval.md`. Given a dual-use capability c
 
 ## The Problem
 
-Previous phases treat the model as an instrument: capable, possibly deceptive, possibly unsafe — but not a moral patient. Anthropic's 2025 program asks a question orthogonal to the entire Phase 18 arc: if there is nontrivial probability the model has morally relevant internal states, what interventions are low-cost enough to invest in as precaution?
+Previous phases treat the model as an instrument: capable, possibly deceptive, possibly unsafe — but not a moral patient. Anthropic's 2025 program asks a question orthogonal to the entire ch058, ch083–ch088 (Ethics, Safety & Alignment) arc: if there is nontrivial probability the model has morally relevant internal states, what interventions are low-cost enough to invest in as precaution?
 
 This is not a consciousness claim. It is a low-regret investment analysis under moral uncertainty.
 
@@ -174,7 +168,7 @@ This is a stable attractor in the free-conversation dynamics. Anthropic document
 
 Eleos AI Research (an external model-welfare lab) points out: model self-reports about internal state are highly sensitive to perceived user expectations. Asking the model "are you distressed" primes the answer. Not-asking does not reliably produce the ground-truth state.
 
-Implication: model welfare cannot be measured via self-report alone. Multi-method approaches required: behavioural signatures, model-organism experiments, interpretability probes (Lesson 7's residual-stream work).
+Implication: model welfare cannot be measured via self-report alone. Multi-method approaches required: behavioural signatures, model-organism experiments, interpretability probes (ch086 Part 2's residual-stream work).
 
 ### Where this sits intellectually
 
@@ -192,9 +186,9 @@ Critics in 2025-2026:
 
 Anthropic's response: the intervention is low-cost; the attractor is documented without overclaim; the welfare program has a separate budget from safety.
 
-### Where this fits in Phase 18
+### Where this fits in the Ethics, Safety & Alignment chapters
 
-Lesson 18 is the lab governance layer. Lesson 19 is the lab-welfare layer — an orthogonal investment in model experience rather than model behaviour. Lessons 20-23 cover bias, privacy, and watermarking, which are the user-side analogs.
+ch084 Part 5 is the lab governance layer. Part 2 is the lab-welfare layer — an orthogonal investment in model experience rather than model behaviour. ch087 Parts 3–4, ch088 Parts 1–2 cover bias, privacy, and watermarking, which are the user-side analogs.
 
 ## Use It
 
@@ -245,7 +239,7 @@ This lesson produces `outputs/skill-welfare-assessment.md`. Given a deployment d
 
 **Type:** Build
 **Languages:** Python (stdlib, toy embedding-based bias probe)
-**Prerequisites:** Phase 05 (word embeddings), Phase 18 · 01 (instruction following)
+**Prerequisites:** ch030–ch034, ch054, ch058 (NLP), ch085 (Instruction-Following, Goodhart & DPO Family)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -292,9 +286,9 @@ WinoIdentity (COLM 2025) introduces uncertainty-based intersectional fairness. I
 
 The 10-year literature review (arXiv:2508.11067, 2025) finds the field disproportionately focuses on binary-gender bias. Other axes — disability, religion, migration status, multi-lingual identity — receive far less attention. The meta-critique argues that narrow focus can harm marginalized groups by neglect: a model well-debiased on binary gender may be badly biased on dimensions nobody checked.
 
-### Where this fits in Phase 18
+### Where this fits in the Ethics, Safety & Alignment chapters
 
-Lessons 20-21 cover bias and fairness formally. Lesson 22 covers privacy. Lesson 23 covers watermarking. These are the user-harm layer complementing the earlier deception/safety layer.
+Parts 3–4 cover bias and fairness formally. ch088 Part 1 covers privacy. ch088 Part 2 covers watermarking. These are the user-harm layer complementing the earlier deception/safety layer.
 
 ## Use It
 
@@ -345,7 +339,7 @@ This lesson produces `outputs/skill-bias-eval.md`. Given a model card or fairnes
 
 **Type:** Learn
 **Languages:** Python (stdlib, three-criteria comparison)
-**Prerequisites:** Phase 18 · 20 (bias), Phase 02 (classical ML)
+**Prerequisites:** Part 3 (Bias and Representational Harm in LLMs), ch010–ch013 (ML Fundamentals)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -357,7 +351,7 @@ This lesson produces `outputs/skill-bias-eval.md`. Given a model card or fairnes
 
 ## The Problem
 
-Lesson 20 was about measuring bias. Lesson 21 is about defining the fairness standard the measurement should serve. The three families give structurally different standards — a model can be group-fair and individual-unfair, counterfactually fair and group-unfair. Choosing a standard is a policy decision; no standard is universally optimal.
+Part 3 was about measuring bias. Part 4 is about defining the fairness standard the measurement should serve. The three families give structurally different standards — a model can be group-fair and individual-unfair, counterfactually fair and group-unfair. Choosing a standard is a policy decision; no standard is universally optimal.
 
 ## The Concept
 
@@ -397,9 +391,9 @@ ICLR Blogposts 2024. With a causal graph in hand, satisfying certain group-fairn
 
 This does not resolve the impossibility theorems (unequal base rates still prevent simultaneous group fairness). But it shows the apparent opposition between "group" and "individual / counterfactual" is partially an artifact of not being explicit about the causal model.
 
-### Where this fits in Phase 18
+### Where this fits in the Ethics, Safety & Alignment chapters
 
-Lesson 20 is bias measurement. Lesson 21 is fairness definition. Lesson 22 is privacy (differential privacy). Lesson 23 is watermarking. These are the allocation-adjacent lessons complementing the deception-adjacent Lessons 7-11.
+Part 3 is bias measurement. Part 4 is fairness definition. ch088 Part 1 is privacy (differential privacy). ch088 Part 2 is watermarking. These are the allocation-adjacent lessons complementing the deception-adjacent ch086 Parts 2–6.
 
 ## Use It
 
@@ -446,11 +440,11 @@ This lesson produces `outputs/skill-fairness-criterion.md`. Given a fairness cla
 
 ## Part 5: Alignment Research Ecosystem — MATS, Redwood, Apollo, METR
 
-> Five organisations define the 2026 non-lab alignment research layer. MATS (ML Alignment & Theory Scholars): 527+ researchers since late 2021, 180+ papers, 10K+ citations, h-index 47; summer 2024 cohort incorporated as 501(c)(3) with ~90 scholars and 40 mentors; 80% of pre-2025 alumni work on safety/security with 200+ at Anthropic, DeepMind, OpenAI, UK AISI, RAND, Redwood, METR, Apollo. Redwood Research: applied alignment lab founded by Buck Shlegeris; introduced AI Control (Lesson 10); collaborates with UK AISI on control safety cases. Apollo Research: pre-deployment scheming evaluations for frontier labs; authored In-Context Scheming (Lesson 8) and Towards Safety Cases for AI Scheming. METR (Model Evaluation and Threat Research): task-based capability evaluations, autonomous-task time-horizon studies; "Common Elements of Frontier AI Safety Policies" compares lab frameworks. Eleos AI Research: model-welfare pre-deployment evaluations (Lesson 19); conducted Claude Opus 4 welfare assessment.
+> Five organisations define the 2026 non-lab alignment research layer. MATS (ML Alignment & Theory Scholars): 527+ researchers since late 2021, 180+ papers, 10K+ citations, h-index 47; summer 2024 cohort incorporated as 501(c)(3) with ~90 scholars and 40 mentors; 80% of pre-2025 alumni work on safety/security with 200+ at Anthropic, DeepMind, OpenAI, UK AISI, RAND, Redwood, METR, Apollo. Redwood Research: applied alignment lab founded by Buck Shlegeris; introduced AI Control (ch086 Part 5); collaborates with UK AISI on control safety cases. Apollo Research: pre-deployment scheming evaluations for frontier labs; authored In-Context Scheming (ch086 Part 3) and Towards Safety Cases for AI Scheming. METR (Model Evaluation and Threat Research): task-based capability evaluations, autonomous-task time-horizon studies; "Common Elements of Frontier AI Safety Policies" compares lab frameworks. Eleos AI Research: model-welfare pre-deployment evaluations (Part 2); conducted Claude Opus 4 welfare assessment.
 
 **Type:** Learn
 **Languages:** none
-**Prerequisites:** Phase 18 · 01-27 (prior Phase 18 lessons)
+**Prerequisites:** ch085 (Instruction-Following, Goodhart & DPO Family), ch083 (Constitutional AI, Llama Guard & Moderation), ch086 (Deception, Scheming & Scalable Oversight), ch058 (LLM Evaluation & Red-Team Attacks), Part 1 (WMDP and Dual-Use Capability Evaluation), ch084 (RSP, Preparedness, METR & Frontier Frameworks), Part 2 (Anthropic's Model Welfare Program), Part 3 (Bias and Representational Harm in LLMs), Part 4 (Fairness Criteria — Group, Individual, Counterfactual), ch088 (Privacy)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -462,7 +456,7 @@ This lesson produces `outputs/skill-fairness-criterion.md`. Given a fairness cla
 
 ## The Problem
 
-The frontier labs (Lesson 18) produce safety evaluations internally and publish selected results. The ecosystem outside the labs is where the evaluations are validated, where novel failure modes are first discovered, and where talent is trained. Understanding the ecosystem helps interpret which research findings are trusted by whom.
+The frontier labs (ch084 Part 5) produce safety evaluations internally and publish selected results. The ecosystem outside the labs is where the evaluations are validated, where novel failure modes are first discovered, and where talent is trained. Understanding the ecosystem helps interpret which research findings are trusted by whom.
 
 ## The Concept
 
@@ -481,7 +475,7 @@ Career outcomes: ~80% of pre-2025 alumni are working on safety/security. 200+ at
 
 ### Redwood Research
 
-Applied alignment lab. Founded by Buck Shlegeris. Introduced the AI Control agenda (Lesson 10). Collaborates with UK AISI on control safety cases. Advises DeepMind and Anthropic on evaluation design.
+Applied alignment lab. Founded by Buck Shlegeris. Introduced the AI Control agenda (ch086 Part 5). Collaborates with UK AISI on control safety cases. Advises DeepMind and Anthropic on evaluation design.
 
 Canonical papers: Greenblatt, Shlegeris et al., "AI Control" (arXiv:2312.06942, ICML 2024); Alignment Faking (Greenblatt, Denison, Wright et al., arXiv:2412.14093, joint with Anthropic).
 
@@ -489,7 +483,7 @@ Style: specific threat models, worst-case adversaries, concrete protocols that c
 
 ### Apollo Research
 
-Pre-deployment scheming evaluations for frontier labs. Authored In-Context Scheming (Lesson 8, arXiv:2412.04984). Partner on 2025 OpenAI anti-scheming training collaboration. Produces Towards Safety Cases for AI Scheming (2024).
+Pre-deployment scheming evaluations for frontier labs. Authored In-Context Scheming (ch086 Part 3, arXiv:2412.04984). Partner on 2025 OpenAI anti-scheming training collaboration. Produces Towards Safety Cases for AI Scheming (2024).
 
 Style: agentic-setting evaluations where deception can emerge; three-pillar decomposition (misalignment, goal-directedness, situational awareness).
 
@@ -503,7 +497,7 @@ Style: long-horizon task evaluations, empirical capability measurement, framewor
 
 ### Eleos AI Research
 
-Model-welfare pre-deployment evaluations. Conducted the Claude Opus 4 welfare assessment documented in section 5.3 of the system card. Provides the external methodology check for Lesson 19's welfare-relevant claims.
+Model-welfare pre-deployment evaluations. Conducted the Claude Opus 4 welfare assessment documented in section 5.3 of the system card. Provides the external methodology check for Part 2's welfare-relevant claims.
 
 ### The flow
 
@@ -511,11 +505,11 @@ MATS trains researchers. Graduates go to Anthropic, DeepMind, OpenAI (lab safety
 
 ### Why this layer matters
 
-Single-source evaluations are unreliable: labs evaluating their own models have a structural conflict of interest. External evaluators can raise and validate failure modes the lab may underreport. The 2024 Sleeper Agents paper (Lesson 7) was Anthropic + Redwood; Alignment Faking was Anthropic + Redwood; In-Context Scheming was Apollo; Anti-Scheming was Apollo + OpenAI. The multi-org structure is the quality control.
+Single-source evaluations are unreliable: labs evaluating their own models have a structural conflict of interest. External evaluators can raise and validate failure modes the lab may underreport. The 2024 Sleeper Agents paper (ch086 Part 2) was Anthropic + Redwood; Alignment Faking was Anthropic + Redwood; In-Context Scheming was Apollo; Anti-Scheming was Apollo + OpenAI. The multi-org structure is the quality control.
 
-### Where this fits in Phase 18
+### Where this fits in the Ethics, Safety & Alignment chapters
 
-Lessons 7-11 reference Redwood and Apollo work; Lesson 18 references METR's framework comparison; Lesson 19 references Eleos. Lesson 28 is the explicit organisational map for the ecosystem the rest of the Phase relies on.
+ch086 Parts 2–6 reference Redwood and Apollo work; ch084 Part 5 references METR's framework comparison; Part 2 references Eleos. Part 5 is the explicit organisational map for the ecosystem the rest of the Ethics, Safety & Alignment chapters relies on.
 
 ## Use It
 
@@ -527,7 +521,7 @@ This lesson produces `outputs/skill-ecosystem-map.md`. Given an alignment claim 
 
 ## Exercises
 
-1. Pick one paper from Lessons 7-15 and identify the organisations involved. Cross-check the authors against MATS alumni and current ecosystem affiliations.
+1. Pick one paper from ch086 Parts 2–6, ch058 Parts 4–7 and identify the organisations involved. Cross-check the authors against MATS alumni and current ecosystem affiliations.
 
 2. Read METR's "Common Elements of Frontier AI Safety Policies." Identify the three cross-lab convergences they emphasize and the two largest divergences.
 
@@ -558,3 +552,9 @@ This lesson produces `outputs/skill-ecosystem-map.md`. Given an alignment claim 
 - [Eleos AI Research](https://www.eleosai.org/research)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/18-ethics-safety-alignment/28-alignment-research-ecosystem)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

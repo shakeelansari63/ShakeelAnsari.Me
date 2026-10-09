@@ -1,18 +1,12 @@
 # Tokenizers: Theory & BPE Build
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Tokenizers: BPE, WordPiece, SentencePiece
 
 > Your LLM does not read English. It reads integers. The tokenizer decides whether those integers carry meaning or waste it.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 05 (NLP Foundations)
+**Prerequisites:** ch030–ch034, ch054, ch058 (NLP)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -461,11 +455,11 @@ This lesson produces `outputs/prompt-tokenizer-analyzer.md` -- a reusable prompt
 
 ## Part 2: Building a Tokenizer from Scratch
 
-> Lesson 01 gave you a toy. This lesson gives you a weapon.
+> Part 1 gave you a toy. This lesson gives you a weapon.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 10, Lesson 01 (Tokenizers: BPE, WordPiece, SentencePiece)
+**Prerequisites:** Part 1 (Tokenizers: BPE, WordPiece, SentencePiece)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -477,7 +471,7 @@ This lesson produces `outputs/prompt-tokenizer-analyzer.md` -- a reusable prompt
 
 ## The Problem
 
-Your BPE tokenizer from Lesson 01 works on English text. Now throw Japanese at it. Or emoji. Or Python code with mixed tabs and spaces.
+Your BPE tokenizer from Part 1 works on English text. Now throw Japanese at it. Or emoji. Or Python code with mixed tabs and spaces.
 
 It breaks.
 
@@ -521,7 +515,7 @@ Each stage has a specific job:
 
 ### Byte-Level BPE
 
-Lesson 01's tokenizer operated on UTF-8 bytes. That was the right call. But we skipped something important: what happens when those bytes are not valid UTF-8?
+Part 1's tokenizer operated on UTF-8 bytes. That was the right call. But we skipped something important: what happens when those bytes are not valid UTF-8?
 
 Byte-level BPE solves this by treating every possible byte value (0-255) as a valid token. Your base vocabulary is exactly 256 entries. Any file -- text, binary, corrupted -- can be tokenized without producing an unknown token.
 
@@ -668,7 +662,7 @@ print(pre_tokenize("Hello, world! Don't stop."))
 
 ### Step 3: BPE on Byte Sequences
 
-The core algorithm from Lesson 01, but now operating on pre-tokenized chunks independently.
+The core algorithm from Part 1, but now operating on pre-tokenized chunks independently.
 
 ```python
 from collections import Counter
@@ -904,7 +898,7 @@ This lesson produces a prompt for building and debugging production tokenizers. 
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 04 lessons, Phase 07 transformer lessons
+**Prerequisites:** ch017–ch023 (Computer Vision), ch037–ch040 (Transformers)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -963,7 +957,7 @@ Encoding then decoding must return the input bytes exactly. The decoder concaten
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 04 lessons, Phase 07 transformer lessons, Lesson 30 of this phase
+**Prerequisites:** ch017–ch023 (Computer Vision), ch037–ch040 (Transformers), Part 3 (BPE Tokenizer From Scratch)
 **Time:** ~90 minutes
 
 ## Learning Objectives
@@ -1029,3 +1023,9 @@ For an id stream of length `N`, context length `T`, and stride `S`: `max(0, 1 + 
 `main.py` defines `SlidingWindowDataset` (PyTorch Dataset), `make_dataloader` (configured DataLoader), and `_encode_corpus_to_ids` (one-shot tokenizer call).
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/31-tokenized-dataset-sliding-window)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

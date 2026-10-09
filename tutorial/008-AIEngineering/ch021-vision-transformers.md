@@ -1,18 +1,12 @@
 # Vision Transformers & Patch Tokens
 
-> Combined lessons (3 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Vision Transformers (ViT)
 
 > Cut the image into patches, treat each patch as a word, run a standard transformer. Don't look back.
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 7 Lesson 02 (Self-Attention), Phase 4 Lesson 04 (Image Classification)
+**Prerequisites:** ch037 (Self-Attention, MHA, Positions & Variants), ch017 (CNNs, Classification, Transfer & Edge Vision)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -183,7 +177,7 @@ model = timm.create_model("vit_base_patch16_224", pretrained=True, num_classes=1
 
 **Type:** Build
 **Languages:** Python
-**Prerequisites:** Phase 7 · 05 (Full Transformer), Phase 4 · 03 (CNNs), Phase 4 · 14 (Vision Transformers intro)
+**Prerequisites:** ch038 (BERT, GPT, T5 & Building GPT from Scratch), ch017 (CNNs, Classification, Transfer & Edge Vision), Part 1 (Vision Transformers (ViT))
 **Time:** ~45 minutes
 
 ## The Problem
@@ -365,11 +359,11 @@ See `outputs/skill-vit-configurator.md`. The skill picks a ViT variant and patch
 
 ## Part 3: Vision Transformers and the Patch-Token Primitive
 
-> Before anything multimodal, an image has to become a sequence of tokens a transformer can eat. The 2020 ViT paper answered this with 16×16 pixel patches, a linear projection, and a position embedding. Five years later every 2026 frontier model (Claude Opus 4.7 at 2576px native, Gemini 3.1 Pro, Qwen3.5-Omni) still begins this way — the encoder changed from ViT to DINOv2 to SigLIP 2, register tokens were added, the positional scheme became 2D-RoPE, but the primitive held. This lesson reads the patch-token pipeline end to end and builds it in stdlib Python so the rest of Phase 12 has a concrete mental model for "visual tokens."
+> Before anything multimodal, an image has to become a sequence of tokens a transformer can eat. The 2020 ViT paper answered this with 16×16 pixel patches, a linear projection, and a position embedding. Five years later every 2026 frontier model (Claude Opus 4.7 at 2576px native, Gemini 3.1 Pro, Qwen3.5-Omni) still begins this way — the encoder changed from ViT to DINOv2 to SigLIP 2, register tokens were added, the positional scheme became 2D-RoPE, but the primitive held. This lesson reads the patch-token pipeline end to end and builds it in stdlib Python so the rest of ch021, ch023–ch028 (Multimodal AI) has a concrete mental model for "visual tokens."
 
 **Type:** Learn
 **Languages:** Python (stdlib, patch tokenizer + geometry calculator)
-**Prerequisites:** Phase 7 (Transformers), Phase 4 (Computer Vision)
+**Prerequisites:** ch037–ch040 (Transformers), ch017–ch020, ch022–ch023 (Computer Vision)
 **Time:** ~120 minutes
 
 ## Learning Objectives
@@ -422,7 +416,7 @@ The choice matters for downstream tasks. CLS is fine for classification. For VLM
 
 The 2020 ViT was pretrained with supervised classification on JFT-300M. Quickly supplanted by:
 
-- CLIP (2021): contrastive image-text on 400M pairs. Lesson 12.02.
+- CLIP (2021): contrastive image-text on 400M pairs. ch023 Part 2.
 - MAE (2021, He et al.): mask 75% of patches, reconstruct pixels. Self-supervised, works on pure images.
 - DINO (2021) / DINOv2 (2023): self-distillation with student-teacher, no labels, no captions. The 2023 DINOv2 ViT-g/14 is the strongest purely-visual backbone and the default for "dense features" use cases.
 - SigLIP / SigLIP 2 (2023, 2025): CLIP with a sigmoid loss and NaFlex for native aspect ratio. The dominant vision tower in 2026 open VLMs (Qwen, Idefics2, LLaVA-OneVision).
@@ -495,7 +489,7 @@ This lesson produces `outputs/skill-patch-geometry-reader.md`. Given a ViT confi
 
 4. Read Section 3 of "Vision Transformers Need Registers" (arXiv:2309.16588). Describe in two sentences what artifact the registers absorb and why it matters for downstream dense prediction.
 
-5. Modify `code/main.py` to support patch-n'-pack: given a list of images of different resolutions, produce a single packed sequence and the block-diagonal attention mask. Verify against Lesson 12.06 when you reach it.
+5. Modify `code/main.py` to support patch-n'-pack: given a list of images of different resolutions, produce a single packed sequence and the block-diagonal attention mask. Verify against ch024 Part 2 when you reach it.
 
 ## Key Terms
 
@@ -522,3 +516,9 @@ This lesson produces `outputs/skill-patch-geometry-reader.md`. Given a ViT confi
 - [Zhai et al. — Scaling Vision Transformers (arXiv:2106.04560)](https://arxiv.org/abs/2106.04560) — empirical scaling laws.
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/12-multimodal-ai/01-vision-transformer-patch-tokens)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

@@ -1,18 +1,12 @@
 # Voice Agents, OTel & Observability Dashboards
 
-> Combined lessons (5 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Voice Agents: Pipecat and LiveKit
 
 > Voice agents are a first-class production category in 2026. Pipecat gives you a Python frame-based pipeline (VAD → STT → LLM → TTS → transport). LiveKit Agents bridges AI models to users over WebRTC. Production latency targets land at 450–600ms end-to-end for premium stacks.
 
 **Type:** Learn
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 01 (Agent Loop), Phase 14 · 12 (Workflow Patterns)
+**Prerequisites:** ch067 (Agent Loop, ReWOO, Reflexion & Tree Search), ch069 (HTN, Workflow & Orchestration Patterns)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -142,7 +136,7 @@ The trace shows normal flow and a barge-in cancel that stops TTS mid-utterance.
 
 **Type:** Learn + Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 13 (LangGraph), Phase 14 · 24 (Observability Platforms)
+**Prerequisites:** ch069 (HTN, Workflow & Orchestration Patterns), Part 3 (Agent Observability: Langfuse, Phoenix, Opik)
 **Time:** ~60 minutes
 
 ## Learning Objectives
@@ -190,7 +184,7 @@ The default rule: instrumentations SHOULD NOT capture inputs/outputs by default.
 - `gen_ai.input.messages`
 - `gen_ai.output.messages`
 
-Recommended production pattern: store content externally (S3, your log store), record references on spans (pointer IDs, not prose). This is the Lesson 27 content-poisoning defense wired into observability.
+Recommended production pattern: store content externally (S3, your log store), record references on spans (pointer IDs, not prose). This is the ch073 Part 3 content-poisoning defense wired into observability.
 
 ### Stability
 
@@ -229,15 +223,15 @@ Output: a span tree with all required GenAI attributes, and an "external store" 
 ## Use It
 
 - **Datadog LLM Observability** (v1.37+) maps attributes natively.
-- **Langfuse / Phoenix / Opik** (Lesson 24) — auto-instrument the ecosystem.
+- **Langfuse / Phoenix / Opik** (Part 3) — auto-instrument the ecosystem.
 - **Jaeger / Honeycomb / Grafana Tempo** — raw OTel traces; build dashboards from GenAI attributes.
 - **Self-hosted** — run the OTel Collector with a GenAI processor.
 
 ## Exercises
 
-1. Instrument your Lesson 01 ReAct loop with `invoke_agent` (INTERNAL) + per-tool spans. Send to a Jaeger instance.
+1. Instrument your ch067 Part 1 ReAct loop with `invoke_agent` (INTERNAL) + per-tool spans. Send to a Jaeger instance.
 2. Add content capture in "references only" mode: prompts to SQLite, span attributes carry only row IDs.
-3. Read the spec for `gen_ai.data_source.id`. Wire it into your Lesson 09 Mem0 search.
+3. Read the spec for `gen_ai.data_source.id`. Wire it into your ch068 Part 4 Mem0 search.
 4. Set `OTEL_SEMCONV_STABILITY_OPT_IN=gen_ai_latest_experimental` and verify your attributes don't get renamed by the collector.
 5. Build a dashboard: "which tool errors correlate with which models" from GenAI attributes alone.
 
@@ -271,7 +265,7 @@ Output: a span tree with all required GenAI attributes, and an "external store" 
 
 **Type:** Learn
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 23 (OTel GenAI)
+**Prerequisites:** Part 2 (OpenTelemetry GenAI Semantic Conventions)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -283,7 +277,7 @@ Output: a span tree with all required GenAI attributes, and an "external store" 
 
 ## The Problem
 
-OTel GenAI (Lesson 23) gives you the schema. You still need the platform that ingests spans, runs evaluations, stores prompt versions, and surfaces regressions. The three contenders each emphasize different parts of the lifecycle.
+OTel GenAI (Part 2) gives you the schema. You still need the platform that ingests spans, runs evaluations, stores prompt versions, and surfaces regressions. The three contenders each emphasize different parts of the lifecycle.
 
 ## The Concept
 
@@ -327,7 +321,7 @@ Per Maxim (2026 field analysis): 89% of organizations have agent observability i
 ### Where this pattern goes wrong
 
 - **No eval strategy.** Tracing without evaluation is just expensive logging.
-- **Self-rolled LLM-judge without grounding.** CRITIC pattern (Lesson 05) applies — judges need external tools for factual verification.
+- **Self-rolled LLM-judge without grounding.** CRITIC pattern (ch067 Part 5) applies — judges need external tools for factual verification.
 - **Prompt versions not tied to traces.** When prod regresses, you cannot bisect to the prompt that caused it.
 
 ## Build It
@@ -391,7 +385,7 @@ Output: per-session eval scores and failure categorization matching what Langfus
 
 **Type:** Capstone
 **Languages:** TypeScript (UI), Python / TypeScript (ingest + evals), SQL (ClickHouse)
-**Prerequisites:** Phase 11 (LLM engineering), Phase 13 (tools), Phase 17 (infrastructure), Phase 18 (safety)
+**Prerequisites:** ch053–ch058, ch061 (LLM Engineering), ch060, ch062–ch064 (Tools & Protocols), ch095–ch100 (Infrastructure & Production), ch083–ch088 (Ethics, Safety & Alignment)
 **Time:** 25 hours
 
 ## Problem
@@ -524,7 +518,7 @@ $ curl -X POST https://my-otel-collector/v1/traces -d @trace.json
 
 **Type:** Capstone
 **Languages:** Python (agent + pipeline), TypeScript (web client)
-**Prerequisites:** Phase 6 (speech and audio), Phase 7 (transformers), Phase 11 (LLM engineering), Phase 13 (tools), Phase 14 (agents), Phase 17 (infrastructure)
+**Prerequisites:** ch035–ch036 (Speech & Audio), ch021, ch037–ch040 (Transformers), ch053–ch058, ch061 (LLM Engineering), ch060, ch062–ch064 (Tools & Protocols), ch067–ch071, ch073–ch077 (Agent Engineering), ch095–ch100 (Infrastructure & Production)
 **Time:** 30 hours
 
 ## Problem
@@ -652,3 +646,9 @@ turn latency: 1040ms user-stop -> audio-out
 - [Vapi.ai production stack](https://docs.vapi.ai)
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/19-capstone-projects/03-realtime-voice-assistant)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License

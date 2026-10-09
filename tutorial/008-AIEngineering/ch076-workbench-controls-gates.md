@@ -1,18 +1,12 @@
 # Init Scripts, Scope, Feedback & Gates
 
-> Combined lessons (4 parts), merged verbatim — no content removed.
-
-**Type:** Combined
-
----
-
 ## Part 1: Initialization Scripts for Agents
 
 > Every session that starts cold pays a tax. The agent reads the same files, retries the same probes, and rediscovers the same paths. An init script pays the tax once and writes the answers into state.
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 32 (Minimal Workbench), Phase 14 · 34 (Repo Memory)
+**Prerequisites:** ch075 (Why Models Fail)
 **Time:** ~45 minutes
 
 ## Learning Objectives
@@ -118,10 +112,10 @@ python3 code/main.py
 - [microservices.io, GenAI dev platform: guardrails](https://microservices.io/post/architecture/2026/03/09/genai-development-platform-part-1-development-guardrails.html)
 - [Augment Code, How to Build Your AGENTS.md (2026)](https://www.augmentcode.com/guides/how-to-build-agents-md)
 - [Codex Blog, Codex CLI Context Compaction](https://codex.danielvaughan.com/2026/03/31/codex-cli-context-compaction-architecture/)
-- Phase 14 · 33 — the rule set this script enables
-- Phase 14 · 34 — the state file this script seeds
-- Phase 14 · 38 — the verification gate the init script feeds
-- Phase 14 · 40 — the handoff that consumes the init report's last-known-good
+- ch075 Part 3 — the rule set this script enables
+- ch075 Part 4 — the state file this script seeds
+- Part 4 — the verification gate the init script feeds
+- ch077 Part 2 — the handoff that consumes the init report's last-known-good
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/14-agent-engineering/35-initialization-scripts)
 
@@ -133,7 +127,7 @@ python3 code/main.py
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 32 (Minimal Workbench), Phase 14 · 33 (Rules as Constraints)
+**Prerequisites:** ch075 (Why Models Fail)
 **Time:** ~50 minutes
 
 ## Learning Objectives
@@ -251,9 +245,9 @@ python3 code/main.py
 - [OpenCode permission globs](https://opencode.ai/docs/agents/)
 - [Knostic, AI Coding Agent Security: Threat Models and Protection Strategies](https://www.knostic.ai/blog/ai-coding-agent-security)
 - [Augment Code, AI Spec Template](https://www.augmentcode.com/guides/ai-spec-template)
-- Phase 14 · 27 — prompt injection defenses that pair with scope locks
-- Phase 14 · 33 — the rule set this contract specializes per task
-- Phase 14 · 38 — the verification gate the checker reports into
+- ch073 Part 3 — prompt injection defenses that pair with scope locks
+- ch075 Part 3 — the rule set this contract specializes per task
+- Part 4 — the verification gate the checker reports into
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/14-agent-engineering/36-scope-contracts)
 
@@ -265,7 +259,7 @@ python3 code/main.py
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 32 (Minimal Workbench), Phase 14 · 35 (Init Script)
+**Prerequisites:** ch075 (Why Models Fail), Part 1 (Initialization Scripts for Agents)
 **Time:** ~50 minutes
 
 ## Learning Objectives
@@ -367,10 +361,10 @@ python3 code/main.py
 - [Guardrails AI x MLflow — deterministic safety, PII, quality validators](https://guardrailsai.com/blog/guardrails-mlflow)
 - [Aport.io, Best AI Agent Guardrails 2026: Pre-Action Authorization Compared](https://aport.io/blog/best-ai-agent-guardrails-2026-pre-action-authorization-compared/)
 - [Andrii Furmanets, AI Agents in 2026: Practical Architecture for Tools, Memory, Evals, Guardrails](https://andriifurmanets.com/blogs/ai-agents-2026-practical-architecture-tools-memory-evals-guardrails)
-- Phase 14 · 23 — OTel GenAI conventions for the telemetry side
-- Phase 14 · 24 — agent observability platforms
-- Phase 14 · 33 — the rule that demands feedback before declaring done
-- Phase 14 · 38 — the verification gate that reads the JSONL
+- ch072 Part 2 — OTel GenAI conventions for the telemetry side
+- ch072 Part 3 — agent observability platforms
+- ch075 Part 3 — the rule that demands feedback before declaring done
+- Part 4 — the verification gate that reads the JSONL
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/14-agent-engineering/37-runtime-feedback-loops)
 
@@ -382,7 +376,7 @@ python3 code/main.py
 
 **Type:** Build
 **Languages:** Python (stdlib)
-**Prerequisites:** Phase 14 · 33 (Rules), Phase 14 · 36 (Scope), Phase 14 · 37 (Feedback)
+**Prerequisites:** ch075 (Why Models Fail), Part 2 (Scope Contracts and Task Boundaries), Part 3 (Runtime Feedback Loops)
 **Time:** ~55 minutes
 
 ## Learning Objectives
@@ -495,9 +489,15 @@ python3 code/main.py
 - [logi-cmd/agent-guardrails — merge gate spec](https://github.com/logi-cmd/agent-guardrails)
 - [Guardrails AI x MLflow](https://guardrailsai.com/blog/guardrails-mlflow)
 - [Akira, Real-Time Guardrails for Agentic Systems](https://www.akira.ai/blog/real-time-guardrails-agentic-systems)
-- Phase 14 · 27 — prompt injection defenses
-- Phase 14 · 36 — the scope contract this gate enforces
-- Phase 14 · 37 — the feedback log this gate scores
-- Phase 14 · 39 — the reviewer agent the gate hands off to
+- ch073 Part 3 — prompt injection defenses
+- Part 2 — the scope contract this gate enforces
+- Part 3 — the feedback log this gate scores
+- ch077 Part 1 — the reviewer agent the gate hands off to
 
 [Reference](https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/14-agent-engineering/38-verification-gates)
+
+## Credits
+
+Adapted from [AI Engineering from Scratch](https://aiengineeringfromscratch.com), a free open-source curriculum by [Rohit Ghumare](https://github.com/rohitg00).
+
+- Source code: [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch) — MIT License
