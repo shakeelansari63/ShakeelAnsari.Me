@@ -11,17 +11,19 @@ tags: AI, Agent Skills, LLM Architecture, LangChain, Python, Agent, Skill, Promp
 
 ## Hey there, fellow AI builder! 🚀
 
-Have you ever watched your AI agent slowly descend into chaos as you added more and more responsibilities to it? You start with a simple system prompt, but as your agent learns to handle customer support, query databases, generate reports, and draft emails, that single system prompt turns into a massive wall of text. 🤯
+Have you ever watched your AI agent slowly descend into chaos as you added more and more responsibilities to it? You start with a simple system prompt, but as your agent learns to handle more tasks and starts taking more responsibilities, that single system prompt turns into a massive wall of text. 🤯
 
-And soon your agent gets confused, ignores key instructions, and starts hallucinating. Recently, while building multi-task agents, I hit this exact wall and that's when I realized we need a much better way to manage instructions.
+And soon your agent is confused, ignores key instructions, and starts hallucinating. Recently, while building multi-task agents, I hit this exact wall and that's when I realized we need a much better way to manage instructions.
 
-Today, we'll explore how shifting from bloated system prompts to dynamically loaded Skills keeps your agent sharp, lowers your API bill, and makes your workflows hot-swappable. Let's dive in! 🎉
+Today, lets explore how shifting from bloated system prompts to dynamically loaded Skills keeps your agent sharp, lowers your API bill, and makes your workflows hot-swappable. Let's dive in! 🎉
+
+---
 
 ## The Bloated Prompt Problem
 
 Traditionally, if you wanted an agent to handle multiple specialized tasks, you wrote all the instructions directly inside a single **System Prompt**.
 
-Traditional system prompt looks something like this:
+A System prompt would looks something like this:
 
 ```text
 You are a customer support agent.
@@ -39,19 +41,21 @@ As your agent takes on more responsibilities, every single request gets bloated 
 1. **Context Distraction & Hallucination:** The model struggles to prioritize relevant instructions when surrounded by irrelevant clutter.
 2. **High Token Costs:** You pay for thousands of static instruction tokens on every single turn of the conversation, even for simple greetings!
 
-And **Skills** are designed to solve these exact issues.
+And **Skills** are designed to solve these exact problems.
+
+---
 
 ## So, What Are Skills?
 
-**Skills** represent a architectural paradigm shift: rather than baking every instruction into a static system prompt, you make instructions **modular, externalized, and dynamically loadable**.
+**Skills** represent a architectural paradigm shift where rather than baking every instruction into a static system prompt, you make instructions **modular**, **externalized**, and **dynamically loadable**.
 
-Think of an Agent as an engineer:
-- **Traditional Approach:** Forcing the engineer to memorize every company handbook, coding standard, and database schema before answering a single slack message.
-- **Skill Approach:** Giving the engineer an indexed bookshelf. When asked a specific question, they grab *only* the single handbook relevant to the task, read it, and answer.
+Think of an Agent as an Engineer:
+- **In Traditional Approach** we are forcing the engineer to memorize every company handbook, coding standard, and database schema before answering a single slack message.
+- **In Skill Approach** we give the engineer an indexed bookshelf. When asked a specific question, they grab *only* the single handbook relevant to the task, read it, and answer.
 
 With Skills, the agent receives only a lightweight index containing each skill's **Name** and **Description**. When a user request comes in, the agent looks at its index, decides which specialized skill it needs, and pulls only that skill's instructions into context on demand! 💡
 
-### Core Components of a Skill
+### Core Structure of Skills
 
 A skill typically consists of three simple parts:
 
@@ -78,22 +82,24 @@ description: Use this skill when the user asks to write, optimize SQL queries.
 #### Dynamic Skill Approach:
 
 ```text
-1. System Prompt -> Contains ONLY Skill Names + Short Descriptions
-2. User Query   -> Agent checks index
-3. Agent Tool   -> Pulls full Skill Instructions into context on demand
+1. System Prompt  ->  Contains ONLY Skill Names + Short Descriptions
+2. User Query     ->  Agent checks index for avaiable skills
+3. Agent Tool     ->  Pulls full Skill Instructions into context on demand
 ```
 
 ![Agent Skill Load Flow](2-agent-skill-flow.png)
 
+---
+
 ## Implementing Skill based Agent in LangChain
 
-Let's break down how to implement dynamic skills step-by-step using Python and LangChain.
+Let's try to implement dynamic skill based agent step-by-step using Python and LangChain.
 
 > 📁 **Full Code & Skill Files:** You can find the complete working repository, including example Markdown skill files, on GitHub: [Agent Skills Repository](https://github.com/shakeelansari63/random_programs/tree/master/Agent%20Skills).
 
 ### 1. Parsing Skill Files & Building the Index
 
-First, we need a helper function to read our Markdown skill files from a directory (`./skills`). Each skill file optionally uses YAML frontmatter (`---`) to define its `name` and `description`, while the rest of the file contains the detailed `instructions`.
+First, we need a helper function to read our Markdown skill files from a directory (here `./skills` directory). As we saw in sample skill file above, each skill file uses YAML frontmatter (`---`) to define its `name` and `description`, while the rest of the file contains the detailed `instructions`.
 
 ```python
 def parse_skill_file(filepath: str) -> dict[str, str]:
@@ -119,7 +125,7 @@ def parse_skill_file(filepath: str) -> dict[str, str]:
 
 ```
 
-Next, we build a lightweight registration index that extracts *only* the names and short descriptions of all available skills:
+Next, we build a lightweight registration index that extracts *only* the names and short descriptions of all skills. This will be injected into Agent's system prompts to make them aware of the available skills.
 
 ```python
 def build_skill_index() -> list[dict[str, str]]:
@@ -210,7 +216,7 @@ if __name__ == "__main__":
 
 ## Sample Output
 
-So I ran the Agent with some skills and you can see the output below. 
+I ran the Agent with some skills and you can see the output below. 
 
 #### Here is simple question to roll a dice
 
@@ -224,6 +230,8 @@ In order to generate SQL, agent used sql generator skill.
 
 ![Question 2](4-question-2.png)
 
+---
+
 ## Why Should You Use Skills
 
 Adopting an Agent Skills architecture yields immediate benefits for real-world AI applications:
@@ -232,6 +240,8 @@ Adopting an Agent Skills architecture yields immediate benefits for real-world A
 * **Drastic Cost & Latency Reduction:** You stop sending thousands of unnecessary static instruction tokens on every API call.
 * **Hot-Swappable Workflows:** You can add, edit, or remove skills in a folder or database table without re-deploying your application code or resetting conversational state.
 
+---
+
 ## The Road Ahead
 
 While Agent Skills make your system prompt lean and efficient, keep these practical considerations in mind as you scale:
@@ -239,6 +249,8 @@ While Agent Skills make your system prompt lean and efficient, keep these practi
 * **Tool Call Overhead:** Pulling a skill requires an extra tool-use hop before generating the final answer, which adds a slight round-trip delay on the first turn.
 * **Index Management:** If you end up with hundreds of skills, even the index (names + descriptions) can grow large. In those cases, you may need a vector database to search skills semantically rather than listing all of them in the prompt.
 * **Skill Formatting Consistency:** Your skill instructions need consistent formatting so the agent knows how to interpret and execute them once loaded.
+
+---
 
 ## Wrap-Up
 
