@@ -4,9 +4,9 @@ import type { AnalyticsData } from '../../models/types';
 import { fetchAnalytics } from '../../services/api';
 import SummaryCards from './SummaryCards';
 import DailyBarChart from './DailyBarChart';
+import DailyBlogViewsChart from './DailyBlogViewsChart';
 import CountryPieChart from './CountryPieChart';
 import TopBlogsList from './TopBlogsList';
-import { settings } from '../../data/settings';
 
 interface Props {
   token: string;
@@ -64,7 +64,7 @@ export default function AnalyticsDashboard({ token }: Props) {
             uniqueVisitors={data.uniqueVisitors}
           />
 
-          <DailyBarChart title="Daily Views" data={data.viewsByDate} color={settings.themeColor} />
+          <DailyBlogViewsChart title="Daily Blog Views" data={data.viewsByDateBlog} />
           <DailyBarChart title="Daily Likes" data={data.likesByDate} color="#22c55e" />
 
           <Row gutter={[16, 16]}>

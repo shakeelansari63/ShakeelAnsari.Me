@@ -1,3 +1,8 @@
+# Block all dotfiles (.env, .git*, etc.) from direct download
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
+
 RewriteEngine On
 
 # Let API requests pass through to api/ subdirectory

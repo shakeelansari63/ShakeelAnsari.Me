@@ -1,3 +1,8 @@
+# Block all dotfiles (.env, .git*, etc.) from direct download
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
+
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
