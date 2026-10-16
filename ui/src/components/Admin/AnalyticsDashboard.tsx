@@ -64,7 +64,7 @@ export default function AnalyticsDashboard({ token }: Props) {
             uniqueVisitors={data.uniqueVisitors}
           />
 
-          <DailyBlogViewsChart title="Daily Blog Views" data={data.viewsByDateBlog} />
+          <DailyBlogViewsChart title="Daily Blog Views (Last Month)" data={data.viewsByDateBlog} />
           <DailyBarChart title="Daily Likes" data={data.likesByDate} color="#22c55e" />
 
           <Row gutter={[16, 16]}>

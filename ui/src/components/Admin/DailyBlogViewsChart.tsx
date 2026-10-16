@@ -6,7 +6,7 @@ import { Card, Typography } from 'antd';
 import useToken from 'antd/es/theme/useToken';
 
 interface BlogDateView {
-  date: string;
+  ddate: string;
   blog_id: string;
   title: string;
   count: number;
@@ -60,18 +60,30 @@ export default function DailyBlogViewsChart({ title, data }: Props) {
       }
     }
 
-    const last15: string[] = [];
-    for (let i = 14; i >= 0; i--) {
-      const d = new Date();
-      d.setDate(d.getDate() - i);
-      last15.push(d.toISOString().slice(0, 10));
+    // Build the day list for the last month (calendar month back from today)
+    const today = new Date();
+    const monthStart = new Date(today);
+    monthStart.setMonth(monthStart.getMonth() - 1);
+    monthStart.setHours(12, 0, 0, 0);
+
+    const windowDates: string[] = [];
+    const dayCount = Math.round(
+      (today.getTime() - monthStart.getTime()) / 86400000,
+    );
+    for (let i = 0; i <= dayCount; i++) {
+      const d = new Date(monthStart);
+      d.setDate(d.getDate() + i);
+      windowDates.push(d.toISOString().slice(0, 10));
     }
 
     // One chart row per (date, blog) pair that actually has views — a date
     // with only 2 viewed blogs renders exactly 2 bars, no empty slots.
     // Empty dates still get one zero-height placeholder row so their slot
     // and axis label stay visible.
-    const seen = new Set<string>();
+    // Coalesce rows by (date, blog_id): the API should already be grouped,
+    // but if duplicates ever appear sum them so a bar never shows a wrong
+    // (dropped or compounded) value. Unexpected duplicates are logged once.
+    const seen = new Map<string, number>();
     const rows: {
       key: string;
       group: string;
@@ -81,9 +93,9 @@ export default function DailyBlogViewsChart({ title, data }: Props) {
       isEmpty?: boolean;
     }[] = [];
 
-    for (const date of last15) {
+    for (const date of windowDates) {
       const dayRows = data
-        .filter(r => r.date === date)
+        .filter(r => r.ddate === date)
         .sort((a, b) => b.count - a.count);
       if (dayRows.length === 0) {
         rows.push({
@@ -98,8 +110,17 @@ export default function DailyBlogViewsChart({ title, data }: Props) {
       }
       for (const row of dayRows) {
         const key = `${date}|${row.blog_id}`;
-        if (seen.has(key)) continue;
-        seen.add(key);
+        if (seen.has(key)) {
+          const zeroRow = rows.find(r => r.key === key);
+          if (zeroRow) zeroRow.count += row.count;
+          if (import.meta.env.DEV) {
+            console.warn(
+              `[DailyBlogViewsChart] duplicate view rows for blog ${row.blog_id} on ${date}; coalesced by summing.`,
+            );
+          }
+          continue;
+        }
+        seen.set(key, row.count);
         rows.push({
           key,
           group: date,

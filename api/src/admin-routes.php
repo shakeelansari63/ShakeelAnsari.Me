@@ -365,7 +365,8 @@ return function (App $app, ?PDO $pdo) {
                 "SELECT DATE(view_hour) AS date, COUNT(*) AS count FROM blog_views GROUP BY DATE(view_hour) ORDER BY date ASC",
                 $blogId,
             );
-            $viewsByDateBlogSql = "SELECT DATE(bv.view_hour) AS date, bv.blog_id, b.title, COUNT(*) AS count FROM blog_views bv JOIN blog b ON b.id = bv.blog_id AND b.deleted = 0 WHERE bv.view_hour >= CURDATE() - INTERVAL 14 DAY" . ($blogId !== null ? " AND bv.blog_id = ?" : "") . " GROUP BY date, bv.blog_id, b.title ORDER BY date ASC";
+            $viewsByDateBlogSql = "SELECT DATE(bv.view_hour) AS ddate, bv.blog_id, b.title, COUNT(*) AS count FROM blog_views bv JOIN blog b ON b.id = bv.blog_id AND b.deleted = 0 WHERE bv.view_hour >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)" . ($blogId !== null ? " AND bv.blog_id = ?" : "") . " GROUP BY ddate, bv.blog_id, b.title ORDER BY ddate ASC";
+
             $viewsByDateBlogParams = $blogId !== null ? [$blogId] : [];
             [$likesSql, $likesParams] = blogViewsSql(
                 "SELECT DATE(created_at) AS date, COUNT(*) AS count FROM blog_likes GROUP BY DATE(created_at) ORDER BY date ASC",

@@ -73,7 +73,7 @@ export interface LearnSubject {
 
 export interface AnalyticsData {
     viewsByDate: { date: string; count: number }[];
-    viewsByDateBlog: { date: string; blog_id: string; title: string; count: number }[];
+    viewsByDateBlog: { ddate: string; blog_id: string; title: string; count: number }[];
     likesByDate: { date: string; count: number }[];
     viewsByCountry: { code: string; country: string; count: number }[];
     likesByCountry: { code: string; country: string; count: number }[];
