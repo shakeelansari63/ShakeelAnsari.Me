@@ -227,39 +227,21 @@ function chapterSeoData(?PDO $pdo, string $subjectId, string $chapterId): ?array
 
 function productSeoData(string $id): ?array
 {
-    $file = PRODUCTS_DIR . "/" . $id . "/index.md";
-    if (!file_exists($file)) {
+    $product = productMeta($id);
+    if ($product === null) {
         return null;
     }
 
-    $meta = parseFrontmatter(file_get_contents($file));
-    $content = $meta["content"];
-
-    $title = $meta["title"];
-    if ($title === "") {
-        if (preg_match('/!\[([^\]]+)\]\([^)]*\)/', $content, $m)) {
-            $title = $m[1];
-        } elseif (preg_match('/^#\s+(.+)$/m', $content, $m)) {
-            $title = $m[1];
-        } else {
-            $title = ucwords(str_replace(["-", "_"], " ", $id));
-        }
-    }
-
-    $image = "";
-    if (preg_match('/!\[[^\]]*\]\(images\/([^)]+)\)/', $content, $m)) {
-        $image =
-            seoDomain() .
-            "/api/products/" .
-            rawurlencode($id) .
-            "/images/" .
-            rawurlencode($m[1]);
+    $image = $product["image"];
+    if ($image !== "" && strpos($image, "://") === false) {
+        $image = seoDomain() . $image;
     }
 
     return [
-        "title" => $title,
-        "excerpt" => markdownExcerpt($content),
+        "title" => $product["title"],
+        "description" => $product["description"],
         "image" => $image,
+        "tags" => $product["tags"],
     ];
 }
 
@@ -315,11 +297,14 @@ switch ($route["type"]) {
             break;
         }
         $seo["title"] = $product["title"] . " — " . $seo["name"];
-        if ($product["excerpt"] !== "") {
-            $seo["description"] = $product["excerpt"];
+        if ($product["description"] !== "") {
+            $seo["description"] = $product["description"];
         }
         if ($product["image"] !== "") {
             $seo["avatar"] = $product["image"];
+        }
+        if (!empty($product["tags"])) {
+            $seo["keywords"] = implode(", ", $product["tags"]);
         }
         $seo["canonical"] = $seo["domain"] . "/product/" . rawurlencode($route["id"]);
         $seo["type"] = "product";
@@ -327,6 +312,7 @@ switch ($route["type"]) {
             "title" => $product["title"],
             "excerpt" => $seo["description"],
             "image" => $product["image"] !== "" ? $product["image"] : $seo["avatar"],
+            "tags" => $product["tags"],
             "canonical" => $seo["canonical"],
         ]);
         break;

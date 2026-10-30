@@ -1,4 +1,4 @@
-# Local production-parity test image (used by `make test-prod`).
+# Local production-parity test image (used by `task test-prod`).
 # Everything is built inside the image — no local compile/assembly needed.
 
 # ---- Stage 1: Build the UI (mirrors deploy.yml "Build UI") ----

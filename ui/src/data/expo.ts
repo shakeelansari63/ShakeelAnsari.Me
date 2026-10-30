@@ -9,8 +9,18 @@ export interface ExpoProject {
 
 export const expo: ExpoProject[] = [
   {
+    name: "Guitarists",
+    description:
+      "Open-source, offline-first desktop toolkit with tuner, metronome, tab editor, and songwriting notebook.",
+    appUrl: "https://github.com/shakeelansari63/Guitarists/releases",
+    codeUrl: "https://github.com/shakeelansari63/Guitarists",
+    productPageUrl: "/product/guitarists",
+    thumbnail: "",
+  },
+  {
     name: "NSE-Chatbot",
-    description: "Chatbot for NSE related info.",
+    description:
+      "AI-powered market assistant for NSE India with live quotes, trend analysis, sector searches, and company financial summaries.",
     appUrl: "https://nse-chatbot.azurewebsites.net/",
     codeUrl: "https://github.com/shakeelansari63/NSE-Chatbot",
     productPageUrl: "/product/nse-chatbot",
@@ -18,7 +28,8 @@ export const expo: ExpoProject[] = [
   },
   {
     name: "Poke-Budgy",
-    description: "Budget Planner in your pocket.",
+    description:
+      "Minimalist, 100% offline Android budget manager with no sign-up or tracking, quick cash-flow tracking, and clear visual insights.",
     appUrl:
       "https://play.google.com/store/apps/details?id=com.shakeelansari63.pokebudgy",
     codeUrl: "https://github.com/shakeelansari63/poke-budgy",

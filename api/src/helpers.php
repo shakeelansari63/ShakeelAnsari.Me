@@ -12,6 +12,8 @@ function parseFrontmatter(string $content): array
     $meta = [
         "title" => "",
         "excerpt" => "",
+        "description" => "",
+        "image" => "",
         "date" => "",
         "readTime" => "",
         "tags" => [],
@@ -99,6 +101,105 @@ function resolveBlogBanner(string $id, string $banner): string
     }
     // Frontmatter holds just the filename; images live in the blog folder
     return "/api/blogs/" . basename($id) . "/images/" . basename($banner);
+}
+
+function isPlaceholderMeta(string $value): bool
+{
+    $value = trim($value);
+    return $value === "" || preg_match('/^\.{2,}$/', $value) === 1;
+}
+
+function resolveProductImage(string $id, string $image): string
+{
+    $image = trim($image);
+    if (isPlaceholderMeta($image)) {
+        return "";
+    }
+    if (strpos($image, "://") !== false || str_starts_with($image, "/")) {
+        return $image;
+    }
+    if (!validateId($id, '/^[a-zA-Z0-9_-]+$/')) {
+        return "";
+    }
+    $id = basename($id);
+    $name = basename(str_replace("\\", "/", $image));
+    if (!validateId($name, '/^[a-zA-Z0-9_\.-]+$/')) {
+        return "";
+    }
+    if (!is_file(PRODUCTS_DIR . "/" . $id . "/images/" . $name)) {
+        return "";
+    }
+    return "/api/products/" . rawurlencode($id) . "/images/" . rawurlencode($name);
+}
+
+function productMeta(string $id): ?array
+{
+    if (!validateId($id, '/^[a-zA-Z0-9_-]+$/')) {
+        return null;
+    }
+    $id = basename($id);
+    $file = PRODUCTS_DIR . "/" . $id . "/index.md";
+    if (!is_file($file)) {
+        return null;
+    }
+
+    $raw = file_get_contents($file);
+    $meta = parseFrontmatter($raw);
+    $content = $meta["content"] ?? "";
+
+    $title = trim((string) ($meta["title"] ?? ""));
+    if (isPlaceholderMeta($title)) {
+        if (preg_match('/!\[([^\]]+)\]\([^)]*\)/', $content, $m)) {
+            $title = trim($m[1]);
+        } elseif (preg_match('/^#{1,6}\s+(.+)$/m', $content, $m)) {
+            $title = trim($m[1]);
+        } else {
+            $title = ucwords(str_replace(["-", "_"], " ", $id));
+        }
+    }
+
+    $description = trim((string) ($meta["description"] ?? ""));
+    if (isPlaceholderMeta($description)) {
+        $description = markdownExcerpt($content);
+    }
+
+    $image = resolveProductImage($id, (string) ($meta["image"] ?? ""));
+    if ($image === "" && preg_match('/!\[[^\]]*\]\(([^)\s]+)\)/', $content, $m)) {
+        $image = resolveProductImage($id, $m[1]);
+    }
+
+    $tags = array_values(
+        array_filter(
+            $meta["tags"] ?? [],
+            fn (string $tag): bool => !isPlaceholderMeta($tag),
+        ),
+    );
+
+    return [
+        "id" => $id,
+        "title" => $title,
+        "description" => $description,
+        "image" => $image,
+        "tags" => $tags,
+        "content" => $content,
+    ];
+}
+
+function markdownExcerpt(string $content, int $length = 160): string
+{
+    $content = preg_replace('/!\[[^\]]*\]\([^)]*\)/s', " ", $content);
+    $content = preg_replace('/\[([^\]]*)\]\([^)]*\)/s', "$1", $content);
+    $content = preg_replace('/```.*?```/s', " ", $content);
+    $content = preg_replace('/`[^`]*`/', " ", $content);
+    $content = preg_replace('/[#>*_~\-|\[\]]+/', " ", $content);
+    $content = trim(preg_replace('/\s+/u', " ", $content));
+
+    if (mb_strlen($content, "UTF-8") > $length) {
+        $content = mb_substr($content, 0, $length, "UTF-8");
+        $content = rtrim($content, ".,;: ") . "…";
+    }
+
+    return $content;
 }
 
 function attemptsFile(string $ip): string

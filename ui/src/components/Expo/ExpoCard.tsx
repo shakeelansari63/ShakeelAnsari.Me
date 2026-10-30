@@ -35,7 +35,7 @@ export default function ExpoCard({ item }: Props) {
       styles={{ body: { flex: 1, display: 'flex', flexDirection: 'column' } }}
       actions={[
         <div key="actions" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-          <Space wrap size={[8, 8]} style={{ justifyContent: 'center' }}>
+          <Space wrap size={[16, 12]} style={{ justifyContent: 'center' }}>
             {item.appUrl && (
               <Button
                 type="primary"

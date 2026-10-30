@@ -174,9 +174,17 @@ export async function fetchChapterContent(
   }
 }
 
+export interface ProductContent {
+  title: string;
+  excerpt: string;
+  image: string;
+  tags: string[];
+  content: string;
+}
+
 export async function fetchProductContent(
   id: string,
-): Promise<{ title: string; excerpt: string; content: string } | null> {
+): Promise<ProductContent | null> {
   try {
     const res = await fetch(`/api/products/${id}/content`);
     if (!res.ok) return null;

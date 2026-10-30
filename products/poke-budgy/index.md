@@ -1,3 +1,10 @@
+---
+title: Pokè Budgy — Offline Budget Manager
+description: A minimalist, 100% offline Android budget manager with zero sign-up and no tracking, offering quick cash-flow tracking and clear visual insights.
+image: images/thumb.png
+tags: Pokè Budgy, Budget Planner, Offline, Privacy, Android, Personal Finance
+---
+
 ![Poke Budgy](images/poke-budgy-hero.png)
 
 ## 🌟 Overview

@@ -27,6 +27,7 @@ function seoDefaults(): array
         "canonical" => $domain . "/",
         "type" => "website",
         "robots" => "index, follow",
+        "keywords" => "",
         "jsonLd" => null,
     ];
 }
@@ -89,7 +90,7 @@ function jsonLdLearningResource(array $seo, array $chapter): array
 
 function jsonLdProduct(array $seo, array $product): array
 {
-    return [
+    $data = [
         "@context" => "https://schema.org",
         "@type" => "Product",
         "name" => $product["title"],
@@ -101,6 +102,12 @@ function jsonLdProduct(array $seo, array $product): array
             "name" => $seo["name"],
         ],
     ];
+
+    if (!empty($product["tags"])) {
+        $data["keywords"] = implode(", ", $product["tags"]);
+    }
+
+    return $data;
 }
 
 function seoHead(array $seo): string
@@ -128,7 +135,15 @@ function seoHead(array $seo): string
         '<meta name="twitter:card" content="summary_large_image" />',
         '<meta name="twitter:title" content="' . $name . '" />',
         '<meta name="twitter:description" content="' . $short . '" />',
+        '<meta name="twitter:image" content="' . $avatar . '" />',
     ];
+
+    if (!empty($seo["keywords"])) {
+        $tags[] =
+            '<meta name="keywords" content="' .
+            $escape($seo["keywords"]) .
+            '" />';
+    }
 
     if (!empty($seo["jsonLd"])) {
         $json = json_encode(
@@ -145,7 +160,7 @@ function stripSeoTags(string $head): string
 {
     $head = preg_replace('/<title\b[^>]*>.*?<\/title>/is', "", $head);
     $head = preg_replace(
-        '/<meta\b[^>]*\b(?:name|property)=["\'](?:description|robots|og:[^"\']*|twitter:[^"\']*)["\'][^>]*>/i',
+        '/<meta\b[^>]*\b(?:name|property)=["\'](?:description|robots|keywords|og:[^"\']*|twitter:[^"\']*)["\'][^>]*>/i',
         "",
         $head,
     );
@@ -156,21 +171,4 @@ function stripSeoTags(string $head): string
         $head,
     );
     return $head;
-}
-
-function markdownExcerpt(string $content, int $length = 160): string
-{
-    $content = preg_replace('/!\[[^\]]*\]\([^)]*\)/s', " ", $content);
-    $content = preg_replace('/\[([^\]]*)\]\([^)]*\)/s', "$1", $content);
-    $content = preg_replace('/```.*?```/s', " ", $content);
-    $content = preg_replace('/`[^`]*`/', " ", $content);
-    $content = preg_replace('/[#>*_~\-|\[\]]+/', " ", $content);
-    $content = trim(preg_replace('/\s+/u', " ", $content));
-
-    if (mb_strlen($content, "UTF-8") > $length) {
-        $content = mb_substr($content, 0, $length, "UTF-8");
-        $content = rtrim($content, ".,;: ") . "…";
-    }
-
-    return $content;
 }

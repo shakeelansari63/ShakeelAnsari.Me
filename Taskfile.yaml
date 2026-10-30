@@ -1,0 +1,82 @@
+version: '3'
+
+vars:
+  PORT: '{{.PORT | default "8081"}}'
+  TEST_PROD_IMAGE: '{{.TEST_PROD_IMAGE | default "test-portfolio-prod"}}'
+  # Strip a polluted LD_LIBRARY_PATH (e.g. leaked from the Flatpak Zed runtime)
+  # so conmon loads the system glib instead of crashing on missing symbols.
+  PODMAN: env -u LD_LIBRARY_PATH podman
+
+tasks:
+  default:
+    desc: Run the default task (same as `all`)
+    cmds:
+      - task: all
+
+  all:
+    desc: Alias for `start`
+    cmds:
+      - task: start
+
+  setup:
+    desc: Install UI and API dependencies
+    cmds:
+      - task: ui-deps
+      - task: api-deps
+
+  ui-deps:
+    desc: Install UI dependencies
+    dir: '{{.TASKFILE_DIR}}/ui'
+    cmds:
+      - npm install
+
+  api-deps:
+    desc: Install API dependencies
+    dir: '{{.TASKFILE_DIR}}/api'
+    cmds:
+      - composer install
+
+  ui:
+    desc: Start the UI dev server (port 3000)
+    dir: '{{.TASKFILE_DIR}}/ui'
+    cmds:
+      - npm run dev
+
+  api:
+    desc: Start the PHP API dev server (port 8080)
+    dir: '{{.TASKFILE_DIR}}/api'
+    cmds:
+      - PHP_CLI_SERVER_WORKERS=4 php -S localhost:8080 -t public
+
+  start:
+    desc: Start UI (port 3000) and API (port 8080)
+    dir: '{{.TASKFILE_DIR}}'
+    cmds:
+      - |
+        echo "Starting UI (port 3000) and API (port 8080)..."
+        task api & api_pid=$!
+        task ui & ui_pid=$!
+        trap 'kill "$api_pid" "$ui_pid" 2>/dev/null' EXIT
+        wait
+
+  # Build a production-parity image and serve it with Apache in Podman.
+  # The multi-stage test-prod.dockerfile builds the UI, PHP deps, and final
+  # docroot inside the image — nothing is compiled or assembled locally.
+  # api/.env is mounted read-only at runtime (not baked into the image).
+  # Requires api/.env to exist locally (run `task api-deps` first if vendor is
+  # missing, and copy api/.env.template to api/.env). Stop with Ctrl-C.
+  test-prod:
+    desc: Build and serve the production-parity image at http://localhost:{{.PORT}}
+    dir: '{{.TASKFILE_DIR}}'
+    deps:
+      - test-prod-image
+    cmds:
+      - 'test -f api/.env || { echo "error: api/.env missing — copy api/.env.template to api/.env first"; exit 1; }'
+      - 'echo "Serving production-like site at http://localhost:{{.PORT}} (Apache in Podman)"'
+      - '{{.PODMAN}} run --rm -p {{.PORT}}:80 -v "{{.TASKFILE_DIR}}/api/.env:/var/www/html/api/.env:ro" {{.TEST_PROD_IMAGE}}'
+
+  test-prod-image:
+    desc: Build the production-parity Podman image
+    dir: '{{.TASKFILE_DIR}}'
+    cmds:
+      - '{{.PODMAN}} build -t {{.TEST_PROD_IMAGE}} -f test-prod.dockerfile .'

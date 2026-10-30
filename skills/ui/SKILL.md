@@ -109,6 +109,7 @@ All API response types are defined here. Key interfaces:
   ```tsx
   const metaTitle = post ? `${post.title} — ${seo.name}` : `Blog — ${seo.name}`;
   ```
+- `ProductPage` mirrors the server shell: title/description/image/keywords come from `GET /api/products/{id}/content` (backed by `products/{id}/index.md` frontmatter). Build absolute OG image URLs as `https://${seo.domain}${image}` when the API returns a relative `/api/...` path, and keep the title format `${title} — ${seo.name}` identical to `page.php`.
 - **Do NOT** use `document.title = ...` directly — Helmet handles it.
 - **Do NOT** manually create/append `<meta>` elements — use `<Helmet>` instead.
 - The `[{#SEO-*#}]` placeholders in `ui/index.html` remain as the build template for `page.php`; `page.php` overrides the head at runtime from `api/.env` `SEO_*` vars.
@@ -125,6 +126,13 @@ These files are intentionally static (no API calls):
 
 ### Markdown Rendering
 - `MarkdownRenderer` wraps `react-markdown` with `remark-gfm`.
+- **Headerless tables:** GFM tables always render a header row. To place images/links side by side without a visible header, use truly empty header cells (`| | |`) — `App.scss` hides `thead` when every `<th>` is empty (`thead:has(> tr > th:empty):not(:has(> tr > th:not(:empty)))`) and removes the final row's grey bottom border. Do not use `&nbsp;` in those cells, since `th:empty` will not match it. Tables with real captions keep their border.
+  ```markdown
+  | | |
+  |:-:|:-:|
+  | ![One](images/one.png) | ![Two](images/two.png) |
+  ```
+- Markdown images render through `LazyImage`, whose outer wrapper is a block `<div>`. Two images in the same Markdown paragraph therefore stack vertically; use the headerless-table pattern above for side-by-side images.
 - Code blocks use `react-syntax-highlighter` with PrismLight (registered languages: tsx, typescript, python, sql, bash, json, yaml, php, go, scala).
 - Mermaid diagrams detected via `language-mermaid` code class → rendered with `MermaidRenderer`.
 - Images rendered via `LazyImage` (lazy loading + skeleton + fade-in).

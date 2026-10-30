@@ -200,6 +200,19 @@ body {
   text-decoration: underline;
 }
 
+/* Headerless GFM tables: use `| | |` (truly empty cells) above the delimiter
+   row. Hides the header only when every header cell is empty, so normal
+   tables with captions keep their border. */
+.blog-content thead:has(> tr > th:empty):not(:has(> tr > th:not(:empty))) {
+  display: none;
+}
+
+/* The renderer applies an inline bottom border to every row; drop the final
+   one so headerless tables don't show a stray grey line underneath. */
+.blog-content thead:has(> tr > th:empty):not(:has(> tr > th:not(:empty))) + tbody tr:last-child {
+  border-bottom: none !important;
+}
+
 @media only screen and (max-width: 600px) {
   .blog-content {
     padding: 0 0.5rem;

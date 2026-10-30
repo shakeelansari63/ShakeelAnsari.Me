@@ -13,6 +13,9 @@ export default function ProductPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
+  const [excerpt, setExcerpt] = useState('');
+  const [image, setImage] = useState('');
+  const [tags, setTags] = useState<string[]>([]);
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -22,6 +25,9 @@ export default function ProductPage() {
       fetchProductContent(id).then(data => {
         if (data) {
           setTitle(data.title);
+          setExcerpt(data.excerpt);
+          setImage(data.image);
+          setTags(data.tags ?? []);
           setContent(data.content);
         } else {
           setNotFound(true);
@@ -32,14 +38,29 @@ export default function ProductPage() {
   }, [id]);
 
   const metaTitle = title ? `${title} — ${seo.name}` : `Product — ${seo.name}`;
+  const metaDesc = excerpt || seo.description;
+  const canonical = `https://${seo.domain}/product/${id}`;
+  const ogImage = image
+    ? image.startsWith('http')
+      ? image
+      : `https://${seo.domain}${image}`
+    : seo.avatarUrl;
 
   return (
     <>
       <Helmet>
         <title>{metaTitle}</title>
-        <meta name="description" content={title ? `${title} — ${seo.name}` : seo.description} />
+        <meta name="description" content={metaDesc} />
+        {tags.length > 0 && <meta name="keywords" content={tags.join(', ')} />}
         <meta property="og:title" content={metaTitle} />
-        <meta property="og:url" content={`https://${seo.domain}/product/${id}`} />
+        <meta property="og:description" content={metaDesc} />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:type" content="product" />
+        <meta property="og:image" content={ogImage} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={metaTitle} />
+        <meta name="twitter:description" content={metaDesc} />
+        <meta name="twitter:image" content={ogImage} />
       </Helmet>
       <ToolBar />
       <div className="app-container">

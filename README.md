@@ -33,6 +33,7 @@ Personal portfolio website for [shakeelansari.me](https://shakeelansari.me) — 
 ├── prompts/     – Reusable AI system prompts (e.g. blog writer)
 ├── tutorial/    – Multi-subject tutorial content (Python, Golang, Scala, etc.)
 ├── test-prod.dockerfile – Multi-stage Podman image for the local production test
+├── Taskfile.yaml       – go-task tasks for setup, dev servers, and the local production test
 ├── .dockerignore        – Keeps the test image build context lean
 └── .github/     – CI/CD workflow
 ```
@@ -46,16 +47,18 @@ Personal portfolio website for [shakeelansari.me](https://shakeelansari.me) — 
 - Node.js 24+
 - PHP 8.1+ (CI uses PHP 8.2; local prod test uses `php:8.2-apache`)
 - Composer
-- Make
+- [Task](https://taskfile.dev/) (go-task)
 - MySQL server (optional for full features; API works without DB)
-- Podman (optional — for the `make test-prod` local production test)
+- Podman (optional — for the `task test-prod` local production test)
 
 ### 1. Setup
 
 ```bash
 # Install all dependencies
-make setup
+task setup
 ```
+
+Run `task --list` to see all available tasks.
 
 Or manually:
 
@@ -119,14 +122,14 @@ Without a database, the API runs in degraded mode (blogs list/content still work
 Start both frontend and backend together:
 
 ```bash
-make start
+task start
 ```
 
 Or separately:
 
 ```bash
-make ui     # React dev server on http://localhost:3000
-make api    # PHP server on http://localhost:8080
+task ui     # React dev server on http://localhost:3000
+task api    # PHP server on http://localhost:8080
 ```
 
 The UI proxies `/api/*` requests to the PHP server automatically (configured in `ui/vite.config.js`).
@@ -155,13 +158,13 @@ blogs/my-new-post/
 
 The content API rewrites bare image names to `/api/blogs/{id}/images/{name}`, so the UI needs no path handling. Re-run **Sync Blogs** after adding/editing.
 
-### 6. Local Production Test (`make test-prod`)
+### 6. Local Production Test (`task test-prod`)
 
-`make test-prod` builds and serves a production-parity environment locally with **Podman** — nothing is compiled or assembled on your host.
+`task test-prod` builds and serves a production-parity environment locally with **Podman** — nothing is compiled or assembled on your host.
 
 ```bash
-make test-prod            # build image (cached) + run on http://localhost:8081
-PORT=9000 make test-prod  # different port
+task test-prod            # build image (cached) + run on http://localhost:8081
+task test-prod PORT=9000  # different port
 ```
 
 How it works:
@@ -320,7 +323,7 @@ SEO_TWITTER_USER: "your-handle"
 SEO_AVATAR_URL: "https://avatars.githubusercontent.com/your-username"
 ```
 
-**For local development / `make test-prod`:** Add the `SEO_*` values to `api/.env` — `page.php` and `sitemap.php` read them at runtime, so no `sed` step is needed. The placeholders only show up as fallbacks when the variables are missing.
+**For local development / `task test-prod`:** Add the `SEO_*` values to `api/.env` — `page.php` and `sitemap.php` read them at runtime, so no `sed` step is needed. The placeholders only show up as fallbacks when the variables are missing.
 
 ### Static Data (edit directly)
 

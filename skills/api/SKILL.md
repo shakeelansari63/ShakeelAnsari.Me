@@ -82,8 +82,19 @@ This project is a **PHP 8.1+ REST API** using **Slim Framework 4** with naked **
 - No DB dependency — works in degraded mode. Username must match GitHub's rules (`^[a-zA-Z0-9](?:[a-zA-Z0-9]|-(?=[a-zA-Z0-9])){0,38}$`); invalid `user`/`year`/range → 400, GitHub/parse failure → 502, budget exceeded → 503.
 - Consumers: `fetchContributionCounts()` (ProfileStats + ActivityGraph heatmap) and `fetchStreakStats()` (StreakStatsCard streak algorithm lives in `ui/src/services/stats.ts`).
 
+### Product Metadata (`products/{id}/index.md`)
+- Products are static markdown folders: `products/{id}/index.md` + `products/{id}/images/`.
+- Each `index.md` starts with YAML frontmatter: `title`, `description`, `image`, `tags` (comma-separated). `image` is relative to the product's `images/` folder (e.g. `images/thumb.png`).
+- `productMeta(string $id): ?array` (in `helpers.php`) is the single source for product SEO/API metadata. It parses frontmatter, falls back to the first image alt / heading for `title`, `markdownExcerpt()` for `description`, and the first body image for `image`. Placeholder values (`...`) are ignored so they never leak into `<head>`.
+- `resolveProductImage(string $id, string $image)` converts a frontmatter filename to `/api/products/{id}/images/{name}` only when the file exists; absolute URLs and root-relative paths pass through.
+- `GET /api/products/{id}/content` returns `{ title, excerpt, image, tags, content }` (`excerpt` is the frontmatter `description`). The SPA uses the same metadata for Helmet tags.
+
 ### Helpers (from `api/src/helpers.php`)
 - `parseFrontmatter(string $content): array` — parses `---` delimited YAML frontmatter.
+- `productMeta(string $id): ?array` — product frontmatter + content fallbacks (title, description, image, tags, content).
+- `resolveProductImage(string $id, string $image): string` — safe product image path resolution.
+- `markdownExcerpt(string $content, int $length = 160): string` — plain-text excerpt from markdown.
+- `isPlaceholderMeta(string $value): bool` — treats empty / `...` frontmatter values as unset.
 - `rewriteImageUrls(string $content): string` — rewrites `](images/` to `](/api/blogs/` (for blogs) or `/api/products/{id}/` (for products).
 - `isRateLimited(string $ip): bool` — file-based rate limiting check.
 - `incrementAttempts(string $ip): void` — increment login counter.
@@ -96,8 +107,9 @@ This project is a **PHP 8.1+ REST API** using **Slim Framework 4** with naked **
 - In production the SPA fallback is **not** `index.html` — the root `.htaccess` rewrites non-file, non-`/api` GETs to `api/public/page.php`, which renders a per-URL HTML document (unique `<title>`, description, canonical, OG/Twitter, JSON-LD) around the same built React bundle. The SPA hydrates identically; Helmet takes over during client-side navigation.
 - `page.php` loads the built `ui/dist/index.html` from `../../index.html`, strips its SEO tags via `stripSeoTags()`, and injects fresh tags via `seoHead()` from `api/src/seo-helpers.php`. **Preserve the `<script>`/`<link>` asset tags** in the template — never rebuild them by hand.
 - Route resolution mirrors `ui/src/App.tsx` (`/`, `/blog`, `/blog/{id}`, `/expo`, `/product/{id}`, `/learn`, `/learn/{subject}`, `/learn/{subject}/{chapter}`, `/stats`, `/admin`). Unknown routes → 404 status + `noindex, follow`; `/admin` → `noindex, nofollow`.
-- Content is read **from the same sources** as the API: `blog` DB table (fallback `blogs/{id}.md` frontmatter), `learn_subjects`/`learn_chapters` + `tutorial/{folder}/*.md`, and `products/{id}/index.md`. Reuse `parseFrontmatter()`, `validateId()`, `BLOGS_DIR`/`LEARN_DIR`/`PRODUCTS_DIR` from `helpers.php`. Always `basename()`+`validateId()` route segments (traversal safety).
-- `seo-helpers.php` builders: `seoDefaults()`, `seoHead()`, `stripSeoTags()`, `markdownExcerpt()`, `jsonLdPerson()`, `jsonLdBlogPosting()`, `jsonLdLearningResource()`, `jsonLdProduct()`. Escaping: `htmlspecialchars(..., ENT_QUOTES)` for all head text, `json_encode` for JSON-LD.
+- Content is read **from the same sources** as the API: `blog` DB table (fallback `blogs/{id}.md` frontmatter), `learn_subjects`/`learn_chapters` + `tutorial/{folder}/*.md`, and `products/{id}/index.md` frontmatter via `productMeta()`. Reuse `parseFrontmatter()`, `validateId()`, `BLOGS_DIR`/`LEARN_DIR`/`PRODUCTS_DIR` from `helpers.php`. Always `basename()`+`validateId()` route segments (traversal safety).
+- **Products have no DB metadata.** `title`, `description`, `image`, and `tags` come from `products/{id}/index.md` YAML frontmatter. `image` values are resolved through `resolveProductImage()` and made absolute with `seoDomain()` before being used in `og:image` / JSON-LD. Tags become `<meta name="keywords">` and JSON-LD `keywords`.
+- `seo-helpers.php` builders: `seoDefaults()`, `seoHead()`, `stripSeoTags()`, `jsonLdPerson()`, `jsonLdBlogPosting()`, `jsonLdLearningResource()`, `jsonLdProduct()`. Escaping: `htmlspecialchars(..., ENT_QUOTES)` for all head text, `json_encode` for JSON-LD.
 - **`.env` quoting is load-bearing:** values with spaces/symbols must be double-quoted in `api/.env.template` (`SEO_NAME="{#SEO_NAME#}"`). phpdotenv `safeLoad()` only swallows `InvalidPathException` — an unquoted value crashes **every** PHP entrypoint (`index.php`, `page.php`, `sitemap.php`).
 
 ### Coding Style

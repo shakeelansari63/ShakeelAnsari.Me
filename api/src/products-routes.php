@@ -14,14 +14,11 @@ return function (App $app) {
         if (!validateId($id, '/^[a-zA-Z0-9_-]+$/')) {
             return jsonResponse($response, ["error" => "Invalid product ID"], 400);
         }
-        $file = PRODUCTS_DIR . "/" . $id . "/index.md";
+        $meta = productMeta($id);
 
-        if (!file_exists($file)) {
+        if ($meta === null) {
             return jsonResponse($response, ["error" => "Product not found"], 404);
         }
-
-        $raw = file_get_contents($file);
-        $meta = parseFrontmatter($raw);
 
         $content = preg_replace(
             "/\]\((images\/)/",
@@ -31,7 +28,9 @@ return function (App $app) {
 
         return jsonResponse($response, [
             "title" => $meta["title"],
-            "excerpt" => $meta["excerpt"],
+            "excerpt" => $meta["description"],
+            "image" => $meta["image"],
+            "tags" => $meta["tags"],
             "content" => $content,
         ]);
     });

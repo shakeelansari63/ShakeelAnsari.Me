@@ -1,3 +1,10 @@
+---
+title: NSE Chatbot — AI Market Assistant for NSE India
+description: An AI-powered chatbot for NSE India market data, delivering live quotes, trend analysis, sector searches, and company financial summaries.
+image: images/thumb.png
+tags: NSE Chatbot, AI, Stock Market, NSE India, MCP, Financial Data, LLM
+---
+
 ![NSE Chatbot](images/nse-chatbot-hero.png)
 
 ## 🌟 Overview

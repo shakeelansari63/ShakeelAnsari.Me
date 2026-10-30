@@ -76,7 +76,7 @@ First, fork my repository to your own GitHub account. You can find the complete 
 
 ### 2. Local Dependencies
 
-Make sure you have Node.js 20+, PHP 8.1+, Composer, and a MySQL server installed on your system. Run the setup command to pull down all necessary packages:
+Make sure you have Node.js 20+, PHP 8.1+, Composer, [Task](https://taskfile.dev/), and a MySQL server installed on your system. Run the setup command to pull down all necessary packages:
 
 ```bash
 cd ui && npm install
@@ -104,14 +104,14 @@ This sets up five critical tables: `blog`, `blog_views`, `blog_likes`, `learn_su
 Run your local servers separately to verify everything compiles cleanly:
 
 ```bash
-make start # Starts both UI and API projects together
+task start # Starts both UI and API projects together
 ```
 
 or  
 
 ```bash
-make ui     # Launches React on http://localhost:3000
-make api    # Launches PHP on http://localhost:8080
+task ui     # Launches React on http://localhost:3000
+task api    # Launches PHP on http://localhost:8080
 ```
 
 The UI automatically proxies your backend requests via configuration inside `ui/vite.config.js`.
