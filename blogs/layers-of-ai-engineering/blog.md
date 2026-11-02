@@ -1,7 +1,7 @@
 ---
 title: Understanding the 5 Layers of AI Engineering
 excerpt: Are you feeling overwhelmed by rapid developments in AI? Let's break down the 5 essential layers of AI engineering, from simple prompts to sophisticated multi-agent graphs.
-date: 2026-11-01
+date: 2026-11-02
 readTime: 7 min read
 bannerImage: 0-ai-engineering-layers.png
 tags: AI Engineering, Prompt Engineering, Context Engineering, Agent Harness, Loop Engineering, Multi-Agent Systems, Python
